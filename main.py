@@ -45,33 +45,18 @@ if __name__ == "__main__":
         if selection == '1':
             config()
 
-
-        elif selection == '2':
-    # Остальной код для парсинга
-
-    # Путь к файлу, который нужно отправить
-    file_name = 'your_parsed_file.txt'
-
-    # Отправляем файл в телеграм-бот
-    with open(file_name, 'rb') as file:
-        bot.send_document(chat_id=TELEGRAM_ADMIN_ID, document=file)
-
-    # Опционально, можно удалить файл после отправки
-    os.remove(file_name)
-    
         elif selection == '2':
             # Остальной код для парсинга
 
-            # После завершения парсинга, отправляем файлы в телеграм-бот
             # Путь к файлу, который нужно отправить
-            file_path = 'your_parsed_file.txt'
+            file_name = 'your_parsed_file.txt'
 
             # Отправляем файл в телеграм-бот
-            with open(file_path, 'rb') as file:
+            with open(file_name, 'rb') as file:
                 bot.send_document(chat_id=TELEGRAM_ADMIN_ID, document=file)
 
             # Опционально, можно удалить файл после отправки
-            os.remove(file_path)
+            os.remove(file_name)
 
         elif selection == '3':
             with open('usernames.txt', 'r') as f:
