@@ -48,19 +48,21 @@ def config():
                 continue
                 
         options = getoptions()
-        sessions = [file for file in os.listdir('.') if file.endswith('.session')]
+        sessions = []
+        for file in os.listdir('.'):
+            if file.endswith('.session'):
+                sessions.append(file)
 
-prompt_message = (
-    f"1 - Обновить api_id [{options[0].rstrip()}]\n"
-    f"2 - Обновить api_hash [{options[1].rstrip()}]\n"
-    f"3 - Парсить user-id [{options[2].rstrip()}]\n"
-    f"4 - Парсить user-name [{options[3].rstrip()}]\n"
-    f"5 - Добавить аккаунт юзербота[{len(sessions)}]\n"
-    "6 - Сбросить настройки\n"
-    "e - Выход\n"
-    "Ввод: "
-)
-
+        prompt_message = (
+            f"1 - Обновить api_id [{options[0].rstrip()}]\n"
+            f"2 - Обновить api_hash [{options[1].rstrip()}]\n"
+            f"3 - Парсить user-id [{options[2].rstrip()}]\n"
+            f"4 - Парсить user-name [{options[3].rstrip()}]\n"
+            f"5 - Добавить аккаунт юзербота[{len(sessions)}]\n"
+            "6 - Сбросить настройки\n"
+            "e - Выход\n"
+            "Ввод: "
+        )
 
         key = str(input(prompt_message))
 
