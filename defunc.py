@@ -53,10 +53,10 @@ def config():
             if file.endswith('.session'):
                 sessions.append(file)
 
-        key = str(input((f"1 - Обновить api_id [{options[0].replace('\\n', '')}]\n"
-                 f"2 - Обновить api_hash [{options[1].replace('\\n', '')}]\n"
-                 f"3 - Парсить user-id [{options[2].replace('\\n', '')}]\n"
-                 f"4 - Парсить user-name [{options[3].replace('\\n', '')}]\n"
+        key = str(input((f"1 - Обновить api_id [{options[0].replace(r'\\n', '')}]\n"
+                 f"2 - Обновить api_hash [{options[1].replace(r'\\n', '')}]\n"
+                 f"3 - Парсить user-id [{options[2].replace(r'\\n', '')}]\n"
+                 f"4 - Парсить user-name [{options[3].replace(r'\\n', '')}]\n"
                  f"5 - Добавить аккаунт юзербота[{len(sessions)}]\n"
                  "6 - Сбросить настройки\n"
                  "e - Выход\n"
