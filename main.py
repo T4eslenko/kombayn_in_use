@@ -46,10 +46,12 @@ if __name__ == "__main__":
             config()
 
         elif selection == '2':
-            # Остальной код для парсинга
-
             # Путь к файлу, который нужно отправить
             file_name = 'your_parsed_file.txt'
+
+            # Создаем файл, если его еще нет
+            with open(file_name, 'w'):
+                pass
 
             # Отправляем файл в телеграм-бот
             with open(file_name, 'rb') as file:
