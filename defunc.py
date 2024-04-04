@@ -60,7 +60,7 @@ def config():
                          f"5 - Добавить аккаунт юзербота[{len(sessions)}]\n"
                           "6 - Сбросить настройки\n"
                           "e - Выход\n"
-                    ))
+                    )))
         
         if key == '1':
             os.system('cls||clear')
