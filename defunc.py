@@ -9,9 +9,10 @@ def inviting(client, channel, users):
         users=[users]
     ))
 
-import openpyxl
+#import openpyxl
 
-def parsing(client, index: int, id: bool, name: bool):
+# Процесс обработки участников чата в файл Excel
+def parsing_xlsx(client, index: int, id: bool, name: bool):
     all_participants = client.get_participants(index)
     
     # Создание нового документа Excel
@@ -26,7 +27,7 @@ def parsing(client, index: int, id: bool, name: bool):
     # Переменная для отслеживания строки
     row_num = 2
     
-    # Процесс обработки участников чата
+    # Процесс обработки участников чата в файл Excel
     for user in all_participants:
         # Если параметр id равен True, записываем ID пользователя
         if id:
@@ -43,6 +44,32 @@ def parsing(client, index: int, id: bool, name: bool):
     
     # Сохранение документа Excel
     wb.save('users.xlsx')
+
+# Получаем ИД и Names в текстовый файл оригинал
+def parsing(client, index: int, id: bool, name: bool):
+    all_participants = []
+    all_participants = client.get_participants(index)
+    if name:
+        with open('usernames.txt', 'r+') as f:
+            usernames = f.readlines()
+            for user in all_participants:
+                if user.username:
+                    if ('Bot' not in user.username) and ('bot' not in user.username):
+                        if (('@' + user.username + '\n') not in usernames):
+                            f.write('@' + user.username + '\n')
+                        else:
+                            continue
+                    else:
+                        continue
+                else:
+                    continue
+    if id:
+        with open('userids.txt', 'r+') as f:
+            userids = f.readlines()
+            for user in all_participants:
+                if (str(user.id) + '\n') not in userids:
+                    f.write(str(user.id) + '\n')
+
 
 def config():
     while True:
