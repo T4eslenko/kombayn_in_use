@@ -9,31 +9,44 @@ def inviting(client, channel, users):
         users=[users]
     ))
 
+import openpyxl
 
 def parsing(client, index: int, id: bool, name: bool):
-    all_participants = []
     all_participants = client.get_participants(index)
-    if name:
-        with open('usernames.txt', 'r+') as f:
-            usernames = f.readlines()
-            for user in all_participants:
-                if user.username:
-                    if ('Bot' not in user.username) and ('bot' not in user.username):
-                        if (('@' + user.username + '\n') not in usernames):
-                            f.write('@' + user.username + '\n')
-                        else:
-                            continue
-                    else:
-                        continue
-                else:
-                    continue
-    if id:
-        with open('userids.txt', 'r+') as f:
-            userids = f.readlines()
-            for user in all_participants:
-                if (str(user.id) + '\n') not in userids:
-                    f.write(str(user.id) + '\n')
+    
+    # Создание нового документа Excel
+    wb = openpyxl.Workbook()
+    sheet = wb.active
+    sheet.title = "Пользователи"
+    
+    # Запись заголовков столбцов
+    sheet['A1'] = 'ID'
+    sheet['B1'] = 'Name'
+    
+    # Переменная для отслеживания строки
+    row_num = 2
+    
+    # Процесс обработки участников чата
+    for user in all_participants:
+        # Если параметр id равен True, записываем ID пользователя
+        if id:
+            sheet.cell(row=row_num, column=1, value=user.id)
+        
+        # Если параметр name равен True и у пользователя есть имя, записываем его
+        if name and user.username:
+            # Проверка наличия 'Bot' в имени пользователя
+            if 'Bot' not in user.username.lower():
+                sheet.cell(row=row_num, column=2, value=user.username)
+        
+        # Увеличиваем номер строки для следующего пользователя
+        row_num += 1
+    
+    # Сохранение документа Excel
+    wb.save('users.xlsx')
 
+# Пример использования
+# Замените client.get_participants(index) на соответствующий метод вашего клиента
+parsing(client, index, id=True, name=True)
 
 def config():
     while True:
