@@ -2,14 +2,13 @@ from telethon.tl.functions.channels import InviteToChannelRequest
 from telethon.sync import TelegramClient
 import os
 import time
+import openpyxl
 
 def inviting(client, channel, users):
     client(InviteToChannelRequest(
         channel=channel,
         users=[users]
     ))
-
-#import openpyxl
 
 # Процесс обработки участников чата в файл Excel
 def parsing_xlsx(client, index: int, id: bool, name: bool):
