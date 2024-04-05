@@ -44,10 +44,6 @@ def parsing(client, index: int, id: bool, name: bool):
     # Сохранение документа Excel
     wb.save('users.xlsx')
 
-# Пример использования
-# Замените client.get_participants(index) на соответствующий метод вашего клиента
-parsing(client, index, id=True, name=True)
-
 def config():
     while True:
         os.system('cls||clear')
