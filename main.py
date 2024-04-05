@@ -6,6 +6,7 @@ from defunc import *
 import time
 import random
 import os
+import openpyxl
 
 if __name__ == "__main__":
     while True:
