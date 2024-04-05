@@ -142,8 +142,8 @@ if __name__ == "__main__":
                     continue
 
             i = 0
-            print('Очистка базы юзеров: clear') 
-            print('-----------------------------')
+            #print('Очистка базы юзеров: clear') 
+            #print('-----------------------------')
             for g in groups:
                 print(str(i) + ' - ' + g.title)
                 i+=1
