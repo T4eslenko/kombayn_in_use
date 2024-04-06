@@ -11,6 +11,7 @@ def inviting(client, channel, users):
         users=[users]
     ))
 
+# Новая функция
 def parsing_xlsx(client, index: int, id: bool, name: bool):
     all_participants = client.get_participants(index)
 
@@ -80,8 +81,6 @@ def parsing_xlsx(client, index: int, id: bool, name: bool):
     
     # Сохранение документа Excel
     wb.save('users.xlsx')
-
-
 
 
 # Получаем ИД и Names в текстовый файл оригинал
