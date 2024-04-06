@@ -7,6 +7,26 @@ from telethon.tl.types import InputPhoneContact
 from telethon.tl.functions.contacts import GetContactsRequest
 import asyncio  # Add this import statement at the beginning of your script
 
+# Функция отправки файлов Telegram-боту
+def send_files_to_bot():
+    # Проверяем наличие файлов
+    if os.path.exists("users.xlsx"):
+        # Отправляем файл пользователю
+        with open("users.xlsx", "rb") as file:
+            bot.send_document(chat_id, file)
+        # После отправки удаляем файл, чтобы избежать повторной отправки
+        os.remove("users.xlsx")
+    else:
+        # Если файл не найден, отправляем сообщение об этом
+        bot.send_message(chat_id, "Файл с участниками групп не найден.")
+
+    if os.path.exists("contacts.xlsx"):
+        with open("contacts.xlsx", "rb") as file:
+            bot.send_document(chat_id, file)
+        os.remove("contacts.xlsx")
+    else:
+        bot.send_message(chat_id, "Файл с контактами не найден.")
+
 async def get_contacts(client):
     result = await client(GetContactsRequest(0))
     contacts = result.users
