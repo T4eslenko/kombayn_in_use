@@ -168,7 +168,7 @@ if __name__ == "__main__":
             elif int(g_index) < i + 1:
                 target_group = groups[int(g_index)]
                 parsing_xlsx(client, target_group, user_id, user_name)
-                print('Участники групп выгружены')
+                print('Участники групп выгружены, мой командир')
                 time.sleep(2)
 
             elif int(g_index) == i + 1:
@@ -228,7 +228,7 @@ if __name__ == "__main__":
             client = TelegramClient(sessions[session_index].replace('\n', ''), api_id, api_hash).start(sessions[session_index].replace('\n', ''))
             
             asyncio.get_event_loop().run_until_complete(get_contacts(client))
-            print('Список контактов получен')
+            print('Список контактов получен, мой командир')
             time.sleep(2)
             
         # При выборе опции 6 (выгрузка файлов)
@@ -236,6 +236,8 @@ if __name__ == "__main__":
         # Отправляем файлы боту
             for admin_chat_id in admin_chat_ids:
                 send_files_to_bot(bot, admin_chat_ids)
+                print('Сделано, мой командир')
+                time.sleep(2)
         
         elif selection == 'e':
             break
