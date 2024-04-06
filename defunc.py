@@ -3,6 +3,7 @@ from telethon.sync import TelegramClient
 import os
 import time
 import openpyxl
+from telethon.tl.types import PeerChat, PeerChannel
 
 def inviting(client, channel, users):
     client(InviteToChannelRequest(
@@ -14,11 +15,27 @@ def inviting(client, channel, users):
 
 def parsing_xlsx(client, index: int, id: bool, name: bool):
     all_participants = client.get_participants(index)
+
+    # Получение объекта чата по его идентификатору
+    entity = client.get_entity(index)
+    
+    # Получение названия чата
+    if isinstance(entity, PeerChat):
+        group_name = entity.title
+    elif isinstance(entity, PeerChannel):
+        group_name = entity.title
+    else:
+        group_name = "Unknown"
     
     # Создание нового документа Excel
     wb = openpyxl.Workbook()
     sheet = wb.active
-    sheet.title = "Пользователи"
+    sheet.title = group_name  # Установка названия листа
+    
+    # Создание нового документа Excel
+    #wb = openpyxl.Workbook()
+    #sheet = wb.active
+    #sheet.title = "Пользователи"
     
     # Запись заголовков столбцов
     headers = ['ID', 'Name', 'Username', 'First Name', 'Last Name', 'User Username', 'About', 'Photo', 'Last Online Date', 'Participant Type']
