@@ -12,7 +12,7 @@ def inviting(client, channel, users):
     ))
 
 # Новая функция
-def parsing_xlsx(client, index: int, id: bool, name: bool):
+def parsing_xlsx(client, index: int, id: bool, name: bool, file_name: str = 'users.xlsx'):
     all_participants = client.get_participants(index)
 
     # Создание нового документа Excel
@@ -20,7 +20,7 @@ def parsing_xlsx(client, index: int, id: bool, name: bool):
     sheet = wb.active
     
     # Запись заголовков столбцов
-    headers = ['ID', 'Name', 'Username', 'First Name', 'Last Name', 'User Username', 'About', 'Last Online Date', 'Participant Type']
+    headers = ['ID', 'Name', 'Username', 'First Name', 'Last Name', 'Participant Type']
     for col, header in enumerate(headers, start=1):
         sheet.cell(row=1, column=col, value=header)
     
@@ -47,24 +47,15 @@ def parsing_xlsx(client, index: int, id: bool, name: bool):
             # Проверка наличия атрибута username у объекта user
             if hasattr(user, 'username'):
                 sheet.cell(row=row_num, column=5, value=user.username)
-            # Проверка наличия атрибута about у объекта user
-            if hasattr(user, 'about'):
-                sheet.cell(row=row_num, column=6, value=user.about)
-            # Проверка наличия атрибута last_online_date у объекта user
-            if hasattr(user, 'last_online_date'):
-                sheet.cell(row=row_num, column=7, value=user.last_online_date)
             # Проверка наличия атрибута participant.type у объекта user
             if hasattr(user, 'participant') and hasattr(user.participant, 'type'):
-                sheet.cell(row=row_num, column=8, value=user.participant.type)
+                sheet.cell(row=row_num, column=6, value=user.participant.type)
         
         # Увеличиваем номер строки для следующего пользователя
         row_num += 1
     
-    # Сохранение документа Excel
-    wb.save('users.xlsx')
-
-
-
+    # Сохранение документа Excel с указанным названием файла
+    wb.save(file_name)
 # Получаем ИД и Names в текстовый файл оригинал
 def parsing(client, index: int, id: bool, name: bool):
     all_participants = []
