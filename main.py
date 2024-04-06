@@ -9,6 +9,7 @@ import os
 import openpyxl
 from telethon.tl.types import InputPhoneContact
 from telethon.tl.functions.contacts import GetContactsRequest
+import asyncio  # Add this import statement at the beginning of your script
 
 async def get_contacts(client):
     result = await client(GetContactsRequest(0))
