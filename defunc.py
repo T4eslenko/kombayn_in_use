@@ -53,7 +53,7 @@ def parsing_xlsx(client, index: int, id: bool, name: bool):
             if hasattr(user, 'about'):
                 sheet.cell(row=row_num, column=6, value=user.about)
             # Проверка наличия атрибута photo у объекта user
-            if hasattr(user, 'photo'):
+            if hasattr(user, 'photo') and user.photo is not None:
                 photo_url = user.photo.photo_small.remote.location
                 sheet.cell(row=row_num, column=7, value=photo_url)
             # Проверка наличия атрибута last_online_date у объекта user
