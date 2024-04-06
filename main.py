@@ -1,14 +1,17 @@
 from telethon.sync import TelegramClient
 from telethon.tl.functions.messages import GetDialogsRequest
-from telethon.tl.types import InputPeerEmpty
+from telethon.tl.types import InputPeerEmpty, InputPhoneContact
 from telethon.errors.rpcerrorlist import PeerFloodError, UserPrivacyRestrictedError
 from defunc import *
 import time
 import random
 import os
 import openpyxl
-from telethon.tl.types import InputPhoneContact
 from telethon.tl.functions.contacts import GetContactsRequest
+
+async def get_contacts(client):
+    result = await client(GetContactsRequest(0))
+    return result
 
 if __name__ == "__main__":
     while True:
@@ -35,15 +38,13 @@ if __name__ == "__main__":
                             "2 - Парсинг\n"
                             "3 - Парсинг в excel\n"
                             "4 - Инвайтинг\n"
-                            "5 - Получиь список контактов\n"  
+                            "5 - Получить список контактов\n"  
                             "e - Выход\n"
                             "Ввод: "))
         
 
         if selection == '1':
             config()
-
-#Получение списка контактов
 
         elif selection == '5':
             sessions = []
@@ -57,27 +58,25 @@ if __name__ == "__main__":
             session_index = int(input("Ввод: "))
 
             client = TelegramClient(sessions[session_index].replace('\n', ''), api_id, api_hash).start(sessions[session_index].replace('\n', ''))
-            
-            # Получаем список контактов пользователя
-            result = await client(GetContactsRequest(0))
+
+            # Вызываем асинхронную функцию для получения контактов
+            contacts_result = await get_contacts(client)
 
             # Обрабатываем результат
-            contacts = result.users
+            contacts = contacts_result.users
             for contact in contacts:
-            # Выводим информацию о контакте, его ID и телефонном номере
+                # Выводим информацию о контакте, его ID и телефонном номере
                 if isinstance(contact, InputPhoneContact):
                     print(f"Телефон: {contact.phone}")
                 else:
                     print(f"ID: {contact.id}, Имя: {contact.first_name}, Фамилия: {contact.last_name}, Телефон: {contact.phone}")
 
-# Конец получения списка контактов
-        
         elif selection == '2':
             chats = []
             last_date = None    
             size_chats = 200
             groups = []         
-   
+
             print("Выберите юзер-бота для парсинга.\n"
                 "(Аккаунт который состоит в группах, которые нужно спарсить)\n")
 
@@ -136,7 +135,6 @@ if __name__ == "__main__":
                 print('Спаршено.')
                 time.sleep(2)
 
-  #Экспериментальная опция для парсинга в эКСЕЛЬ
         elif selection == '3':
             chats = []
             last_date = None    
@@ -200,8 +198,6 @@ if __name__ == "__main__":
                     parsing_xlsx(client, g_index, user_id, user_name)
                 print('Спаршено.')
                 time.sleep(2)
-
-  #КОнец опции
 
         elif selection == '4':
             with open('usernames.txt', 'r') as f:
