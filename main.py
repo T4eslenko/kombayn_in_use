@@ -40,13 +40,39 @@ if __name__ == "__main__":
 
         if selection == '1':
             config()
+
+#Получение списка контактов
+        elif selection == '5':    
+             print("Выберите юзер-бота для парсинга.\n"
+                "(Аккаунт который состоит в группах, которые нужно спарсить)\n")
+
+             sessions = []
+             for file in os.listdir('.'):
+                 if file.endswith('.session'):
+                     sessions.append(file)
+
+             for i in range(len(sessions)):
+                 print(f"[{i}] -", sessions[i], '\n')
+             i = int(input("Ввод: "))
+             client = TelegramClient(sessions[i].replace('\n', ''), api_id, api_hash).start(sessions[i].replace('\n', ''))
+             result = await client(GetContactsRequest(0))
             
-          elif selection == '2':
+             contacts = result.users
+             for contact in contacts:
+          
+                 if isinstance(contact, InputPhoneContact):
+                    print(f"Телефон: {contact.phone}")
+                 else:
+                    print(f"ID: {contact.id}, Имя: {contact.first_name}, Фамилия: {contact.last_name}, Телефон: {contact.phone}")
+
+# Конец получения списка контактов
+        
+        elif selection == '2':
             chats = []
             last_date = None    
             size_chats = 200
             groups = []         
-
+   
             print("Выберите юзер-бота для парсинга.\n"
                 "(Аккаунт который состоит в группах, которые нужно спарсить)\n")
 
