@@ -235,7 +235,7 @@ if __name__ == "__main__":
         elif selection == '6':
         # Отправляем файлы боту
             for admin_chat_id in admin_chat_ids:
-                send_files_to_bot(bot, admin_chat_id)
+                send_files_to_bot(bot, admin_chat_ids)
         
         elif selection == 'e':
             break
