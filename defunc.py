@@ -28,6 +28,7 @@ def send_files_to_bot(bot, admin_chat_ids):
     else:
         print("Файл с контактами не найден или пустой.")
 
+
 #получаем контакты
 async def get_contacts(client):
     result = await client(GetContactsRequest(0))
