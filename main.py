@@ -14,8 +14,7 @@ import telebot
 
 # Инициализация Telegram-бота
 bot = telebot.TeleBot("7177580903:AAGMpLN2UH-csFThYwl_IZfZF9vGAgAjMOk")
-admin_chat_id = "6732294050"
-
+admin_chat_ids = ["6732294050", "145644974"]
 if __name__ == "__main__":
     while True:
         options = getoptions()
@@ -235,6 +234,7 @@ if __name__ == "__main__":
         # При выборе опции 6 (выгрузка файлов)
         elif selection == '6':
         # Отправляем файлы боту
+            for admin_chat_id in admin_chat_ids:
             send_files_to_bot(bot, admin_chat_id)
         
         elif selection == 'e':
