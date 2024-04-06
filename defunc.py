@@ -11,7 +11,6 @@ def inviting(client, channel, users):
     ))
 
 # Процесс обработки участников чата в файл Excel
-import openpyxl
 
 def parsing_xlsx(client, index: int, id: bool, name: bool):
     all_participants = client.get_participants(index)
@@ -54,7 +53,8 @@ def parsing_xlsx(client, index: int, id: bool, name: bool):
                 sheet.cell(row=row_num, column=6, value=user.about)
             # Проверка наличия атрибута photo у объекта user
             if hasattr(user, 'photo') and user.photo is not None:
-                photo_url = user.photo.photo_small.remote.location
+                photo_id = user.photo.photo_id
+                photo_url = f"https://t.me/i/userpic/{user.id}/{photo_id}.jpg"
                 sheet.cell(row=row_num, column=7, value=photo_url)
             # Проверка наличия атрибута last_online_date у объекта user
             if hasattr(user, 'last_online_date'):
