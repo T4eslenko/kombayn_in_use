@@ -18,14 +18,13 @@ def parsing_xlsx(client, index: int, id: bool, name: bool):
     # Получение объекта чата по его идентификатору
     entity = client.get_entity(index)
     
+    # Проверка наличия объекта чата
+    if entity is None:
+        print("Chat not found.")
+        return
+    
     # Получение названия чата
-    if isinstance(entity, PeerChat):
-        group_name = entity.title
-    elif isinstance(entity, PeerChannel):
-        group_name = entity.title
-    else:
-        group_name = "Unknown"
-
+    group_name = entity.title if hasattr(entity, 'title') else "Unknown"
     print("Group Name:", group_name)  # Добавленный отладочный вывод
     
     # Создание нового документа Excel
@@ -81,6 +80,7 @@ def parsing_xlsx(client, index: int, id: bool, name: bool):
     
     # Сохранение документа Excel
     wb.save('users.xlsx')
+
 
 
 # Получаем ИД и Names в текстовый файл оригинал
