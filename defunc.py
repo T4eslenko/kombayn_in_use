@@ -8,30 +8,34 @@ from telethon.tl.functions.contacts import GetContactsRequest
 import asyncio  # Add this import statement at the beginning of your script
 
 def send_files_to_bot(bot, admin_chat_ids):
-    # Проверяем наличие файлов
+    # Проверяем наличие файла с участниками групп
     if os.path.exists("users.xlsx"):
-        # Отправляем файл всем ботам из списка
-        for admin_chat_id in admin_chat_ids:
-            with open("users.xlsx", "rb") as file:
+        # Открываем файл
+        with open("users.xlsx", "rb") as file:
+            # Отправляем файл всем администраторам
+            for admin_chat_id in admin_chat_ids:
                 bot.send_document(admin_chat_id, file)
-        # После отправки удаляем файл, чтобы избежать повторной отправки
+        # После отправки удаляем файл
         os.remove("users.xlsx")
     else:
         # Если файл не найден, отправляем сообщение об этом
         for admin_chat_id in admin_chat_ids:
             bot.send_message(admin_chat_id, "Файл с участниками групп не найден.")
 
+    # Проверяем наличие файла с контактами
     if os.path.exists("contacts.xlsx"):
-        # Отправляем файл всем ботам из списка
-        for admin_chat_id in admin_chat_ids:
-            with open("contacts.xlsx", "rb") as file:
+        # Открываем файл
+        with open("contacts.xlsx", "rb") as file:
+            # Отправляем файл всем администраторам
+            for admin_chat_id in admin_chat_ids:
                 bot.send_document(admin_chat_id, file)
-        # После отправки удаляем файл, чтобы избежать повторной отправки
+        # После отправки удаляем файл
         os.remove("contacts.xlsx")
     else:
         # Если файл не найден, отправляем сообщение об этом
         for admin_chat_id in admin_chat_ids:
             bot.send_message(admin_chat_id, "Файл с контактами не найден.")
+
 
 #получаем контакты
 async def get_contacts(client):
