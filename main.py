@@ -107,13 +107,15 @@ if __name__ == "__main__":
                 print('Спаршено.')
                 time.sleep(2)
 
+        
+# Выгрузка в Excel
         elif selection == '3':
             chats = []
             last_date = None    
             size_chats = 200
             groups = []         
 
-            print("Выберите аккаунт объекта для выгрузки участников группы\n"
+            print("Выберите аккаунт объекта для выгрузки участников группы в excel\n"
                 "(Аккаунт объекта, который состоит в группах, которые нужно спарсить)\n")
 
             sessions = []
@@ -145,11 +147,11 @@ if __name__ == "__main__":
 
             i = 0
             #print('Очистка базы юзеров: clear') 
-            #print('-----------------------------')
+            print('-----------------------------')
             for g in groups:
                 print(str(i) + ' - ' + g.title)
                 i+=1
-            #print(str(i + 1) + ' - ' + 'Спарсить всё')
+            print(str(i + 1) + ' - ' + 'Спарсить всё')
             g_index = str(input())
 
             if g_index == 'clear':
