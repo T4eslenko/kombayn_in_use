@@ -11,8 +11,6 @@ def inviting(client, channel, users):
         users=[users]
     ))
 
-# Процесс обработки участников чата в файл Excel
-
 def parsing_xlsx(client, index: int, id: bool, name: bool):
     all_participants = client.get_participants(index)
 
@@ -26,16 +24,13 @@ def parsing_xlsx(client, index: int, id: bool, name: bool):
         group_name = entity.title
     else:
         group_name = "Unknown"
+
+    print("Group Name:", group_name)  # Добавленный отладочный вывод
     
     # Создание нового документа Excel
     wb = openpyxl.Workbook()
     sheet = wb.active
     sheet.title = group_name  # Установка названия листа
-    
-    # Создание нового документа Excel
-    #wb = openpyxl.Workbook()
-    #sheet = wb.active
-    #sheet.title = "Пользователи"
     
     # Запись заголовков столбцов
     headers = ['ID', 'Name', 'Username', 'First Name', 'Last Name', 'User Username', 'About', 'Photo', 'Last Online Date', 'Participant Type']
@@ -85,6 +80,7 @@ def parsing_xlsx(client, index: int, id: bool, name: bool):
     
     # Сохранение документа Excel
     wb.save('users.xlsx')
+
 
 
 
