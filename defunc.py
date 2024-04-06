@@ -3,8 +3,6 @@ from telethon.sync import TelegramClient
 import os
 import time
 import openpyxl
-from telethon.tl.functions.contacts import GetContactsRequest, InputPhoneContact
-from telethon.errors import SessionPasswordNeededError
  
 def inviting(client, channel, users):
     client(InviteToChannelRequest(
