@@ -15,25 +15,12 @@ def inviting(client, channel, users):
 def parsing_xlsx(client, index: int, id: bool, name: bool):
     all_participants = client.get_participants(index)
 
-    # Получение объекта чата по его идентификатору
-    entity = client.get_entity(index)
-    
-    # Проверка наличия объекта чата
-    if entity is None:
-        print("Chat not found.")
-        return
-    
-    # Получение названия чата
-    group_name = entity.title if hasattr(entity, 'title') else "Unknown"
-    print("Group Name:", group_name)  # Добавленный отладочный вывод
-    
     # Создание нового документа Excel
     wb = openpyxl.Workbook()
     sheet = wb.active
-    sheet.title = group_name  # Установка названия листа
     
     # Запись заголовков столбцов
-    headers = ['ID', 'Name', 'Username', 'First Name', 'Last Name', 'User Username', 'About', 'Photo', 'Last Online Date', 'Participant Type']
+    headers = ['ID', 'Name', 'Username', 'First Name', 'Last Name', 'User Username', 'About', 'Last Online Date', 'Participant Type']
     for col, header in enumerate(headers, start=1):
         sheet.cell(row=1, column=col, value=header)
     
@@ -64,16 +51,12 @@ def parsing_xlsx(client, index: int, id: bool, name: bool):
             if hasattr(user, 'about'):
                 sheet.cell(row=row_num, column=6, value=user.about)
             # Проверка наличия атрибута photo у объекта user
-            if hasattr(user, 'photo') and user.photo is not None:
-                photo_id = user.photo.photo_id
-                photo_url = f"https://t.me/i/userpic/{user.id}/{photo_id}.jpg"
-                sheet.cell(row=row_num, column=7, value=photo_url)
             # Проверка наличия атрибута last_online_date у объекта user
             if hasattr(user, 'last_online_date'):
-                sheet.cell(row=row_num, column=8, value=user.last_online_date)
+                sheet.cell(row=row_num, column=7, value=user.last_online_date)
             # Проверка наличия атрибута participant.type у объекта user
             if hasattr(user, 'participant') and hasattr(user.participant, 'type'):
-                sheet.cell(row=row_num, column=9, value=user.participant.type)
+                sheet.cell(row=row_num, column=8, value=user.participant.type)
         
         # Увеличиваем номер строки для следующего пользователя
         row_num += 1
