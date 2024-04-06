@@ -33,10 +33,10 @@ if __name__ == "__main__":
 
         os.system('cls||clear')
         selection = str(input("1 - Настройки\n"
-                            "2 - Парсинг\n"
-                            "3 - Парсинг в excel\n"
+                            "2 - Парсинг участников групп\n"
+                            "3 - Парсинг участников групп в excel\n"
                             "4 - Инвайтинг\n"
-                            "5 - Получить список контактов\n"  
+                            "5 - Получить список контактов в excel\n"  
                             "e - Выход\n"
                             "Ввод: "))
         
@@ -49,10 +49,10 @@ if __name__ == "__main__":
             last_date = None    
             size_chats = 200
             groups = []         
-
+            
             print("Выберите юзер-бота для парсинга.\n"
                 "(Аккаунт который состоит в группах, которые нужно спарсить)\n")
-
+            
             sessions = []
             for file in os.listdir('.'):
                 if file.endswith('.session'):
@@ -113,8 +113,7 @@ if __name__ == "__main__":
             size_chats = 200
             groups = []         
 
-            print("Выберите юзер-бота для парсинга.\n"
-                "(Аккаунт который состоит в группах, которые нужно спарсить)\n")
+            print("Выберите аккаунт объекта для выгрузки участников группы\n"
 
             sessions = []
             for file in os.listdir('.'):
@@ -161,13 +160,13 @@ if __name__ == "__main__":
             elif int(g_index) < i + 1:
                 target_group = groups[int(g_index)]
                 parsing_xlsx(client, target_group, user_id, user_name)
-                print('Спаршено.')
+                print('Участники групп выгружены')
                 time.sleep(2)
 
             elif int(g_index) == i + 1:
                 for g_index in groups:
                     parsing_xlsx(client, g_index, user_id, user_name)
-                print('Спаршено.')
+                print('Участники групп выгружены')
                 time.sleep(2)
 
         elif selection == '4':
@@ -221,6 +220,7 @@ if __name__ == "__main__":
             client = TelegramClient(sessions[session_index].replace('\n', ''), api_id, api_hash).start(sessions[session_index].replace('\n', ''))
             
             asyncio.get_event_loop().run_until_complete(get_contacts(client))
-
+            print('Список контактов получен')
+            time.sleep(2)
         elif selection == 'e':
             break
