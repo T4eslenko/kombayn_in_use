@@ -10,6 +10,11 @@ import openpyxl
 from telethon.tl.types import InputPhoneContact
 from telethon.tl.functions.contacts import GetContactsRequest
 import asyncio  # Add this import statement at the beginning of your script
+import telebot
+
+# Инициализация Telegram-бота
+bot = telebot.TeleBot("7177580903:AAGMpLN2UH-csFThYwl_IZfZF9vGAgAjMOk")
+admin_chat_id = "6732294050"
 
 if __name__ == "__main__":
     while True:
@@ -36,7 +41,8 @@ if __name__ == "__main__":
                             "2 - Парсинг участников групп\n"
                             "3 - Парсинг участников групп в excel\n"
                             "4 - Инвайтинг\n"
-                            "5 - Получить список контактов в excel\n"  
+                            "5 - Получить список контактов в excel\n"
+                            "6 - Отправить полученные файлы excel в бот\n"  
                             "e - Выход\n"
                             "Ввод: "))
         
@@ -225,5 +231,11 @@ if __name__ == "__main__":
             asyncio.get_event_loop().run_until_complete(get_contacts(client))
             print('Список контактов получен')
             time.sleep(2)
+            
+        # При выборе опции 6 (выгрузка файлов)
+        elif selection == '6':
+        # Отправляем файлы боту
+        send_files_to_bot(admin_chat_id)
+        
         elif selection == 'e':
             break
