@@ -11,6 +11,8 @@ def inviting(client, channel, users):
     ))
 
 # Процесс обработки участников чата в файл Excel
+import openpyxl
+
 def parsing_xlsx(client, index: int, id: bool, name: bool):
     all_participants = client.get_participants(index)
     
@@ -20,8 +22,9 @@ def parsing_xlsx(client, index: int, id: bool, name: bool):
     sheet.title = "Пользователи"
     
     # Запись заголовков столбцов
-    sheet['A1'] = 'ID'
-    sheet['B1'] = 'Name'
+    headers = ['ID', 'Name', 'Username', 'First Name', 'Last Name', 'User Username', 'About', 'Photo', 'Last Online Date', 'Participant Type']
+    for col, header in enumerate(headers, start=1):
+        sheet.cell(row=1, column=col, value=header)
     
     # Переменная для отслеживания строки
     row_num = 2
@@ -33,10 +36,16 @@ def parsing_xlsx(client, index: int, id: bool, name: bool):
             sheet.cell(row=row_num, column=1, value=user.id)
         
         # Если параметр name равен True и у пользователя есть имя, записываем его
-        if name and user.username:
-            # Проверка наличия 'Bot' в имени пользователя
-            if 'Bot' not in user.username.lower():
-                sheet.cell(row=row_num, column=2, value=user.username)
+        if name:
+            sheet.cell(row=row_num, column=2, value=user.username)
+            sheet.cell(row=row_num, column=3, value=user.first_name)
+            sheet.cell(row=row_num, column=4, value=user.last_name)
+            sheet.cell(row=row_num, column=5, value=user.username)
+            sheet.cell(row=row_num, column=6, value=user.about)
+            sheet.cell(row=row_num, column=7, value=user.photo)
+            sheet.cell(row=row_num, column=8, value=user.last_online_date)
+            # Предполагается, что participant.type содержится в объекте user
+            sheet.cell(row=row_num, column=9, value=user.participant.type)
         
         # Увеличиваем номер строки для следующего пользователя
         row_num += 1
