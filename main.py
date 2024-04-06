@@ -57,17 +57,19 @@ if __name__ == "__main__":
             session_index = int(input("Ввод: "))
 
             client = TelegramClient(sessions[session_index].replace('\n', ''), api_id, api_hash).start(sessions[session_index].replace('\n', ''))
+            
+            # Получаем список контактов пользователя
+            result = await client(GetContactsRequest(0))
 
-            # Вызываем асинхронную функцию для получения списка контактов
-            client.loop.run_until_complete(get_contacts(client))
+            # Обрабатываем результат
+            contacts = result.users
+            for contact in contacts:
+            # Выводим информацию о контакте, его ID и телефонном номере
+                if isinstance(contact, InputPhoneContact):
+                    print(f"Телефон: {contact.phone}")
+                else:
+                    print(f"ID: {contact.id}, Имя: {contact.first_name}, Фамилия: {contact.last_name}, Телефон: {contact.phone}")
 
-        elif selection == 'e':
-            break
-
-
-
-
-        
 # Конец получения списка контактов
         
         elif selection == '2':
