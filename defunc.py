@@ -32,7 +32,7 @@ def send_files_to_bot(bot, admin_chat_ids):
         # Если файл не найден, отправляем сообщение об этом
         for admin_chat_id in admin_chat_ids:
             bot.send_message(admin_chat_id, "Файл с контактами не найден.")
-        
+
 #получаем контакты
 async def get_contacts(client):
     result = await client(GetContactsRequest(0))
