@@ -1,18 +1,23 @@
-import asyncio
-import os
-import time
-import random
 from telethon.sync import TelegramClient
 from telethon.tl.functions.messages import GetDialogsRequest
-from telethon.tl.types import InputPeerEmpty, InputPhoneContact
+from telethon.tl.types import InputPeerEmpty
 from telethon.errors.rpcerrorlist import PeerFloodError, UserPrivacyRestrictedError
+from defunc import *
+import time
+import random
+import os
+import openpyxl
+from telethon.tl.types import InputPhoneContact
 from telethon.tl.functions.contacts import GetContactsRequest
-from defunc import getoptions, config, parsing, parsing_xlsx, inviting
 
-# Определим асинхронную функцию для получения контактов
 async def get_contacts(client):
     result = await client(GetContactsRequest(0))
-    return result
+    contacts = result.users
+    for contact in contacts:
+        if isinstance(contact, InputPhoneContact):
+            print(f"Телефон: {contact.phone}")
+        else:
+            print(f"ID: {contact.id}, Имя: {contact.first_name}, Фамилия: {contact.last_name}, Телефон: {contact.phone}")
 
 if __name__ == "__main__":
     while True:
@@ -47,36 +52,12 @@ if __name__ == "__main__":
         if selection == '1':
             config()
 
-        elif selection == '5':
-            sessions = []
-            for file in os.listdir('.'):
-                if file.endswith('.session'):
-                    sessions.append(file)
-
-            print("Выберите юзер-бота для получения списка контактов:\n")
-            for i, session in enumerate(sessions):
-                print(f"[{i}] - {session}")
-            session_index = int(input("Ввод: "))
-
-            client = TelegramClient(sessions[session_index].replace('\n', ''), api_id, api_hash).start(sessions[session_index].replace('\n', ''))
-
-            # Запустим асинхронную функцию get_contacts с помощью asyncio.run()
-            contacts_result = asyncio.run(get_contacts(client))
-
-            # Обработаем результат
-            contacts = contacts_result.users
-            for contact in contacts:
-                if isinstance(contact, InputPhoneContact):
-                    print(f"Телефон: {contact.phone}")
-                else:
-                    print(f"ID: {contact.id}, Имя: {contact.first_name}, Фамилия: {contact.last_name}, Телефон: {contact.phone}")
-
         elif selection == '2':
             chats = []
             last_date = None    
             size_chats = 200
             groups = []         
-   
+
             print("Выберите юзер-бота для парсинга.\n"
                 "(Аккаунт который состоит в группах, которые нужно спарсить)\n")
 
@@ -147,7 +128,6 @@ if __name__ == "__main__":
             for file in os.listdir('.'):
                 if file.endswith('.session'):
                     sessions.append(file)
-
 
             for i in range(len(sessions)):
                 print(f"[{i}] -", sessions[i], '\n')
@@ -234,6 +214,21 @@ if __name__ == "__main__":
                 except Exception as error:
                     print(error)
                     break
+
+        elif selection == '5':
+            sessions = []
+            for file in os.listdir('.'):
+                if file.endswith('.session'):
+                    sessions.append(file)
+
+            print("Выберите юзер-бота для получения списка контактов:\n")
+            for i, session in enumerate(sessions):
+                print(f"[{i}] - {session}")
+            session_index = int(input("Ввод: "))
+
+            client = TelegramClient(sessions[session_index].replace('\n', ''), api_id, api_hash).start(sessions[session_index].replace('\n', ''))
+            
+            asyncio.run(get_contacts(client))
 
         elif selection == 'e':
             break
