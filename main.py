@@ -7,6 +7,8 @@ import time
 import random
 import os
 import openpyxl
+from telethon.tl.types import InputPhoneContact
+from telethon.tl.functions.contacts import GetContactsRequest
 
 if __name__ == "__main__":
     while True:
