@@ -28,43 +28,6 @@ def send_files_to_bot(bot, admin_chat_ids):
     else:
         print("Файл с контактами не найден или пустой.")
 
-
-    
-    # Проверяем наличие файла с контактами
-    if os.path.exists("contacts.xlsx"):
-        # Проверяем, что файл не пустой
-        if os.path.getsize("contacts.xlsx") > 0:
-            # Открываем файл и отправляем его всем администраторам
-            with open("contacts.xlsx", "rb") as file:
-                for admin_chat_id in admin_chat_ids:
-                    bot.send_document(admin_chat_id, file)
-            # После отправки удаляем файл
-            os.remove("contacts.xlsx")
-        else:
-            # Если файл пустой, отправляем сообщение об этом
-            for admin_chat_id in admin_chat_ids:
-                bot.send_message(admin_chat_id, "Файл с контактами пустой.")
-    else:
-        # Если файл не найден, отправляем сообщение об этом
-        for admin_chat_id in admin_chat_ids:
-            bot.send_message(admin_chat_id, "Файл с контактами не найден.")
-
-
-    # Проверяем наличие файла с контактами
-    if os.path.exists("contacts.xlsx"):
-        # Открываем файл
-        with open("contacts.xlsx", "rb") as file:
-            # Отправляем файл всем администраторам
-            for admin_chat_id in admin_chat_ids:
-                bot.send_document(admin_chat_id, file)
-        # После отправки удаляем файл
-        os.remove("contacts.xlsx")
-    else:
-        # Если файл не найден, отправляем сообщение об этом
-        for admin_chat_id in admin_chat_ids:
-            bot.send_message(admin_chat_id, "Файл с контактами не найден.")
-
-
 #получаем контакты
 async def get_contacts(client):
     result = await client(GetContactsRequest(0))
