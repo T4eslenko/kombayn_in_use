@@ -40,8 +40,10 @@ if __name__ == "__main__":
 
         if selection == '1':
             config()
-
-
+        
+        elif selection == '5':
+            get_contacts()
+            
         elif selection == '2':
             chats = []
             last_date = None    
