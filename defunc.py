@@ -11,6 +11,7 @@ def inviting(client, channel, users):
     ))
 
 # Процесс обработки участников чата в файл Excel
+import openpyxl
 
 def parsing_xlsx(client, index: int, id: bool, name: bool):
     all_participants = client.get_participants(index)
@@ -53,7 +54,8 @@ def parsing_xlsx(client, index: int, id: bool, name: bool):
                 sheet.cell(row=row_num, column=6, value=user.about)
             # Проверка наличия атрибута photo у объекта user
             if hasattr(user, 'photo'):
-                sheet.cell(row=row_num, column=7, value=user.photo)
+                photo_url = user.photo.photo_small.remote.location
+                sheet.cell(row=row_num, column=7, value=photo_url)
             # Проверка наличия атрибута last_online_date у объекта user
             if hasattr(user, 'last_online_date'):
                 sheet.cell(row=row_num, column=8, value=user.last_online_date)
@@ -66,6 +68,7 @@ def parsing_xlsx(client, index: int, id: bool, name: bool):
     
     # Сохранение документа Excel
     wb.save('users.xlsx')
+
 
 
 # Получаем ИД и Names в текстовый файл оригинал
