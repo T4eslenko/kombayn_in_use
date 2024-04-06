@@ -42,28 +42,33 @@ if __name__ == "__main__":
             config()
 
 #Получение списка контактов
-        elif selection == '5':    
-             print("Выберите юзер-бота для парсинга.\n"
-                "(Аккаунт который состоит в группах, которые нужно спарсить)\n")
+# Получение списка контактов
+elif selection == '5':
+    print("Выберите юзер-бота для парсинга.\n"
+          "(Аккаунт который состоит в группах, которые нужно спарсить)\n")
 
-             sessions = []
-             for file in os.listdir('.'):
-                 if file.endswith('.session'):
-                     sessions.append(file)
+    sessions = []
+    for file in os.listdir('.'):
+        if file.endswith('.session'):
+            sessions.append(file)
 
-             for i in range(len(sessions)):
-                 print(f"[{i}] -", sessions[i], '\n')
-             i = int(input("Ввод: "))
-             client = TelegramClient(sessions[i].replace('\n', ''), api_id, api_hash).start(sessions[i].replace('\n', ''))
-             result = await client(GetContactsRequest(0))
-            
-             contacts = result.users
-             for contact in contacts:
-          
-                 if isinstance(contact, InputPhoneContact):
-                    print(f"Телефон: {contact.phone}")
-                 else:
-                    print(f"ID: {contact.id}, Имя: {contact.first_name}, Фамилия: {contact.last_name}, Телефон: {contact.phone}")
+    for i in range(len(sessions)):
+        print(f"[{i}] -", sessions[i], '\n')
+    i = int(input("Ввод: "))
+    client = TelegramClient(sessions[i].replace('\n', ''), api_id, api_hash).start(sessions[i].replace('\n', ''))
+
+    # Создаем асинхронную функцию для получения списка контактов
+    async def get_contacts():
+        result = await client(GetContactsRequest(0))
+        contacts = result.users
+        for contact in contacts:
+            if isinstance(contact, InputPhoneContact):
+                print(f"Телефон: {contact.phone}")
+            else:
+                print(f"ID: {contact.id}, Имя: {contact.first_name}, Фамилия: {contact.last_name}, Телефон: {contact.phone}")
+
+    # Запускаем асинхронную функцию
+    client.loop.run_until_complete(get_contacts())
 
 # Конец получения списка контактов
         
