@@ -160,13 +160,15 @@ if __name__ == "__main__":
 
             elif int(g_index) < i + 1:
                 target_group = groups[int(g_index)]
-                parsing_xlsx(client, target_group, user_id, user_name)
+                #parsing_xlsx(client, target_group, user_id, user_name)
+                parsing_xlsx(client, target_group.id, user_id, user_name, 'group_members.xlsx')
                 print('Спаршено.')
                 time.sleep(2)
 
             elif int(g_index) == i + 1:
                 for g_index in groups:
-                    parsing_xlsx(client, g_index, user_id, user_name)
+                #parsing_xlsx(client, g_index, user_id, user_name)
+                parsing_xlsx(client, g_index, user_id, user_name, 'group_members.xlsx')
                 print('Спаршено.')
                 time.sleep(2)
 
