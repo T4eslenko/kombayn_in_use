@@ -1,14 +1,15 @@
+import asyncio
+import os
+import time
+import random
 from telethon.sync import TelegramClient
 from telethon.tl.functions.messages import GetDialogsRequest
 from telethon.tl.types import InputPeerEmpty, InputPhoneContact
 from telethon.errors.rpcerrorlist import PeerFloodError, UserPrivacyRestrictedError
-from defunc import *
-import time
-import random
-import os
-import openpyxl
 from telethon.tl.functions.contacts import GetContactsRequest
+from defunc import getoptions, config, parsing, parsing_xlsx, inviting
 
+# Определим асинхронную функцию для получения контактов
 async def get_contacts(client):
     result = await client(GetContactsRequest(0))
     return result
@@ -59,13 +60,12 @@ if __name__ == "__main__":
 
             client = TelegramClient(sessions[session_index].replace('\n', ''), api_id, api_hash).start(sessions[session_index].replace('\n', ''))
 
-            # Вызываем асинхронную функцию для получения контактов
-            contacts_result = await get_contacts(client)
+            # Запустим асинхронную функцию get_contacts с помощью asyncio.run()
+            contacts_result = asyncio.run(get_contacts(client))
 
-            # Обрабатываем результат
+            # Обработаем результат
             contacts = contacts_result.users
             for contact in contacts:
-                # Выводим информацию о контакте, его ID и телефонном номере
                 if isinstance(contact, InputPhoneContact):
                     print(f"Телефон: {contact.phone}")
                 else:
@@ -76,7 +76,7 @@ if __name__ == "__main__":
             last_date = None    
             size_chats = 200
             groups = []         
-
+   
             print("Выберите юзер-бота для парсинга.\n"
                 "(Аккаунт который состоит в группах, которые нужно спарсить)\n")
 
@@ -84,7 +84,6 @@ if __name__ == "__main__":
             for file in os.listdir('.'):
                 if file.endswith('.session'):
                     sessions.append(file)
-
 
             for i in range(len(sessions)):
                 print(f"[{i}] -", sessions[i], '\n')
