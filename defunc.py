@@ -12,14 +12,6 @@ def inviting(client, channel, users):
         users=[users]
     ))
 
-#Get Contacts
-async def Get_contacts():
-    async with TelegramClient('session_name', api_id, api_hash) as client:
-        await client.start()
-
-# Получаем список контактов пользователя
-
-
 # Новая функция
 def parsing_xlsx(client, index: int, id: bool, name: bool):
     all_participants = client.get_participants(index)
