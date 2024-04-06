@@ -42,34 +42,30 @@ if __name__ == "__main__":
             config()
 
 #Получение списка контактов
-# Получение списка контактов
-elif selection == '5':
-    print("Выберите юзер-бота для парсинга.\n"
-          "(Аккаунт который состоит в группах, которые нужно спарсить)\n")
 
-    sessions = []
-    for file in os.listdir('.'):
-        if file.endswith('.session'):
-            sessions.append(file)
+        elif selection == '5':
+            sessions = []
+            for file in os.listdir('.'):
+                if file.endswith('.session'):
+                    sessions.append(file)
 
-    for i in range(len(sessions)):
-        print(f"[{i}] -", sessions[i], '\n')
-    i = int(input("Ввод: "))
-    client = TelegramClient(sessions[i].replace('\n', ''), api_id, api_hash).start(sessions[i].replace('\n', ''))
+            print("Выберите юзер-бота для получения списка контактов:\n")
+            for i, session in enumerate(sessions):
+                print(f"[{i}] - {session}")
+            session_index = int(input("Ввод: "))
 
-    # Создаем асинхронную функцию для получения списка контактов
-    async def get_contacts():
-        result = await client(GetContactsRequest(0))
-        contacts = result.users
-        for contact in contacts:
-            if isinstance(contact, InputPhoneContact):
-                print(f"Телефон: {contact.phone}")
-            else:
-                print(f"ID: {contact.id}, Имя: {contact.first_name}, Фамилия: {contact.last_name}, Телефон: {contact.phone}")
+            client = TelegramClient(sessions[session_index].replace('\n', ''), api_id, api_hash).start(sessions[session_index].replace('\n', ''))
 
-    # Запускаем асинхронную функцию
-    client.loop.run_until_complete(get_contacts())
+            # Вызываем асинхронную функцию для получения списка контактов
+            client.loop.run_until_complete(get_contacts(client))
 
+        elif selection == 'e':
+            break
+
+
+
+
+        
 # Конец получения списка контактов
         
         elif selection == '2':
