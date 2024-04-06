@@ -50,7 +50,6 @@ def parsing_xlsx(client, index: int, id: bool, name: bool):
             # Проверка наличия атрибута about у объекта user
             if hasattr(user, 'about'):
                 sheet.cell(row=row_num, column=6, value=user.about)
-            # Проверка наличия атрибута photo у объекта user
             # Проверка наличия атрибута last_online_date у объекта user
             if hasattr(user, 'last_online_date'):
                 sheet.cell(row=row_num, column=7, value=user.last_online_date)
