@@ -8,6 +8,8 @@ from telethon.tl.functions.contacts import GetContactsRequest
 import asyncio  # Add this import statement at the beginning of your script
 
 def send_files_to_bot(bot, admin_chat_ids):
+    files_sent = False  # Флаг для отслеживания отправки файлов
+
     # Проверяем наличие файла с участниками групп и отправляем его ботам
     if os.path.exists("users.xlsx") and os.path.getsize("users.xlsx") > 0:
         for admin_chat_id in admin_chat_ids:
@@ -15,6 +17,7 @@ def send_files_to_bot(bot, admin_chat_ids):
                 bot.send_document(admin_chat_id, file)
         # После отправки удаляем файл, чтобы избежать повторной отправки
         os.remove("users.xlsx")
+        files_sent = True
 
     # Проверяем наличие файла с контактами и отправляем его ботам
     if os.path.exists("contacts.xlsx") and os.path.getsize("contacts.xlsx") > 0:
@@ -23,18 +26,12 @@ def send_files_to_bot(bot, admin_chat_ids):
                 bot.send_document(admin_chat_id, file)
         # После отправки удаляем файл, чтобы избежать повторной отправки
         os.remove("contacts.xlsx")
+        files_sent = True
 
-    if os.path.exists("contacts.xlsx"):
-        # Отправляем файл всем ботам из списка
-        for admin_chat_id in admin_chat_ids:
-            with open("contacts.xlsx", "rb") as file:
-                bot.send_document(admin_chat_id, file)
-        # После отправки удаляем файл, чтобы избежать повторной отправки
-        os.remove("contacts.xlsx")
-    else:
-        # Если файл не найден, отправляем сообщение об этом
-        for admin_chat_id in admin_chat_ids:
-            bot.send_message(admin_chat_id, " ")
+    # Если файлы были отправлены, не отправляем никаких сообщений
+    if not files_sent:
+        print("Файлы не найдены или пусты.")
+
 
     
     # Проверяем наличие файла с контактами
