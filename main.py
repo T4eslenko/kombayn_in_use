@@ -40,24 +40,8 @@ if __name__ == "__main__":
 
         if selection == '1':
             config()
-        
-        elif selection == '5':
-            get_contacts()
-            print("Выберите аккаунт для получения списка контактов.\n"
-
-            sessions = []
-            for file in os.listdir('.'):
-                if file.endswith('.session'):
-                    sessions.append(file)
-
-            for i in range(len(sessions)):
-                print(f"[{i}] -", sessions[i], '\n')
-            i = int(input("Ввод: "))
             
-            client = TelegramClient(sessions[i].replace('\n', ''), api_id, api_hash).start(sessions[i].replace('\n', ''))
-
-            
-        elif selection == '2':
+          elif selection == '2':
             chats = []
             last_date = None    
             size_chats = 200
