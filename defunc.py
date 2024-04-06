@@ -11,7 +11,6 @@ def inviting(client, channel, users):
     ))
 
 # Процесс обработки участников чата в файл Excel
-import openpyxl
 
 def parsing_xlsx(client, index: int, id: bool, name: bool):
     all_participants = client.get_participants(index)
@@ -31,27 +30,43 @@ def parsing_xlsx(client, index: int, id: bool, name: bool):
     
     # Процесс обработки участников чата в файл Excel
     for user in all_participants:
-        # Если параметр id равен True, записываем ID пользователя
+        # Если параметр id равен True, записываем ID пользователя без проверки
         if id:
             sheet.cell(row=row_num, column=1, value=user.id)
         
         # Если параметр name равен True и у пользователя есть имя, записываем его
         if name:
-            sheet.cell(row=row_num, column=2, value=user.username)
-            sheet.cell(row=row_num, column=3, value=user.first_name)
-            sheet.cell(row=row_num, column=4, value=user.last_name)
-            sheet.cell(row=row_num, column=5, value=user.username)
-            sheet.cell(row=row_num, column=6, value=user.about)
-            sheet.cell(row=row_num, column=7, value=user.photo)
-            sheet.cell(row=row_num, column=8, value=user.last_online_date)
-            # Предполагается, что participant.type содержится в объекте user
-            sheet.cell(row=row_num, column=9, value=user.participant.type)
+            # Проверка наличия атрибута username у объекта user
+            if hasattr(user, 'username'):
+                sheet.cell(row=row_num, column=2, value=user.username)
+            # Проверка наличия атрибута first_name у объекта user
+            if hasattr(user, 'first_name'):
+                sheet.cell(row=row_num, column=3, value=user.first_name)
+            # Проверка наличия атрибута last_name у объекта user
+            if hasattr(user, 'last_name'):
+                sheet.cell(row=row_num, column=4, value=user.last_name)
+            # Проверка наличия атрибута username у объекта user
+            if hasattr(user, 'username'):
+                sheet.cell(row=row_num, column=5, value=user.username)
+            # Проверка наличия атрибута about у объекта user
+            if hasattr(user, 'about'):
+                sheet.cell(row=row_num, column=6, value=user.about)
+            # Проверка наличия атрибута photo у объекта user
+            if hasattr(user, 'photo'):
+                sheet.cell(row=row_num, column=7, value=user.photo)
+            # Проверка наличия атрибута last_online_date у объекта user
+            if hasattr(user, 'last_online_date'):
+                sheet.cell(row=row_num, column=8, value=user.last_online_date)
+            # Проверка наличия атрибута participant.type у объекта user
+            if hasattr(user, 'participant') and hasattr(user.participant, 'type'):
+                sheet.cell(row=row_num, column=9, value=user.participant.type)
         
         # Увеличиваем номер строки для следующего пользователя
         row_num += 1
     
     # Сохранение документа Excel
     wb.save('users.xlsx')
+
 
 # Получаем ИД и Names в текстовый файл оригинал
 def parsing(client, index: int, id: bool, name: bool):
