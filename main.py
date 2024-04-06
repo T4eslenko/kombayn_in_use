@@ -149,7 +149,7 @@ if __name__ == "__main__":
             for g in groups:
                 print(str(i) + ' - ' + g.title)
                 i+=1
-            print(str(i + 1) + ' - ' + 'Спарсить всё')
+            #print(str(i + 1) + ' - ' + 'Спарсить всё')
             g_index = str(input())
 
             if g_index == 'clear':
