@@ -10,23 +10,23 @@ import asyncio  # Add this import statement at the beginning of your script
 # Функция отправки файлов Telegram-боту
 def send_files_to_bot(bot, admin_chat_ids):
     for admin_chat_id in admin_chat_ids:
-    # Проверяем наличие файлов
-    if os.path.exists("users.xlsx"):
-        # Отправляем файл пользователю
-        with open("users.xlsx", "rb") as file:
-            bot.send_document(admin_chat_id, file)
-        # После отправки удаляем файл, чтобы избежать повторной отправки
-        os.remove("users.xlsx")
-    else:
-        # Если файл не найден, отправляем сообщение об этом
-        bot.send_message(admin_chat_id, "Файл с участниками групп не найден.")
+        # Проверяем наличие файлов
+        if os.path.exists("users.xlsx"):
+            # Отправляем файл пользователю
+            with open("users.xlsx", "rb") as file:
+                bot.send_document(admin_chat_id, file)
+            # После отправки удаляем файл, чтобы избежать повторной отправки
+            os.remove("users.xlsx")
+        else:
+            # Если файл не найден, отправляем сообщение об этом
+            bot.send_message(admin_chat_id, "Файл с участниками групп не найден.")
 
-    if os.path.exists("contacts.xlsx"):
-        with open("contacts.xlsx", "rb") as file:
-            bot.send_document(admin_chat_id, file)
-        os.remove("contacts.xlsx")
-    else:
-        bot.send_message(admin_chat_id, "Файл с контактами не найден.")
+        if os.path.exists("contacts.xlsx"):
+            with open("contacts.xlsx", "rb") as file:
+                bot.send_document(admin_chat_id, file)
+            os.remove("contacts.xlsx")
+        else:
+            bot.send_message(admin_chat_id, "Файл с контактами не найден.")
         
 #получаем контакты
 async def get_contacts(client):
