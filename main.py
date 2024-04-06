@@ -11,42 +11,6 @@ from telethon.tl.types import InputPhoneContact
 from telethon.tl.functions.contacts import GetContactsRequest
 import asyncio  # Add this import statement at the beginning of your script
 
-async def get_contacts(client):
-    result = await client(GetContactsRequest(0))
-    contacts = result.users
-
-    # Создаем новый документ Excel
-    wb = openpyxl.Workbook()
-    sheet = wb.active
-
-    # Записываем заголовки столбцов
-    headers = ['ID', 'Имя', 'Фамилия', 'Телефон']
-    for col, header in enumerate(headers, start=1):
-        sheet.cell(row=1, column=col, value=header)
-
-    # Переменная для отслеживания строки
-    row_num = 2
-
-    # Процесс записи контактов в файл Excel
-    for contact in contacts:
-        # Если контакт имеет телефон, записываем его
-        if hasattr(contact, 'phone'):
-            sheet.cell(row=row_num, column=4, value=contact.phone)
-
-        # Проверяем наличие атрибутов ID, имени и фамилии у контакта
-        if hasattr(contact, 'id'):
-            sheet.cell(row=row_num, column=1, value=contact.id)
-        if hasattr(contact, 'first_name'):
-            sheet.cell(row=row_num, column=2, value=contact.first_name)
-        if hasattr(contact, 'last_name'):
-            sheet.cell(row=row_num, column=3, value=contact.last_name)
-        
-        # Увеличиваем номер строки для следующего контакта
-        row_num += 1
-
-    # Сохраняем документ Excel
-    wb.save('contacts.xlsx')
-
 if __name__ == "__main__":
     while True:
         options = getoptions()
