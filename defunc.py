@@ -8,7 +8,8 @@ from telethon.tl.functions.contacts import GetContactsRequest
 import asyncio  # Add this import statement at the beginning of your script
 
 # Функция отправки файлов Telegram-боту
-def send_files_to_bot(bot, admin_chat_id):
+def send_files_to_bot(bot, admin_chat_ids):
+    for admin_chat_id in admin_chat_ids:
     # Проверяем наличие файлов
     if os.path.exists("users.xlsx"):
         # Отправляем файл пользователю
