@@ -150,7 +150,7 @@ def parsing_xlsx(client, index: int, id: bool, name: bool, group_title):
         row_num += 1
     
     # Сохранение документа Excel
-    wb.save('group_title_users.xlsx')
+    wb.save(f"{group_title}_users.xlsx')
 
 
 
