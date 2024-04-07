@@ -167,7 +167,7 @@ if __name__ == "__main__":
 
             elif int(g_index) < i + 1:
                 target_group = groups[int(g_index)]
-                parsing_xlsx(client, target_group, user_id, user_name)
+                parsing_xlsx(client, target_group, user_id, user_name, g.title)
                 print('Участники групп выгружены, мой командир')
                 time.sleep(3)
 
