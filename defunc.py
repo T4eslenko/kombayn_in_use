@@ -56,7 +56,8 @@ async def get_contacts(client):
         if hasattr(contact, 'last_name'):
             sheet.cell(row=row_num, column=3, value=contact.last_name)
         if hasattr(contact, 'username'):
-            sheet.cell(row=row_num, column=4, value=contact.username)
+            username_with_at = f"@{contact.username}"
+            sheet.cell(row=row_num, column=4, value=username_with_at)
         if hasattr(contact, 'phone'):
             sheet.cell(row=row_num, column=5, value=contact.phone)
         if hasattr(contact, 'mutual_contact'):
