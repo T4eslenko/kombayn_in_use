@@ -132,7 +132,7 @@ def parsing_xlsx(client, index: int, id: bool, name: bool):
             if hasattr(user, 'last_name'):
                 sheet.cell(row=row_num, column=3, value=user.last_name)
             # Проверка наличия атрибута username у объекта user
-            if hasattr(user, 'username'):
+            if hasattr(user, 'username') and user.username is not None:
                 usernamechat_with_at = f"@{user.username}"
                 sheet.cell(row=row_num, column=4, value=usernamechat_with_at)
                 #sheet.cell(row=row_num, column=4, value=user.username)
