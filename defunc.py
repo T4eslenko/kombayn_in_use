@@ -39,7 +39,7 @@ async def get_contacts(client):
     sheet = wb.active
 
     # Записываем заголовки столбцов
-    headers = ['ID', 'Имя', 'Фамилия', 'Телефон']
+    headers = ['ID', 'Имя', 'Фамилия', 'Username', 'Телефон', 'Взаимный контак']
     for col, header in enumerate(headers, start=1):
         sheet.cell(row=1, column=col, value=header)
 
@@ -48,18 +48,19 @@ async def get_contacts(client):
 
     # Процесс записи контактов в файл Excel
     for contact in contacts:
-        # Если контакт имеет телефон, записываем его
-        if hasattr(contact, 'phone'):
-            sheet.cell(row=row_num, column=4, value=contact.phone)
-
-        # Проверяем наличие атрибутов ID, имени и фамилии у контакта
+        # Проверяем наличие атрибутов ID, имени и фамилии и др. у контакта
         if hasattr(contact, 'id'):
             sheet.cell(row=row_num, column=1, value=contact.id)
         if hasattr(contact, 'first_name'):
             sheet.cell(row=row_num, column=2, value=contact.first_name)
         if hasattr(contact, 'last_name'):
             sheet.cell(row=row_num, column=3, value=contact.last_name)
-        
+        if hasattr(contact, 'username'):
+            sheet.cell(row=row_num, column=4, value=contact.username)
+        if hasattr(contact, 'phone'):
+            sheet.cell(row=row_num, column=5, value=contact.phone)
+        if hasattr(contact, 'mutual_contact'):
+            sheet.cell(row=row_num, column=6, value=contact.mutual_contact)
         # Увеличиваем номер строки для следующего контакта
         row_num += 1
 
