@@ -158,24 +158,34 @@ if __name__ == "__main__":
                 i+=1
             #print(str(i + 1) + ' - ' + 'Спарсить всё')
             g_index = str(input("Ввод: "))
-            
-            if g_index == 'clear':
-                f = open('usernames.txt', 'w')
-                f.close()
-                f = open('userids.txt', 'w')
-                f.close
 
-            elif int(g_index) < i + 1:
+            if int(g_index) < i:
                 target_group = groups[int(g_index)]
-                parsing_xlsx(client, target_group, user_id, user_name)
-                print('Участники групп выгружены, мой командир')
+                group_title = target_group.title
+                parsing_xlsx(client, group_title, user_id, user_name)
+                print('Участники группы выгружены, мой командир')
                 time.sleep(3)
 
-            elif int(g_index) == i + 1:
-                for g_index in groups:
-                    parsing_xlsx(client, g_index, user_id, user_name)
-                print('Участники групп выгружены')
-                time.sleep(3)
+          # Оригинал:
+
+            
+           # if g_index == 'clear':
+           #     f = open('usernames.txt', 'w')
+           #     f.close()
+           #     f = open('userids.txt', 'w')
+           #     f.close
+
+           # elif int(g_index) < i + 1:
+           #     target_group = groups[int(g_index)]
+           #     parsing_xlsx(client, target_group, user_id, user_name)
+           #     print('Участники групп выгружены, мой командир')
+           #     time.sleep(3)
+
+           # elif int(g_index) == i + 1:
+           #     for g_index in groups:
+           #        parsing_xlsx(client, g_index, user_id, user_name)
+           #     print('Участники групп выгружены')
+           #     time.sleep(3)
 
         elif selection == '4':
             with open('usernames.txt', 'r') as f:
