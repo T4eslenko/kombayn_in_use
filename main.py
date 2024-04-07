@@ -158,7 +158,7 @@ if __name__ == "__main__":
                 i+=1
             #print(str(i + 1) + ' - ' + 'Спарсить всё')
             g_index = str(input("Ввод: "))
-
+            
             if g_index == 'clear':
                 f = open('usernames.txt', 'w')
                 f.close()
@@ -167,7 +167,7 @@ if __name__ == "__main__":
 
             elif int(g_index) < i + 1:
                 target_group = groups[int(g_index)]
-                parsing_xlsx(client, target_group, user_id, user_name, g.title)
+                parsing_xlsx(client, target_group, user_id, user_name)
                 print('Участники групп выгружены, мой командир')
                 time.sleep(3)
 
