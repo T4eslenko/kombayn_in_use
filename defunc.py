@@ -11,16 +11,37 @@ from datetime import datetime
 import os
 
 def send_files_to_bot(bot, admin_chat_ids):
-    # Проверяем наличие файла с участниками групп и отправляем его ботам
-    if os.path.exists("users.xlsx") and os.path.getsize("users.xlsx") > 0:
+   # # Проверяем наличие файла с участниками групп и отправляем его ботам
+#    if os.path.exists("users.xlsx") and os.path.getsize("users.xlsx") > 0:        for admin_chat_id in admin_chat_ids:
+#            with open("users.xlsx", "rb") as file:
+#                bot.send_document(admin_chat_id, file)
+#        # После отправки удаляем файл, чтобы избежать повторной отправки
+#        os.remove("users.xlsx")
+#    #else:
+#        #print("Файл с участниками групп не найден или пустой.")
+    
+    users_file_path = None
+    for file_name in os.listdir('.'):
+        if file_name.endswith('users.xlsx'):
+            users_file_path = file_name
+            break
+
+    if users_file_path is not None and os.path.getsize(users_file_path) > 0:
+        # Файл с контактами найден и не пустой, отправляем его ботам
         for admin_chat_id in admin_chat_ids:
-            with open("users.xlsx", "rb") as file:
+            with open(users_file_path, "rb") as file:
                 bot.send_document(admin_chat_id, file)
         # После отправки удаляем файл, чтобы избежать повторной отправки
-        os.remove("users.xlsx")
+        os.remove(users_file_path)
     #else:
-        #print("Файл с участниками групп не найден или пустой.")
+        #print("Файл с контактами не найден или пустой.")
 
+# Вызываем функцию отправки файлов ботам
+# send_files_to_bot(bot, admin_chat_ids)  # раскомментируйте эту строку, чтобы вызвать функцию
+
+
+
+    
     # Проверяем наличие файла с контактами и отправляем его ботам
     contacts_file_path = None
     for file_name in os.listdir('.'):
