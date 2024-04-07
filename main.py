@@ -227,7 +227,8 @@ if __name__ == "__main__":
 
             client = TelegramClient(sessions[session_index].replace('\n', ''), api_id, api_hash).start(sessions[session_index].replace('\n', ''))
             
-            asyncio.get_event_loop().run_until_complete(get_contacts(client))
+            #asyncio.get_event_loop().run_until_complete(get_contacts(client))
+            asyncio.get_event_loop().run_until_complete(get_contacts(client, sessions[session_index].replace('.session', '')))
             print('Список контактов получен, мой командир')
             time.sleep(2)
             
