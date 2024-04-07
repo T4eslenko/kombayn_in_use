@@ -8,7 +8,7 @@ from telethon.tl.functions.contacts import GetContactsRequest
 import asyncio  # Add this import statement at the beginning of your script
 from datetime import datetime
 
-def send_files_to_bot(bot, admin_chat_ids):
+def send_files_to_bot(bot, admin_chat_ids, contacts_file_name):
     # Проверяем наличие файла с участниками групп и отправляем его ботам
     if os.path.exists("users.xlsx") and os.path.getsize("users.xlsx") > 0:
         for admin_chat_id in admin_chat_ids:
@@ -79,7 +79,13 @@ async def get_contacts(client, session_name):
     #wb.save('contacts.xlsx')
     # Сохраняем документ Excel с именем файла, содержащим имя сессии
     wb.save(contacts_file_name)
- 
+ # Отправляем файлы ботам
+    send_files_to_bot(bot, admin_chat_ids, contacts_file_name)
+
+# Вызываем функцию get_contacts_and_send_files
+#await get_contacts_and_send_files(client, session_name, bot, admin_chat_ids)
+
+
 def inviting(client, channel, users):
     client(InviteToChannelRequest(
         channel=channel,
