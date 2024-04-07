@@ -73,7 +73,10 @@ async def get_contacts(client, session_name):
         row_num += 1
 
     # Сохраняем документ Excel
-    wb.save('contacts.xlsx')
+    #wb.save('contacts.xlsx')
+    # Сохраняем документ Excel с именем файла, содержащим имя сессии
+    wb.save(f'contacts_{session_name}.xlsx')
+
 
  
 def inviting(client, channel, users):
