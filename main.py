@@ -44,11 +44,12 @@ if __name__ == "__main__":
                             "6 - Отправить полученные файлы excel в бот\n"  
                             "e - Выход\n"
                             "Ввод: "))
-        
 
+# Настройки
         if selection == '1':
             config()
 
+# Парсинг участников чата в txt
         elif selection == '2':
             chats = []
             last_date = None    
@@ -161,8 +162,12 @@ if __name__ == "__main__":
                 target_group = groups[int(g_index)]
                 group_title = target_group.title
                 parsing_xlsx(client, target_group, user_id, user_name, group_title)
+                os.system('cls||clear')
+                print('Пользователи чата спаршены, мой командир')
                 time.sleep(3)
 
+        
+# Инвайтинг 
         elif selection == '4':
             with open('usernames.txt', 'r') as f:
                 users = list(f)
@@ -200,6 +205,7 @@ if __name__ == "__main__":
                     print(error)
                     break
 
+# Получение списка контактов
         elif selection == '5':
             sessions = []
             for file in os.listdir('.'):
@@ -219,13 +225,14 @@ if __name__ == "__main__":
             print('Список контактов получен, мой командир')
             time.sleep(3)
             
-        # При выборе опции 6 (выгрузка файлов)
+    
+# Отправка файлов
         elif selection == '6':
         # Отправляем файлы боту
             for admin_chat_id in admin_chat_ids:
                 send_files_to_bot(bot, admin_chat_ids)
                 print('Сделано, мой командир')
                 time.sleep(3)
-        
+# Выход
         elif selection == 'e':
             break
