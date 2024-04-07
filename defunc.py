@@ -55,7 +55,7 @@ async def get_contacts(client, session_name):
     sheet = wb.active
 
     # Записываем заголовки столбцов
-    headers = ['ID', 'Имя', 'Фамилия', 'Username', 'Телефон', 'Взаимный контак', 'Дата внесения в базу', 'имя сессии']
+    headers = ['ID', 'First name', 'Last name', 'Username', 'Телефон', 'Взаимный контак', 'Дата внесения в базу', 'Номер объекта']
     for col, header in enumerate(headers, start=1):
         sheet.cell(row=1, column=col, value=header)
 
@@ -110,7 +110,7 @@ def parsing_xlsx(client, index: int, id: bool, name: bool):
     sheet = wb.active
     
     # Запись заголовков столбцов
-    headers = ['ID', 'Name', 'Username', 'First Name', 'Last Name', 'User Username', 'About', 'Last Online Date', 'Participant Type']
+    headers = ['ID', 'First Name', 'Last Name', 'Username', 'About', 'Last Online Date', 'Participant Type']
     for col, header in enumerate(headers, start=1):
         sheet.cell(row=1, column=col, value=header)
     
@@ -125,27 +125,26 @@ def parsing_xlsx(client, index: int, id: bool, name: bool):
         
         # Если параметр name равен True и у пользователя есть имя, записываем его
         if name:
-            # Проверка наличия атрибута username у объекта user
-            if hasattr(user, 'username'):
-                sheet.cell(row=row_num, column=2, value=user.username)
             # Проверка наличия атрибута first_name у объекта user
             if hasattr(user, 'first_name'):
-                sheet.cell(row=row_num, column=3, value=user.first_name)
+                sheet.cell(row=row_num, column=2, value=user.first_name)
             # Проверка наличия атрибута last_name у объекта user
             if hasattr(user, 'last_name'):
-                sheet.cell(row=row_num, column=4, value=user.last_name)
+                sheet.cell(row=row_num, column=3, value=user.last_name)
             # Проверка наличия атрибута username у объекта user
             if hasattr(user, 'username'):
-                sheet.cell(row=row_num, column=5, value=user.username)
+                usernamechat_with_at = f"@{user.username}"
+                sheet.cell(row=row_num, column=4, value=usernamechat_with_at)
+                #sheet.cell(row=row_num, column=4, value=user.username)
             # Проверка наличия атрибута about у объекта user
             if hasattr(user, 'about'):
-                sheet.cell(row=row_num, column=6, value=user.about)
+                sheet.cell(row=row_num, column=5, value=user.about)
             # Проверка наличия атрибута last_online_date у объекта user
             if hasattr(user, 'last_online_date'):
-                sheet.cell(row=row_num, column=7, value=user.last_online_date)
+                sheet.cell(row=row_num, column=6, value=user.last_online_date)
             # Проверка наличия атрибута participant.type у объекта user
             if hasattr(user, 'participant') and hasattr(user.participant, 'type'):
-                sheet.cell(row=row_num, column=8, value=user.participant.type)
+                sheet.cell(row=row_num, column=7, value=user.participant.type)
         
         # Увеличиваем номер строки для следующего пользователя
         row_num += 1
