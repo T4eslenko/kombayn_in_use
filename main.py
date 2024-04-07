@@ -162,6 +162,7 @@ if __name__ == "__main__":
             if int(g_index) < i:
                 target_group = groups[int(g_index)]
                 group_title = target_group.title
+                print(group_title)
                 parsing_xlsx(client, group_title, user_id, user_name)
                 print('Участники группы выгружены, мой командир')
                 time.sleep(3)
