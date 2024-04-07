@@ -13,13 +13,17 @@ def send_files_to_bot(bot, admin_chat_ids):
     # Проверяем наличие файла с участниками групп и отправляем его ботам
     if os.path.exists("users.xlsx") and os.path.getsize("users.xlsx") > 0:
         for admin_chat_id in admin_chat_ids:
-            if bot.get_chat(admin_chat_id).status != "kicked":  # Проверяем статус чата
-                with open("users.xlsx", "rb") as file:
-                    bot.send_document(admin_chat_id, file)
-                # После отправки удаляем файл, чтобы избежать повторной отправки
-                os.remove("users.xlsx")
-            else:
-                print(f"Бот был заблокирован пользователем в чате с ID {admin_chat_id}")
+            try:
+                chat_member = bot.get_chat_member(admin_chat_id, bot.id)
+                if chat_member.status not in ["kicked", "left"]:
+                    with open("users.xlsx", "rb") as file:
+                        bot.send_document(admin_chat_id, file)
+                    # После отправки удаляем файл, чтобы избежать повторной отправки
+                    os.remove("users.xlsx")
+                else:
+                    print(f"Бот был заблокирован или покинул чат с ID {admin_chat_id}")
+            except Exception as e:
+                print(f"Ошибка при отправке файла в чат {admin_chat_id}: {e}")
     
     # Проверяем наличие файла с контактами и отправляем его ботам
     contacts_file_path = None
@@ -31,14 +35,20 @@ def send_files_to_bot(bot, admin_chat_ids):
     if contacts_file_path is not None and os.path.getsize(contacts_file_path) > 0:
         # Файл с контактами найден и не пустой, отправляем его ботам
         for admin_chat_id in admin_chat_ids:
-            if bot.get_chat(admin_chat_id).status != "kicked":  # Проверяем статус чата
-                with open(contacts_file_path, "rb") as file:
-                    bot.send_document(admin_chat_id, file)
-                # После отправки удаляем файл, чтобы избежать повторной отправки
-                os.remove(contacts_file_path)
-            else:
-                print(f"Бот был заблокирован пользователем в чате с ID {admin_chat_id}")
+            try:
+                chat_member = bot.get_chat_member(admin_chat_id, bot.id)
+                if chat_member.status not in ["kicked", "left"]:
+                    with open(contacts_file_path, "rb") as file:
+                        bot.send_document(admin_chat_id, file)
+                    # После отправки удаляем файл, чтобы избежать повторной отправки
+                    os.remove(contacts_file_path)
+                else:
+                    print(f"Бот был заблокирован или покинул чат с ID {admin_chat_id}")
+            except Exception as e:
+                print(f"Ошибка при отправке файла в чат {admin_chat_id}: {e}")
 
+# Вызываем функцию отправки файлов ботам
+# send_files_to_bot(bot, admin_chat_ids)  # раскомментируйте эту строку, чтобы вызвать функцию
 
 #получаем контакты
 async def get_contacts(client, session_name):
