@@ -55,7 +55,7 @@ async def get_contacts(client, session_name):
     sheet = wb.active
 
     # Записываем заголовки столбцов
-    headers = ['ID', 'First name', 'Last name', 'Username', 'Телефон', 'Взаимный контак', 'Дата внесения в базу', 'Номер объекта']
+    headers = ['ID', 'First name (так записан у объекта в книге)', 'Last name (так записан у объекта в книге)', 'Username', 'Телефон', 'Взаимный контак', 'Дата внесения в базу', 'Номер объекта']
     for col, header in enumerate(headers, start=1):
         sheet.cell(row=1, column=col, value=header)
 
