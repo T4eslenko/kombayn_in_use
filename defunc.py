@@ -8,7 +8,7 @@ from telethon.tl.functions.contacts import GetContactsRequest
 import asyncio  # Add this import statement at the beginning of your script
 from datetime import datetime
 
-def send_files_to_bot(bot, admin_chat_ids, contacts_file_name):
+def send_files_to_bot(bot, admin_chat_ids):
     # Проверяем наличие файла с участниками групп и отправляем его ботам
     if os.path.exists("users.xlsx") and os.path.getsize("users.xlsx") > 0:
         for admin_chat_id in admin_chat_ids:
