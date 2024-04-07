@@ -163,8 +163,8 @@ if __name__ == "__main__":
                 target_group = groups[int(g_index)]
                 group_title = target_group.title
                 print(group_title)
-                parsing_xlsx(client, group_title, user_id, user_name)
-                print('Участники группы выгружены, мой командир')
+                parsing_xlsx(client, user_id, user_name, group_title)
+                #print('Участники группы выгружены, мой командир')
                 time.sleep(3)
 
           # Оригинал:
