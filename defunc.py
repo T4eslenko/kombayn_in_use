@@ -35,6 +35,9 @@ async def get_contacts(client, session_name):
     result = await client(GetContactsRequest(0))
     contacts = result.users
 
+    # Создаем имя файла с учетом сессии
+    contacts_file_name = f'contacts_{session_name}.xlsx'
+
     # Создаем новый документ Excel
     wb = openpyxl.Workbook()
     sheet = wb.active
@@ -75,9 +78,7 @@ async def get_contacts(client, session_name):
     # Сохраняем документ Excel
     #wb.save('contacts.xlsx')
     # Сохраняем документ Excel с именем файла, содержащим имя сессии
-    wb.save(f'contacts_{session_name}.xlsx')
-
-
+    wb.save(contacts_file_name)
  
 def inviting(client, channel, users):
     client(InviteToChannelRequest(
