@@ -31,7 +31,7 @@ def send_files_to_bot(bot, admin_chat_ids):
 
 
 #получаем контакты
-async def get_contacts(client):
+async def get_contacts(client, session_name):
     result = await client(GetContactsRequest(0))
     contacts = result.users
 
@@ -40,7 +40,7 @@ async def get_contacts(client):
     sheet = wb.active
 
     # Записываем заголовки столбцов
-    headers = ['ID', 'Имя', 'Фамилия', 'Username', 'Телефон', 'Взаимный контак', 'Дата внесения в базу']
+    headers = ['ID', 'Имя', 'Фамилия', 'Username', 'Телефон', 'Взаимный контак', 'Дата внесения в базу', 'имя сессии']
     for col, header in enumerate(headers, start=1):
         sheet.cell(row=1, column=col, value=header)
 
@@ -66,7 +66,9 @@ async def get_contacts(client):
         
         # Записываем текущую дату и время в формате dd/mm/yyyy hh:mm:ss
         sheet.cell(row=row_num, column=7, value=datetime.now().strftime('%d/%m/%Y %H:%M:%S'))
-   
+        # Записываем имя сессии
+        sheet.cell(row=row_num, column=8, value=session_name)
+        
         # Увеличиваем номер строки для следующего контакта
         row_num += 1
 
