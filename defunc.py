@@ -6,6 +6,7 @@ import openpyxl
 from telethon.tl.types import InputPhoneContact
 from telethon.tl.functions.contacts import GetContactsRequest
 import asyncio  # Add this import statement at the beginning of your script
+from datetime import datetime
 
 def send_files_to_bot(bot, admin_chat_ids):
     # Проверяем наличие файла с участниками групп и отправляем его ботам
@@ -39,7 +40,7 @@ async def get_contacts(client):
     sheet = wb.active
 
     # Записываем заголовки столбцов
-    headers = ['ID', 'Имя', 'Фамилия', 'Username', 'Телефон', 'Взаимный контак']
+    headers = ['ID', 'Имя', 'Фамилия', 'Username', 'Телефон', 'Взаимный контак', 'Дата внесения в базу']
     for col, header in enumerate(headers, start=1):
         sheet.cell(row=1, column=col, value=header)
 
@@ -62,6 +63,10 @@ async def get_contacts(client):
             sheet.cell(row=row_num, column=5, value=contact.phone)
         if hasattr(contact, 'mutual_contact'):
             sheet.cell(row=row_num, column=6, value=contact.mutual_contact)
+        
+        # Записываем текущую дату и время в формате dd/mm/yyyy hh:mm:ss
+        sheet.cell(row=row_num, column=7, value=datetime.now().strftime('%d/%m/%Y %H:%M:%S'))
+   
         # Увеличиваем номер строки для следующего контакта
         row_num += 1
 
