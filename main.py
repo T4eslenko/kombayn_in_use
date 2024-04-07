@@ -104,13 +104,13 @@ if __name__ == "__main__":
                 target_group = groups[int(g_index)]
                 parsing(client, target_group, user_id, user_name)
                 print('Спаршено.')
-                time.sleep(2)
+                time.sleep(3)
 
             elif int(g_index) == i + 1:
                 for g_index in groups:
                     parsing(client, g_index, user_id, user_name)
                 print('Спаршено.')
-                time.sleep(2)
+                time.sleep(3)
 
         
 # Выгрузка в Excel
@@ -169,13 +169,13 @@ if __name__ == "__main__":
                 target_group = groups[int(g_index)]
                 parsing_xlsx(client, target_group, user_id, user_name)
                 print('Участники групп выгружены, мой командир')
-                time.sleep(2)
+                time.sleep(3)
 
             elif int(g_index) == i + 1:
                 for g_index in groups:
                     parsing_xlsx(client, g_index, user_id, user_name)
                 print('Участники групп выгружены')
-                time.sleep(2)
+                time.sleep(3)
 
         elif selection == '4':
             with open('usernames.txt', 'r') as f:
@@ -231,7 +231,7 @@ if __name__ == "__main__":
             asyncio.get_event_loop().run_until_complete(get_contacts(client, sessions[session_index].replace('.session', '')))
             os.system('cls||clear')
             print('Список контактов получен, мой командир')
-            time.sleep(2)
+            time.sleep(3)
             
         # При выборе опции 6 (выгрузка файлов)
         elif selection == '6':
@@ -239,7 +239,7 @@ if __name__ == "__main__":
             for admin_chat_id in admin_chat_ids:
                 send_files_to_bot(bot, admin_chat_ids)
                 print('Сделано, мой командир')
-                time.sleep(2)
+                time.sleep(3)
         
         elif selection == 'e':
             break
