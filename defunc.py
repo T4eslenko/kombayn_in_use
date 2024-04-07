@@ -80,7 +80,7 @@ async def get_contacts(client, session_name):
     # Сохраняем документ Excel с именем файла, содержащим имя сессии
     wb.save(contacts_file_name)
  # Отправляем файлы ботам
-    send_files_to_bot(bot, admin_chat_ids, contacts_file_name)
+    #send_files_to_bot(bot, admin_chat_ids, contacts_file_name)
 
 # Вызываем функцию get_contacts_and_send_files
 #await get_contacts_and_send_files(client, session_name, bot, admin_chat_ids)
