@@ -229,6 +229,7 @@ if __name__ == "__main__":
             
             #asyncio.get_event_loop().run_until_complete(get_contacts(client))
             asyncio.get_event_loop().run_until_complete(get_contacts(client, sessions[session_index].replace('.session', '')))
+            os.system('cls||clear')
             print('Список контактов получен, мой командир')
             time.sleep(2)
             
