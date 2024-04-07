@@ -71,7 +71,7 @@ async def get_contacts(client, session_name):
             sheet.cell(row=row_num, column=2, value=contact.first_name)
         if hasattr(contact, 'last_name'):
             sheet.cell(row=row_num, column=3, value=contact.last_name)
-        if hasattr(contact, 'username'):
+        if hasattr(contact, 'username') and contact.username is not None
             username_with_at = f"@{contact.username}"
             sheet.cell(row=row_num, column=4, value=username_with_at)
         if hasattr(contact, 'phone'):
