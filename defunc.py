@@ -102,7 +102,7 @@ def inviting(client, channel, users):
     ))
 
 # Новая функция
-def parsing_xlsx(client, index: int, id: bool, name: bool, g_title):
+def parsing_xlsx(client, index: int, id: bool, name: bool):
     all_participants = client.get_participants(index)
 
     # Создание нового документа Excel
