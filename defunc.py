@@ -95,9 +95,11 @@ def inviting(client, channel, users):
         users=[users]
     ))
 
+
 #парсим чат 
 from telethon.tl.types import User, Chat
-#def parsing_messages(client, index: int, id: bool, name: bool, group_title):
+
+# Измененная функция parsing_messages
 async def parsing_messages(client, index: int, id: bool, name: bool, group_title):
     async for message in client.iter_messages(group_title, limit=index):
         message_info = ""
