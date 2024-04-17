@@ -100,9 +100,10 @@ def inviting(client, channel, users):
 
 #парсим сообщения
 from openpyxl import Workbook
+from openpyxl import Workbook
 from openpyxl.utils import get_column_letter
 from openpyxl.styles import Font
-from telethon.tl.types import Message
+from telethon.tl.types import User, Chat
 from datetime import datetime
 
 def remove_timezone(dt):
@@ -114,31 +115,30 @@ def remove_timezone(dt):
 def get_reply_info(client, group_title, reply_to_msg_id):
     # Получение информации о сообщении, на которое дан ответ
     reply_message = client.get_messages(group_title, ids=[reply_to_msg_id])[0]
+    user_name = f"{reply_message.sender.first_name} {reply_message.sender.last_name}" if isinstance(reply_message.sender, User) else None
     user_id = reply_message.sender_id if isinstance(reply_message.sender, User) else None
-    return user_id, reply_message.sender_id, reply_message.text
+    return user_name, user_id, reply_message.text
 
 def parsing_messages(client, index: int, id: bool, name: bool, group_title):
     wb = Workbook()
     ws = wb.active
-    ws.append(['ID', 'Name', 'Group Name', 'Date', 'Message', 'Reply to', 'Reply to User ID', 'Reply to User ID in Quote'])
+    ws.append(['Group ID', 'Date and Time', 'Sender ID', 'Sender Name', 'Message', 'Reply to User ID', 'Reply to User Name', 'Reply to Message'])
 
     for message in client.iter_messages(group_title):
         row_data = [
+            message.chat_id,
+            remove_timezone(message.date),
             message.sender_id if id else None,
             f"{message.sender.first_name} {message.sender.last_name}" if isinstance(message.sender, User) else None,
-            message.sender.title if isinstance(message.sender, Chat) else None,
-            remove_timezone(message.date),
             message.text
         ]
 
         # Проверка, является ли сообщение ответом на другое сообщение (цитатой)
         if isinstance(message.reply_to_msg_id, int):
-            reply_user_id, replied_to_user_id, reply_text = get_reply_info(client, group_title, message.reply_to_msg_id)
-            reply_info = f"Reply to User ID: {replied_to_user_id}\n{reply_text}"
-            row_data.append(reply_info)
-            row_data.append(reply_user_id)
+            reply_user_name, reply_user_id, reply_text = get_reply_info(client, group_title, message.reply_to_msg_id)
+            row_data.extend([reply_user_id, reply_user_name, reply_text])
         else:
-            row_data.extend([None, None])
+            row_data.extend([None, None, None])
 
         ws.append(row_data)
 
