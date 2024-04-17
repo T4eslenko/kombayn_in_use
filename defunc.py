@@ -96,23 +96,36 @@ def inviting(client, channel, users):
     ))
 
 
-#парсим чат 
-from telethon.tl.types import User, Chat
+from telethon.tl.types import Message
 
 def parsing_messages(client, index: int, id: bool, name: bool, group_title):
     for message in client.iter_messages(group_title):
         message_info = ""
         
+        # Вывод ID отправителя, если указано
         if id:
             message_info += f"ID: {message.sender_id}\n"
         
+        # Вывод имени отправителя или названия группы, если указано
         if name:
             if isinstance(message.sender, User):
                 message_info += f"Name: {message.sender.first_name} {message.sender.last_name}\n"
             elif isinstance(message.sender, Chat):
                 message_info += f"Group Name: {message.sender.title}\n"
         
-        message_info += f"Message: {message.text}\n\n"
+        # Вывод даты и времени сообщения
+        message_info += f"Date: {message.date}\n"
+        
+        # Вывод текста сообщения
+        message_info += f"Message: {message.text}\n"
+        
+        # Проверка, является ли сообщение ответом на другое сообщение (цитатой)
+        if isinstance(message.reply_to_msg_id, int):
+            reply_message = client.get_messages(group_title, ids=[message.reply_to_msg_id])[0]
+            # Вывод информации о том, кому и на какое сообщение был данный ответ
+            message_info += f"Reply to: {reply_message.sender.first_name} {reply_message.sender.last_name} - {reply_message.text}\n"
+        
+        message_info += "\n"  # Добавляем пустую строку между сообщениями
         
         print(message_info)
 
