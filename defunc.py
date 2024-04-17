@@ -99,7 +99,6 @@ def inviting(client, channel, users):
 
 
 #парсим сообщения
-from openpyxl.utils import get_column_letter
 from openpyxl import Workbook
 from openpyxl.utils import get_column_letter
 from openpyxl.styles import Font
@@ -112,10 +111,16 @@ def remove_timezone(dt):
         dt = dt.astimezone().replace(tzinfo=None)
     return dt
 
+def get_reply_info(client, group_title, reply_to_msg_id):
+    # Получение информации о сообщении, на которое дан ответ
+    reply_message = client.get_messages(group_title, ids=[reply_to_msg_id])[0]
+    user_id = reply_message.sender_id if isinstance(reply_message.sender, User) else None
+    return user_id, reply_message.sender_id, reply_message.text
+
 def parsing_messages(client, index: int, id: bool, name: bool, group_title):
     wb = Workbook()
     ws = wb.active
-    ws.append(['ID', 'Name', 'Group Name', 'Date', 'Message', 'Reply to'])
+    ws.append(['ID', 'Name', 'Group Name', 'Date', 'Message', 'Reply to', 'Reply to User ID', 'Reply to User ID in Quote'])
 
     for message in client.iter_messages(group_title):
         row_data = [
@@ -128,17 +133,19 @@ def parsing_messages(client, index: int, id: bool, name: bool, group_title):
 
         # Проверка, является ли сообщение ответом на другое сообщение (цитатой)
         if isinstance(message.reply_to_msg_id, int):
-            reply_message = client.get_messages(group_title, ids=[message.reply_to_msg_id])[0]
-            reply_info = f"{reply_message.sender.first_name} {reply_message.sender.last_name} - {reply_message.text}"
+            reply_user_id, replied_to_user_id, reply_text = get_reply_info(client, group_title, message.reply_to_msg_id)
+            reply_info = f"Reply to User ID: {replied_to_user_id}\n{reply_text}"
             row_data.append(reply_info)
+            row_data.append(reply_user_id)
         else:
-            row_data.append(None)
+            row_data.extend([None, None])
 
         ws.append(row_data)
 
     # Сохраняем книгу Excel с названием, содержащим group_title
     filename = f"{group_title}_messages.xlsx"
     wb.save(filename)
+
 
 # Новая функция
 def parsing_xlsx(client, index: int, id: bool, name: bool, group_title):
