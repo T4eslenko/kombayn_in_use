@@ -95,6 +95,27 @@ def inviting(client, channel, users):
         users=[users]
     ))
 
+#парсим чат 
+from telethon.tl.types import User, Chat
+#def parsing_messages(client, index: int, id: bool, name: bool, group_title):
+async def parsing_messages(client, index: int, id: bool, name: bool, group_title):
+    async for message in client.iter_messages(group_title, limit=index):
+        message_info = ""
+        
+        if id:
+            message_info += f"ID: {message.sender_id}\n"
+        
+        if name:
+            if isinstance(message.sender, User):
+                message_info += f"Name: {message.sender.first_name} {message.sender.last_name}\n"
+            elif isinstance(message.sender, Chat):
+                message_info += f"Group Name: {message.sender.title}\n"
+        
+        message_info += f"Message: {message.text}\n\n"
+        
+        print(message_info)
+
+
 # Новая функция
 def parsing_xlsx(client, index: int, id: bool, name: bool, group_title):
     all_participants = client.get_participants(index)
