@@ -218,7 +218,8 @@ if __name__ == "__main__":
             if int(g_index) < i:
                 target_group = groups[int(g_index)]
                 group_title = target_group.title
-                parsing_messages(client, target_group, user_id, user_name, group_title)
+                #parsing_messages(client, target_group, user_id, user_name, group_title)
+                await parsing_messages(client, target_group, user_id, user_name, group_title)
                 #os.system('cls||clear')
                 print('Сообщения чата спаршены, мой командир')
                 time.sleep(3)
