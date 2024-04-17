@@ -9,7 +9,7 @@ import asyncio  # Add this import statement at the beginning of your script
 from datetime import datetime
 import os
 from telethon.tl.types import User, Chat
-
+from telethon.tl.types import Message
 
 def send_files_to_bot(bot, admin_chat_ids):
    # Проверяем наличие файла с участниками групп и отправляем его ботам
@@ -98,39 +98,37 @@ def inviting(client, channel, users):
     ))
 
 
+#парсим сообщения
+from openpyxl import Workbook
 from telethon.tl.types import Message
 
 def parsing_messages(client, index: int, id: bool, name: bool, group_title):
+    wb = Workbook()
+    ws = wb.active
+    ws.append(['ID', 'Name', 'Group Name', 'Date', 'Message', 'Reply to'])
+
     for message in client.iter_messages(group_title):
-        message_info = ""
-        
-        # Вывод ID отправителя, если указано
-        if id:
-            message_info += f"ID: {message.sender_id}\n"
-        
-        # Вывод имени отправителя или названия группы, если указано
-        if name:
-            if isinstance(message.sender, User):
-                message_info += f"Name: {message.sender.first_name} {message.sender.last_name}\n"
-            elif isinstance(message.sender, Chat):
-                message_info += f"Group Name: {message.sender.title}\n"
-        
-        # Вывод даты и времени сообщения
-        message_info += f"Date: {message.date}\n"
-        
-        # Вывод текста сообщения
-        message_info += f"Message: {message.text}\n"
-        
+        row_data = [
+            message.sender_id if id else None,
+            f"{message.sender.first_name} {message.sender.last_name}" if isinstance(message.sender, User) else None,
+            message.sender.title if isinstance(message.sender, Chat) else None,
+            message.date,
+            message.text
+        ]
+
         # Проверка, является ли сообщение ответом на другое сообщение (цитатой)
         if isinstance(message.reply_to_msg_id, int):
             reply_message = client.get_messages(group_title, ids=[message.reply_to_msg_id])[0]
-            # Вывод информации о том, кому и на какое сообщение был данный ответ
-            message_info += f"Reply to: {reply_message.sender.first_name} {reply_message.sender.last_name} - {reply_message.text}\n"
-        
-        message_info += "\n"  # Добавляем пустую строку между сообщениями
-        
-        print(message_info)
+            reply_info = f"{reply_message.sender.first_name} {reply_message.sender.last_name} - {reply_message.text}"
+            row_data.append(reply_info)
+        else:
+            row_data.append(None)
 
+        ws.append(row_data)
+
+    # Сохраняем книгу Excel с названием, содержащим group_title
+    filename = f"{group_title}_messages.xlsx"
+    wb.save(filename)
 
 # Новая функция
 def parsing_xlsx(client, index: int, id: bool, name: bool, group_title):
