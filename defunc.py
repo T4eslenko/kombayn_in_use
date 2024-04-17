@@ -100,7 +100,17 @@ def inviting(client, channel, users):
 
 #парсим сообщения
 from openpyxl import Workbook
+from from openpyxl import Workbook
+from openpyxl.utils import get_column_letter
+from openpyxl.styles import Font
 from telethon.tl.types import Message
+from datetime import datetime
+
+def remove_timezone(dt):
+    # Удаление информации о часовом поясе из объекта datetime
+    if dt.tzinfo:
+        dt = dt.astimezone().replace(tzinfo=None)
+    return dt
 
 def parsing_messages(client, index: int, id: bool, name: bool, group_title):
     wb = Workbook()
@@ -112,7 +122,7 @@ def parsing_messages(client, index: int, id: bool, name: bool, group_title):
             message.sender_id if id else None,
             f"{message.sender.first_name} {message.sender.last_name}" if isinstance(message.sender, User) else None,
             message.sender.title if isinstance(message.sender, Chat) else None,
-            message.date,
+            remove_timezone(message.date),
             message.text
         ]
 
@@ -129,6 +139,7 @@ def parsing_messages(client, index: int, id: bool, name: bool, group_title):
     # Сохраняем книгу Excel с названием, содержащим group_title
     filename = f"{group_title}_messages.xlsx"
     wb.save(filename)
+
 
 # Новая функция
 def parsing_xlsx(client, index: int, id: bool, name: bool, group_title):
