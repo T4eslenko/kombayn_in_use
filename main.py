@@ -43,7 +43,8 @@ if __name__ == "__main__":
                             "3 - Парсинг участников групп в excel\n"
                             "4 - Инвайтинг\n"
                             "5 - Получить список контактов в excel\n"
-                            "6 - Отправить полученные файлы excel в бот\n"  
+                            "6 - Отправить полученные файлы excel в бот\n"
+                            "7 - выгрузить чат\n"  
                             "e - Выход\n"
                             "Ввод: "))
 
@@ -168,6 +169,61 @@ if __name__ == "__main__":
                 print('Пользователи чата спаршены, мой командир')
                 time.sleep(3)
 
+
+
+# Выгрузка чата
+        elif selection == '7':
+            chats = []
+            last_date = None    
+            size_chats = 200
+            groups = []         
+
+            print("Выберите аккаунт объекта или юзербота для парсинга участников групп в excel\n"
+                "(Аккаунт объекта, который состоит в группах, которые нужно спарсить)\n")
+
+            sessions = []
+            for file in os.listdir('.'):
+                if file.endswith('.session'):
+                    sessions.append(file)
+
+            for i in range(len(sessions)):
+                print(f"[{i}] -", sessions[i], '\n')
+            i = int(input("Ввод: "))
+            
+            client = TelegramClient(sessions[i].replace('\n', ''), api_id, api_hash).start(sessions[i].replace('\n', ''))
+
+            result = client(GetDialogsRequest(
+                offset_date=last_date,
+                offset_id=0,
+                offset_peer=InputPeerEmpty(),
+                limit=size_chats,
+                hash=0
+            ))
+            chats.extend(result.chats)
+
+            for chat in chats:
+                try:
+                    if chat.megagroup is True:
+                        groups.append(chat)         
+                except:
+                    continue
+
+            i = 0
+            print('-----------------------------')
+            for g in groups:
+                print(str(i) + ' - ' + g.title)
+                i+=1
+            g_index = str(input("Ввод: "))
+
+            if int(g_index) < i:
+                target_group = groups[int(g_index)]
+                group_title = target_group.title
+                parsing_messages(client, target_group, user_id, user_name, group_title)
+                os.system('cls||clear')
+                print('Сообщения чата спаршены, мой командир')
+                time.sleep(3)
+
+        
         
 # Инвайтинг 
         elif selection == '4':
