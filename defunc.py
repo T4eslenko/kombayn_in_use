@@ -8,6 +8,8 @@ from telethon.tl.functions.contacts import GetContactsRequest
 import asyncio  # Add this import statement at the beginning of your script
 from datetime import datetime
 import os
+from telethon.tl.types import User, Chat
+
 
 def send_files_to_bot(bot, admin_chat_ids):
    # Проверяем наличие файла с участниками групп и отправляем его ботам
