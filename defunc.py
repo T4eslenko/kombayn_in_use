@@ -99,11 +99,8 @@ def inviting(client, channel, users):
 
 
 #парсим сообщения
-from openpyxl import Workbook
-from from openpyxl import Workbook
 from openpyxl.utils import get_column_letter
 from openpyxl.styles import Font
-from telethon.tl.types import Message
 from datetime import datetime
 
 def remove_timezone(dt):
