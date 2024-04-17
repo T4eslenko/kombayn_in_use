@@ -98,10 +98,9 @@ def inviting(client, channel, users):
 
 #парсим чат 
 from telethon.tl.types import User, Chat
-from telethon.tl.types import User, Chat
 
 def parsing_messages(client, index: int, id: bool, name: bool, group_title):
-    for message in client.iter_messages(group_title, limit=index):
+    for message in client.iter_messages(group_title):
         message_info = ""
         
         if id:
