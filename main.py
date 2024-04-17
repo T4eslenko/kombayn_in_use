@@ -35,7 +35,7 @@ if __name__ == "__main__":
         else:
             user_name = False
 
-        os.system('cls||clear')
+        #os.system('cls||clear')
         print('ВНИМАНИЕ. Если два раза подряд парсить/выгружать контакты - будет вылетать ошибка. Просто перезапустите программу')
         print ('') 
         selection = str(input("1 - Настройки\n"
