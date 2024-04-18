@@ -287,6 +287,8 @@ def config():
             f"4 - Парсить user-name [{options[3].rstrip()}]\n"
             f"5 - Добавить аккаунт объекта или юзербота[{len(sessions)}]\n"
             "6 - Сбросить настройки\n"
+            " \n"
+            f"7 - Выйти с аккаунта объекта или юзербота[{len(sessions)}]\n"
             "e - Выход\n"
             "Ввод: "
         )
@@ -327,7 +329,20 @@ def config():
             phone = str(input("Введите номер телефона аккаунта: "))
             client = TelegramClient(phone, int(options[0].replace('\n', '')), 
                                     options[1].replace('\n', '')).start(phone)
-            
+        elif key == '7':
+            os.system('cls||clear')
+            if options[0] == "NONEID\n" or options[1] == "NONEHASH":
+                print("Проверьте api_id и api_hash")
+                time.sleep(2)
+                continue
+
+            print("Аккаунты:\n")
+            for i in sessions:
+                print(i)
+
+            phone = str(input("Введите номер телефона аккаунта: "))
+            client = TelegramClient(phone, int(options[0].replace('\n', '')), 
+                                        
         elif key == '6':
             os.system('cls||clear')
             answer = input("Вы уверены?\nAPI_ID и API_HASH будут удалены\n"
