@@ -104,7 +104,8 @@ def inviting(client, channel, users):
 
 #парсим сообщения
 from openpyxl import Workbook
-from openpyxl.styles import NamedStyle
+from openpyxl.styles import NamedStyle, PatternFill
+from openpyxl.utils import get_column_letter
 from telethon.tl.types import User, Chat
 
 def remove_timezone(dt):
@@ -134,7 +135,7 @@ def parsing_messages(client, index: int, id: bool, name: bool, group_title):
     ws.column_dimensions['A'].style = numeric_style
 
     # Стиль для серого фона ячейки
-    gray_style = NamedStyle(name='Gray', fill='808080')
+    gray_fill = PatternFill(start_color='808080', end_color='808080', fill_type='solid')
 
     for message in client.iter_messages(group_title):
         # Основная информация о сообщении
@@ -166,7 +167,7 @@ def parsing_messages(client, index: int, id: bool, name: bool, group_title):
             # Применяем серый фон для ячеек
             for i in range(len(row_data)):
                 if row_data[i] is not None:
-                    ws.cell(row=len(ws['A']) + 1, column=i + 1).style = gray_style
+                    ws.cell(row=len(ws['A']) + 1, column=i + 1).fill = gray_fill
 
         else:
             row_data.extend([None] * 7)
