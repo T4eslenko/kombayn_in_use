@@ -10,6 +10,10 @@ from datetime import datetime
 import os
 from telethon.tl.types import User, Chat
 from telethon.tl.types import Message
+from openpyxl import Workbook
+from openpyxl.utils import get_column_letter
+from openpyxl.styles import Font
+
 
 def send_files_to_bot(bot, admin_chat_ids):
    # Проверяем наличие файла с участниками групп и отправляем его ботам
@@ -99,13 +103,6 @@ def inviting(client, channel, users):
 
 
 #парсим сообщения
-from openpyxl import Workbook
-from openpyxl import Workbook
-from openpyxl.utils import get_column_letter
-from openpyxl.styles import Font
-from telethon.tl.types import User, Chat
-from datetime import datetime
-
 def remove_timezone(dt):
     # Удаление информации о часовом поясе из объекта datetime
     if dt.tzinfo:
