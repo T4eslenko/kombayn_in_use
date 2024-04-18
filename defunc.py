@@ -354,7 +354,7 @@ def config(api_id, api_hash):
             client.disconnect()
 
             # Удаляем выбранный файл сессии
-            os.remove(sessions[i])
+            #os.remove(sessions[i])
             print(f"Файл {sessions[i]} успешно удален.")
             time.sleep(2)
                                         
