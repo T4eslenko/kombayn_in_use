@@ -283,12 +283,16 @@ def config(api_id, api_hash):
         prompt_message = (
             f"1 - Обновить api_id [{options[0].rstrip()}]\n"
             f"2 - Обновить api_hash [{options[1].rstrip()}]\n"
+            " \n"
             f"3 - Парсить user-id [{options[2].rstrip()}]\n"
             f"4 - Парсить user-name [{options[3].rstrip()}]\n"
+            " \n"
             f"5 - Добавить аккаунт объекта или юзербота[{len(sessions)}]\n"
+            " \n"
             "6 - Сбросить настройки\n"
             " \n"
             f"7 - Выйти с аккаунта объекта или юзербота[{len(sessions)}]\n"
+            " \n"
             "e - Выход\n"
             "Ввод: "
         )
