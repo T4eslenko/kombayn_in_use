@@ -52,7 +52,7 @@ if __name__ == "__main__":
 
 # Настройки
         if selection == '1':
-            config()
+            config(api_id, api_hash) 
 
 # Парсинг участников чата в txt
         elif selection == '2':
