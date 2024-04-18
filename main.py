@@ -40,10 +40,12 @@ if __name__ == "__main__":
         print ('') 
         selection = str(input("1 - Настройки\n"
                             "2 - Парсинг участников групп\n"
-                            "3 - Парсинг участников групп в excel\n"
-                            "4 - Инвайтинг\n"
-                            "5 - Получить список контактов в excel\n"
-                            "6 - Выгрузить сообщения чата\n" 
+                            "3 - Инвайтинг\n"
+                            "\n"
+                            "работаем с EXCEL\n"
+                            "4 - Выгрузить список контактов в excel\n"
+                            "5 - Выгрузить участников групп в excel\n"
+                            "6 - Выгрузить сообщения чата в excel\n" 
                             "\n"  
                             "7 - Отправить полученные файлы excel в бот\n"
                             "\n"  
@@ -54,7 +56,7 @@ if __name__ == "__main__":
         if selection == '1':
             config(api_id, api_hash) 
 
-# Парсинг участников чата в txt
+# 2 Парсинг участников чата в txt
         elif selection == '2':
             chats = []
             last_date = None    
@@ -119,8 +121,8 @@ if __name__ == "__main__":
                 time.sleep(3)
 
         
-# Выгрузка в Excel
-        elif selection == '3':
+# Выгрузить участников групп в excel
+        elif selection == '5':
             chats = []
             last_date = None    
             size_chats = 200
@@ -168,12 +170,12 @@ if __name__ == "__main__":
                 group_title = target_group.title
                 parsing_xlsx(client, target_group, user_id, user_name, group_title)
                 os.system('cls||clear')
-                print('Пользователи чата спаршены, мой командир')
+                print('Участники групп выгружены в excel, мой командир')
                 time.sleep(3)
 
 
 
-# Выгрузка чата
+# Выгрузить сообщения чата в excel
         elif selection == '6':
             chats = []
             last_date = None    
@@ -223,13 +225,13 @@ if __name__ == "__main__":
                 parsing_messages(client, target_group, user_id, user_name, group_title)
                 #await parsing_messages(client, target_group, user_id, user_name, group_title)
                 os.system('cls||clear')
-                print('Сообщения чата спаршены, мой командир')
+                print('Сообщения чата выгружены в excel, мой командир')
                 time.sleep(3)
 
         
         
-# Инвайтинг 
-        elif selection == '4':
+# 3 Инвайтинг 
+        elif selection == '3':
             with open('usernames.txt', 'r') as f:
                 users = list(f)
 
@@ -266,8 +268,8 @@ if __name__ == "__main__":
                     print(error)
                     break
 
-# Получение списка контактов
-        elif selection == '5':
+# 4 Выгрузить список контактов в excel
+        elif selection == '4':
             sessions = []
             for file in os.listdir('.'):
                 if file.endswith('.session'):
@@ -283,11 +285,11 @@ if __name__ == "__main__":
             #asyncio.get_event_loop().run_until_complete(get_contacts(client))
             asyncio.get_event_loop().run_until_complete(get_contacts(client, sessions[session_index].replace('.session', '')))
             os.system('cls||clear')
-            print('Список контактов получен, мой командир')
+            print('Список контактов выгружен в excel, мой командир')
             time.sleep(3)
             
     
-# Отправка файлов
+# 7 Отправка файлов
         elif selection == '7':
         # Отправляем файлы боту
             for admin_chat_id in admin_chat_ids:
