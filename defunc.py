@@ -120,11 +120,6 @@ def inviting(client, channel, users):
 
 
 #парсим сообщения
-from openpyxl import Workbook
-from openpyxl import Workbook
-from openpyxl.utils import get_column_letter
-from telethon.tl.types import User, Chat
-
 def remove_timezone(dt):
     # Удаление информации о часовом поясе из объекта datetime
     if dt.tzinfo:
