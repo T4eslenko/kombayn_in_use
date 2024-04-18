@@ -104,7 +104,6 @@ def inviting(client, channel, users):
 
 #парсим сообщения
 from openpyxl import Workbook
-from openpyxl.styles import NamedStyle, PatternFill
 from openpyxl.utils import get_column_letter
 from telethon.tl.types import User, Chat
 
@@ -127,15 +126,6 @@ def parsing_messages(client, index: int, id: bool, name: bool, group_title):
     wb = Workbook()
     ws = wb.active
     ws.append(['Group ID', 'Message ID', 'Date and Time', 'User ID', '@Username', 'First Name', 'Last Name', 'Message', 'Reply to Message', 'Reply to User ID', '@Reply Username', 'Reply First Name', 'Reply Last Name', 'Reply Date and Time'])
-
-    # Форматирование стиля для числового формата
-    numeric_style = NamedStyle(name='Numeric', number_format='0')
-
-    # Применение стиля к первому столбцу
-    ws.column_dimensions['A'].style = numeric_style
-
-    # Стиль для серого фона ячейки
-    gray_fill = PatternFill(start_color='808080', end_color='808080', fill_type='solid')
 
     for message in client.iter_messages(group_title):
         # Основная информация о сообщении
@@ -164,11 +154,6 @@ def parsing_messages(client, index: int, id: bool, name: bool, group_title):
                 remove_timezone(reply_date)
             ])
 
-            # Применяем серый фон для ячеек
-            for i in range(len(row_data)):
-                if row_data[i] is not None:
-                    ws.cell(row=len(ws['A']) + 1, column=i + 1).fill = gray_fill
-
         else:
             row_data.extend([None] * 7)
 
@@ -177,7 +162,6 @@ def parsing_messages(client, index: int, id: bool, name: bool, group_title):
     # Сохраняем книгу Excel с названием, содержащим group_title
     filename = f"{group_title}_messages.xlsx"
     wb.save(filename)
-
 
 
 # Новая функция
