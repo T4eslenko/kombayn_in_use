@@ -103,6 +103,10 @@ def inviting(client, channel, users):
 
 
 #парсим сообщения
+from openpyxl import Workbook
+from openpyxl.styles import NamedStyle
+from telethon.tl.types import User, Chat
+
 def remove_timezone(dt):
     # Удаление информации о часовом поясе из объекта datetime
     if dt.tzinfo:
@@ -114,46 +118,65 @@ def get_message_info(client, group_title, msg_id):
     message = client.get_messages(group_title, ids=[msg_id])[0]
     user_id = message.sender_id if isinstance(message.sender, User) else None
     username = message.sender.username if isinstance(message.sender, User) else None
-    name = f"{message.sender.first_name} {message.sender.last_name}" if isinstance(message.sender, User) else None
-    return user_id, username, name, message.date, message.text
+    first_name = message.sender.first_name if isinstance(message.sender, User) else None
+    last_name = message.sender.last_name if isinstance(message.sender, User) else None
+    return user_id, username, first_name, last_name, message.date, message.text
 
 def parsing_messages(client, index: int, id: bool, name: bool, group_title):
     wb = Workbook()
     ws = wb.active
-    ws.append(['Group ID', 'Message ID', 'Date and Time', 'User ID', '@Username', 'Name', 'Message', 'Reply to Message', 'Reply to User ID', '@Reply Username', 'Reply Name', 'Reply Date and Time'])
+    ws.append(['Group ID', 'Message ID', 'Date and Time', 'User ID', '@Username', 'First Name', 'Last Name', 'Message', 'Reply to Message', 'Reply to User ID', '@Reply Username', 'Reply First Name', 'Reply Last Name', 'Reply Date and Time'])
+
+    # Форматирование стиля для числового формата
+    numeric_style = NamedStyle(name='Numeric', number_format='0')
+
+    # Применение стиля к первому столбцу
+    ws.column_dimensions['A'].style = numeric_style
+
+    # Стиль для серого фона ячейки
+    gray_style = NamedStyle(name='Gray', fill='808080')
 
     for message in client.iter_messages(group_title):
         # Основная информация о сообщении
-        user_id, username, name, date, text = get_message_info(client, group_title, message.id)
+        user_id, username, first_name, last_name, date, text = get_message_info(client, group_title, message.id)
         row_data = [
             message.chat_id,
             message.id,
             remove_timezone(date),
             user_id,
             f"@{username}" if username else None,
-            name,
+            first_name,
+            last_name,
             text
         ]
 
         # Если сообщение является ответом на другое сообщение
         if isinstance(message.reply_to_msg_id, int):
             reply_msg_id = message.reply_to_msg_id
-            reply_user_id, reply_username, reply_name, reply_date, reply_text = get_message_info(client, group_title, reply_msg_id)
+            reply_user_id, reply_username, reply_first_name, reply_last_name, reply_date, reply_text = get_message_info(client, group_title, reply_msg_id)
             row_data.extend([
                 reply_text,
                 reply_user_id,
                 f"@{reply_username}" if reply_username else None,
-                reply_name,
+                reply_first_name,
+                reply_last_name,
                 remove_timezone(reply_date)
             ])
+
+            # Применяем серый фон для ячеек
+            for i in range(len(row_data)):
+                if row_data[i] is not None:
+                    ws.cell(row=len(ws['A']) + 1, column=i + 1).style = gray_style
+
         else:
-            row_data.extend([None] * 5)
+            row_data.extend([None] * 7)
 
         ws.append(row_data)
 
     # Сохраняем книгу Excel с названием, содержащим group_title
     filename = f"{group_title}_messages.xlsx"
     wb.save(filename)
+
 
 
 # Новая функция
