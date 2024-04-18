@@ -262,7 +262,7 @@ def parsing(client, index: int, id: bool, name: bool):
                     f.write(str(user.id) + '\n')
 
 
-def config():
+def config(api_id, api_hash):
     while True:
         os.system('cls||clear')
 
