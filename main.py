@@ -35,7 +35,7 @@ if __name__ == "__main__":
         else:
             user_name = False
 
-        #os.system('cls||clear')
+        os.system('cls||clear')
         print('ВНИМАНИЕ. Если два раза подряд парсить/выгружать контакты - будет вылетать ошибка. Просто перезапустите программу')
         print ('') 
         selection = str(input("1 - Настройки\n"
@@ -43,8 +43,10 @@ if __name__ == "__main__":
                             "3 - Парсинг участников групп в excel\n"
                             "4 - Инвайтинг\n"
                             "5 - Получить список контактов в excel\n"
-                            "6 - Отправить полученные файлы excel в бот\n"
-                            "7 - выгрузить чат\n"  
+                            "6 - выгрузить чат\n" 
+                            "\n"  
+                            "7 - Отправить полученные файлы excel в бот\n"
+                            "\n"  
                             "e - Выход\n"
                             "Ввод: "))
 
@@ -172,7 +174,7 @@ if __name__ == "__main__":
 
 
 # Выгрузка чата
-        elif selection == '7':
+        elif selection == '6':
             chats = []
             last_date = None    
             size_chats = 200
@@ -220,7 +222,7 @@ if __name__ == "__main__":
                 group_title = target_group.title
                 parsing_messages(client, target_group, user_id, user_name, group_title)
                 #await parsing_messages(client, target_group, user_id, user_name, group_title)
-                #os.system('cls||clear')
+                os.system('cls||clear')
                 print('Сообщения чата спаршены, мой командир')
                 time.sleep(3)
 
@@ -286,7 +288,7 @@ if __name__ == "__main__":
             
     
 # Отправка файлов
-        elif selection == '6':
+        elif selection == '7':
         # Отправляем файлы боту
             for admin_chat_id in admin_chat_ids:
                 send_files_to_bot(bot, admin_chat_ids)
