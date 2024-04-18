@@ -336,12 +336,20 @@ def config():
                 time.sleep(2)
                 continue
 
-            print("Аккаунты:\n")
-            for i in sessions:
-                print(i)
+            print("Выберите аккаунт объекта или юзербота для парсинга участников групп в excel\n"
+                "(Аккаунт объекта, который состоит в группах, которые нужно спарсить)\n")
 
-            phone = str(input("Введите номер телефона аккаунта: "))
-            client = TelegramClient(phone, int(options[0].replace('\n', '')), 
+            sessions = []
+            for file in os.listdir('.'):
+                if file.endswith('.session'):
+                    sessions.append(file)
+
+            for i in range(len(sessions)):
+                print(f"[{i}] -", sessions[i], '\n')
+            i = int(input("Ввод: "))
+            
+            client = TelegramClient(sessions[i].replace('\n', ''), api_id, api_hash).start(sessions[i].replace('\n', ''))
+
                                         
         elif key == '6':
             os.system('cls||clear')
