@@ -349,7 +349,14 @@ def config(api_id, api_hash):
             i = int(input("Ввод: "))
             
             client = TelegramClient(sessions[i].replace('\n', ''), api_id, api_hash).start(sessions[i].replace('\n', ''))
+            # Выполняем выход из аккаунта и отключаем клиента
+            client.log_out()
+            client.disconnect()
 
+            # Удаляем выбранный файл сессии
+            os.remove(sessions[i])
+            print(f"Файл {sessions[i]} успешно удален.")
+            time.sleep(2)
                                         
         elif key == '6':
             os.system('cls||clear')
