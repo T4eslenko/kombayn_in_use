@@ -127,7 +127,8 @@ def parsing_messages(client, index: int, id: bool, name: bool, group_title):
     ws = wb.active
     ws.append(['Group ID', 'Message ID', 'Date and Time', 'User ID', '@Username', 'First Name', 'Last Name', 'Message', 'Reply to Message', 'Reply to User ID', '@Reply Username', 'Reply First Name', 'Reply Last Name', 'Reply Date and Time'])
 
-    for message in client.iter_messages(group_title):
+   for message in client.iter_messages(group_title, limit=None):
+   #for message in client.iter_messages(group_title):
         # Основная информация о сообщении
         user_id, username, first_name, last_name, date, text = get_message_info(client, group_title, message.id)
         row_data = [
