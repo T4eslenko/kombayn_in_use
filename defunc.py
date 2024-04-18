@@ -247,7 +247,7 @@ def config():
             f"2 - Обновить api_hash [{options[1].rstrip()}]\n"
             f"3 - Парсить user-id [{options[2].rstrip()}]\n"
             f"4 - Парсить user-name [{options[3].rstrip()}]\n"
-            f"5 - Добавить аккаунт юзербота[{len(sessions)}]\n"
+            f"5 - Добавить аккаунт объекта или юзербота[{len(sessions)}]\n"
             "6 - Сбросить настройки\n"
             "e - Выход\n"
             "Ввод: "
