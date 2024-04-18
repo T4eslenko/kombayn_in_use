@@ -103,9 +103,6 @@ def inviting(client, channel, users):
 
 
 #парсим сообщения
-dfrom openpyxl import Workbook
-from telethon.tl.types import User, Chat
-
 def remove_timezone(dt):
     # Удаление информации о часовом поясе из объекта datetime
     if dt.tzinfo:
