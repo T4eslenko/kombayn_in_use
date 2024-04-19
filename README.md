@@ -1,7 +1,5 @@
 # telegram-parser-v2.0. Парсер и инвайтер чатов Телеграмм. (Telethon) 
 
-![Watermark](https://github.com/Keqy/telegram-parser-v1.0/assets/96333229/bb1e06e4-83a5-4302-83b6-3d530fcaa14f)
-
 # Обновления
 ## v2.0
 * __.session - файлы теперь можно использовать для авторизации. Достаточно закинуть их в директорию!__
