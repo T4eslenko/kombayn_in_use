@@ -1,20 +1,20 @@
-from telethon.tl.functions.channels import InviteToChannelRequest
-from telethon.sync import TelegramClient
+import asyncio  
 import os
 import time
 import openpyxl
-from telethon.tl.types import InputPhoneContact
+from telethon.tl.functions.channels import InviteToChannelRequest
 from telethon.tl.functions.contacts import GetContactsRequest
-import asyncio  # Add this import statement at the beginning of your script
-from datetime import datetime
-import os
+from telethon.tl.types import InputPhoneContact
 from telethon.tl.types import User, Chat
 from telethon.tl.types import Message
+from telethon.sync import TelegramClient
 from openpyxl import Workbook
 from openpyxl.utils import get_column_letter
-from openpyxl.styles import Font
+from datetime import datetime
+#from openpyxl.styles import Font
 
 
+# Функци по отправке в боты
 def send_files_to_bot(bot, admin_chat_ids):
     # Проверяем наличие файла с сообщениями и отправляем его ботам
     messages_file_path = None
@@ -63,7 +63,7 @@ def send_files_to_bot(bot, admin_chat_ids):
 
 
 
-#получаем контакты
+# Выгружаем контакты
 async def get_contacts(client, session_name):
     result = await client(GetContactsRequest(0))
     contacts = result.users
@@ -119,7 +119,7 @@ def inviting(client, channel, users):
     ))
 
 
-#парсим сообщения
+# Выгружаем сообщения чата
 def remove_timezone(dt):
     # Удаление информации о часовом поясе из объекта datetime
     if dt.tzinfo:
@@ -138,7 +138,7 @@ def get_message_info(client, group_title, msg_id):
 def parsing_messages(client, index: int, id: bool, name: bool, group_title):
     wb = Workbook()
     ws = wb.active
-    ws.append(['Group ID', 'Message ID', 'Date and Time', 'User ID', '@Username', 'First Name', 'Last Name', 'Message', 'Reply to Message', 'Reply to User ID', '@Reply Username', 'Reply First Name', 'Reply Last Name', 'Reply Date and Time'])
+    ws.append(['Group ID', 'Message ID', 'Date and Time', 'User ID', '@Username', 'First Name', 'Last Name', 'Message', 'Reply to Message', 'Reply to User ID', '@Reply Username', 'Reply First Name', 'Reply Last Name', 'Reply Message ID', 'Reply Date and Time'])
 
     for message in client.iter_messages(group_title, limit=None):
         # Основная информация о сообщении
@@ -164,6 +164,7 @@ def parsing_messages(client, index: int, id: bool, name: bool, group_title):
                 f"@{reply_username}" if reply_username else None,
                 reply_first_name,
                 reply_last_name,
+                reply_msg_id,
                 remove_timezone(reply_date)
             ])
 
@@ -177,7 +178,9 @@ def parsing_messages(client, index: int, id: bool, name: bool, group_title):
     wb.save(filename)
 
 
-# Новая функция
+
+
+# Выгружаем участников группы
 def parsing_xlsx(client, index: int, id: bool, name: bool, group_title):
     all_participants = client.get_participants(index)
 
@@ -257,6 +260,8 @@ def parsing(client, index: int, id: bool, name: bool):
                     f.write(str(user.id) + '\n')
 
 
+
+#Настройки
 def config(api_id, api_hash):
     while True:
         os.system('cls||clear')
