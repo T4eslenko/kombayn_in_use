@@ -144,7 +144,7 @@ def parsing_messages(client, index: int, id: bool, name: bool, group_title):
         # Основная информация о сообщении
         user_id, username, first_name, last_name, date, text = get_message_info(client, group_title, message.id)
         row_data = [
-            group_id,
+            message.chat_id,
             message.id,
             remove_timezone(date),
             user_id,
