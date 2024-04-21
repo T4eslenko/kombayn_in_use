@@ -160,6 +160,7 @@ if __name__ == "__main__":
            
 # 5 Выгрузить участников групп в excel
         elif selection == '5':
+            os.system('cls||clear')
             chats = []
             last_date = None    
             size_chats = 200
@@ -200,13 +201,13 @@ if __name__ == "__main__":
                 for g in groups:
                     print(str(i) + ' - ' + g.title)
                     i+=1
-                g_index = str(input("Ввод: "))
+                g_index_str = str(input("Ввод: "))
                
-                if g_index.lower() == 'e':
+                if g_index_str.lower() == 'e':
                     break
                 else:
                     try:
-                        g_index = int(g_index)
+                        g_index = int(g_index_str)
                         if 0 <= g_index < i:
                             target_group = groups[int(g_index)]
                             group_title = target_group.title
