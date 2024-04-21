@@ -379,6 +379,7 @@ def config(api_id, api_hash):
                     time.sleep(2)
                 except (ValueError, IndexError):
                     print("Неверный ввод. Пожалуйста, выберите существующий аккаунт или введите 'e' для возврата назад.")
+                    time.sleep(2)
 
 # Сброс настроеек
         elif key == '8':
