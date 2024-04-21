@@ -193,15 +193,15 @@ if __name__ == "__main__":
                             chats.extend(result.chats)
                             for chat in chats:
                                 try:
+                                    print("Processing chat:", chat)
                                     if isinstance(chat, Chat):
                                         groups.append(chat)
                                     elif isinstance(chat, Channel) and chat.megagroup:
                                         groups.append(chat)
                                         #print(chat.stringify())
-                                        #input("Для продолжения нажмите любую клавишу...")
                                 except Exception as e:
                                     print(f"Error: {e}")
-
+                            input("Для продолжения нажмите любую клавишу...")
                             while True:
                                 os.system('cls||clear')
                                 i = 0
