@@ -288,8 +288,8 @@ def config(api_id, api_hash):
             f"4 - Парсить user-name [{options[3].rstrip()}]\n"
             " \n"
             f"5 - Вывести список подключенных аккаунтов. Сейчас: [{len(sessions)}]\n"
-            f"6 - Добавить аккаунт объекта или юзербота. Сейчас: [{len(sessions)}]\n"
-            f"7 - Выйти с аккаунта объекта или юзерботаю Сейчас: [{len(sessions)}]\n"
+            f"6 - Добавить новый аккаунт. Сейчас: [{len(sessions)}]\n"
+            f"7 - Завершить сеанс аккаунта в системе. Сейчас: [{len(sessions)}]\n"
             " \n"
             "8 - Сбросить настройки\n"
             " \n"
@@ -343,7 +343,7 @@ def config(api_id, api_hash):
 
             while True:
                 os.system('cls||clear')
-                print("=Добавляем аккаунт=\n")
+                print("=Добавляем аккаунт в систему=\n")
                 print("Имеющиеся подключенные аккаунты:\n")
                 for i in sessions:
                     print(i)
