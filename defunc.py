@@ -351,35 +351,42 @@ def config(api_id, api_hash):
                 client = TelegramClient(phone, int(options[0].replace('\n', '')), 
                                     options[1].replace('\n', '')).start(phone)
       
-# Выход из аккаунт
-        elif key == '7':
-            os.system('cls||clear')
-            if options[0] == "NONEID\n" or options[1] == "NONEHASH":
-                print("Проверьте api_id и api_hash")
-                time.sleep(2)
-                continue
+elif key == '7':
+    os.system('cls||clear')
+    if options[0] == "NONEID\n" or options[1] == "NONEHASH":
+        print("Проверьте api_id и api_hash")
+        time.sleep(2)
+        continue
 
-            sessions = []
-            for file in os.listdir('.'):
-                if file.endswith('.session'):
-                    sessions.append(file)
+    sessions = []
+    for file in os.listdir('.'):
+        if file.endswith('.session'):
+            sessions.append(file)
 
-            for i in range(len(sessions)):
-                print(f"[{i}] -", sessions[i],)
-            kill = input("Выберите аккаунт для выхода (e - назад): ")
-            if kill.lower() == 'e':
-                pass
-            else:
-                try:
-                    i = int(kill)
+    while True:
+        for i in range(len(sessions)):
+            print(f"[{i}] -", sessions[i])
+        print()
+        kill = input("Выберите аккаунт для выхода (e - назад): ")
+        if kill.lower() == 'e':
+            break
+        else:
+            try:
+                i = int(kill)
+                if 0 <= i < len(sessions):
                     client = TelegramClient(sessions[i].replace('\n', ''), api_id, api_hash).start(sessions[i].replace('\n', ''))
                     client.log_out()
                     client.disconnect()
                     print(f"Аккаунт {sessions[i]} успешно отключен.")
                     time.sleep(2)
-                except (ValueError, IndexError):
-                    print("Неверный ввод. Пожалуйста, выберите существующий аккаунт или введите 'e' для возврата назад.")
+                    break
+                else:
+                    print("Неверный номер аккаунта. Пожалуйста, выберите существующий аккаунт или введите 'e' для возврата назад.")
                     time.sleep(2)
+            except ValueError:
+                print("Неверный ввод. Пожалуйста, выберите существующий аккаунт или введите 'e' для возврата назад.")
+                time.sleep(2)
+
 
 # Сброс настроеек
         elif key == '8':
