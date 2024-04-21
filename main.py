@@ -198,9 +198,7 @@ if __name__ == "__main__":
                                 try:
                                     #if chat.megagroup is True:
                                         #groups.append(chat)  
-                                    if chat.channel_id is None:
-                                        groups.append(chat)
-                                    elif chat.megagroup is None:
+                                    if not str(chat.id).startswith('-'):
                                         groups.append(chat)
                                 except:
                                     continue
