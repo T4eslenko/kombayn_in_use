@@ -193,10 +193,12 @@ if __name__ == "__main__":
                             chats.extend(result.chats)
                             for chat in chats:
                                 try:
-                                    if getattr(chat, 'megagroup', False) or not getattr(chat, 'channel', False):
+                                    if isinstance(chat, Chat):
                                         groups.append(chat)
-                                        print(chat.stringify())
-                                        input("Для продолжения нажмите любую клавишу...")
+                                    elif isinstance(chat, Channel) and chat.megagroup:
+                                        groups.append(chat)
+                                        #print(chat.stringify())
+                                        #input("Для продолжения нажмите любую клавишу...")
                                 except Exception as e:
                                     print(f"Error: {e}")
 
