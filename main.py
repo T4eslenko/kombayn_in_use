@@ -193,10 +193,9 @@ if __name__ == "__main__":
                             chats.extend(result.chats)
                             for chat in chats:
                                 try:
-                                    if chat.megagroup is True:
-                                        groups.append(chat)         
-                                except:
-                                    continue
+                                    groups.append(chat)
+                                except Exception as e:
+                                    print(f"Error: {e}")
 
                             while True:
                                 os.system('cls||clear')
