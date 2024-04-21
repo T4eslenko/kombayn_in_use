@@ -195,10 +195,8 @@ if __name__ == "__main__":
                             for chat in chats:
                                 try:
                                     for chat in chats:
-                                        if isinstance(chat, Chat):
-                                            groups.append(chat)
-                                        elif isinstance(chat, Channel) and chat.megagroup:
-                                            groups.append(chat)
+                                        if chat.megagroup or (not isinstance(chat, Channel) and not chat.channel) or chat.is_group:
+                                        groups.append(chat)
                                 except Exception as e:
                                     print(f"Error: {e}")
                             input("Для продолжения нажмите любую клавишу...")
