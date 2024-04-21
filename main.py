@@ -195,7 +195,7 @@ if __name__ == "__main__":
                             for chat in chats:
                                 try:
                                     for chat in chats:
-                                        if chat.channel_id is None and chat.megagroup is None:
+                                        if chat.megagroup is True:
                                             groups.append(chat)
                                 except Exception as e:
                                     print(f"Error: {e}")
