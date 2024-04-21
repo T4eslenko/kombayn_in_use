@@ -343,11 +343,12 @@ def config(api_id, api_hash):
 
             while True:
                 os.system('cls||clear')
-                print("Подключенные аккаунты:\n")
+                print("=Добавляем аккаунт=\n")
+                print("Имеющиеся подключенные аккаунты:\n")
                 for i in sessions:
                     print(i)
                 print()
-                phone = input("Введите номер телефона аккаунта (e - назад): ")
+                phone = input("Введите номер телефона нового аккаунта (e - назад): ")
                 if phone.lower() == 'e':
                     break
                 if phone.startswith('+'):
@@ -361,6 +362,7 @@ def config(api_id, api_hash):
                     break
                 else:
                     print("Некорректный номер телефона. Пожалуйста, введите номер еще раз")
+                    time.sleep(2)
 
  #Удалить аккаунт     
         elif key == '7':
