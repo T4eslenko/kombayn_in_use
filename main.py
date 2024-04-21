@@ -170,10 +170,11 @@ if __name__ == "__main__":
             sessions = [file for file in os.listdir('.') if file.endswith('.session')]
 
             for i in range(len(sessions)):
-                print(f"[{i}] - {sessions[i]}\n")
+                print(f"[{i}] - {sessions[i]}")
             print()
 
             while True:
+                os.system('cls||clear')
                 user_input = input("Ввод: ")
                 if user_input.lower() == 'e':
                     break
