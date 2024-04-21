@@ -201,7 +201,7 @@ if __name__ == "__main__":
                                 except:
                                     continue
                             
-                            input("Нажмите клавишу")
+                            #input("Нажмите клавишу")
                             while True:
                                 os.system('cls||clear')
                                 i = 0
