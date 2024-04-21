@@ -193,7 +193,7 @@ if __name__ == "__main__":
                             chats.extend(result.chats)
                             for chat in chats:
                                 try:
-                                    if chat.megagroup or (not chat.megagroup and not chat.channel):
+                                    if getattr(chat, 'megagroup', False) or (not getattr(chat, 'megagroup', False) and not getattr(chat, 'channel', False)):
                                         groups.append(chat)
                                 except Exception as e:
                                     print(f"Error: {e}")
