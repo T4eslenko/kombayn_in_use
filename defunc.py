@@ -364,6 +364,7 @@ def config(api_id, api_hash):
                     sessions.append(file)
 
             while True:
+                os.system('cls||clear')
                 for i in range(len(sessions)):
                     print(f"[{i}] -", sessions[i])
                 print()
@@ -377,13 +378,16 @@ def config(api_id, api_hash):
                             client = TelegramClient(sessions[i].replace('\n', ''), api_id, api_hash).start(sessions[i].replace('\n', ''))
                             client.log_out()
                             client.disconnect()
+                            os.system('cls||clear')
                             print(f"Аккаунт {sessions[i]} успешно отключен.")
-                            time.sleep(2)
+                            time.sleep(3)
                             break
                         else:
+                            os.system('cls||clear')
                             print("Неверный номер аккаунта. Пожалуйста, выберите существующий аккаунт или введите 'e' для возврата назад.")
                             time.sleep(2)
                     except ValueError:
+                        os.system('cls||clear')
                         print("Неверный ввод. Пожалуйста, выберите существующий аккаунт или введите 'e' для возврата назад.")
                         time.sleep(2)
 
