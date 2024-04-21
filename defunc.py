@@ -287,11 +287,10 @@ def config(api_id, api_hash):
             f"3 - Парсить user-id [{options[2].rstrip()}]\n"
             f"4 - Парсить user-name [{options[3].rstrip()}]\n"
             " \n"
-            f"5 - Добавить аккаунт объекта или юзербота[{len(sessions)}]\n"
-            " \n"
-            "6 - Сбросить настройки\n"
-            " \n"
+            f"5 - Вывести список подключенных аккаунтов[{len(sessions)}]\n"
+            f"6 - Добавить аккаунт объекта или юзербота[{len(sessions)}]\n"
             f"7 - Выйти с аккаунта объекта или юзербота[{len(sessions)}]\n"
+            "8 - Сбросить настройки\n"
             " \n"
             "e - Выход\n"
             "Ввод: "
@@ -318,8 +317,21 @@ def config(api_id, api_hash):
                 options[3] = 'False\n'
             else:
                 options[3] = 'True\n'
-        
+
+# Просмотреть подключенные аккаунты
         elif key == '5':
+            os.system('cls||clear')
+            #if options[0] == "NONEID\n" or options[1] == "NONEHASH":
+            #    print("Проверьте api_id и api_hash")
+            #    time.sleep(2)
+            #    continue
+
+            print("Аккаунты:\n")
+            for i in sessions:
+                print(i)
+        
+#Добавить аккаунт
+        elif key == '6':
             os.system('cls||clear')
             if options[0] == "NONEID\n" or options[1] == "NONEHASH":
                 print("Проверьте api_id и api_hash")
@@ -333,15 +345,14 @@ def config(api_id, api_hash):
             phone = str(input("Введите номер телефона аккаунта: "))
             client = TelegramClient(phone, int(options[0].replace('\n', '')), 
                                     options[1].replace('\n', '')).start(phone)
+      
+# Выход из аккаунт
         elif key == '7':
             os.system('cls||clear')
             if options[0] == "NONEID\n" or options[1] == "NONEHASH":
                 print("Проверьте api_id и api_hash")
                 time.sleep(2)
                 continue
-
-            print("Выберите аккаунт объекта или юзербота для парсинга участников групп в excel\n"
-                "(Аккаунт объекта, который состоит в группах, которые нужно спарсить)\n")
 
             sessions = []
             for file in os.listdir('.'):
@@ -353,16 +364,13 @@ def config(api_id, api_hash):
             i = int(input("Ввод: "))
             
             client = TelegramClient(sessions[i].replace('\n', ''), api_id, api_hash).start(sessions[i].replace('\n', ''))
-            # Выполняем выход из аккаунта и отключаем клиента
             client.log_out()
             client.disconnect()
-
-            # Удаляем выбранный файл сессии
-            #os.remove(sessions[i])
-            print(f"Файл {sessions[i]} успешно удален.")
+            print(f"Аккаунт {sessions[i]} успешно отключен.")
             time.sleep(2)
-                                        
-        elif key == '6':
+
+# Сброс настроеек
+        elif key == '8':
             os.system('cls||clear')
             answer = input("Вы уверены?\nAPI_ID и API_HASH будут удалены\n"
                            "1 - Удалить\n2 - Назад\n"
