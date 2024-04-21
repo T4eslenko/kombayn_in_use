@@ -354,10 +354,12 @@ def config(api_id, api_hash):
                 if phone.isdigit() and len(phone) >= 9:
                     client = TelegramClient(phone, int(options[0].replace('\n', '')), 
                                         options[1].replace('\n', '')).start(phone)
+                    print("Аккаунт {phone} успешно добавлен")
+                    time.sleep(2)
                     break
                 else:
                     os.system('cls||clear')
-                    print("Некорректный номер телефона. Пожалуйста, введите номер еще раз.")
+                    print("Некорректный номер телефона. Пожалуйста, введите номер еще раз")
 
  #Удалить аккаунт     
         elif key == '7':
@@ -388,16 +390,16 @@ def config(api_id, api_hash):
                             client.log_out()
                             client.disconnect()
                             os.system('cls||clear')
-                            print(f"Аккаунт {sessions[i]} успешно отключен.")
+                            print(f"Аккаунт {sessions[i]} успешно отключен")
                             time.sleep(3)
                             break
                         else:
                             os.system('cls||clear')
-                            print("Неверный номер аккаунта. Пожалуйста, выберите существующий аккаунт или введите 'e' для возврата назад.")
+                            print("Неверный номер аккаунта. Пожалуйста, выберите существующий аккаунт или введите 'e' для возврата назад")
                             time.sleep(2)
                     except ValueError:
                         os.system('cls||clear')
-                        print("Неверный ввод. Пожалуйста, выберите существующий аккаунт или введите 'e' для возврата назад.")
+                        print("Неверный ввод. Пожалуйста, выберите существующий аккаунт или введите 'e' для возврата назад")
                         time.sleep(2)
 
 
