@@ -343,12 +343,13 @@ def config(api_id, api_hash):
             print("Аккаунты:\n")
             for i in sessions:
                 print(i)
-                print('e - назад')
+            print('e - назад')
 
             phone = str(input("Введите номер телефона аккаунта: "))
             if phone.lower() == 'e':
-                break
-            client = TelegramClient(phone, int(options[0].replace('\n', '')), 
+                pass
+            else:
+                client = TelegramClient(phone, int(options[0].replace('\n', '')), 
                                     options[1].replace('\n', '')).start(phone)
       
 # Выход из аккаунт
