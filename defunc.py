@@ -359,7 +359,7 @@ def config(api_id, api_hash):
                     time.sleep(2)
                     break
                 else:
-                    os.system('cls||clear')
+                    #os.system('cls||clear')
                     print("Некорректный номер телефона. Пожалуйста, введите номер еще раз")
 
  #Удалить аккаунт     
@@ -395,11 +395,11 @@ def config(api_id, api_hash):
                             time.sleep(3)
                             break
                         else:
-                            os.system('cls||clear')
+                            #os.system('cls||clear')
                             print("Неверный номер аккаунта. Пожалуйста, выберите существующий аккаунт или введите 'e' для возврата назад")
                             time.sleep(2)
                     except ValueError:
-                        os.system('cls||clear')
+                        #os.system('cls||clear')
                         print("Неверный ввод. Пожалуйста, выберите существующий аккаунт или введите 'e' для возврата назад")
                         time.sleep(2)
 
