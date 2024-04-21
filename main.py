@@ -178,6 +178,8 @@ if __name__ == "__main__":
                 
                 user_input = input("Ввод: ")
                 if user_input.lower() == 'e':
+                    groups = []
+                    chats = []
                     break
                 else:
                     try:
@@ -213,7 +215,7 @@ if __name__ == "__main__":
                                 if g_index_str.lower() == 'e':
                                     groups = []
                                     chats = []
-                                    return
+                                    break
                                 else:
                                     try:
                                         g_index = int(g_index_str)
