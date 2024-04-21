@@ -354,7 +354,8 @@ def config(api_id, api_hash):
                 if phone.isdigit() and len(phone) >= 9:
                     client = TelegramClient(phone, int(options[0].replace('\n', '')), 
                                         options[1].replace('\n', '')).start(phone)
-                    print("Аккаунт {phone} успешно добавлен")
+                    os.system('cls||clear')
+                    print("Аккаунт (" + phone + ") успешно добавлен")
                     time.sleep(2)
                     break
                 else:
