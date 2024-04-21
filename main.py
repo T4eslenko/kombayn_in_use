@@ -196,13 +196,8 @@ if __name__ == "__main__":
 
                             for chat in chats:
                                 try:
-                                    if chat.gigagroup:
-                                        groups.append(chat)
-                                    if not isinstance(chat, Channel):
-                                        groups.append(chat)
                                     if chat.megagroup:
                                         groups.append(chat)
-
                                 except:
                                     continue
                             
