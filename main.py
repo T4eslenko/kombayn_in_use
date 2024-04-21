@@ -132,11 +132,10 @@ if __name__ == "__main__":
             for file in os.listdir('.'):
                 if file.endswith('.session'):
                         sessions.append(file)
-
-            print("Выберите аккаунт объекта для получения списка его контактов (e - для выхода)\n")
-            for i, session in enumerate(sessions):
-                print(f"[{i}] - {session}")
             while True:
+                print("Выберите аккаунт объекта для получения списка его контактов (e - для выхода)\n")
+                for i, session in enumerate(sessions):
+                    print(f"[{i}] - {session}")
                 print()
                 user_input = input("Ввод: ")
                 if user_input.lower() == 'e':
@@ -152,11 +151,9 @@ if __name__ == "__main__":
                             time.sleep(3)
                             break
                         else:
-                            #os.system('cls||clear')
                             print("Пожалуйста, выберите существующий аккаунт в диапазоне от 0 до", len(sessions)-1)
                             time.sleep(3)
                     except ValueError:
-                        #os.system('cls||clear')
                         print("Пожалуйста, выберите существующий аккаунт в диапазоне от 0 до", len(sessions)-1)
                         time.sleep(3)
            
