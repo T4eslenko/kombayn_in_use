@@ -369,8 +369,7 @@ def config(api_id, api_hash):
             i = int(input("Выберите аккаунт для выхода (e - назад): "))
             
             if i.lower() == 'e':
-                pass
-           
+                break
             else:
                 client = TelegramClient(sessions[i].replace('\n', ''), api_id, api_hash).start(sessions[i].replace('\n', ''))
                 client.log_out()
