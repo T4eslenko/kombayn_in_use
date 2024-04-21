@@ -159,75 +159,75 @@ if __name__ == "__main__":
                         time.sleep(2)
            
 # 5 Выгрузить участников групп в excel
-		elif selection == '5':
-			os.system('cls||clear')
-			chats = []
-			last_date = None    
-			size_chats = 200
-			groups = []         
+        elif selection == '5':
+        os.system('cls||clear')
+        chats = []
+        last_date = None    
+        size_chats = 200
+        groups = []         
 
-			print("Выберите существующий аккаунт для выгрузки участников выбранной группы в формате excel (e - назад)\n")
-			sessions = [file for file in os.listdir('.') if file.endswith('.session')]
+        print("Выберите существующий аккаунт для выгрузки участников выбранной группы в формате excel (e - назад)\n")
+        sessions = [file for file in os.listdir('.') if file.endswith('.session')]
 
-			for i in range(len(sessions)):
-				print(f"[{i}] - {sessions[i]}\n")
-			print()
+        for i in range(len(sessions)):
+            print(f"[{i}] - {sessions[i]}\n")
+        print()
 
-			while True:
-				user_input = input("Ввод: ")
-				if user_input.lower() == 'e':
-					break
-				else:
-					try:
-						i = int(user_input)
-						if 0 <= i < len(sessions):
-							client = TelegramClient(sessions[i].replace('\n', ''), api_id, api_hash).start(sessions[i].replace('\n', ''))
-							result = client(GetDialogsRequest(
-								offset_date=last_date,
-								offset_id=0,
-								offset_peer=InputPeerEmpty(),
-								limit=size_chats,
-								hash=0
-							))
-							chats.extend(result.chats)
-							for chat in chats:
-								try:
-									if chat.megagroup is True:
-										groups.append(chat)         
-								except:
-									continue
+        while True:
+            user_input = input("Ввод: ")
+            if user_input.lower() == 'e':
+                break
+            else:
+                try:
+                    i = int(user_input)
+                    if 0 <= i < len(sessions):
+                        client = TelegramClient(sessions[i].replace('\n', ''), api_id, api_hash).start(sessions[i].replace('\n', ''))
+                        result = client(GetDialogsRequest(
+                            offset_date=last_date,
+                            offset_id=0,
+                            offset_peer=InputPeerEmpty(),
+                            limit=size_chats,
+                            hash=0
+                        ))
+                        chats.extend(result.chats)
+                        for chat in chats:
+                            try:
+                                if chat.megagroup is True:
+                                    groups.append(chat)         
+                            except:
+                                continue
 
-							while True:
-								os.system('cls||clear')
-								i = 0
-								print('-----------------------------')
-								for g in groups:
-									print(str(i) + ' - ' + g.title)
-									i+=1
-								g_index_str = str(input("Ввод: "))
-							   
-								if g_index_str.lower() == 'e':
-									break
-								else:
-									try:
-										g_index = int(g_index_str)
-										if 0 <= g_index < i:
-											target_group = groups[int(g_index)]
-											group_title = target_group.title
-											parsing_xlsx(client, target_group, user_id, user_name, group_title)
-											os.system('cls||clear')
-											print('Участники групп выгружены в excel, мой командир')
-											time.sleep(3)
-											break
-										else:
-											print("Пожалуйста, выберите группу из списка")
-									except ValueError:
-										print("Пожалуйста, выберите группу из списка")
-										time.sleep(2)
-						else:
-							print("Пожалуйста, выберите существующий аккаунт в диапазоне от 0 до", len(sessions)-1)
-					except ValueError:
-						print("Пожалуйста, выберите существующий аккаунт в диапазоне от 0 до", len(sessions)-1)
+                        while True:
+                            os.system('cls||clear')
+                            i = 0
+                            print('-----------------------------')
+                            for g in groups:
+                                print(str(i) + ' - ' + g.title)
+                                i+=1
+                            g_index_str = str(input("Ввод: "))
+                       
+                            if g_index_str.lower() == 'e':
+                                break
+                            else:
+                                try:
+                                    g_index = int(g_index_str)
+                                    if 0 <= g_index < i:
+                                        target_group = groups[int(g_index)]
+                                        group_title = target_group.title
+                                        parsing_xlsx(client, target_group, user_id, user_name, group_title)
+                                        os.system('cls||clear')
+                                        print('Участники групп выгружены в excel, мой командир')
+                                        time.sleep(3)
+                                        break
+                                    else:
+                                        print("Пожалуйста, выберите группу из списка")
+                                except ValueError:
+                                    print("Пожалуйста, выберите группу из списка")
+                                    time.sleep(2)
+                    else:
+                        print("Пожалуйста, выберите существующий аккаунт в диапазоне от 0 до", len(sessions)-1)
+                except ValueError:
+                    print("Пожалуйста, выберите существующий аккаунт в диапазоне от 0 до", len(sessions)-1)
 
 
 
