@@ -133,6 +133,7 @@ if __name__ == "__main__":
                 if file.endswith('.session'):
                         sessions.append(file)
             while True:
+                os.system('cls||clear')
                 print("Выберите аккаунт объекта для получения списка его контактов (e - для выхода)\n")
                 for i, session in enumerate(sessions):
                     print(f"[{i}] - {session}")
