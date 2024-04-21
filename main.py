@@ -127,6 +127,7 @@ if __name__ == "__main__":
 
 # 4 Выгрузить список контактов в excel
         elif selection == '4':
+            os.system('cls||clear')
             sessions = []
             for file in os.listdir('.'):
                 if file.endswith('.session'):
@@ -136,6 +137,7 @@ if __name__ == "__main__":
             for i, session in enumerate(sessions):
                 print(f"[{i}] - {session}")
             while True:
+                print()
                 user_input = input("Ввод: ")
                 if user_input.lower() == 'e':
                     break
@@ -150,11 +152,11 @@ if __name__ == "__main__":
                             time.sleep(3)
                             break
                         else:
-                            os.system('cls||clear')
+                            #os.system('cls||clear')
                             print("Пожалуйста, выберите существующий аккаунт в диапазоне от 0 до", len(sessions)-1)
                             time.sleep(3)
                     except ValueError:
-                        os.system('cls||clear')
+                        #os.system('cls||clear')
                         print("Пожалуйста, выберите существующий аккаунт в диапазоне от 0 до", len(sessions)-1)
                         time.sleep(3)
            
