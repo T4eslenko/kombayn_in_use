@@ -200,6 +200,7 @@ if __name__ == "__main__":
                                 except Exception as e:
                                     print(f"Error: {e}")
                             
+                            imput("Нажмите клавишу")
                             while True:
                                 os.system('cls||clear')
                                 i = 0
