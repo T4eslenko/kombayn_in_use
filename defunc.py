@@ -334,31 +334,31 @@ def config(api_id, api_hash):
             input("Для продолжения нажмите любую клавишу...")
 
 #Добавить аккаунт
-elif key == '6':
-    os.system('cls||clear')
-    if options[0] == "NONEID\n" or options[1] == "NONEHASH":
-        print("Проверьте api_id и api_hash")
-        time.sleep(2)
-        continue
+        elif key == '6':
+            os.system('cls||clear')
+            if options[0] == "NONEID\n" or options[1] == "NONEHASH":
+                print("Проверьте api_id и api_hash")
+                time.sleep(2)
+                continue
 
-    print("Подключенные аккаунты:\n")
-    for i in sessions:
-        print(i)
-    print()
-    while True:
-        phone = input("Введите номер телефона аккаунта (e - назад): ")
-        if phone.lower() == 'e':
-            break
-        if phone.startswith('+'):
-            phone = phone[1:]  # Удаляем плюс, чтобы оставить только цифры
-        if phone.isdigit() and len(phone) >= 9:
-            client = TelegramClient(phone, int(options[0].replace('\n', '')), 
-                                options[1].replace('\n', '')).start(phone)
-            break
-        else:
-            print("Некорректный номер телефона. Пожалуйста, введите номер еще раз.")
+            print("Подключенные аккаунты:\n")
+            for i in sessions:
+                print(i)
+            print()
+            while True:
+                phone = input("Введите номер телефона аккаунта (e - назад): ")
+                if phone.lower() == 'e':
+                    break
+                if phone.startswith('+'):
+                    phone = phone[1:]  # Удаляем плюс, чтобы оставить только цифры
+                if phone.isdigit() and len(phone) >= 9:
+                    client = TelegramClient(phone, int(options[0].replace('\n', '')), 
+                                        options[1].replace('\n', '')).start(phone)
+                    break
+                else:
+                    print("Некорректный номер телефона. Пожалуйста, введите номер еще раз.")
 
-      
+ #Удалить аккаунт     
         elif key == '7':
             os.system('cls||clear')
             if options[0] == "NONEID\n" or options[1] == "NONEHASH":
