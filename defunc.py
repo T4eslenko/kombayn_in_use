@@ -377,6 +377,8 @@ def config(api_id, api_hash):
                     client.disconnect()
                     print(f"Аккаунт {sessions[i]} успешно отключен.")
                     time.sleep(2)
+                except (ValueError, IndexError):
+                    print("Неверный ввод. Пожалуйста, выберите существующий аккаунт или введите 'e' для возврата назад.")
 
 # Сброс настроеек
         elif key == '8':
