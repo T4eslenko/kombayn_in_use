@@ -195,7 +195,7 @@ if __name__ == "__main__":
                             for chat in chats:
                                 try:
                                     for chat in chats:
-                                        if chat.megagroup or (not isinstance(chat, Channel) and not chat.channel) or chat.is_group:
+                                        if hasattr(chat, 'Chat'):
                                             groups.append(chat)
                                 except Exception as e:
                                     print(f"Error: {e}")
