@@ -196,8 +196,10 @@ if __name__ == "__main__":
 
                             for chat in chats:
                                 try:
-                                    if chat.megagroup is True:
-                                        groups.append(chat)         
+                                    #if chat.megagroup is True:
+                                        #groups.append(chat)  
+                                    if chat.channel_id is None and chat.megagroup is None:
+                                        groups.append(chat)
                                 except:
                                     continue
                             
