@@ -342,6 +342,7 @@ def config(api_id, api_hash):
                 continue
 
             while True:
+                os.system('cls||clear')
                 print("Подключенные аккаунты:\n")
                 for i in sessions:
                     print(i)
