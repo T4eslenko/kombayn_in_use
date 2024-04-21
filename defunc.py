@@ -341,12 +341,11 @@ def config(api_id, api_hash):
                 time.sleep(2)
                 continue
 
-            print("Подключенные аккаунты:\n")
-            for i in sessions:
-                print(i)
-            print()
             while True:
-                os.system('cls||clear')
+                print("Подключенные аккаунты:\n")
+                for i in sessions:
+                    print(i)
+                print()
                 phone = input("Введите номер телефона аккаунта (e - назад): ")
                 if phone.lower() == 'e':
                     break
@@ -360,7 +359,6 @@ def config(api_id, api_hash):
                     time.sleep(2)
                     break
                 else:
-                    #os.system('cls||clear')
                     print("Некорректный номер телефона. Пожалуйста, введите номер еще раз")
 
  #Удалить аккаунт     
