@@ -372,11 +372,11 @@ def config(api_id, api_hash):
                 pass
            
             else:
-            client = TelegramClient(sessions[i].replace('\n', ''), api_id, api_hash).start(sessions[i].replace('\n', ''))
-            client.log_out()
-            client.disconnect()
-            print(f"Аккаунт {sessions[i]} успешно отключен.")
-            time.sleep(2)
+                client = TelegramClient(sessions[i].replace('\n', ''), api_id, api_hash).start(sessions[i].replace('\n', ''))
+                client.log_out()
+                client.disconnect()
+                print(f"Аккаунт {sessions[i]} успешно отключен.")
+                time.sleep(2)
 
 # Сброс настроеек
         elif key == '8':
