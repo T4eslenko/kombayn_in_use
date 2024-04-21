@@ -356,6 +356,7 @@ def config(api_id, api_hash):
                                         options[1].replace('\n', '')).start(phone)
                     break
                 else:
+                    os.system('cls||clear')
                     print("Некорректный номер телефона. Пожалуйста, введите номер еще раз.")
 
  #Удалить аккаунт     
