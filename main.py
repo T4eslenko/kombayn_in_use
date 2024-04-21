@@ -201,6 +201,8 @@ if __name__ == "__main__":
                                     continue
                             
                             input("Нажмите клавишу")
+                            groups = []
+                            chats = []
                             while True:
                                 os.system('cls||clear')
                                 i = 0
@@ -211,7 +213,6 @@ if __name__ == "__main__":
                                 g_index_str = str(input("Ввод: "))
                        
                                 if g_index_str.lower() == 'e':
-                                    g = None
                                     break
                                 else:
                                     try:
