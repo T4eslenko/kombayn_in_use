@@ -367,7 +367,7 @@ def config(api_id, api_hash):
             for i in range(len(sessions)):
                 print(f"[{i}] -", sessions[i], '\n')
             kill = input("Выберите аккаунт для выхода (e - назад): ")
-            if i() == 'e':
+            if kill.lower() == 'e':
                 pass
             else:
                 try:
