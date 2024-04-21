@@ -379,10 +379,11 @@ def config(api_id, api_hash):
 
             while True:
                 os.system('cls||clear')
+                print("=Удаляем аккаунт из системы=\n")
                 for i in range(len(sessions)):
                     print(f"[{i}] -", sessions[i])
                 print()
-                kill = input("Выберите аккаунт для выхода (e - назад): ")
+                kill = input("Выберите аккаунт для выхода из него (e - назад): ")
                 if kill.lower() == 'e':
                     break
                 else:
