@@ -98,7 +98,7 @@ if __name__ == "__main__":
                     continue
 
             i = 0
-            print('Очистка базы юзеров: clear') 
+            print('Очистка базы ранее сохраненных юзеров: clear') 
             print('-----------------------------')
             for g in groups:
                 print(str(i) + ' - ' + g.title)
@@ -134,7 +134,7 @@ if __name__ == "__main__":
                         sessions.append(file)
             while True:
                 os.system('cls||clear')
-                print("Выберите аккаунт объекта для выгрузки его контактов (e - для выхода)\n")
+                print("Выберите существующий аккаунт для выгрузки имеющихся у него контактов в формате excel (e - назад)\n")
                 for i, session in enumerate(sessions):
                     print(f"[{i}] - {session}")
                 print()
@@ -158,16 +158,14 @@ if __name__ == "__main__":
                         print("Пожалуйста, выберите существующий аккаунт в диапазоне от 0 до", len(sessions)-1)
                         time.sleep(2)
            
-# Выгрузить участников групп в excel
+# 5 Выгрузить участников групп в excel
         elif selection == '5':
             chats = []
             last_date = None    
             size_chats = 200
             groups = []         
 
-            print("Выберите аккаунт объекта или юзербота для парсинга участников групп в excel\n"
-                "(Аккаунт объекта, который состоит в группах, которые нужно спарсить)\n")
-
+            print("Выберите существующий аккаунт для выгрузки участников выбранной группы в формате excel\n")
             sessions = []
             for file in os.listdir('.'):
                 if file.endswith('.session'):
