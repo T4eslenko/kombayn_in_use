@@ -36,8 +36,8 @@ if __name__ == "__main__":
             user_name = False
 
         os.system('cls||clear')
-        print('ВНИМАНИЕ. Если два раза подряд парсить/выгружать контакты - будет вылетать ошибка. Просто перезапустите программу')
-        print ('') 
+        print('Если приложение вылетает с ошибкой - просто перезапустите программу')
+        print () 
         selection = str(input("1 - Настройки\n"
                             "\n" 
                             "2 - Парсинг участников групп\n"
@@ -165,7 +165,7 @@ if __name__ == "__main__":
             size_chats = 200
             groups = []         
 
-            print("Выберите существующий аккаунт для выгрузки участников выбранной группы в формате excel\n")
+            print("Выберите существующий аккаунт для выгрузки участников выбранной группы в формате excel (e - назад)\n")
             sessions = []
             for file in os.listdir('.'):
                 if file.endswith('.session'):
@@ -193,21 +193,33 @@ if __name__ == "__main__":
                 except:
                     continue
 
-            i = 0
-            print('-----------------------------')
-            for g in groups:
-                print(str(i) + ' - ' + g.title)
-                i+=1
-            g_index = str(input("Ввод: "))
-
-            if int(g_index) < i:
-                target_group = groups[int(g_index)]
-                group_title = target_group.title
-                parsing_xlsx(client, target_group, user_id, user_name, group_title)
+            while True:
                 os.system('cls||clear')
-                print('Участники групп выгружены в excel, мой командир')
-                time.sleep(3)
-
+                i = 0
+                print('-----------------------------')
+                for g in groups:
+                    print(str(i) + ' - ' + g.title)
+                    i+=1
+                g_index = str(input("Ввод: "))
+               
+                if g_index.lower() == 'e':
+                    break
+                else:
+                    try:
+                        g_index = int(g_index)
+                        if 0 <= g_index < i:
+                            target_group = groups[int(g_index)]
+                            group_title = target_group.title
+                            parsing_xlsx(client, target_group, user_id, user_name, group_title)
+                            os.system('cls||clear')
+                            print('Участники групп выгружены в excel, мой командир')
+                            time.sleep(3)
+                            break
+                        else:
+                            print("Пожалуйста, выберите группу из списка")
+                    except ValueError:
+                        print("Пожалуйста, выберите группу из списка")
+                        time.sleep(2)
 
 
 # Выгрузить сообщения чата в excel
