@@ -366,16 +366,17 @@ def config(api_id, api_hash):
 
             for i in range(len(sessions)):
                 print(f"[{i}] -", sessions[i], '\n')
-            i = int(input("Выберите аккаунт для выхода (e - назад): "))
-            
+            kill = input("Выберите аккаунт для выхода (e - назад): ")
             if i.lower() == 'e':
-                break
+                pass
             else:
-                client = TelegramClient(sessions[i].replace('\n', ''), api_id, api_hash).start(sessions[i].replace('\n', ''))
-                client.log_out()
-                client.disconnect()
-                print(f"Аккаунт {sessions[i]} успешно отключен.")
-                time.sleep(2)
+                try:
+                    i = int(kill)
+                    client = TelegramClient(sessions[i].replace('\n', ''), api_id, api_hash).start(sessions[i].replace('\n', ''))
+                    client.log_out()
+                    client.disconnect()
+                    print(f"Аккаунт {sessions[i]} успешно отключен.")
+                    time.sleep(2)
 
 # Сброс настроеек
         elif key == '8':
