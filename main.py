@@ -195,12 +195,12 @@ if __name__ == "__main__":
                             for chat in chats:
                                 try:
                                     for chat in chats:
-                                        if not hasattr(chat, 'channel') and not chat.megagroup:
+                                        if not hasattr(chat, 'channel') and not hasattr(chat, 'megagroup'):
                                             groups.append(chat)
                                 except Exception as e:
                                     print(f"Error: {e}")
                             
-                            imput("Нажмите клавишу")
+                            input("Нажмите клавишу")
                             while True:
                                 os.system('cls||clear')
                                 i = 0
