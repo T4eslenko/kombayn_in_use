@@ -222,15 +222,16 @@ if __name__ == "__main__":
                                             break
                                         else:
                                             print("Пожалуйста, выберите группу из списка")
+                                            time.sleep(2)
                                     except ValueError:
                                         print("Пожалуйста, выберите группу из списка")
                                         time.sleep(2)
                         else:
                             print("Пожалуйста, выберите существующий аккаунт в диапазоне от 0 до", len(sessions)-1)
+                            time.sleep(2)
                     except ValueError:
                         print("Пожалуйста, выберите существующий аккаунт в диапазоне от 0 до", len(sessions)-1)
-
-
+                        time.sleep(2)
 
 # Выгрузить сообщения чата в excel
         elif selection == '6':
