@@ -346,6 +346,7 @@ def config(api_id, api_hash):
                 print(i)
             print()
             while True:
+                os.system('cls||clear')
                 phone = input("Введите номер телефона аккаунта (e - назад): ")
                 if phone.lower() == 'e':
                     break
