@@ -150,6 +150,7 @@ if __name__ == "__main__":
                             asyncio.get_event_loop().run_until_complete(get_contacts(client, sessions[session_index].replace('.session', '')))
                             os.system('cls||clear')
                             print('Список контактов выгружен в excel, мой командир')
+                            client.disconnect()
                             time.sleep(3)
                             break
                         else:
@@ -224,6 +225,7 @@ if __name__ == "__main__":
                                             parsing_xlsx(client, target_group, user_id, user_name, group_title)
                                             os.system('cls||clear')
                                             print('Участники групп выгружены в excel, мой командир')
+                                            client.disconnect()
                                             time.sleep(3)
                                             break
                                         else:
@@ -292,6 +294,7 @@ if __name__ == "__main__":
                 #await parsing_messages(client, target_group, user_id, user_name, group_title)
                 os.system('cls||clear')
                 print('Сообщения чата выгружены в excel, мой командир')
+                client.disconnect()
                 time.sleep(3)
 
         
