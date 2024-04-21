@@ -213,7 +213,7 @@ if __name__ == "__main__":
                                 if g_index_str.lower() == 'e':
                                     groups = []
                                     chats = []
-                                    break
+                                    return
                                 else:
                                     try:
                                         g_index = int(g_index_str)
