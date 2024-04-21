@@ -344,9 +344,10 @@ def config(api_id, api_hash):
             for i in sessions:
                 print(i)
                 print('e - назад')
+
+            phone = str(input("Введите номер телефона аккаунта: "))
             if phone.lower() == 'e':
                 break
-            phone = str(input("Введите номер телефона аккаунта: "))
             client = TelegramClient(phone, int(options[0].replace('\n', '')), 
                                     options[1].replace('\n', '')).start(phone)
       
