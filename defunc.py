@@ -343,8 +343,7 @@ def config(api_id, api_hash):
             print("Подключенные аккаунты:\n")
             for i in sessions:
                 print(i)
-            print(' ')
-            print('e - назад')
+            print("e - назад\n")
 
             phone = str(input("Введите номер телефона аккаунта: "))
             if phone.lower() == 'e':
