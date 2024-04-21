@@ -211,6 +211,7 @@ if __name__ == "__main__":
                                 g_index_str = str(input("Ввод: "))
                        
                                 if g_index_str.lower() == 'e':
+                                    g = None
                                     break
                                 else:
                                     try:
