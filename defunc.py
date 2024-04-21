@@ -340,9 +340,10 @@ def config(api_id, api_hash):
                 time.sleep(2)
                 continue
 
-            print("Аккаунты:\n")
+            print("Подключенные аккаунты:\n")
             for i in sessions:
                 print(i)
+            print(\n)
             print('e - назад')
 
             phone = str(input("Введите номер телефона аккаунта: "))
