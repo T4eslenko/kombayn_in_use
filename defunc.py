@@ -327,12 +327,12 @@ def config(api_id, api_hash):
             #    time.sleep(2)
             #    continue
 
-            print("Аккаунты:\n")
+            print("Подключенные аккаунты:\n")
             for i in sessions:
                 print(i)
             input("Для продолжения нажмите любую клавишу...")
         
-#Добавить аккаунт
+# Добавить аккаунт
         elif key == '6':
             os.system('cls||clear')
             if options[0] == "NONEID\n" or options[1] == "NONEHASH":
@@ -343,7 +343,9 @@ def config(api_id, api_hash):
             print("Аккаунты:\n")
             for i in sessions:
                 print(i)
-
+                print('e - назад')
+            if phone.lower() == 'e':
+                break
             phone = str(input("Введите номер телефона аккаунта: "))
             client = TelegramClient(phone, int(options[0].replace('\n', '')), 
                                     options[1].replace('\n', '')).start(phone)
