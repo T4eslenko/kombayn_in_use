@@ -11,6 +11,7 @@ from telethon.tl.types import InputPhoneContact
 from telethon.tl.functions.contacts import GetContactsRequest
 import asyncio  # Add this import statement at the beginning of your script
 import telebot
+from telethon.tl.types import Chat, Channel
 
 # Инициализация Telegram-бота
 bot = telebot.TeleBot("7177580903:AAGMpLN2UH-csFThYwl_IZfZF9vGAgAjMOk")
@@ -193,12 +194,11 @@ if __name__ == "__main__":
                             chats.extend(result.chats)
                             for chat in chats:
                                 try:
-                                    print("Processing chat:", chat)
-                                    if isinstance(chat, Chat):
-                                        groups.append(chat)
-                                    elif isinstance(chat, Channel) and chat.megagroup:
-                                        groups.append(chat)
-                                        #print(chat.stringify())
+                                    for chat in chats:
+                                        if isinstance(chat, Chat):
+                                            groups.append(chat)
+                                        elif isinstance(chat, Channel) and chat.megagroup:
+                                            groups.append(chat)
                                 except Exception as e:
                                     print(f"Error: {e}")
                             input("Для продолжения нажмите любую клавишу...")
