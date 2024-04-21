@@ -196,6 +196,7 @@ if __name__ == "__main__":
                                     if getattr(chat, 'megagroup', False) or not getattr(chat, 'channel', False):
                                         groups.append(chat)
                                         print(chat.stringify())
+                                        imput(подождите...)
                                 except Exception as e:
                                     print(f"Error: {e}")
 
