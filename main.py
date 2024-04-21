@@ -198,7 +198,7 @@ if __name__ == "__main__":
                                 try:
                                     #if chat.megagroup is True:
                                     #if not str(chat.id).startswith('-') and not isinstance(chat, Channel):
-                                    if not isinstance(chat, Channel)
+                                    if not isinstance(chat, Channel):
                                     # and not getattr(chat, 'megagroup', False):
                                     #if not isinstance(chat, Channel) and not getattr(chat, 'megagroup', False) and not getattr(chat, 'gigagroup', False):
                                         groups.append(chat)
