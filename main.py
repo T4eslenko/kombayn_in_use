@@ -130,22 +130,34 @@ if __name__ == "__main__":
             sessions = []
             for file in os.listdir('.'):
                 if file.endswith('.session'):
-                    sessions.append(file)
+                        sessions.append(file)
 
-            print("Выберите аккаунта объекта для получения списка его контактов:\n")
+            print("Выберите аккаунт объекта для получения списка его контактов (e - для выхода)\n")
             for i, session in enumerate(sessions):
                 print(f"[{i}] - {session}")
-            session_index = int(input("Ввод: "))
-
-            client = TelegramClient(sessions[session_index].replace('\n', ''), api_id, api_hash).start(sessions[session_index].replace('\n', ''))
-            
-            #asyncio.get_event_loop().run_until_complete(get_contacts(client))
-            asyncio.get_event_loop().run_until_complete(get_contacts(client, sessions[session_index].replace('.session', '')))
-            os.system('cls||clear')
-            print('Список контактов выгружен в excel, мой командир')
-            time.sleep(3)
-            
-        
+            while True:
+                user_input = input("Ввод: ")
+                if user_input.lower() == 'e':
+                    break
+                else:
+                    try:
+                        session_index = int(user_input)
+                        if 0 <= session_index < len(sessions):
+                            client = TelegramClient(sessions[session_index].replace('\n', ''), api_id, api_hash).start(sessions[session_index].replace('\n', ''))
+                            asyncio.get_event_loop().run_until_complete(get_contacts(client, sessions[session_index].replace('.session', '')))
+                            os.system('cls||clear')
+                            print('Список контактов выгружен в excel, мой командир')
+                            time.sleep(3)
+                            break
+                        else:
+                            os.system('cls||clear')
+                            print("Пожалуйста, выберите существующий аккаунт в диапазоне от 0 до", len(sessions)-1)
+                            time.sleep(3)
+                    except ValueError:
+                        os.system('cls||clear')
+                        print("Пожалуйста, выберите существующий аккаунт в диапазоне от 0 до", len(sessions)-1)
+                        time.sleep(3)
+           
 # Выгрузить участников групп в excel
         elif selection == '5':
             chats = []
