@@ -174,10 +174,16 @@ def remove_timezone(dt):
 def get_message_info(client, group_title, msg_id):
     # Получение информации о сообщении
     message = client.get_messages(group_title, ids=[msg_id])[0]
-    user_id = message.sender_id if isinstance(message.sender, User) else None
-    username = message.sender.username if isinstance(message.sender, User) else None
-    first_name = message.sender.first_name if isinstance(message.sender, User) else None
-    last_name = message.sender.last_name if isinstance(message.sender, User) else None
+    try:
+        user_id = message.sender_id
+        username = message.sender.username
+        first_name = message.sender.first_name
+        last_name = message.sender.last_name
+    except AttributeError:
+        user_id = None
+        username = None
+        first_name = None
+        last_name = None   
     return user_id, username, first_name, last_name, message.date, message.text
 
 def parsing_messages(client, index: int, id: bool, name: bool, group_title):
