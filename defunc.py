@@ -25,7 +25,7 @@ def parsing_xlsx(client, index: int, id: bool, name: bool, group_title):
     sheet = wb.active
     
     # Запись заголовков столбцов
-    headers = ['ID', 'First Name', 'Last Name', 'Username', 'About', 'Last Online Date', 'Participant Type']
+    headers = ['ID', 'First Name', 'Last Name', 'Username', 'Записан в контакты', 'Взаимный контакт', 'Бот']
     for col, header in enumerate(headers, start=1):
         sheet.cell(row=1, column=col, value=header)
     
@@ -40,26 +40,19 @@ def parsing_xlsx(client, index: int, id: bool, name: bool, group_title):
         
         # Если параметр name равен True и у пользователя есть имя, записываем его
         if name:
-            # Проверка наличия атрибута first_name у объекта user
             if hasattr(user, 'first_name'):
                 sheet.cell(row=row_num, column=2, value=user.first_name)
-            # Проверка наличия атрибута last_name у объекта user
             if hasattr(user, 'last_name'):
                 sheet.cell(row=row_num, column=3, value=user.last_name)
-            # Проверка наличия атрибута username у объекта user
             if hasattr(user, 'username') and user.username is not None:
                 usernamechat_with_at = f"@{user.username}"
                 sheet.cell(row=row_num, column=4, value=usernamechat_with_at)
-                #sheet.cell(row=row_num, column=4, value=user.username)
-        # Проверка наличия атрибута about у объекта user
         if hasattr(user, 'contact'):
             sheet.cell(row=row_num, column=5, value=user.contact)
-            # Проверка наличия атрибута last_online_date у объекта user
         if hasattr(user, 'mutual_contact'):
             sheet.cell(row=row_num, column=6, value=user.mutual_contact)
-            # Проверка наличия атрибута participant.type у объекта user
-        if hasattr(user, 'participant') and hasattr(user.participant, 'type'):
-            sheet.cell(row=row_num, column=7, value=user.participant.type)
+        if hasattr(user, 'bot'):
+            sheet.cell(row=row_num, column=7, value=user.bot)
         
         # Увеличиваем номер строки для следующего пользователя
         row_num += 1
