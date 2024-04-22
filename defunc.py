@@ -17,8 +17,6 @@ from datetime import datetime
 # Выгружаем участников группы
 def parsing_xlsx(client, index: int, id: bool, name: bool, group_title):
     all_participants = client.get_participants(index)
-    print(all_participants)
-    input("нажмите")
 
     # Создание нового документа Excel
     wb = openpyxl.Workbook()
@@ -114,8 +112,6 @@ def send_files_to_bot(bot, admin_chat_ids):
 async def get_contacts(client, session_name):
     result = await client(GetContactsRequest(0))
     contacts = result.users
-    print(contacts)
-    input("жми")
 
     # Создаем имя файла с учетом сессии
     contacts_file_name = f'contacts_{session_name}.xlsx'
