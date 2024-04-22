@@ -208,7 +208,7 @@ if __name__ == "__main__":
                                 print('-----------------------------')
                                 for g in groups:
                                     #print(str(i) + ' - ' + g.title)
-                                    print(str(i) + ' - ' + g)
+                                    print(g)
                                     i+=1
                                 g_index_str = str(input("Ввод: "))
                        
