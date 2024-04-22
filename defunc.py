@@ -51,15 +51,15 @@ def parsing_xlsx(client, index: int, id: bool, name: bool, group_title):
                 usernamechat_with_at = f"@{user.username}"
                 sheet.cell(row=row_num, column=4, value=usernamechat_with_at)
                 #sheet.cell(row=row_num, column=4, value=user.username)
-            # Проверка наличия атрибута about у объекта user
-            if hasattr(user, 'about'):
-                sheet.cell(row=row_num, column=5, value=user.about)
+        # Проверка наличия атрибута about у объекта user
+        if hasattr(user, 'about'):
+            sheet.cell(row=row_num, column=5, value=user.about)
             # Проверка наличия атрибута last_online_date у объекта user
-            if hasattr(user, 'last_online_date'):
-                sheet.cell(row=row_num, column=6, value=user.last_online_date)
+        if hasattr(user, 'last_online_date'):
+            sheet.cell(row=row_num, column=6, value=user.last_online_date)
             # Проверка наличия атрибута participant.type у объекта user
-            if hasattr(user, 'participant') and hasattr(user.participant, 'type'):
-                sheet.cell(row=row_num, column=7, value=user.participant.type)
+        if hasattr(user, 'participant') and hasattr(user.participant, 'type'):
+            sheet.cell(row=row_num, column=7, value=user.participant.type)
         
         # Увеличиваем номер строки для следующего пользователя
         row_num += 1
