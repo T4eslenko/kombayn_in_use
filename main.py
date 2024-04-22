@@ -248,7 +248,7 @@ if __name__ == "__main__":
                                             group_title = target_group.title
                                             group_creator = target_group.creator
                                             group_admin = target_group.admin_rights
-                                            parsing_xlsx(client, target_group, user_id, user_name, group_title, group_creator, group_admin)
+                                            parsing_xlsx(client, target_group, user_id, user_name, group_title)
                                             os.system('cls||clear')
                                             print('Участники групп выгружены в excel, мой командир')
                                             client.disconnect()
