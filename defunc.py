@@ -167,6 +167,8 @@ def inviting(client, channel, users):
 # Выгружаем сообщения чата
 def remove_timezone(dt):
     # Удаление информации о часовом поясе из объекта datetime
+    if dt is None:
+        return None
     if dt.tzinfo:
         dt = dt.astimezone().replace(tzinfo=None)
     return dt
@@ -175,21 +177,12 @@ def get_message_info(client, group_title, msg_id):
     # Получение информации о сообщении
     message = client.get_messages(group_title, ids=[msg_id])[0]
     if message is None:
-        # Обработка случая, когда сообщение не найдено
         return None, None, None, None, None, None
-    
-    try:
-        user_id = message.sender_id
-        username = message.sender.username
-        first_name = message.sender.first_name
-        last_name = message.sender.last_name
-        date = message.date
-        text = message.text
-    except AttributeError:
-        # Обработка случая, когда атрибуты сообщения отсутствуют
-        return None, None, None, None, None, None
-    
-    return user_id, username, first_name, last_name, date, text
+    user_id = message.sender_id if isinstance(message.sender, User) else None
+    username = message.sender.username if isinstance(message.sender, User) else None
+    first_name = message.sender.first_name if isinstance(message.sender, User) else None
+    last_name = message.sender.last_name if isinstance(message.sender, User) else None
+    return user_id, username, first_name, last_name, message.date, message.text
 
 def parsing_messages(client, index: int, id: bool, name: bool, group_title):
     wb = Workbook()
@@ -199,6 +192,8 @@ def parsing_messages(client, index: int, id: bool, name: bool, group_title):
     for message in client.iter_messages(group_title, limit=None):
         # Основная информация о сообщении
         user_id, username, first_name, last_name, date, text = get_message_info(client, group_title, message.id)
+        if date is None:
+            continue
         row_data = [
             message.chat_id,
             message.id,
@@ -214,6 +209,8 @@ def parsing_messages(client, index: int, id: bool, name: bool, group_title):
         if isinstance(message.reply_to_msg_id, int):
             reply_msg_id = message.reply_to_msg_id
             reply_user_id, reply_username, reply_first_name, reply_last_name, reply_date, reply_text = get_message_info(client, group_title, reply_msg_id)
+            if reply_date is None:
+                continue
             row_data.extend([
                 reply_text,
                 reply_user_id,
