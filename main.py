@@ -220,11 +220,11 @@ if __name__ == "__main__":
                                 print('-----------------------------')
                                 for g in groups:
                                     if g.creator:
-                                        print(str(i) + ' - ' + color.RED + g.title + ' (Владелец)' + color.END)
+                                       print(str(i) + ' - ' + color.RED + g.title + color.END + ' (Владелец)')
                                     elif g.admin_rights is not None:
-                                        print(str(i) + ' - ' + color.RED + g.title + ' (Права администратора: Есть)' + color.END)
+                                       print(str(i) + ' - ' + g.title + ' (' + color.RED + 'Права администратора: Есть' + color.END + ')')
                                     else:
-                                        print(str(i) + ' - ' + g.title)
+                                    print(str(i) + ' - ' + g.title)
                                     i += 1
 
                
