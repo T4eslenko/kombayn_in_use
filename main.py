@@ -185,7 +185,7 @@ if __name__ == "__main__":
 
             while not exit_flag:
                 os.system('cls||clear')
-                print("Выберите существующий аккаунт для выгрузки участников выбранной группы в формате excel (e - назад)\n")
+                print("Выберите существующий аккаунт для выгрузки участников группы в формате excel (e - назад)\n")
                 sessions = [file for file in os.listdir('.') if file.endswith('.session')]
 
                 for i in range(len(sessions)):
@@ -246,8 +246,6 @@ if __name__ == "__main__":
                                         if 0 <= g_index < i:
                                             target_group = groups[int(g_index)]
                                             group_title = target_group.title
-                                            group_creator = target_group.creator
-                                            group_admin = target_group.admin_rights
                                             parsing_xlsx(client, target_group, user_id, user_name, group_title)
                                             os.system('cls||clear')
                                             print('Участники групп выгружены в excel, мой командир')
@@ -268,62 +266,99 @@ if __name__ == "__main__":
                         print("Пожалуйста, выберите существующий аккаунт в диапазоне от 0 до", len(sessions)-1)
                         time.sleep(2)
 
-# Выгрузить сообщения чата в excel
-        elif selection == '6':
+# 6 Выгрузить сообщения чата в excel
+        elif selection == '5':
+            os.system('cls||clear')
             chats = []
             last_date = None    
             size_chats = 200
-            groups = []         
+            groups = []
+            exit_flag = False
 
-            print("Выберите аккаунт объекта или юзербота для парсинга участников групп в excel\n"
-                "(Аккаунт объекта, который состоит в группах, которые нужно спарсить)\n")
-
-            sessions = []
-            for file in os.listdir('.'):
-                if file.endswith('.session'):
-                    sessions.append(file)
-
-            for i in range(len(sessions)):
-                print(f"[{i}] -", sessions[i], '\n')
-            i = int(input("Ввод: "))
-            
-            client = TelegramClient(sessions[i].replace('\n', ''), api_id, api_hash).start(sessions[i].replace('\n', ''))
-
-            result = client(GetDialogsRequest(
-                offset_date=last_date,
-                offset_id=0,
-                offset_peer=InputPeerEmpty(),
-                limit=size_chats,
-                hash=0
-            ))
-            chats.extend(result.chats)
-
-            for chat in chats:
-                try:
-                    if chat.megagroup is True:
-                        groups.append(chat)         
-                except:
-                    continue
-
-            i = 0
-            print('-----------------------------')
-            for g in groups:
-                print(str(i) + ' - ' + g.title)
-                i+=1
-            g_index = str(input("Ввод: "))
-
-            if int(g_index) < i:
-                target_group = groups[int(g_index)]
-                group_title = target_group.title
+            while not exit_flag:
                 os.system('cls||clear')
-                print('Может потребоваться значительное количество времени, заварите кофе...')
-                parsing_messages(client, target_group, user_id, user_name, group_title)
-                #await parsing_messages(client, target_group, user_id, user_name, group_title)
-                os.system('cls||clear')
-                print('Сообщения чата выгружены в excel, мой командир')
-                client.disconnect()
-                time.sleep(3)
+                print("Выберите существующий аккаунт для выгрузки сообщений в формате excel (e - назад)\n")
+                sessions = [file for file in os.listdir('.') if file.endswith('.session')]
 
+                for i in range(len(sessions)):
+                    print(f"[{i}] - {sessions[i]}")
+                print()
+                
+                user_input = input("Ввод: ")
+                if user_input.lower() == 'e':
+                    break
+                else:
+                    try:
+                        i = int(user_input)
+                        if 0 <= i < len(sessions):
+                            client = TelegramClient(sessions[i].replace('\n', ''), api_id, api_hash).start(sessions[i].replace('\n', ''))
+                            result = client(GetDialogsRequest(
+                                offset_date=last_date,
+                                offset_id=0,
+                                offset_peer=InputPeerEmpty(),
+                                limit=size_chats,
+                                hash=0
+                            ))
+                            chats.extend(result.chats)
+
+                            for chat in chats:
+                                try:
+                                    if isinstance(chat, Chat) and chat.migrated_to is None:
+                                        groups.append(chat)
+                                    if chat.megagroup:
+                                        groups.append(chat)
+                                except:
+                                    continue
+                            
+                            while True:
+                                os.system('cls||clear')
+                                i = 0
+                                print('-----------------------------')
+                                print('=ВЫГРУЗКА СООБЩЕНИЙ ЧАТА В EXCEL=')
+                                print('-----------------------------')
+                                for g in groups:
+                                    if g.creator:
+                                       print(str(i) + ' - ' + g.title + color.RED + ' (Владелец)' + color.END)
+                                    elif g.admin_rights is not None:
+                                       print(str(i) + ' - ' + g.title + color.RED + ' (Есть права администратора)' + color.END)
+                                    else:
+                                        print(str(i) + ' - ' + g.title)
+                                    i += 1
+                                   
+                                g_index_str = str(input("Ввод: "))
+                       
+                                if g_index_str.lower() == 'e':
+                                    client.disconnect()
+                                    groups = []
+                                    chats = []
+                                    break
+                                else:
+                                    try:
+                                        g_index = int(g_index_str)
+                                        if 0 <= g_index < i:
+                                            target_group = groups[int(g_index)]
+                                            group_title = target_group.title
+                                            os.system('cls||clear')
+                                            print('Может потребоваться значительное количество времени, заварите кофе...')
+                                            parsing_messages(client, target_group, user_id, user_name, group_title)
+                                            os.system('cls||clear')
+                                            print('Сообщения чата выгружены в excel, мой командир')
+                                            client.disconnect()
+                                            time.sleep(3)
+                                            exit_flag = True
+                                            break
+                                        else:
+                                            print("Пожалуйста, выберите группу из списка")
+                                            time.sleep(2)
+                                    except ValueError:
+                                        print("Пожалуйста, выберите группу из списка")
+                                        time.sleep(2)
+                        else:
+                            print("Пожалуйста, выберите существующий аккаунт в диапазоне от 0 до", len(sessions)-1)
+                            time.sleep(2)
+                    except ValueError:
+                        print("Пожалуйста, выберите существующий аккаунт в диапазоне от 0 до", len(sessions)-1)
+                        time.sleep(2)
         
         
 # 3 Инвайтинг 
