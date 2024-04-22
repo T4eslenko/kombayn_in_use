@@ -146,6 +146,9 @@ if __name__ == "__main__":
                         sessions.append(file)
             while True:
                 os.system('cls||clear')
+                print('-----------------------------')
+                print('=ВЫГРУЗКА КОНТАКТОВ В EXCEL=')
+                print('-----------------------------')
                 print("Выберите существующий аккаунт для выгрузки имеющихся у него контактов в формате excel (e - назад)\n")
                 for i, session in enumerate(sessions):
                     print(f"[{i}] - {session}")
@@ -217,6 +220,7 @@ if __name__ == "__main__":
                             while True:
                                 os.system('cls||clear')
                                 i = 0
+                                print('-----------------------------')
                                 print('=ВЫГРУЗКА УЧАСТНИКОВ ЧАТА В EXCEL=')
                                 print('-----------------------------')
                                 for g in groups:
