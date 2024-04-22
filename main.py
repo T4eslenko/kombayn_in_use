@@ -267,7 +267,7 @@ if __name__ == "__main__":
                         time.sleep(2)
 
 # 6 Выгрузить сообщения чата в excel
-        elif selection == '5':
+        elif selection == '6':
             os.system('cls||clear')
             chats = []
             last_date = None    
