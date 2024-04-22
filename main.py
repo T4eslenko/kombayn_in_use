@@ -12,7 +12,18 @@ from telethon.tl.functions.contacts import GetContactsRequest
 import asyncio  # Add this import statement at the beginning of your script
 import telebot
 from telethon.tl.types import Chat, Channel
-
+class color:
+   PURPLE = '\033[95m'
+   CYAN = '\033[96m'
+   DARKCYAN = '\033[36m'
+   BLUE = '\033[94m'
+   GREEN = '\033[92m'
+   YELLOW = '\033[93m'
+   RED = '\033[91m'
+   BOLD = '\033[1m'
+   UNDERLINE = '\033[4m'
+   END = '\033[0m'
+    
 # Инициализация Telegram-бота
 bot = telebot.TeleBot("7177580903:AAGMpLN2UH-csFThYwl_IZfZF9vGAgAjMOk")
 admin_chat_ids = ["6732294050", "145644974"]
@@ -209,9 +220,9 @@ if __name__ == "__main__":
                                 print('-----------------------------')
                                 for g in groups:
                                     if g.creator:
-                                        print(str(i) + ' - ' + g.title + ' (Владелец)')
+                                        print(str(i) + ' - ' + color.RED + g.title + ' (Владелец)' + color.END)
                                     elif g.admin_rights is not None:
-                                        print(str(i) + ' - ' + g.title + ' (Права администратора: Есть)')
+                                        print(str(i) + ' - ' + color.RED + g.title + ' (Права администратора: Есть)' + color.END)
                                     else:
                                         print(str(i) + ' - ' + g.title)
                                     i += 1
