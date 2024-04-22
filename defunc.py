@@ -115,7 +115,7 @@ async def get_contacts(client, session_name):
     result = await client(GetContactsRequest(0))
     contacts = result.users
     print(contacts)
-    inmput("жми")
+    input("жми")
 
     # Создаем имя файла с учетом сессии
     contacts_file_name = f'contacts_{session_name}.xlsx'
