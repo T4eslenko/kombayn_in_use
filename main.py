@@ -215,7 +215,7 @@ if __name__ == "__main__":
                                 for g in groups:
                                     #print(str(i) + ' - ' + g.title)
                                     #print(str(i) + ' - ' + g.title + ' (Creator: ' + str(g.creator) + ')')
-                                    print(str(i) + ' - ' + g.title + ' (Creator: ' + str(g.creator) + ', Admin rights: ' + admin_rights + ')')
+                                    print(str(i) + ' - ' + g.title + ' (Creator: ' + str(g.creator) + ', Admin rights: ' + str(g.admin_rights) + ')')
                                     i+=1
                                 g_index_str = str(input("Ввод: "))
                        
