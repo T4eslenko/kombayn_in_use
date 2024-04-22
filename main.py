@@ -208,12 +208,21 @@ if __name__ == "__main__":
                                 i = 0
                                 print('-----------------------------')
                                 for g in groups:
-                                    admin_rights = "Да" if g.admin_rights is not None else "Нет"
-                                    creator = "Да" if g.creator is True else "Нет"
-                                    print(str(i) + ' - ' + g.title + ' (Владелец: ' + creator + ', Права администратора: ' + admin_rights + ')')
-                                    #print(str(i) + ' - ' + g.title + ' (Creator: ' + str(g.creator) + ', Admin rights: ' + admin_rights + ')')
-                                    #print(str(i) + ' - ' + g.title + ' (Creator: ' + str(g.creator) + ', Admin rights: ' + str(g.admin_rights) + ')')
-                                    i+=1
+                                    creator = "Владелец" if g.creator else "Не владелец"
+                                    if g.creator:
+                                        print(str(i) + ' - ' + g.title + ' (' + creator + ')')
+                                    else:
+                                        admin_rights = "Есть" if g.admin_rights is not None else "Нет"
+                                        print(str(i) + ' - ' + g.title + ' (' + creator + ', Права администратора: ' + admin_rights + ')')
+                                    i += 1
+               
+                               # for g in groups:
+                               #     admin_rights = "Да" if g.admin_rights is not None else "Нет"
+                               #     creator = "Да" if g.creator is True else "Нет"
+                               #     print(str(i) + ' - ' + g.title + ' (Владелец: ' + creator + ', Права администратора: ' + admin_rights + ')')
+                               #     #print(str(i) + ' - ' + g.title + ' (Creator: ' + str(g.creator) + ', Admin rights: ' + admin_rights + ')')
+                               #     #print(str(i) + ' - ' + g.title + ' (Creator: ' + str(g.creator) + ', Admin rights: ' + str(g.admin_rights) + ')')
+                               #     i+=1
                                 g_index_str = str(input("Ввод: "))
                        
                                 if g_index_str.lower() == 'e':
