@@ -222,7 +222,7 @@ if __name__ == "__main__":
                                     if g.creator:
                                        print(str(i) + ' - ' + g.title + ' (' + color.RED + 'Владелец' + color.END + ')') 
                                     elif g.admin_rights is not None:
-                                       print(str(i) + ' - ' + g.title + ' (' + color.RED + 'Права администратора: Есть' + color.END + ')')
+                                       print(str(i) + ' - ' + g.title + ' (' + color.RED + 'Есть права администратора' + color.END + ')')
                                     else:
                                         print(str(i) + ' - ' + g.title)
                                     i += 1
