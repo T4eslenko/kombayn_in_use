@@ -17,6 +17,7 @@ from datetime import datetime
 # Выгружаем участников группы
 def parsing_xlsx(client, index: int, id: bool, name: bool, group_title):
     all_participants = client.get_participants(index)
+    print(all_participants)
 
     # Создание нового документа Excel
     wb = openpyxl.Workbook()
