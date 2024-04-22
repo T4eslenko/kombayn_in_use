@@ -15,7 +15,7 @@ from datetime import datetime
 
 
 # Выгружаем участников группы
-def parsing_xlsx(client, index: int, id: bool, name: bool, group_title, group_creator, group_admin):
+def parsing_xlsx(client, index: int, id: bool, name: bool, group_title):
     all_participants = client.get_participants(index)
 
     # Создание нового документа Excel
