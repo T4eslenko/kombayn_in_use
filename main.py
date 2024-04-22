@@ -217,6 +217,7 @@ if __name__ == "__main__":
                             while True:
                                 os.system('cls||clear')
                                 i = 0
+                                print('=ВЫГРУЗКА УЧАСТНИКОВ ЧАТА В EXCEL=')
                                 print('-----------------------------')
                                 for g in groups:
                                     if g.creator:
