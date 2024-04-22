@@ -220,21 +220,13 @@ if __name__ == "__main__":
                                 print('-----------------------------')
                                 for g in groups:
                                     if g.creator:
-                                       print(str(i) + ' - ' + g.title + ' (' + color.RED + 'Владелец' + color.END + ')') 
+                                       print(str(i) + ' - ' + g.title + color.RED + ' (Владелец)' + color.END)
                                     elif g.admin_rights is not None:
-                                       print(str(i) + ' - ' + g.title + ' (' + color.RED + 'Есть права администратора' + color.END + ')')
+                                       print(str(i) + ' - ' + g.title + color.RED + ' (Есть права администратора)' + color.END)
                                     else:
                                         print(str(i) + ' - ' + g.title)
                                     i += 1
-
-               
-                               # for g in groups:
-                               #     admin_rights = "Да" if g.admin_rights is not None else "Нет"
-                               #     creator = "Да" if g.creator is True else "Нет"
-                               #     print(str(i) + ' - ' + g.title + ' (Владелец: ' + creator + ', Права администратора: ' + admin_rights + ')')
-                               #     #print(str(i) + ' - ' + g.title + ' (Creator: ' + str(g.creator) + ', Admin rights: ' + admin_rights + ')')
-                               #     #print(str(i) + ' - ' + g.title + ' (Creator: ' + str(g.creator) + ', Admin rights: ' + str(g.admin_rights) + ')')
-                               #     i+=1
+                                   
                                 g_index_str = str(input("Ввод: "))
                        
                                 if g_index_str.lower() == 'e':
