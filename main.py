@@ -197,7 +197,7 @@ if __name__ == "__main__":
                             for chat in chats:
                                 try:
                                     #if chat.megagroup:
-                                    if chat.broadcast is False:
+                                    if chat.broadcast is None:
                                         groups.append(chat)
                                 except:
                                     continue
