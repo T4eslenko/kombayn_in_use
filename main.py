@@ -180,9 +180,10 @@ if __name__ == "__main__":
             chats = []
             last_date = None    
             size_chats = 200
-            groups = []         
+            groups = []
+            exit_flag = False
 
-            while True:
+            while not exit_flag:
                 os.system('cls||clear')
                 print("Выберите существующий аккаунт для выгрузки участников выбранной группы в формате excel (e - назад)\n")
                 sessions = [file for file in os.listdir('.') if file.endswith('.session')]
@@ -252,6 +253,7 @@ if __name__ == "__main__":
                                             print('Участники групп выгружены в excel, мой командир')
                                             client.disconnect()
                                             time.sleep(3)
+                                            exit_flag = True
                                             break
                                         else:
                                             print("Пожалуйста, выберите группу из списка")
