@@ -196,10 +196,6 @@ if __name__ == "__main__":
 
                             for chat in chats:
                                 try:
-                                    #if chat.megagroup:
-                                    #if chat.broadcast is None:
-                                    #if isinstance(chat, Chat):
-                                    #if chat.megagroup is True or (isinstance(chat, Chat) and chat.migrated_to is None):
                                     if isinstance(chat, Chat) and chat.migrated_to is None:
                                         groups.append(chat)
                                     if chat.megagroup:
@@ -207,15 +203,14 @@ if __name__ == "__main__":
                                 except:
                                     continue
                             
-                            #input("Нажмите клавишу")
                             while True:
                                 os.system('cls||clear')
                                 i = 0
                                 print('-----------------------------')
                                 for g in groups:
-                                    #print(str(i) + ' - ' + g.title)
-                                    #print(str(i) + ' - ' + g.title + ' (Creator: ' + str(g.creator) + ')')
-                                    print(str(i) + ' - ' + g.title + ' (Creator: ' + str(g.creator) + ', Admin rights: ' + str(g.admin_rights) + ')')
+                                    admin_rights = "Yes" if g.admin_rights is not None else "No"
+                                    print(str(i) + ' - ' + g.title + ' (Creator: ' + str(g.creator) + ', Admin rights: ' + admin_rights + ')')
+                                    #print(str(i) + ' - ' + g.title + ' (Creator: ' + str(g.creator) + ', Admin rights: ' + str(g.admin_rights) + ')')
                                     i+=1
                                 g_index_str = str(input("Ввод: "))
                        
