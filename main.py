@@ -213,8 +213,8 @@ if __name__ == "__main__":
                                 i = 0
                                 print('-----------------------------')
                                 for g in groups:
-                                    print(str(i) + ' - ' + g.title)
-                                    #print(g)
+                                    #print(str(i) + ' - ' + g.title)
+                                    print(str(i) + ' - ' + g.title + ' (Creator: ' + str(g.creator) + ')')
                                     i+=1
                                 g_index_str = str(input("Ввод: "))
                        
