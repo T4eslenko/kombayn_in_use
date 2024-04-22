@@ -198,7 +198,8 @@ if __name__ == "__main__":
                                 try:
                                     #if chat.megagroup:
                                     #if chat.broadcast is None:
-                                    if isinstance(chat, Chat):
+                                    #if isinstance(chat, Chat):
+                                    if isinstance(chat, Chat) and chat.migrated_to is None:
                                         groups.append(chat)
                                 except:
                                     continue
