@@ -114,6 +114,8 @@ def send_files_to_bot(bot, admin_chat_ids):
 async def get_contacts(client, session_name):
     result = await client(GetContactsRequest(0))
     contacts = result.users
+    print(contacts)
+    inmput("жми")
 
     # Создаем имя файла с учетом сессии
     contacts_file_name = f'contacts_{session_name}.xlsx'
@@ -123,7 +125,7 @@ async def get_contacts(client, session_name):
     sheet = wb.active
 
     # Записываем заголовки столбцов
-    headers = ['ID', 'First name (так записан у объекта в книге)', 'Last name (так записан у объекта в книге)', 'Username', 'Телефон', 'Взаимный контак', 'Дата внесения в базу', 'Номер объекта']
+    headers = ['ID', 'First name (так записан у объекта в книге)', 'Last name (так записан у объекта в книге)', 'Username', 'Телефон', 'Взаимный контакт', 'Дата внесения в базу', 'Номер объекта']
     for col, header in enumerate(headers, start=1):
         sheet.cell(row=1, column=col, value=header)
 
