@@ -11,7 +11,59 @@ from telethon.sync import TelegramClient
 from openpyxl import Workbook
 from openpyxl.utils import get_column_letter
 from datetime import datetime
-#from openpyxl.styles import Font
+
+
+
+# Выгружаем участников группы
+def parsing_xlsx(client, index: int, id: bool, name: bool, group_title, group_creator, group_admin):
+    all_participants = client.get_participants(index)
+
+    # Создание нового документа Excel
+    wb = openpyxl.Workbook()
+    sheet = wb.active
+    
+    # Запись заголовков столбцов
+    headers = ['ID', 'First Name', 'Last Name', 'Username', 'About', 'Last Online Date', 'Participant Type']
+    for col, header in enumerate(headers, start=1):
+        sheet.cell(row=1, column=col, value=header)
+    
+    # Переменная для отслеживания строки
+    row_num = 2
+    
+    # Процесс обработки участников чата в файл Excel
+    for user in all_participants:
+        # Если параметр id равен True, записываем ID пользователя без проверки
+        if id:
+            sheet.cell(row=row_num, column=1, value=user.id)
+        
+        # Если параметр name равен True и у пользователя есть имя, записываем его
+        if name:
+            # Проверка наличия атрибута first_name у объекта user
+            if hasattr(user, 'first_name'):
+                sheet.cell(row=row_num, column=2, value=user.first_name)
+            # Проверка наличия атрибута last_name у объекта user
+            if hasattr(user, 'last_name'):
+                sheet.cell(row=row_num, column=3, value=user.last_name)
+            # Проверка наличия атрибута username у объекта user
+            if hasattr(user, 'username') and user.username is not None:
+                usernamechat_with_at = f"@{user.username}"
+                sheet.cell(row=row_num, column=4, value=usernamechat_with_at)
+                #sheet.cell(row=row_num, column=4, value=user.username)
+            # Проверка наличия атрибута about у объекта user
+            if hasattr(user, 'about'):
+                sheet.cell(row=row_num, column=5, value=user.about)
+            # Проверка наличия атрибута last_online_date у объекта user
+            if hasattr(user, 'last_online_date'):
+                sheet.cell(row=row_num, column=6, value=user.last_online_date)
+            # Проверка наличия атрибута participant.type у объекта user
+            if hasattr(user, 'participant') and hasattr(user.participant, 'type'):
+                sheet.cell(row=row_num, column=7, value=user.participant.type)
+        
+        # Увеличиваем номер строки для следующего пользователя
+        row_num += 1
+    
+    # Сохранение документа Excel
+    wb.save(f"{group_title}_users.xlsx")
 
 
 # Функци по отправке в боты
@@ -178,58 +230,6 @@ def parsing_messages(client, index: int, id: bool, name: bool, group_title):
     wb.save(filename)
 
 
-
-
-# Выгружаем участников группы
-def parsing_xlsx(client, index: int, id: bool, name: bool, group_title, group_creator, group_admin):
-    all_participants = client.get_participants(index)
-
-    # Создание нового документа Excel
-    wb = openpyxl.Workbook()
-    sheet = wb.active
-    
-    # Запись заголовков столбцов
-    headers = ['ID', 'First Name', 'Last Name', 'Username', 'About', 'Last Online Date', 'Participant Type']
-    for col, header in enumerate(headers, start=1):
-        sheet.cell(row=1, column=col, value=header)
-    
-    # Переменная для отслеживания строки
-    row_num = 2
-    
-    # Процесс обработки участников чата в файл Excel
-    for user in all_participants:
-        # Если параметр id равен True, записываем ID пользователя без проверки
-        if id:
-            sheet.cell(row=row_num, column=1, value=user.id)
-        
-        # Если параметр name равен True и у пользователя есть имя, записываем его
-        if name:
-            # Проверка наличия атрибута first_name у объекта user
-            if hasattr(user, 'first_name'):
-                sheet.cell(row=row_num, column=2, value=user.first_name)
-            # Проверка наличия атрибута last_name у объекта user
-            if hasattr(user, 'last_name'):
-                sheet.cell(row=row_num, column=3, value=user.last_name)
-            # Проверка наличия атрибута username у объекта user
-            if hasattr(user, 'username') and user.username is not None:
-                usernamechat_with_at = f"@{user.username}"
-                sheet.cell(row=row_num, column=4, value=usernamechat_with_at)
-                #sheet.cell(row=row_num, column=4, value=user.username)
-            # Проверка наличия атрибута about у объекта user
-            if hasattr(user, 'about'):
-                sheet.cell(row=row_num, column=5, value=user.about)
-            # Проверка наличия атрибута last_online_date у объекта user
-            if hasattr(user, 'last_online_date'):
-                sheet.cell(row=row_num, column=6, value=user.last_online_date)
-            # Проверка наличия атрибута participant.type у объекта user
-            if hasattr(user, 'participant') and hasattr(user.participant, 'type'):
-                sheet.cell(row=row_num, column=7, value=user.participant.type)
-        
-        # Увеличиваем номер строки для следующего пользователя
-        row_num += 1
-    
-    # Сохранение документа Excel
-    wb.save(f"{group_title}_users.xlsx")
 
 
 
