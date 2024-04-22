@@ -18,7 +18,7 @@ from datetime import datetime
 def parsing_xlsx(client, index: int, id: bool, name: bool, group_title):
     all_participants = client.get_participants(index)
     print(all_participants)
-    input(нажмите)
+    input("нажмите")
 
     # Создание нового документа Excel
     wb = openpyxl.Workbook()
@@ -52,11 +52,11 @@ def parsing_xlsx(client, index: int, id: bool, name: bool, group_title):
                 sheet.cell(row=row_num, column=4, value=usernamechat_with_at)
                 #sheet.cell(row=row_num, column=4, value=user.username)
         # Проверка наличия атрибута about у объекта user
-        if hasattr(user, 'about'):
-            sheet.cell(row=row_num, column=5, value=user.about)
+        if hasattr(user, 'contact'):
+            sheet.cell(row=row_num, column=5, value=user.contact)
             # Проверка наличия атрибута last_online_date у объекта user
-        if hasattr(user, 'last_online_date'):
-            sheet.cell(row=row_num, column=6, value=user.last_online_date)
+        if hasattr(user, 'mutual_contact'):
+            sheet.cell(row=row_num, column=6, value=user.mutual_contact)
             # Проверка наличия атрибута participant.type у объекта user
         if hasattr(user, 'participant') and hasattr(user.participant, 'type'):
             sheet.cell(row=row_num, column=7, value=user.participant.type)
