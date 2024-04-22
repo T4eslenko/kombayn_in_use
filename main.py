@@ -208,9 +208,9 @@ if __name__ == "__main__":
                                 i = 0
                                 print('-----------------------------')
                                 for g in groups:
-                                    admin_rights = "Yes" if g.admin_rights is not None else "No"
-                                    creator = "Yes" if g.creator is True else "No"
-                                    print(str(i) + ' - ' + g.title + ' (Creator: ' + creator + ', Admin rights: ' + admin_rights + ')')
+                                    admin_rights = "Да" if g.admin_rights is not None else "Нет"
+                                    creator = "Да" if g.creator is True else "Нет"
+                                    print(str(i) + ' - ' + g.title + ' (Владелец: ' + creator + ', Права администратора: ' + admin_rights + ')')
                                     #print(str(i) + ' - ' + g.title + ' (Creator: ' + str(g.creator) + ', Admin rights: ' + admin_rights + ')')
                                     #print(str(i) + ' - ' + g.title + ' (Creator: ' + str(g.creator) + ', Admin rights: ' + str(g.admin_rights) + ')')
                                     i+=1
