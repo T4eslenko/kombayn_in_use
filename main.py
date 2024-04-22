@@ -224,7 +224,7 @@ if __name__ == "__main__":
                                     elif g.admin_rights is not None:
                                        print(str(i) + ' - ' + g.title + ' (' + color.RED + 'Права администратора: Есть' + color.END + ')')
                                     else:
-                                    print(str(i) + ' - ' + g.title)
+                                        print(str(i) + ' - ' + g.title)
                                     i += 1
 
                
