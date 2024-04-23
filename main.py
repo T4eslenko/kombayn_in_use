@@ -48,7 +48,7 @@ if __name__ == "__main__":
             user_name = False
 
         os.system('cls||clear')
-        print('Если приложение вылетает с ошибкой - просто перезапустите программу')
+        print('\033[37mЕсли приложение вылетает с ошибкой - просто перезапустите программу\033[0m')
         print () 
         selection = str(input(f"{color.PURPLE}1 - Настройки{color.END}\n"
                             "\n" 
@@ -64,9 +64,8 @@ if __name__ == "__main__":
                             "\n"  
                             f"{color.YELLOW}7 - Отправить полученные файлы excel в бот{color.END}\n"
                             "\n"  
-                            "\n"  
                             f"{color.RED}e - Выход{color.END}\n"
-                            "Ввод: "))
+                            "\033[37mВвод: \033[0m"))
 
 # Настройки
         if selection == '1':
