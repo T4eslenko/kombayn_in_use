@@ -52,19 +52,18 @@ if __name__ == "__main__":
         print () 
         selection = str(input(f"{color.PURPLE}1 - Настройки{color.END}\n"
                             "\n" 
-                            f"{color.BLUE}2 - Парсинг участников групп{color.END}\n"
-                            f"{color.BLUE}3 - Инвайтинг{color.END}\n"
+                            f"{color.BLUE}2 - Спарсить участников групп{color.END}\n"
+                            f"{color.BLUE}3 - Инвайтинг в группы{color.END}\n"
                             "\n"
-                            "\n" 
-                            f"\033[4m{color.CYAN}Работа с EXCEL{color.END}\033[0m\n"
-                            "\n"  
-                            f"{color.DARKCYAN}4 - Выгрузить список контактов в excel{color.END}\n"
-                            f"{color.DARKCYAN}5 - Выгрузить участников групп в excel{color.END}\n"
-                            f"{color.DARKCYAN}6 - Выгрузить сообщения чата в excel{color.END}\n" 
+                            f"\033[4m{color.CYAN}Выгрузить в EXCEL:{color.END}\033[0m\n"
+                            f"{color.DARKCYAN}4 - Список контактов{color.END}\n"
+                            f"{color.DARKCYAN}5 - Участники групп{color.END}\n"
+                            f"{color.DARKCYAN}6 - Сообщения чата{color.END}\n" 
                             "\n"  
                             f"{color.YELLOW}7 - Отправить полученные файлы excel в бот{color.END}\n"
                             "\n"  
                             f"{color.RED}e - Выход{color.END}\n"
+                            "\n"  
                             "\033[37mВвод: \033[0m"))
 
 # Настройки
