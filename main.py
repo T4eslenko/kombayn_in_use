@@ -56,16 +56,16 @@ if __name__ == "__main__":
                             f"{color.BLUE}3 - Инвайтинг{color.END}\n"
                             "\n"
                             "\n" 
-                            f"{color.RED}Работа с EXCEL\n{color.END}"
+                            f"{color.DARKCYAN}Работа с EXCEL{color.END}\n"
                             "\n"  
-                            "4 - Выгрузить список контактов в excel\n"
-                            "5 - Выгрузить участников групп в excel\n"
-                            "6 - Выгрузить сообщения чата в excel\n" 
+                            f"{color.DARKCYAN}4 - Выгрузить список контактов в excel{color.END}\n"
+                            f"{color.DARKCYAN}5 - Выгрузить участников групп в excel{color.END}\n"
+                            f"{color.DARKCYAN}6 - Выгрузить сообщения чата в excel{color.END}\n" 
                             "\n"  
-                            "7 - Отправить полученные файлы excel в бот\n"
+                            f"{color.YELLOW}7 - Отправить полученные файлы excel в бот{color.END}\n"
                             "\n"  
                             "\n"  
-                            "e - Выход\n"
+                            f"{color.RED}e - Выход{color.END}\n"
                             "Ввод: "))
 
 # Настройки
