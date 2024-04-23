@@ -50,7 +50,7 @@ if __name__ == "__main__":
         os.system('cls||clear')
         print('Если приложение вылетает с ошибкой - просто перезапустите программу')
         print () 
-        selection = str(input("1 - Настройки\n"
+        selection = str(input(f"1 - {color.PURPLE}Настройки{color.END}\n"
                             "\n" 
                             "2 - Парсинг участников групп\n"
                             "3 - Инвайтинг\n"
