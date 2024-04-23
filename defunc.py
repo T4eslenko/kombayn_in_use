@@ -277,19 +277,20 @@ def config(api_id, api_hash):
                 sessions.append(file)
 
         prompt_message = (
-            f"1 - Обновить api_id [{options[0].rstrip()}]\n"
-            f"2 - Обновить api_hash [{options[1].rstrip()}]\n"
+            f"\033[37m1 - Обновить api_id [{options[0].rstrip()}]\033[0m\n"
+            f"\033[37m2 - Обновить api_hash [{options[1].rstrip()}]\033[0m\n"
+            "\033[31m3 - Сбросить настройки\033[0m\n"
             " \n"
-            f"3 - Парсить user-id [{options[2].rstrip()}]\n"
-            f"4 - Парсить user-name [{options[3].rstrip()}]\n"
+            f"\033[35m4 - Парсить user-id [{options[2].rstrip()}]\033[0m\n"
+            f"\033[35m5 - Парсить user-name [{options[3].rstrip()}]\033[0m\n"
             " \n"
-            f"5 - Вывести список подключенных аккаунтов. Сейчас: [{len(sessions)}]\n"
-            f"6 - Добавить новый аккаунт. Сейчас: [{len(sessions)}]\n"
-            f"7 - Завершить сеанс аккаунта в системе. Сейчас: [{len(sessions)}]\n"
-            " \n"
-            "8 - Сбросить настройки\n"
+            "\033[4m\033[36mРабота с аккаунтами\033[0m\033[0m\n"
+            f"6 - Вывести список подключенных аккаунтов. Сейчас: [{len(sessions)}]\n"
+            f"7 - Добавить новый аккаунт. Сейчас: [{len(sessions)}]\n"
+            f"8 - Завершить сеанс аккаунта в системе. Сейчас: [{len(sessions)}]\n"
             " \n"
             "e - Назад\n"
+            " \n"
             "Ввод: "
         )
 
@@ -303,20 +304,20 @@ def config(api_id, api_hash):
             os.system('cls||clear')
             options[1] = str(input("Введите API_HASH: ")) + "\n"
 
-        elif key == '3':
+        elif key == '4':
             if options[2] == 'True\n':
                 options[2] = 'False\n'
             else:
                 options[2] = 'True\n'
 
-        elif key == '4':
+        elif key == '5':
             if options[3] == 'True\n':
                 options[3] = 'False\n'
             else:
                 options[3] = 'True\n'
 
 # Просмотреть подключенные аккаунты
-        elif key == '5':
+        elif key == '6':
             os.system('cls||clear')
             #if options[0] == "NONEID\n" or options[1] == "NONEHASH":
             #    print("Проверьте api_id и api_hash")
@@ -330,7 +331,7 @@ def config(api_id, api_hash):
             input("Для продолжения нажмите любую клавишу...")
 
 #Добавить аккаунт
-        elif key == '6':
+        elif key == '7':
             os.system('cls||clear')
             if options[0] == "NONEID\n" or options[1] == "NONEHASH":
                 print("Проверьте api_id и api_hash")
@@ -361,7 +362,7 @@ def config(api_id, api_hash):
                     time.sleep(2)
 
  #Удалить аккаунт     
-        elif key == '7':
+        elif key == '8':
             os.system('cls||clear')
             if options[0] == "NONEID\n" or options[1] == "NONEHASH":
                 print("Проверьте api_id и api_hash")
@@ -404,7 +405,7 @@ def config(api_id, api_hash):
 
 
 # Сброс настроеек
-        elif key == '8':
+        elif key == '3':
             os.system('cls||clear')
             answer = input("Вы уверены?\nAPI_ID и API_HASH будут удалены\n"
                            "1 - Удалить\n2 - Назад\n"
