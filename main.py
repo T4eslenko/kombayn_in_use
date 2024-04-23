@@ -56,7 +56,7 @@ if __name__ == "__main__":
                             f"{color.BLUE}3 - Инвайтинг{color.END}\n"
                             "\n"
                             "\n" 
-                            f"{color.DARKCYAN}Работа с EXCEL{color.END}\n"
+                            f"{color.CYAN}Работа с EXCEL{color.END}\n"
                             "\n"  
                             f"{color.DARKCYAN}4 - Выгрузить список контактов в excel{color.END}\n"
                             f"{color.DARKCYAN}5 - Выгрузить участников групп в excel{color.END}\n"
