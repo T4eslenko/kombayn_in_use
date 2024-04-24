@@ -147,7 +147,7 @@ if __name__ == "__main__":
                                 else:
                                     try:
                                         if g_index_str == "get":
-                                            parsing_chats(client, chatnames)
+                                            parsing_chats(chatnames)
                                             print('Ссылки на чаты добавлены в файл, мой командир')
                                             time.sleep(3)
                                             exit_flag = True
