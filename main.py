@@ -172,25 +172,35 @@ if __name__ == "__main__":
           with open('usernames.txt', 'r') as f:
               users = list(f)
           os.system('cls||clear')
-          print("Выберите существующий аккаунт для вступления в чаты (e - назад)\n")
-          sessions = [file for file in os.listdir('.') if file.endswith('.session')]
-      
-          for i in range(len(sessions)):
-              print(f"[{i}] - {sessions[i]}")
-          print()
-          
-          user_input = input("Ввод: ")
-          if user_input.lower() == 'e':
-              break
-          else:
-              try:
-                  i = int(user_input)
-                  if 0 <= i < len(sessions):
-                      client = TelegramClient(sessions[i].replace('\n', ''), api_id, api_hash).start()
-                      into_chats(client, chatnames)
-                      print("сделано")
-              except ValueError:
-                  print("Некорректный ввод.")
+          while True:
+                os.system('cls||clear')
+                print('-----------------------------')
+                print('=ВЫГРУЗКА КОНТАКТОВ В EXCEL=')
+                print('-----------------------------')
+                print("Выберите существующий аккаунт для выгрузки имеющихся у него контактов в формате excel (e - назад)\n")
+                for i, session in enumerate(sessions):
+                    print(f"[{i}] - {session}")
+                print()
+                user_input = input("Ввод: ")
+                if user_input.lower() == 'e':
+                    break
+                else:
+                    try:
+                        session_index = int(user_input)
+                        if 0 <= session_index < len(sessions):
+                            client = TelegramClient(sessions[session_index].replace('\n', ''), api_id, api_hash).start(sessions[session_index].replace('\n', ''))
+                            into_chats(client, chatnames)
+                            os.system('cls||clear')
+                            print('Список контактов выгружен в excel, мой командир')
+                            client.disconnect()
+                            time.sleep(3)
+                            break
+                        else:
+                            print("Пожалуйста, выберите существующий аккаунт в диапазоне от 0 до", len(sessions)-1)
+                            time.sleep(2)
+                    except ValueError:
+                        print("Пожалуйста, выберите существующий аккаунт в диапазоне от 0 до", len(sessions)-1)
+                        time.sleep(2)
 
                         
 
