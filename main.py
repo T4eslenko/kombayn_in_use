@@ -53,7 +53,7 @@ if __name__ == "__main__":
         selection = str(input(f"{color.PURPLE}1 - Настройки{color.END}\n"
                             "\n" 
                             f"{color.BLUE}2 - Спарсить ссылки на чаты{color.END}\n"
-                            f"{color.BLUE}3 - Вступить в чаты{color.END}\n"  
+                            #f"{color.BLUE}3 - Вступить в чаты{color.END}\n"  
                             f"{color.BLUE}4 - Спарсить участников групп{color.END}\n"
                             f"{color.BLUE}5 - Инвайтинг в группы{color.END}\n"
                             "\n"
