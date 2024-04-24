@@ -64,8 +64,104 @@ if __name__ == "__main__":
                             "\n"  
                             f"{color.RED}e - Выход{color.END}\n"
                             "\n"  
-                            "8 - Спарсить название групп"\n"
+                            "8 - Спарсить ссылки на чаты"\n"
                             "\033[37mВвод: \033[0m"))
+
+
+# 8 Спарсить ссылки на чаты
+        elif selection == '8':
+            os.system('cls||clear')
+            chats = []
+            last_date = None    
+            size_chats = 500
+            groups = []
+            exit_flag = False
+
+            while not exit_flag:
+                os.system('cls||clear')
+                print("Выберите существующий аккаунт для получения ссылок на подключенные чаты (e - назад)\n")
+                sessions = [file for file in os.listdir('.') if file.endswith('.session')]
+
+                for i in range(len(sessions)):
+                    print(f"[{i}] - {sessions[i]}")
+                print()
+                
+                user_input = input("Ввод: ")
+                if user_input.lower() == 'e':
+                    break
+                else:
+                    try:
+                        i = int(user_input)
+                        if 0 <= i < len(sessions):
+                            client = TelegramClient(sessions[i].replace('\n', ''), api_id, api_hash).start(sessions[i].replace('\n', ''))
+                            result = client(GetDialogsRequest(
+                                offset_date=last_date,
+                                offset_id=0,
+                                offset_peer=InputPeerEmpty(),
+                                limit=size_chats,
+                                hash=0
+                            ))
+                            chats.extend(result.chats)
+
+                            for chat in chats:
+                                try:
+                                    if isinstance(chat, Chat) and chat.migrated_to is None:
+                                        groups.append(chat)
+                                    if chat.megagroup:
+                                        groups.append(chat)
+                                except:
+                                    continue
+                            
+                            while True:
+                                os.system('cls||clear')
+                                i = 0
+                                print('-----------------------------')
+                                print('=СПИСОК ИМЕЮЩИХСЯ НА АККАУНТЕ ГРУПП=')
+                                print('-----------------------------')
+                                for g in groups:
+                                    if g.creator:
+                                       print(str(i) + ' - ' + g.title + color.RED + ' (Владелец)' + color.END)
+                                    elif g.admin_rights is not None:
+                                       print(str(i) + ' - ' + g.title + color.RED + ' (Есть права администратора)' + color.END)
+                                    else:
+                                        print(str(i) + ' - ' + g.title)
+                                    i += 1
+                                   
+                                g_index_str = str(input("Введите "get" для продолжения или е - для возврата: "))
+                       
+                                if g_index_str.lower() == 'e':
+                                    client.disconnect()
+                                    groups = []
+                                    chats = []
+                                    break
+                                else:
+                                    try:
+                                        if g_index_str = "get":
+                                            print(groups)
+                                            inmput("Нажмите для продолжения"
+                                            break
+                                            group_title = target_group.title
+                                            parsing_xlsx(client, target_group, user_id, user_name, group_title)
+                                            os.system('cls||clear')
+                                            print('Участники групп выгружены в excel, мой командир')
+                                            client.disconnect()
+                                            time.sleep(3)
+                                            exit_flag = True
+                                            break
+                                        else:
+                                            print("Пожалуйста, выберите группу из списка")
+                                            time.sleep(2)
+                                    except ValueError:
+                                        print("Пожалуйста, выберите группу из списка")
+                                        time.sleep(2)
+                        else:
+                            print("Пожалуйста, выберите существующий аккаунт в диапазоне от 0 до", len(sessions)-1)
+                            time.sleep(2)
+                    except ValueError:
+                        print("Пожалуйста, выберите существующий аккаунт в диапазоне от 0 до", len(sessions)-1)
+                        time.sleep(2)
+
+
 
 # Настройки
         if selection == '1':
