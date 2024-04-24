@@ -170,7 +170,7 @@ if __name__ == "__main__":
 # 3 Вступить в чаты
         elif selection == '3':
           with open('usernames.txt', 'r') as f:
-              users = list(f)
+              chatnames = list(f)
           os.system('cls||clear')
           while True:
                 os.system('cls||clear')
