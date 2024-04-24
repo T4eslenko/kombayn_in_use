@@ -371,6 +371,7 @@ def config(api_id, api_hash):
                                         options[1].replace('\n', '')).start(phone)
                     os.system('cls||clear')
                     print("Аккаунт (" + phone + ") успешно добавлен")
+                    client.disconnect()
                     time.sleep(2)
                     break
                 else:
