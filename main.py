@@ -142,6 +142,7 @@ if __name__ == "__main__":
                                     client.disconnect()
                                     groups = []
                                     chats = []
+                                    usernames = []
                                     break
                                 else:
                                     try:
