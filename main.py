@@ -132,7 +132,7 @@ if __name__ == "__main__":
                                   else:
                                       print(str(i) + ' - ' + g.title + color.DARKCYAN + ' @' + g.username + color.END)
                                   i += 1
-                                   
+                                print()   
                                 g_index_str = str(input("Введите \033[92m'get'\033[0m для продолжения или \033[93m'е'\033[0m - для возврата: "))
                        
                                 if g_index_str.lower() == 'e':
@@ -143,20 +143,17 @@ if __name__ == "__main__":
                                 else:
                                     try:
                                         if g_index_str == "get":
-                                            print(groups)
-                                            group_title = group.title
-                                            parsing_xlsx(client, user_id, user_name, group_title)
-                                            os.system('cls||clear')
-                                            print('Участники групп выгружены в excel, мой командир')
-                                            client.disconnect()
+                                            for g_index in groups:
+                                              parsing_chats(client, g_index, user_id, user_name)
+                                            print('Ссылки на чаты добавлены в файл, мой командир')
                                             time.sleep(3)
                                             exit_flag = True
                                             break
                                         else:
-                                            print("Пожалуйста, выберите группу из списка")
+                                            print("Пожалуйста, сделайте свой выбор")
                                             time.sleep(2)
                                     except ValueError:
-                                        print("Пожалуйста, выберите группу из списка")
+                                        print("Пожалуйста, сделайте свой выбор")
                                         time.sleep(2)
                         else:
                             print("Пожалуйста, выберите существующий аккаунт в диапазоне от 0 до", len(sessions)-1)
@@ -226,7 +223,7 @@ if __name__ == "__main__":
                 print('Спаршено.')
                 time.sleep(3)
 
-            elif int(g_index) == i + 1:
+            elif int(g_index) == i + 1: #парсим со всех групп
                 for g_index in groups:
                     parsing(client, g_index, user_id, user_name)
                 print('Спаршено.')
