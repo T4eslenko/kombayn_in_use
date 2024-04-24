@@ -13,7 +13,14 @@ from openpyxl.utils import get_column_letter
 from datetime import datetime
 
 
+# Парсим ссылки на чаты
+#parsing_chats(client, g_index, user_id, user_name)
+#def parsing_chats(client, index: int, id: bool, name: bool):
+def parsing_chats(client, g_index, user_id, user_name):
+    print(g_index)
 
+
+    
 # Выгружаем участников группы
 def parsing_xlsx(client, index: int, id: bool, name: bool, group_title):
     all_participants = client.get_participants(index)
@@ -108,29 +115,23 @@ def send_files_to_bot(bot, admin_chat_ids):
 
 
 
-# Выгружаем контакты
+# Выгружаем контакты в Excel
 async def get_contacts(client, session_name):
     result = await client(GetContactsRequest(0))
     contacts = result.users
 
-    # Создаем имя файла с учетом сессии
     contacts_file_name = f'contacts_{session_name}.xlsx'
 
-    # Создаем новый документ Excel
     wb = openpyxl.Workbook()
     sheet = wb.active
 
-    # Записываем заголовки столбцов
     headers = ['ID', 'First name (так записан у объекта в книге)', 'Last name (так записан у объекта в книге)', 'Username', 'Телефон', 'Взаимный контакт', 'Дата внесения в базу', 'Номер объекта']
     for col, header in enumerate(headers, start=1):
         sheet.cell(row=1, column=col, value=header)
 
-    # Переменная для отслеживания строки
     row_num = 2
-
-    # Процесс записи контактов в файл Excel
+    
     for contact in contacts:
-        # Проверяем наличие атрибутов ID, имени и фамилии и др. у контакта
         if hasattr(contact, 'id'):
             sheet.cell(row=row_num, column=1, value=contact.id)
         if hasattr(contact, 'first_name'):
@@ -145,23 +146,20 @@ async def get_contacts(client, session_name):
         if hasattr(contact, 'mutual_contact'):
             sheet.cell(row=row_num, column=6, value=contact.mutual_contact)
         
-        # Записываем текущую дату и время в формате dd/mm/yyyy hh:mm:ss
         sheet.cell(row=row_num, column=7, value=datetime.now().strftime('%d/%m/%Y %H:%M:%S'))
-        # Записываем имя сессии
         sheet.cell(row=row_num, column=8, value=session_name)
-        
-        # Увеличиваем номер строки для следующего контакта
+     
         row_num += 1
 
-    # Сохраняем документ Excel
     wb.save(f'{session_name}_contacts.xlsx')
     
-
+# Инвайтинг
 def inviting(client, channel, users):
     client(InviteToChannelRequest(
         channel=channel,
         users=[users]
     ))
+
 
 # выгружаем сообщения чата
 def remove_timezone(dt):
