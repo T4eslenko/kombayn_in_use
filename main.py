@@ -142,7 +142,7 @@ if __name__ == "__main__":
                                     try:
                                         if g_index_str == "get":
                                             print(groups)
-                                            inmput("Нажмите для продолжения")
+                                            input("Нажмите для продолжения")
                                             break
                                             group_title = target_group.title
                                             parsing_xlsx(client, target_group, user_id, user_name, group_title)
