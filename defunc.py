@@ -17,8 +17,8 @@ from telethon.errors.rpcerrorlist import PeerFloodError, UserPrivacyRestrictedEr
 # Парсим ссылки на чаты
 def parsing_chats(chatid):
     with open('chatnames.txt', 'w') as file:
-        for id in chatid:
-            file.write(id + '\n')
+        for chatid in chatids:
+            file.write(chatid + '\n')
 
 #вступаем в группы
 def into_chats(client, chatnames):
