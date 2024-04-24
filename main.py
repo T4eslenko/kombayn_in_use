@@ -131,7 +131,7 @@ if __name__ == "__main__":
                                         print(str(i) + ' - ' + g.title)
                                     i += 1
                                    
-                                g_index_str = str(input("Введите "get" для продолжения или е - для возврата: "))
+                                g_index_str = str(input("Введите get для продолжения или е - для возврата: "))
                        
                                 if g_index_str.lower() == 'e':
                                     client.disconnect()
