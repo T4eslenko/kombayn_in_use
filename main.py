@@ -175,7 +175,7 @@ if __name__ == "__main__":
           while True:
                 os.system('cls||clear')
                 print('-----------------------------')
-                print('=ВЫГРУЗКА КОНТАКТОВ В EXCEL=')
+                print('=ВСТУПЛЕНИЕ В ЧАТЫ=')
                 print('-----------------------------')
                 print("Выберите существующий аккаунт для выгрузки имеющихся у него контактов в формате excel (e - назад)\n")
                 for i, session in enumerate(sessions):
