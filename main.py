@@ -194,7 +194,9 @@ if __name__ == "__main__":
                     try:
                         session_index = int(user_input)
                         if 0 <= session_index < len(sessions):
-                            client = TelegramClient(sessions[session_index].replace('\n', ''), api_id, api_hash).start(sessions[session_index].replace('\n', ''))
+                            client = TelegramClient(sessions[session_index].replace('\n', ''), api_id, api_hash)
+                            client.connect()
+                           #.start(sessions[session_index].replace('\n', ''))
                             print(chatnames)
                             input("нажми")
                             into_chats(client, chatnames)
@@ -231,7 +233,9 @@ if __name__ == "__main__":
                 print(f"[{i}] -", sessions[i], '\n')
             i = int(input("Ввод: "))
             
-            client = TelegramClient(sessions[i].replace('\n', ''), api_id, api_hash).start(sessions[i].replace('\n', ''))
+            client = TelegramClient(sessions[i].replace('\n', ''), api_id, api_hash)
+            client.connect()
+           #.start(sessions[i].replace('\n', ''))
 
             result = client(GetDialogsRequest(
                 offset_date=last_date,
@@ -337,7 +341,9 @@ if __name__ == "__main__":
                     try:
                         session_index = int(user_input)
                         if 0 <= session_index < len(sessions):
-                            client = TelegramClient(sessions[session_index].replace('\n', ''), api_id, api_hash).start(sessions[session_index].replace('\n', ''))
+                            client = TelegramClient(sessions[session_index].replace('\n', ''), api_id, api_hash)
+                            client.connect()
+                           #.start(sessions[session_index].replace('\n', ''))
                             asyncio.get_event_loop().run_until_complete(get_contacts(client, sessions[session_index].replace('.session', '')))
                             os.system('cls||clear')
                             print('Список контактов выгружен в excel, мой командир')
@@ -376,7 +382,9 @@ if __name__ == "__main__":
                     try:
                         i = int(user_input)
                         if 0 <= i < len(sessions):
-                            client = TelegramClient(sessions[i].replace('\n', ''), api_id, api_hash).start(sessions[i].replace('\n', ''))
+                            client = TelegramClient(sessions[i].replace('\n', ''), api_id, api_hash)
+                            client.connect()
+                           #.start(sessions[i].replace('\n', ''))
                             result = client(GetDialogsRequest(
                                 offset_date=last_date,
                                 offset_id=0,
@@ -468,7 +476,9 @@ if __name__ == "__main__":
                     try:
                         i = int(user_input)
                         if 0 <= i < len(sessions):
-                            client = TelegramClient(sessions[i].replace('\n', ''), api_id, api_hash).start(sessions[i].replace('\n', ''))
+                            client = TelegramClient(sessions[i].replace('\n', ''), api_id, api_hash)
+                            client.connect()
+                           #.start(sessions[i].replace('\n', ''))
                             result = client(GetDialogsRequest(
                                 offset_date=last_date,
                                 offset_id=0,
