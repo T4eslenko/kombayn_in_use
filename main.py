@@ -109,9 +109,11 @@ if __name__ == "__main__":
 
                             for chat in chats:
                                 try:
-                                    if isinstance(chat, Chat) and chat.migrated_to is None:
+                                    #if isinstance(chat, Chat) and chat.migrated_to is None:
+                                    if isinstance(chat, Chat) and chat.migrated_to is None and chat.username:
                                         groups.append(chat)
-                                    if chat.megagroup:
+                                    #if chat.megagroup:
+                                    if chat.megagroup and chat.username:
                                         groups.append(chat)
                                 except:
                                     continue
