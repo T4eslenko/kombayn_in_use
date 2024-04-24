@@ -172,7 +172,8 @@ if __name__ == "__main__":
 # 3 Вступить в чаты
         elif selection == '3':
           with open('chatnames.txt', 'r') as f:
-              chatnames = list(f)
+              chatnames = [line.strip() for line in f]
+              #chatnames = list(f)
           os.system('cls||clear')
           while True:
                 os.system('cls||clear')
@@ -200,8 +201,7 @@ if __name__ == "__main__":
                             print(chatnames)
                             input("нажми")
                             into_chats(client, chatnames)
-                            os.system('cls||clear')
-                            print('Мы вступили в выбранные чаты, мой командир')
+                            print('Задача выполнена, мой командир')
                             client.disconnect()
                             time.sleep(3)
                             break
