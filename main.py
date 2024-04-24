@@ -177,7 +177,7 @@ if __name__ == "__main__":
                 print('-----------------------------')
                 print('=ВСТУПЛЕНИЕ В ЧАТЫ=')
                 print('-----------------------------')
-                print("Выберите существующий аккаунт для выгрузки имеющихся у него контактов в формате excel (e - назад)\n")
+                print("Выберите существующий аккаунт для вступления в чаты (e - назад)\n")
                 
                 sessions = [file for file in os.listdir('.') if file.endswith('.session')]
 
@@ -193,9 +193,11 @@ if __name__ == "__main__":
                         session_index = int(user_input)
                         if 0 <= session_index < len(sessions):
                             client = TelegramClient(sessions[session_index].replace('\n', ''), api_id, api_hash).start(sessions[session_index].replace('\n', ''))
+                            print(chatnames)
+                            input("нажми")
                             into_chats(client, chatnames)
                             os.system('cls||clear')
-                            print('Список контактов выгружен в excel, мой командир')
+                            print('Мы вступили в выбранные чаты, мой командир')
                             client.disconnect()
                             time.sleep(3)
                             break
