@@ -24,6 +24,8 @@ def parsing_chats(chatnames):
 def into_chats(client, chatnames):
     for chatname in chatnames:
         try:
+            print(chatname)
+            input("жми")
             client(ImportChatInviteRequest(chatname))
             print(f"Присоединился к группе: {chatname}")
             time.sleep(20)  # Задержка в 10 секунд
