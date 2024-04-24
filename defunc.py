@@ -16,8 +16,8 @@ from datetime import datetime
 # Парсим ссылки на чаты
 #parsing_chats(client, g_index, user_id, user_name)
 #def parsing_chats(client, index: int, id: bool, name: bool):
-def parsing_chats(client, g_index, user_id, user_name):
-    print(g_index)
+def parsing_chats(client, usernames):
+    print(usernames)
     input("нажми меня")
 
 
