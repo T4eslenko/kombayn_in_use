@@ -140,7 +140,7 @@ if __name__ == "__main__":
                                     break
                                 else:
                                     try:
-                                        if g_index_str = "get":
+                                        if g_index_str == "get":
                                             print(groups)
                                             inmput("Нажмите для продолжения"
                                             break
