@@ -131,13 +131,13 @@ if __name__ == "__main__":
                                 print('=СПИСОК ИМЕЮЩИХСЯ НА АККАУНТЕ ОБЩЕДОСТУПНЫХ ГРУПП=')
                                 print('-----------------------------')
                                 for g in groups:
-                                  if g.creator:
-                                      print(str(i) + ' - ' + g.title + color.RED + ' (Владелец)' + color.END + color.DARKCYAN + ' @' + g.username + color.END)
-                                  elif g.admin_rights is not None:
-                                      print(str(i) + ' - ' + g.title + color.RED + ' (Есть права администратора)' + color.END + color.DARKCYAN + ' @' + g.username + color.END)
-                                  else:
-                                      print(str(i) + ' - ' + g.title + color.DARKCYAN + ' @' + g.username + color.END)
-                                  chatnames.append('@' + g.username)
+                                  #if g.creator:
+                                      #print(str(i) + ' - ' + g.title + color.RED + ' (Владелец)' + color.END + color.DARKCYAN + ' @' + g.username + color.END)
+                                  #elif g.admin_rights is not None:
+                                      #print(str(i) + ' - ' + g.title + color.RED + ' (Есть права администратора)' + color.END + color.DARKCYAN + ' @' + g.username + color.END)
+                                  #else:
+                                      #print(str(i) + ' - ' + g.title + color.DARKCYAN + ' @' + g.username + color.END)
+                                  #chatnames.append('@' + g.username)
                                   chatid.append(g.id)
                                   i += 1
                                 print()   
