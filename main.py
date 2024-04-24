@@ -80,6 +80,8 @@ if __name__ == "__main__":
             size_chats = 500
             groups = []
             exit_flag = False
+            usernames = []
+            
 
             while not exit_flag:
                 os.system('cls||clear')
