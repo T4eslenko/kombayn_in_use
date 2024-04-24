@@ -11,16 +11,30 @@ from telethon.sync import TelegramClient
 from openpyxl import Workbook
 from openpyxl.utils import get_column_letter
 from datetime import datetime
-
+from telethon.tl.functions.messages import ImportChatInviteRequest
+from telethon.errors.rpcerrorlist import PeerFloodError, UserPrivacyRestrictedError
 
 # Парсим ссылки на чаты
-#parsing_chats(client, g_index, user_id, user_name)
-#def parsing_chats(client, index: int, id: bool, name: bool):
-def parsing_chats(client, usernames):
-    print(usernames)
-    input("нажми меня")
+def parsing_chats(chatnames):
+    with open('chatnames.txt', 'w') as file:
+    for name in chatnames:
+        file.write(name + '\n')
 
-
+#вступаем в группы
+#def into_chats(client, chatnames):
+#    for chatname in chatnames:
+#        try:
+#            client(ImportChatInviteRequest(chatname))
+#            print(f"Присоединился к группе: {chatname}")
+#            time.sleep(10)  # Задержка в 10 секунд
+#        except PeerFloodError:
+#            print("PeerFloodError: Превышен лимит на число запросов. Попробуйте позже.")
+#            return
+#        except UserPrivacyRestrictedError:
+#            print(f"UserPrivacyRestrictedError: У вас ограничена возможность присоединения к группе {chatname}.")
+#        except Exception as e:
+#            print(f"Ошибка при присоединении к группе {chatname}: {e}")
+  
     
 # Выгружаем участников группы
 def parsing_xlsx(client, index: int, id: bool, name: bool, group_title):
