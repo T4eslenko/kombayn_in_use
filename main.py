@@ -115,12 +115,13 @@ if __name__ == "__main__":
 
                             for chat in chats:
                                 try:
-                                    if isinstance(chat, Chat) and chat.migrated_to is None and chat.username:
-                                        groups.append(chat)
-                                    if chat.megagroup and chat.username:
-                                        groups.append(chat)
+                                    #if isinstance(chat, Chat) and chat.migrated_to is None and chat.username:
+                                        #groups.append(chat)
+                                    #if chat.megagroup and chat.username:
+                                       # groups.append(chat)
                                     #if chat.broadcast:
                                         #chanel.append(chat)
+                                   groups.append(chat)
                                 except:
                                     continue
                             while True:
