@@ -126,11 +126,11 @@ if __name__ == "__main__":
                                 print('-----------------------------')
                                 for g in groups:
                                   if g.creator:
-                                      print(str(i) + ' - ' + g.title + color.RED + ' (Владелец)' + color.END + ' @' + g.username)
+                                      print(str(i) + ' - ' + g.title + color.RED + ' (Владелец)' + color.END + color.BLUE + ' @' + g.username + color.END)
                                   elif g.admin_rights is not None:
-                                      print(str(i) + ' - ' + g.title + color.RED + ' (Есть права администратора)' + color.END + ' @' + g.username)
+                                      print(str(i) + ' - ' + g.title + color.RED + ' (Есть права администратора)' + color.END + color.BLUE + ' @' + g.username + color.END)
                                   else:
-                                      print(str(i) + ' - ' + g.title + ' @' + g.username)
+                                      print(str(i) + ' - ' + g.title + color.BLUE + ' @' + g.username + color.END)
                                   i += 1
                                    
                                 g_index_str = str(input("Введите get для продолжения или е - для возврата: "))
