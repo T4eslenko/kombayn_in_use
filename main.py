@@ -82,6 +82,7 @@ if __name__ == "__main__":
             groups = []
             exit_flag = False
             chatnames = []
+            chatid = []
             
 
             while not exit_flag:
@@ -146,6 +147,7 @@ if __name__ == "__main__":
                                     groups = []
                                     chats = []
                                     chatnames = []
+                                    chatid = []
                                     break
                                 else:
                                     try:
