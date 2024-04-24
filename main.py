@@ -80,7 +80,7 @@ if __name__ == "__main__":
             size_chats = 500
             groups = []
             exit_flag = False
-            usernames = []
+            chatnames = []
             
 
             while not exit_flag:
@@ -133,7 +133,7 @@ if __name__ == "__main__":
                                       print(str(i) + ' - ' + g.title + color.RED + ' (Есть права администратора)' + color.END + color.DARKCYAN + ' @' + g.username + color.END)
                                   else:
                                       print(str(i) + ' - ' + g.title + color.DARKCYAN + ' @' + g.username + color.END)
-                                  usernames.append('@' + g.username)
+                                  chatnames.append('@' + g.username)
                                   i += 1
                                 print()   
                                 g_index_str = str(input("Введите \033[92m'get'\033[0m для продолжения или \033[93m'е'\033[0m - для возврата: "))
@@ -142,12 +142,12 @@ if __name__ == "__main__":
                                     client.disconnect()
                                     groups = []
                                     chats = []
-                                    usernames = []
+                                    chatnames = []
                                     break
                                 else:
                                     try:
                                         if g_index_str == "get":
-                                            parsing_chats(client, usernames)
+                                            parsing_chats(client, chatnames)
                                             print('Ссылки на чаты добавлены в файл, мой командир')
                                             time.sleep(3)
                                             exit_flag = True
