@@ -143,8 +143,8 @@ if __name__ == "__main__":
                                 else:
                                     try:
                                         if g_index_str == "get":
-                                            for g_index in groups:
-                                              parsing_chats(client, g_index, user_id, user_name)
+                                            g_index = group.title
+                                            parsing_chats(client, g_index, user_id, user_name)
                                             print('Ссылки на чаты добавлены в файл, мой командир')
                                             time.sleep(3)
                                             exit_flag = True
