@@ -123,13 +123,13 @@ if __name__ == "__main__":
                                 print('=СПИСОК ИМЕЮЩИХСЯ НА АККАУНТЕ ГРУПП=')
                                 print('-----------------------------')
                                 for g in groups:
-                                    if g.creator:
-                                       print(str(i) + ' - ' + g.title + color.RED + ' (Владелец)' + color.END)
-                                    elif g.admin_rights is not None:
-                                       print(str(i) + ' - ' + g.title + color.RED + ' (Есть права администратора)' + color.END)
-                                    else:
-                                        print(str(i) + ' - ' + g.title)
-                                    i += 1
+                                  if g.creator:
+                                      print(str(i) + ' - ' + g.title + color.RED + ' (Владелец)' + color.END + ' @' + g.username)
+                                  elif g.admin_rights is not None:
+                                      print(str(i) + ' - ' + g.title + color.RED + ' (Есть права администратора)' + color.END + ' @' + g.username)
+                                  else:
+                                      print(str(i) + ' - ' + g.title + ' @' + g.username)
+                                  i += 1
                                    
                                 g_index_str = str(input("Введите get для продолжения или е - для возврата: "))
                        
@@ -142,10 +142,8 @@ if __name__ == "__main__":
                                     try:
                                         if g_index_str == "get":
                                             print(groups)
-                                            input("Нажмите для продолжения")
-                                            break
-                                            group_title = target_group.title
-                                            parsing_xlsx(client, target_group, user_id, user_name, group_title)
+                                            group_title = group.title
+                                            parsing_xlsx(client, user_id, user_name, group_title)
                                             os.system('cls||clear')
                                             print('Участники групп выгружены в excel, мой командир')
                                             client.disconnect()
