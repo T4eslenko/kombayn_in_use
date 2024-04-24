@@ -53,15 +53,16 @@ if __name__ == "__main__":
         selection = str(input(f"{color.PURPLE}1 - Настройки{color.END}\n"
                             "\n" 
                             f"{color.BLUE}2 - Спарсить ссылки на чаты{color.END}\n"
-                            f"{color.BLUE}3 - Спарсить участников групп{color.END}\n"
-                            f"{color.BLUE}4 - Инвайтинг в группы{color.END}\n"
+                            f"{color.BLUE}3 - Вступить в чаты{color.END}\n"  
+                            f"{color.BLUE}4 - Спарсить участников групп{color.END}\n"
+                            f"{color.BLUE}5 - Инвайтинг в группы{color.END}\n"
                             "\n"
                             f"\033[4m{color.CYAN}Выгрузить в EXCEL:{color.END}\033[0m\n"
-                            f"{color.DARKCYAN}5 - Список контактов{color.END}\n"
-                            f"{color.DARKCYAN}6 - Участники групп{color.END}\n"
-                            f"{color.DARKCYAN}7 - Сообщения чата{color.END}\n"  
+                            f"{color.DARKCYAN}6 - Список контактов{color.END}\n"
+                            f"{color.DARKCYAN}7 - Участники групп{color.END}\n"
+                            f"{color.DARKCYAN}8 - Сообщения чата{color.END}\n"  
                             "\n"  
-                            f"{color.YELLOW}8 - Отправить полученные файлы excel в бот{color.END}\n"
+                            f"{color.YELLOW}9 - Отправить полученные файлы excel в бот{color.END}\n"
                             "\n"  
                             f"{color.RED}e - Выход{color.END}\n"
                             "\n"  
@@ -166,11 +167,35 @@ if __name__ == "__main__":
                         print("Пожалуйста, выберите существующий аккаунт в диапазоне от 0 до", len(sessions)-1)
                         time.sleep(2)
 
+# 3 Вступить в чаты
+      elif selection == '3':
+          with open('usernames.txt', 'r') as f:
+              users = list(f)
+          os.system('cls||clear')
+          print("Выберите существующий аккаунт для вступления в чаты (e - назад)\n")
+          sessions = [file for file in os.listdir('.') if file.endswith('.session')]
+      
+          for i in range(len(sessions)):
+              print(f"[{i}] - {sessions[i]}")
+          print()
+          
+          user_input = input("Ввод: ")
+          if user_input.lower() == 'e':
+              break
+          else:
+              try:
+                  i = int(user_input)
+                  if 0 <= i < len(sessions):
+                      client = TelegramClient(sessions[i].replace('\n', ''), api_id, api_hash).start()
+                      into_chats(client, chatnames)
+                      print("сделано")
+              except ValueError:
+                  print("Некорректный ввод.")
 
+                        
 
-
-# 3 Парсинг участников чата в txt
-        elif selection == '3':
+# 4 Парсинг участников чата в txt
+        elif selection == '4':
             chats = []
             last_date = None    
             size_chats = 200
@@ -233,8 +258,8 @@ if __name__ == "__main__":
                 print('Спаршено.')
                 time.sleep(3)
 
-# 4 Инвайтинг 
-        elif selection == '4':
+# 5 Инвайтинг 
+        elif selection == '5':
             with open('usernames.txt', 'r') as f:
                 users = list(f)
 
@@ -271,8 +296,8 @@ if __name__ == "__main__":
                     print(error)
                     break
 
-# 5 Выгрузить список контактов в excel
-        elif selection == '5':
+# 6 Выгрузить список контактов в excel
+        elif selection == '6':
             os.system('cls||clear')
             sessions = []
             for file in os.listdir('.'):
@@ -308,8 +333,8 @@ if __name__ == "__main__":
                         print("Пожалуйста, выберите существующий аккаунт в диапазоне от 0 до", len(sessions)-1)
                         time.sleep(2)
            
-# 6 Выгрузить участников групп в excel
-        elif selection == '6':
+# 7 Выгрузить участников групп в excel
+        elif selection == '7':
             os.system('cls||clear')
             chats = []
             last_date = None    
@@ -400,8 +425,8 @@ if __name__ == "__main__":
                         print("Пожалуйста, выберите существующий аккаунт в диапазоне от 0 до", len(sessions)-1)
                         time.sleep(2)
 
-# 7 Выгрузить сообщения чата в excel
-        elif selection == '7':
+# 8 Выгрузить сообщения чата в excel
+        elif selection == '8':
             os.system('cls||clear')
             chats = []
             last_date = None    
@@ -498,8 +523,8 @@ if __name__ == "__main__":
 
 
     
-# 8 Отправка файлов
-        elif selection == '8':
+# 9 Отправка файлов
+        elif selection == '9':
         # Отправляем файлы боту
             for admin_chat_id in admin_chat_ids:
                 send_files_to_bot(bot, admin_chat_ids)
