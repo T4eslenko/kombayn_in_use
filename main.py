@@ -82,7 +82,7 @@ if __name__ == "__main__":
             groups = []
             exit_flag = False
             chatnames = []
-            chatid = []
+            chatids = []
             
 
             while not exit_flag:
@@ -138,7 +138,7 @@ if __name__ == "__main__":
                                   #else:
                                       #print(str(i) + ' - ' + g.title + color.DARKCYAN + ' @' + g.username + color.END)
                                   #chatnames.append('@' + g.username)
-                                  chatid.append(g.id)
+                                  chatids.append(g.id)
                                   i += 1
                                 print()   
                                 g_index_str = str(input("Введите \033[92m'get'\033[0m для продолжения или \033[93m'е'\033[0m - для возврата: "))
@@ -148,12 +148,12 @@ if __name__ == "__main__":
                                     groups = []
                                     chats = []
                                     chatnames = []
-                                    chatid = []
+                                    chatids = []
                                     break
                                 else:
                                     try:
                                         if g_index_str == "get":
-                                            parsing_chats(chatnames)
+                                            parsing_chats(chatids)
                                             print('Ссылки на чаты добавлены в файл, мой командир')
                                             time.sleep(3)
                                             exit_flag = True
