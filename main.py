@@ -67,6 +67,10 @@ if __name__ == "__main__":
                             "8 - Спарсить ссылки на чаты\n"
                             "\033[37mВвод: \033[0m"))
 
+# Настройки
+        if selection == '1':
+            config(api_id, api_hash) 
+
 
 # 8 Спарсить ссылки на чаты
         elif selection == '8':
@@ -163,9 +167,6 @@ if __name__ == "__main__":
 
 
 
-# Настройки
-        if selection == '1':
-            config(api_id, api_hash) 
 
 # 2 Парсинг участников чата в txt
         elif selection == '2':
