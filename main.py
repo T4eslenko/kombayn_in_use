@@ -168,7 +168,7 @@ if __name__ == "__main__":
                         time.sleep(2)
 
 # 3 Вступить в чаты
-      elif selection == '3':
+        elif selection == '3':
           with open('usernames.txt', 'r') as f:
               users = list(f)
           os.system('cls||clear')
