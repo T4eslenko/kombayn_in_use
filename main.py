@@ -195,7 +195,7 @@ if __name__ == "__main__":
                     try:
                         session_index = int(user_input)
                         if 0 <= session_index < len(sessions):
-                            with TelegramClient(session_name, api_id, api_hash) as client:
+                            with TelegramClient(sessions[i].replace('\n', ''), api_id, api_hash) as client:
                                #client = TelegramClient(sessions[session_index].replace('\n', ''), api_id, api_hash)
                                #client.connect()
                               
