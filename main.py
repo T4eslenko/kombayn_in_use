@@ -151,6 +151,7 @@ if __name__ == "__main__":
                                             print('Ссылки на чаты добавлены в файл, мой командир')
                                             time.sleep(3)
                                             exit_flag = True
+                                            client.disconnect()
                                             break
                                         else:
                                             print("Пожалуйста, сделайте свой выбор")
