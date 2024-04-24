@@ -119,7 +119,7 @@ if __name__ == "__main__":
                                         groups.append(chat)
                                     if chat.megagroup and chat.username:
                                         groups.append(chat)
-                                       if chat.broadcast:
+                                    if chat.broadcast:
                                         groups.append(chanel)
                                 except:
                                     continue
