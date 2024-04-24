@@ -178,10 +178,14 @@ if __name__ == "__main__":
                 print('=ВСТУПЛЕНИЕ В ЧАТЫ=')
                 print('-----------------------------')
                 print("Выберите существующий аккаунт для выгрузки имеющихся у него контактов в формате excel (e - назад)\n")
+                
+                sessions = [file for file in os.listdir('.') if file.endswith('.session')]
+
                 for i, session in enumerate(sessions):
                     print(f"[{i}] - {session}")
                 print()
                 user_input = input("Ввод: ")
+                
                 if user_input.lower() == 'e':
                     break
                 else:
