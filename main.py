@@ -131,6 +131,7 @@ if __name__ == "__main__":
                                       print(str(i) + ' - ' + g.title + color.RED + ' (Есть права администратора)' + color.END + color.DARKCYAN + ' @' + g.username + color.END)
                                   else:
                                       print(str(i) + ' - ' + g.title + color.DARKCYAN + ' @' + g.username + color.END)
+                                  usernames.append(g.username)
                                   i += 1
                                 print()   
                                 g_index_str = str(input("Введите \033[92m'get'\033[0m для продолжения или \033[93m'е'\033[0m - для возврата: "))
@@ -143,8 +144,7 @@ if __name__ == "__main__":
                                 else:
                                     try:
                                         if g_index_str == "get":
-                                            for g_index in groups:
-                                                parsing_chats(client, g_index, user_id, user_name)
+                                            parsing_chats(client, usernames)
                                             print('Ссылки на чаты добавлены в файл, мой командир')
                                             time.sleep(3)
                                             exit_flag = True
