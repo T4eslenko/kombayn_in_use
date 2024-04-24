@@ -52,28 +52,28 @@ if __name__ == "__main__":
         print () 
         selection = str(input(f"{color.PURPLE}1 - Настройки{color.END}\n"
                             "\n" 
-                            f"{color.BLUE}2 - Спарсить участников групп{color.END}\n"
-                            f"{color.BLUE}3 - Инвайтинг в группы{color.END}\n"
+                            f"{color.BLUE}2 - Спарсить ссылки на чаты{color.END}\n"
+                            f"{color.BLUE}3 - Спарсить участников групп{color.END}\n"
+                            f"{color.BLUE}4 - Инвайтинг в группы{color.END}\n"
                             "\n"
                             f"\033[4m{color.CYAN}Выгрузить в EXCEL:{color.END}\033[0m\n"
-                            f"{color.DARKCYAN}4 - Список контактов{color.END}\n"
-                            f"{color.DARKCYAN}5 - Участники групп{color.END}\n"
-                            f"{color.DARKCYAN}6 - Сообщения чата{color.END}\n" 
+                            f"{color.DARKCYAN}5 - Список контактов{color.END}\n"
+                            f"{color.DARKCYAN}6 - Участники групп{color.END}\n"
+                            f"{color.DARKCYAN}7 - Сообщения чата{color.END}\n"  
                             "\n"  
-                            f"{color.YELLOW}7 - Отправить полученные файлы excel в бот{color.END}\n"
+                            f"{color.YELLOW}8 - Отправить полученные файлы excel в бот{color.END}\n"
                             "\n"  
                             f"{color.RED}e - Выход{color.END}\n"
                             "\n"  
-                            "8 - Спарсить ссылки на чаты\n"
                             "\033[37mВвод: \033[0m"))
 
-# Настройки
+# 1 Настройки
         if selection == '1':
             config(api_id, api_hash) 
 
 
-# 8 Спарсить ссылки на чаты
-        elif selection == '8':
+# 2 Спарсить ссылки на чаты
+        elif selection == '2':
             os.system('cls||clear')
             chats = []
             last_date = None    
@@ -122,18 +122,18 @@ if __name__ == "__main__":
                                 os.system('cls||clear')
                                 i = 0
                                 print('-----------------------------')
-                                print('=СПИСОК ИМЕЮЩИХСЯ НА АККАУНТЕ ГРУПП=')
+                                print('=СПИСОК ИМЕЮЩИХСЯ НА АККАУНТЕ ОБЩЕДОСТУПНЫХ ГРУПП=')
                                 print('-----------------------------')
                                 for g in groups:
                                   if g.creator:
-                                      print(str(i) + ' - ' + g.title + color.RED + ' (Владелец)' + color.END + color.BLUE + ' @' + g.username + color.END)
+                                      print(str(i) + ' - ' + g.title + color.RED + ' (Владелец)' + color.END + color.DARKCYAN + ' @' + g.username + color.END)
                                   elif g.admin_rights is not None:
-                                      print(str(i) + ' - ' + g.title + color.RED + ' (Есть права администратора)' + color.END + color.BLUE + ' @' + g.username + color.END)
+                                      print(str(i) + ' - ' + g.title + color.RED + ' (Есть права администратора)' + color.END + color.DARKCYAN + ' @' + g.username + color.END)
                                   else:
-                                      print(str(i) + ' - ' + g.title + color.BLUE + ' @' + g.username + color.END)
+                                      print(str(i) + ' - ' + g.title + color.DARKCYAN + ' @' + g.username + color.END)
                                   i += 1
                                    
-                                g_index_str = str(input("Введите get для продолжения или е - для возврата: "))
+                                g_index_str = str(input("Введите \033[92m'get'\033[0m для продолжения или \033[93m'е'\033[0m - для возврата: "))
                        
                                 if g_index_str.lower() == 'e':
                                     client.disconnect()
@@ -168,8 +168,8 @@ if __name__ == "__main__":
 
 
 
-# 2 Парсинг участников чата в txt
-        elif selection == '2':
+# 3 Парсинг участников чата в txt
+        elif selection == '3':
             chats = []
             last_date = None    
             size_chats = 200
@@ -232,9 +232,46 @@ if __name__ == "__main__":
                 print('Спаршено.')
                 time.sleep(3)
 
-
-# 4 Выгрузить список контактов в excel
+# 4 Инвайтинг 
         elif selection == '4':
+            with open('usernames.txt', 'r') as f:
+                users = list(f)
+
+            print("Выберите юзер-бота для инвайтинга.\n"
+                "(Аккаунт который состоит в группе, в которую производится инвайт)")
+            
+            sessions = []
+            for file in os.listdir('.'):
+                if file.endswith('.session'):
+                    sessions.append(file)
+
+            for i in range(len(sessions)):
+                print(f"{i} -", sessions[i])
+            i = int(input("Ввод: "))
+            
+            client = TelegramClient(sessions[i].replace('\n', ''), api_id, api_hash)
+
+            channelname = input('Введите имя канала для инвайта (без "@")')
+
+            for limit in range(20):
+                try:
+                    inviting(client, channelname, users[limit].replace('\n', ''))
+                    print(users[limit].replace('\n', ''))
+                    time.sleep(random.randrange(15, 40))
+
+                except UserPrivacyRestrictedError:
+                    print('Пользователь ' + users[limit].replace('\n', '') + ' запретил его инвайтить. Пропускаем :(')
+
+                except PeerFloodError:
+                    print('Телеграмм заспамлен.')
+                    break
+
+                except Exception as error:
+                    print(error)
+                    break
+
+# 5 Выгрузить список контактов в excel
+        elif selection == '5':
             os.system('cls||clear')
             sessions = []
             for file in os.listdir('.'):
@@ -270,8 +307,8 @@ if __name__ == "__main__":
                         print("Пожалуйста, выберите существующий аккаунт в диапазоне от 0 до", len(sessions)-1)
                         time.sleep(2)
            
-# 5 Выгрузить участников групп в excel
-        elif selection == '5':
+# 6 Выгрузить участников групп в excel
+        elif selection == '6':
             os.system('cls||clear')
             chats = []
             last_date = None    
@@ -362,8 +399,8 @@ if __name__ == "__main__":
                         print("Пожалуйста, выберите существующий аккаунт в диапазоне от 0 до", len(sessions)-1)
                         time.sleep(2)
 
-# 6 Выгрузить сообщения чата в excel
-        elif selection == '6':
+# 7 Выгрузить сообщения чата в excel
+        elif selection == '7':
             os.system('cls||clear')
             chats = []
             last_date = None    
@@ -457,48 +494,11 @@ if __name__ == "__main__":
                         time.sleep(2)
         
         
-# 3 Инвайтинг 
-        elif selection == '3':
-            with open('usernames.txt', 'r') as f:
-                users = list(f)
-
-            print("Выберите юзер-бота для инвайтинга.\n"
-                "(Аккаунт который состоит в группе, в которую производится инвайт)")
-            
-            sessions = []
-            for file in os.listdir('.'):
-                if file.endswith('.session'):
-                    sessions.append(file)
-
-            for i in range(len(sessions)):
-                print(f"{i} -", sessions[i])
-            i = int(input("Ввод: "))
-            
-            client = TelegramClient(sessions[i].replace('\n', ''), api_id, api_hash)
-
-            channelname = input('Введите имя канала для инвайта (без "@")')
-
-            for limit in range(20):
-                try:
-                    inviting(client, channelname, users[limit].replace('\n', ''))
-                    print(users[limit].replace('\n', ''))
-                    time.sleep(random.randrange(15, 40))
-
-                except UserPrivacyRestrictedError:
-                    print('Пользователь ' + users[limit].replace('\n', '') + ' запретил его инвайтить. Пропускаем :(')
-
-                except PeerFloodError:
-                    print('Телеграмм заспамлен.')
-                    break
-
-                except Exception as error:
-                    print(error)
-                    break
 
 
     
-# 7 Отправка файлов
-        elif selection == '7':
+# 8 Отправка файлов
+        elif selection == '8':
         # Отправляем файлы боту
             for admin_chat_id in admin_chat_ids:
                 send_files_to_bot(bot, admin_chat_ids)
