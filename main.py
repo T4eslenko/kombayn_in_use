@@ -195,15 +195,16 @@ if __name__ == "__main__":
                     try:
                         session_index = int(user_input)
                         if 0 <= session_index < len(sessions):
-                            client = TelegramClient(sessions[session_index].replace('\n', ''), api_id, api_hash)
-                            client.connect()
-                           #.start(sessions[session_index].replace('\n', ''))
-                            print(chatnames)
-                            input("нажми")
-                            into_chats(client, chatnames)
-                            print('Задача выполнена, мой командир')
-                            client.disconnect()
-                            time.sleep(3)
+                            with TelegramClient(session_name, api_id, api_hash) as client:
+                               #client = TelegramClient(sessions[session_index].replace('\n', ''), api_id, api_hash)
+                               #client.connect()
+                              
+                               print(chatnames)
+                               input("нажми")
+                               into_chats(client, chatnames)
+                               print('Задача выполнена, мой командир')
+                               client.disconnect()
+                               time.sleep(3)
                             break
                         else:
                             print("Пожалуйста, выберите существующий аккаунт в диапазоне от 0 до", len(sessions)-1)
