@@ -100,7 +100,8 @@ if __name__ == "__main__":
                     try:
                         i = int(user_input)
                         if 0 <= i < len(sessions):
-                            client = TelegramClient(sessions[i].replace('\n', ''), api_id, api_hash).start(sessions[i].replace('\n', ''))
+                            client = TelegramClient(sessions[i].replace('\n', ''), api_id, api_hash)
+                            #.start(sessions[i].replace('\n', ''))
                             result = client(GetDialogsRequest(
                                 offset_date=last_date,
                                 offset_id=0,
