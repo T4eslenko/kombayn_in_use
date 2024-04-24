@@ -130,12 +130,13 @@ if __name__ == "__main__":
                                 print('-----------------------------')
                                 for g in groups:
                                   if g.creator:
-                                      print(str(i) + ' - ' + g.title + color.RED + ' (Владелец)' + color.END + color.DARKCYAN + ' @' + g.username + color.END)
+                                      print(str(i) + ' - ' + g.title + color.RED + ' (Владелец)' + color.END + color.DARKCYAN + ' @' + g.username + color.END + g.id)
                                   elif g.admin_rights is not None:
-                                      print(str(i) + ' - ' + g.title + color.RED + ' (Есть права администратора)' + color.END + color.DARKCYAN + ' @' + g.username + color.END)
+                                      print(str(i) + ' - ' + g.title + color.RED + ' (Есть права администратора)' + color.END + color.DARKCYAN + ' @' + g.username + color.END + g.id)
                                   else:
-                                      print(str(i) + ' - ' + g.title + color.DARKCYAN + ' @' + g.username + color.END)
+                                      print(str(i) + ' - ' + g.title + color.DARKCYAN + ' @' + g.username + color.END + g.id)
                                   chatnames.append('@' + g.username)
+                                  chatid.append(g.id)
                                   i += 1
                                 print()   
                                 g_index_str = str(input("Введите \033[92m'get'\033[0m для продолжения или \033[93m'е'\033[0m - для возврата: "))
