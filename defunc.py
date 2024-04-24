@@ -21,19 +21,19 @@ def parsing_chats(chatnames):
             file.write(name + '\n')
 
 #вступаем в группы
-#def into_chats(client, chatnames):
-#    for chatname in chatnames:
-#        try:
-#            client(ImportChatInviteRequest(chatname))
-#            print(f"Присоединился к группе: {chatname}")
-#            time.sleep(10)  # Задержка в 10 секунд
-#        except PeerFloodError:
-#            print("PeerFloodError: Превышен лимит на число запросов. Попробуйте позже.")
-#            return
-#        except UserPrivacyRestrictedError:
-#            print(f"UserPrivacyRestrictedError: У вас ограничена возможность присоединения к группе {chatname}.")
-#        except Exception as e:
-#            print(f"Ошибка при присоединении к группе {chatname}: {e}")
+def into_chats(client, chatnames):
+    for chatname in chatnames:
+        try:
+            client(ImportChatInviteRequest(chatname))
+            print(f"Присоединился к группе: {chatname}")
+            time.sleep(10)  # Задержка в 10 секунд
+        except PeerFloodError:
+            print("PeerFloodError: Превышен лимит на число запросов. Попробуйте позже.")
+            return
+        except UserPrivacyRestrictedError:
+            print(f"UserPrivacyRestrictedError: У вас ограничена возможность присоединения к группе {chatname}.")
+        except Exception as e:
+            print(f"Ошибка при присоединении к группе {chatname}: {e}")
   
     
 # Выгружаем участников группы
