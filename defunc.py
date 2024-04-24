@@ -15,7 +15,7 @@ from telethon.tl.functions.messages import ImportChatInviteRequest
 from telethon.errors.rpcerrorlist import PeerFloodError, UserPrivacyRestrictedError
 
 # Парсим ссылки на чаты
-def parsing_chats(chatid):
+def parsing_chats(chatids):
     with open('chatnames.txt', 'w') as file:
         for chatid in chatids:
             file.write(chatid + '\n')
