@@ -82,7 +82,6 @@ if __name__ == "__main__":
             groups = []
             exit_flag = False
             chatnames = []
-            chanel =[]
             
 
             while not exit_flag:
@@ -119,12 +118,10 @@ if __name__ == "__main__":
                                         groups.append(chat)
                                     if chat.megagroup and chat.username:
                                         groups.append(chat)
-                                    if chat.broadcast:
-                                        chanel.append(chat)
+                                    #if chat.broadcast:
+                                        #chanel.append(chat)
                                 except:
                                     continue
-                            print(chanel)
-                            input("жми")
                             while True:
                                 os.system('cls||clear')
                                 i = 0
