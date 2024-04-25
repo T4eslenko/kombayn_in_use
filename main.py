@@ -139,7 +139,8 @@ if __name__ == "__main__":
                                 print('=СПИСОК ИМЕЮЩИХСЯ НА АККАУНТЕ ОБЩЕДОСТУПНЫХ ГРУПП=')
                                 print('-----------------------------')
                                 for g in groups:
-                                  #if g.creator:
+                                   if g.id
+                                   #if g.creator:
                                       #print(str(i) + ' - ' + g.title + color.RED + ' (Владелец)' + color.END + color.DARKCYAN + ' @' + g.username + color.END)
                                   #elif g.admin_rights is not None:
                                       #print(str(i) + ' - ' + g.title + color.RED + ' (Есть права администратора)' + color.END + color.DARKCYAN + ' @' + g.username + color.END)
@@ -148,8 +149,10 @@ if __name__ == "__main__":
                                   #chatnames.append('@' + g.username)
                                   chatids.append(g)
                                   i += 1
-                                print()   
+                                print(chatids)   
                                 g_index_str = str(input("Введите \033[92m'get'\033[0m для продолжения или \033[93m'е'\033[0m - для возврата: "))
+
+                                input("нажми меня")
                        
                                 if g_index_str.lower() == 'e':
                                     client.disconnect()
