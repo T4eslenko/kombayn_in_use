@@ -123,7 +123,7 @@ def channelandgroups(api_id, api_hash):
                         print(f"\033[91mЗакрытые каналы: {cc}\033[0m")
                         print(f"\033[91mЗакрытые группы: {cg}\033[0m")
                         print("---------------------------------------")
-                        print("Количество строк, содержащих 'владелец' или 'администратор':", owner_count)
+                        print("Количество строк с 'владелец' или 'администратор' в названии:", owner_count)
 
                         g_index_str = str(input("Ввод: "))
 
@@ -148,3 +148,12 @@ def channelandgroups(api_id, api_hash):
                                 else:
                                     print("Пожалуйста, сделайте свой выбор")
                                     time.sleep(2)
+                            except ValueError:
+                                print("Пожалуйста, сделайте свой выбор")
+                                time.sleep(2)
+                else:
+                    print("Пожалуйста, выберите существующий аккаунт в диапазоне от 0 до", len(sessions) - 1)
+                    time.sleep(2)
+            except ValueError:
+                print("Пожалуйста, выберите существующий аккаунт в диапазоне от 0 до", len(sessions) - 1)
+                time.sleep(2)
