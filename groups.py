@@ -82,7 +82,7 @@ def channelandgroups(api_id, api_hash):
                         print('=ИНФОРМАЦИЯ О КАНАЛАХ И ЧАТАХ=')
                         print('-----------------------------')
 
-                        print("Открытые каналы:")
+                        print(\033[95m"Открытые КАНАЛЫ:\033[0m")
                         for openchannel in openchannels:
                             owner = " (Владелец)" if openchannel.creator else ""
                             admin = " (Администратор)" if openchannel.admin_rights is not None else ""
@@ -91,7 +91,7 @@ def channelandgroups(api_id, api_hash):
                             if owner !="" or admin != "":
                                 owner_channel += 1
                         
-                        print("Закрытые каналы:")
+                        print(\033[95m"Закрытые КАНАЛЫ:\033[0m")
                         for closechannel in closechannels:
                             owner = " (Владелец)" if closechannel.creator else ""
                             admin = " (Администратор)" if closechannel.admin_rights is not None else ""
@@ -101,7 +101,7 @@ def channelandgroups(api_id, api_hash):
                                 owner_channel += 1
                                 owner_closechannel += 1
                         
-                        print("Открытые группы:")
+                        print(\033[95m"Открытые ГРУППЫ:\033[0m")
                         for openchat in openchats:
                             owner = " (Владелец)" if openchat.creator else ""
                             admin = " (Администратор)" if openchat.admin_rights is not None else ""
@@ -110,7 +110,7 @@ def channelandgroups(api_id, api_hash):
                             if owner !="" or admin != "":
                                 owner_group += 1
                         
-                        print("Закрытые группы:")
+                        print(\033[95m"Закрытые ГРУППЫ:\033[0m")
                         for closechat in closechats:
                             owner = " (Владелец)" if closechat.creator else ""
                             admin = " (Администратор)" if closechat.admin_rights is not None else ""
@@ -127,8 +127,8 @@ def channelandgroups(api_id, api_hash):
                         print(f"\033[91mЗакрытые каналы: {cc}\033[0m")
                         print(f"\033[91mЗакрытые группы: {cg}\033[0m")
                         print("---------------------------------------")
-                        print(f"\033[96mИмеет права админа в {owner_channel} каналах, из них в - {owner_closechannel} закрытых\033[0m")
-                        print(f"\033[96mИмеет права админа в {owner_group} группах, из них в - {owner_closegroup} закрытых\033[0m")
+                        print(f"\033[96mИмеет права админа в {owner_channel} каналах, из них {owner_closechannel} - в закрытых\033[0m")
+                        print(f"\033[96mИмеет права админа в {owner_group} группах, из них {owner_closegroup} - в закрытых\033[0m")
 
                         g_index_str = str(input("Ввод: "))
 
