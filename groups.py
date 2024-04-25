@@ -91,28 +91,28 @@ def channelandgroups(api_id, api_hash):
                         for openchannel in openchannels:
                             owner = " (Владелец)" if openchannel.creator else ""
                             admin = " (Администратор)" if openchannel.admin_rights is not None else ""
-                            print(f"{oc} - {openchannel.title}{owner}{admin} {openchannel.id}@{openchannel.username}")
+                            print(f"{oc} - {openchannel.title} {owner} {admin} ID:{openchannel.id} @{openchannel.username}")
                             oc += 1
                         
                         print("Закрытые каналы:")
                         for closechannel in closechannels:
                             owner = " (Владелец)" if closechannel.creator else ""
                             admin = " (Администратор)" if closechannel.admin_rights is not None else ""
-                            print(f"{cc} - {closechannel.title}{owner}{admin} {closechannel.id}")
+                            print(f"{cc} - {closechannel.title} {owner} {admin} ID:{closechannel.id}")
                             cc += 1
                         
                         print("Открытые группы:")
                         for openchat in openchats:
                             owner = " (Владелец)" if openchat.creator else ""
                             admin = " (Администратор)" if openchat.admin_rights is not None else ""
-                            print(f"{og} - {openchat.title}{owner}{admin} {openchat.id}@{openchat.username}")
+                            print(f"{og} - {openchat.title} {owner} {admin} ID:{openchat.id} @{openchat.username}")
                             og += 1
                         
                         print("Закрытые группы:")
                         for closechat in closechats:
                             owner = " (Владелец)" if closechat.creator else ""
                             admin = " (Администратор)" if closechat.admin_rights is not None else ""
-                            print(f"{cg} - {closechat.title}{owner}{admin} {closechat.id}")
+                            print(f"{cg} - {closechat.title} {owner} {admin} ID:{closechat.id}")
                             cg += 1
 
 
