@@ -81,10 +81,9 @@ if __name__ == "__main__":
             size_chats = 500
             groups = []
             exit_flag = False
-            chatnames = []
-            chatids = []
-            chattitles = []
+            openchannels = []
             opengroups = []
+
 
             while not exit_flag:
                 os.system('cls||clear')
@@ -116,9 +115,11 @@ if __name__ == "__main__":
                            #Парсим информацию обо всех группах
                             for chat in chats:
                                 try:
-                                   groups.append(chat)
+                                   if chat.broadcast and chat.username
+                                      openchannels.append(chat)
                                     #if isinstance(chat, Chat) and chat.migrated_to is None:
                                     #if chat.megagroup:
+                                     #groups.append(chat)
                                     
                                 except:
                                     continue
@@ -130,8 +131,8 @@ if __name__ == "__main__":
                                 print('=ВЫГРУЗКА УЧАСТНИКОВ ЧАТА В EXCEL=')
                                 print('-----------------------------')
                               
-                                for g in groups:
-                                    print(g)
+                                for openchannel in openchannels:
+                                    print(openchannel)
                                     i += 1
                                    
                                 g_index_str = str(input("Ввод: "))
