@@ -112,48 +112,37 @@ if __name__ == "__main__":
                                 hash=0
                             ))
                             chats.extend(result.chats)
-                            print(chats)
-                            input("нажми меня 1")
 
                             for chat in chats:
                                 try:
-                                   if chat.megagroup:
-                                      groups.append(chat)
-                                   
-                                   
-                                   # Парсим открытые группы
-                                    #if isinstance(chat, Chat) and chat.migrated_to is None and chat.username:
-                                        #opengroups.append(chat)
-                                    #if chat.megagroup and chat.username:
-                                       #opengroups.append(chat)
-                                    
-                               
-                               
-                               #if chat.broadcast:
-                                        #chanel.append(chat)
-                                   #groups.append(chat)
+                                    if isinstance(chat, Chat) and chat.migrated_to is None:
+                                        groups.append(chat)
+                                    if chat.megagroup:
+                                        groups.append(chat)
                                 except:
                                     continue
+                            
                             while True:
                                 os.system('cls||clear')
                                 i = 0
                                 print('-----------------------------')
-                                print('=СПИСОК ИМЕЮЩИХСЯ НА АККАУНТЕ ОБЩЕДОСТУПНЫХ ГРУПП=')
+                                print('=ВЫГРУЗКА УЧАСТНИКОВ ЧАТА В EXCEL=')
                                 print('-----------------------------')
                                 for g in groups:
-                                   if g.id:
-                                   #if g.creator:
-                                      #print(str(i) + ' - ' + g.title + color.RED + ' (Владелец)' + color.END + color.DARKCYAN + ' @' + g.username + color.END)
-                                  #elif g.admin_rights is not None:
-                                      #print(str(i) + ' - ' + g.title + color.RED + ' (Есть права администратора)' + color.END + color.DARKCYAN + ' @' + g.username + color.END)
-                                  #else:
-                                      #print(str(i) + ' - ' + g.title + color.DARKCYAN + ' @' + g.username + color.END)
-                                  #chatnames.append('@' + g.username)
-                                        chatids.append(g)
-                                   i += 1
-                                print(chatids)   
-                                g_index_str = str(input("Введите \033[92m'get'\033[0m для продолжения или \033[93m'е'\033[0m - для возврата: "))
+                                    if g.creator:
+                                       print(str(i) + ' - ' + g.title + color.RED + ' (Владелец)' + color.END)
+                                    elif g.admin_rights is not None:
+                                       print(str(i) + ' - ' + g.title + color.RED + ' (Есть права администратора)' + color.END)
+                                    else:
+                                        print(str(i) + ' - ' + g.title)
+                                    i += 1
+                                   
+                                g_index_str = str(input("Ввод: "))
 
+
+
+
+                               
                                 input("нажми меня")
                        
                                 if g_index_str.lower() == 'e':
