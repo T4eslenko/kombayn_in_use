@@ -83,7 +83,7 @@ if __name__ == "__main__":
             exit_flag = False
             chatnames = []
             chatids = []
-            
+            chattitles = []
 
             while not exit_flag:
                 os.system('cls||clear')
@@ -115,10 +115,11 @@ if __name__ == "__main__":
 
                             for chat in chats:
                                 try:
-                                    #if isinstance(chat, Chat) and chat.migrated_to is None and chat.username:
-                                        #groups.append(chat)
-                                    #if chat.megagroup and chat.username:
-                                       # groups.append(chat)
+                                    # Парсим чаты
+                                    if isinstance(chat, Chat) and chat.migrated_to is None and chat.username:
+                                        groups.append(chat)
+                                    if chat.megagroup and chat.username:
+                                       groups.append(chat)
                                     #if chat.broadcast:
                                         #chanel.append(chat)
                                    groups.append(chat)
