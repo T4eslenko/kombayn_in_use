@@ -91,25 +91,25 @@ def channelandgroups(api_id, api_hash):
                         print("Открытые каналы:")
                         for openchannel in openchannels:
                             owner = " (Владелец)" if openchannel.creator else ""
-                            print(f"{i} - {openchannel.title} {owner} {openchannel.id}@{openchannel.username}")
+                            print(f"{oc} - {openchannel.title} {owner} {openchannel.id}@{openchannel.username}")
                             oc += 1
                         
                         print("Закрытые каналы:")
                         for closechannel in closechannels:
                             owner = " (Владелец)" if closechannel.creator else ""
-                            print(f"{i} - {closechannel.title} {owner} {closechannel.id}")
+                            print(f"{cc} - {closechannel.title} {owner} {closechannel.id}")
                             cc += 1
                         
                         print("Открытые группы:")
                         for openchat in openchats:
                             owner = " (Владелец)" if openchat.creator else ""
-                            print(f"{i} - {openchat.title} {owner} {openchat.id}@{openchat.username}")
+                            print(f"{og} - {openchat.title} {owner} {openchat.id}@{openchat.username}")
                             og += 1
                         
                         print("Закрытые группы:")
                         for closechat in closechats:
                             owner = " (Владелец)" if closechat.closechat else ""
-                            print(f"{i} - {closechat.title} {owner} {closechat.id}")
+                            print(f"{cg} - {closechat.title} {owner} {closechat.id}")
                             cg += 1
 
 
