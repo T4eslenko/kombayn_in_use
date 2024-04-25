@@ -4,7 +4,7 @@ from telethon.sync import TelegramClient
 from telethon.tl.functions.messages import GetDialogsRequest
 from telethon.tl.types import InputPeerEmpty, Chat, Channel
 
-def chatandgoup(api_id, api_hash):
+def channelandgroups(api_id, api_hash):
     os.system('cls||clear')
     chats = []
     last_date = None
