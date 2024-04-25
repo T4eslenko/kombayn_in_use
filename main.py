@@ -116,7 +116,7 @@ if __name__ == "__main__":
 
                            #Парсим информацию обо всех группах
                             for chat in chats:
-                                try:
+                                #try:
                                    if broadcast == False and chat.username == None:
                                       closechats.append(chat)
                                       groups.append(chat)
@@ -148,7 +148,7 @@ if __name__ == "__main__":
                                     #if chat.megagroup:
                                      #groups.append(chat)
                                     
-                                except:
+                                #except:
                                     #continue
                             
                             while True:
