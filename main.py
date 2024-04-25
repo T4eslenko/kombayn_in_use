@@ -129,12 +129,16 @@ if __name__ == "__main__":
                                       if chat.broadcast and chat.username:
                                          openchannels.append(chat)
                                          groups.append(chat)
-                                   if chat.broadcast and chat.username==None:
-                                      closechannels.append(chat)
-                                      groups.append(chat)
-                                   if chat.broadcast==False and chat.username:
-                                      openchats.append(chat)
-                                      groups.append(chat)
+
+                                   if isinstance(chat, Channel) and hasattr(chat, 'broadcast'):
+                                      if chat.broadcast and chat.username==None:
+                                         closechannels.append(chat)
+                                         groups.append(chat)
+                                         
+                                   if isinstance(chat, Chat) and hasattr(chat, 'broadcast'):
+                                      if chat.broadcast==False and chat.username:
+                                         openchats.append(chat)
+                                         groups.append(chat)
 
                                    
 
