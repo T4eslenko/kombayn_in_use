@@ -149,7 +149,10 @@ if __name__ == "__main__":
                             
                             while True:
                                 os.system('cls||clear')
-                                i = 0
+                                oc = 0
+                                cc = 0
+                                og = 0
+                                cg = 0
                                 print('-----------------------------')
                                 print('=ИНФОРМАЦИЯ О КАНАЛАХ И ЧАТАХ=')
                                 print('-----------------------------')
@@ -158,24 +161,26 @@ if __name__ == "__main__":
                                 print("Открытые каналы:")
                                 for openchannel in openchannels:
                                    print(str(i) + ' - ' + openchannel.title)
-                                   i += 1
+                                   oc += 1
                                    
                                 print("Закрытые каналы:")
                                 for closechannel in closechannels:
                                    print(str(i) + ' - ' + closechannel.title)
-                                   i += 1
+                                   cc += 1
 
                                 print("Открытые группы:")
                                 for openchat in openchats:
                                    print(str(i) + ' - ' + openchat.title)
-                                   i += 1
+                                   og += 1
                                       
                                 print("Закрытые группы:")
                                 for closechat in closechats:
                                    print(str(i) + ' - ' + closechat.title)
-                                   i += 1
-
-                               
+                                   cg += 1
+                                print("Открытые каналы:" + oc)
+                                print("Закрытые каналы:" + cc)
+                                print("Открытые группы:" + og)
+                                print("Закрытые группы:" + cg)
                                 g_index_str = str(input("Ввод: "))
             
                                 if g_index_str.lower() == 'e':
