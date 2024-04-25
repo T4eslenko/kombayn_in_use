@@ -116,7 +116,7 @@ if __name__ == "__main__":
 
                            #Парсим информацию обо всех группах
                             for chat in chats:
-                                #try:
+                                try:
                                #Закрытые группы
                                    if isinstance(chat, Channel) and hasattr(chat, 'broadcast'):
                                      if chat.broadcast==False and chat.username==None:
@@ -144,18 +144,8 @@ if __name__ == "__main__":
                                          openchats.append(chat)
                                          groups.append(chat)
 
-                                   
-
-                                      
-                                      #closechats.append(chat)
-                                      #groups.append(chat)
-                                      
-                                    #if isinstance(chat, Chat) and chat.migrated_to is None:
-                                    #if chat.megagroup:
-                                     #groups.append(chat)
-                                    
-                                #except:
-                                    #continue
+                                except:
+                                    continue
                             
                             while True:
                                 os.system('cls||clear')
@@ -192,8 +182,10 @@ if __name__ == "__main__":
                                     client.disconnect()
                                     groups = []
                                     chats = []
-                                    chatnames = []
-                                    chatids = []
+                                    openchannels = []
+                                    closechannels = []
+                                    openchats = []
+                                    closechats = []
                                     break
                                 else:
                                     try:
