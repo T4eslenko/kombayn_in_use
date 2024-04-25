@@ -113,7 +113,7 @@ def channelandgroups(api_id, api_hash):
                             admin = " (Администратор)" if closechat.admin_rights is not None else ""
                             print(f"{cg} - {closechat.title} \033[91m{owner} {admin}\033[0m ID:{closechat.id}")
                             cg += 1
-                            if 'Владелец' in closechat.title.lower() or 'Администратор' in closechat.title.lower():
+                            if owner !="" or admin != "":
                                 owner_count += 1
                      
                         print("---------------------------------------")
