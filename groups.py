@@ -105,21 +105,8 @@ def channelandgroups(api_id, api_hash):
                             admin = " (Администратор)" if closechat.admin_rights is not None else ""
                             print(f"{cg} - {closechat.title} \033[91m{owner} {admin}\033[0m ID:{closechat.id}")
                             cg += 1
-
-
-                        # Подсчет количества строк с владельцами и администраторами
-                        total_lines = 0
                         
-                        # Цикл по каждой строке кода
-                        for line in code.split('\n'):
-                            # Проверяем, есть ли переменная owner в строке
-                            if 'owner' in line:
-                                total_lines += 1
-                            # Проверяем, есть ли переменная admin в строке
-                            if 'admin' in line:
-                                total_lines += 1
-                        
-                        print("Общее количество строк с владельцами и администраторами:", total_lines)
+              
 
                         print("---------------------------------------")
                         print(f"Открытые каналы: {oc}")
