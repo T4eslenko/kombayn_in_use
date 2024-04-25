@@ -108,7 +108,7 @@ def channelandgroups(api_id, api_hash):
                         
                         print("Закрытые группы:")
                         for closechat in closechats:
-                            owner = " (Владелец)" if closechat.closechat else ""
+                            owner = " (Владелец)" if closechat.creator else ""
                             print(f"{cg} - {closechat.title} {owner} {closechat.id}")
                             cg += 1
 
