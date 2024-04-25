@@ -3,7 +3,7 @@ from telethon.tl.functions.messages import GetDialogsRequest
 from telethon.tl.types import InputPeerEmpty
 from telethon.errors.rpcerrorlist import PeerFloodError, UserPrivacyRestrictedError
 from defunc import *
-from about import *
+from groups import *
 import time
 import random
 import os
@@ -76,7 +76,7 @@ if __name__ == "__main__":
 
 # 2 Спарсить ссылки на чаты
         elif selection == '2':
-           chatandgoup(api_id, api_hash)
+           channelandgroups(api_id, api_hash)
 
 
 # 3 Вступить в чаты
