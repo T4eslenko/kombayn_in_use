@@ -81,7 +81,7 @@ def channelandgroups(api_id, api_hash):
                         print('-----------------------------')
                         print('=ИНФОРМАЦИЯ О КАНАЛАХ И ЧАТАХ=')
                         print('-----------------------------')
-
+                        print()
                         print("\033[95mОткрытые КАНАЛЫ:\033[0m")
                         for openchannel in openchannels:
                             owner = " (Владелец)" if openchannel.creator else ""
@@ -91,6 +91,7 @@ def channelandgroups(api_id, api_hash):
                             if owner !="" or admin != "":
                                 owner_channel += 1
                         
+                        print()
                         print("\033[95mЗакрытые КАНАЛЫ:\033[0m")
                         for closechannel in closechannels:
                             owner = " (Владелец)" if closechannel.creator else ""
@@ -101,6 +102,7 @@ def channelandgroups(api_id, api_hash):
                                 owner_channel += 1
                                 owner_closechannel += 1
                         
+                        print()
                         print("\033[95mОткрытые ГРУППЫ:\033[0m")
                         for openchat in openchats:
                             owner = " (Владелец)" if openchat.creator else ""
@@ -110,6 +112,7 @@ def channelandgroups(api_id, api_hash):
                             if owner !="" or admin != "":
                                 owner_group += 1
                         
+                        print()
                         print("\033[95mЗакрытые ГРУППЫ:\033[0m")
                         for closechat in closechats:
                             owner = " (Владелец)" if closechat.creator else ""
@@ -120,6 +123,7 @@ def channelandgroups(api_id, api_hash):
                                 owner_group += 1
                                 owner_closegroup += 1
                      
+                        print()
                         print("---------------------------------------")
                         print(f"Открытые каналы: {oc}")
                         print(f"Открытые группы: {og}")
