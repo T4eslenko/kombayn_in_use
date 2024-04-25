@@ -117,7 +117,7 @@ if __name__ == "__main__":
                            #Парсим информацию обо всех группах
                             for chat in chats:
                                 #try:
-                                   if isinstance(chat) and hasattr(chat, 'broadcast'):
+                                   if isinstance(chat, Chat) and hasattr(chat, 'broadcast'):
                                      if chat.broadcast==False and chat.username==None:
                                         closechats.append(chat)
                                         groups.append(chat)
@@ -125,10 +125,10 @@ if __name__ == "__main__":
                                       closechats.append(chat)
                                       groups.append(chat)
 
-                                   
-                                   if chat.broadcast and chat.username:
-                                      openchannels.append(chat)
-                                      groups.append(chat)
+                                   if isinstance(chat, Channel) and hasattr(chat, 'broadcast'):
+                                      if chat.broadcast and chat.username:
+                                         openchannels.append(chat)
+                                         groups.append(chat)
                                    if chat.broadcast and chat.username==None:
                                       closechannels.append(chat)
                                       groups.append(chat)
