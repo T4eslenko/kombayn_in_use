@@ -84,6 +84,7 @@ if __name__ == "__main__":
             openchannels = []
             closechannels = []
             openchats = []
+            closechats = []
 
 
             while not exit_flag:
@@ -125,8 +126,12 @@ if __name__ == "__main__":
                                    if chat.broadcast==False and chat.username:
                                       openchats.append(chat)
                                       groups.append(chat)
-                                      
-
+                                   if isinstance(chat, Chat) and chat.migrated_to is None:
+                                      closechats.append(chat)
+                                      groups.append(chat)
+                                   if broadcast==False and chat.username==None
+                                      closechats.append(chat)
+                                      groups.append(chat)
                                       
                                     #if isinstance(chat, Chat) and chat.migrated_to is None:
                                     #if chat.megagroup:
