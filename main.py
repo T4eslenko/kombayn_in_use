@@ -115,10 +115,10 @@ if __name__ == "__main__":
 
                             for chat in chats:
                                 try:
-                                    if isinstance(chat, Chat) and chat.migrated_to is None:
-                                        groups.append(chat)
-                                    if chat.megagroup:
-                                        groups.append(chat)
+                                    #if isinstance(chat, Chat) and chat.migrated_to is None:
+                                    groups.append(chat)
+                                    #if chat.megagroup:
+                                        #groups.append(chat)
                                 except:
                                     continue
                             
@@ -128,21 +128,13 @@ if __name__ == "__main__":
                                 print('-----------------------------')
                                 print('=ВЫГРУЗКА УЧАСТНИКОВ ЧАТА В EXCEL=')
                                 print('-----------------------------')
-                                print(groups)
-                                input("нажми меня 1")
+                              
                                 for g in groups:
-                                    #if g.id:
                                     print(g.id)
                                     i += 1
                                    
                                 g_index_str = str(input("Ввод: "))
-
-
-
-
-                               
-                                input("нажми меня")
-                       
+            
                                 if g_index_str.lower() == 'e':
                                     client.disconnect()
                                     groups = []
