@@ -148,7 +148,7 @@ if __name__ == "__main__":
                                     #if chat.megagroup:
                                      #groups.append(chat)
                                     
-                                #except:
+                                except:
                                     #continue
                             
                             while True:
