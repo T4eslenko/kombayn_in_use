@@ -83,7 +83,7 @@ if __name__ == "__main__":
             exit_flag = False
             openchannels = []
             closechannels = []
-            opengroups = []
+            openchats = []
 
 
             while not exit_flag:
@@ -122,6 +122,10 @@ if __name__ == "__main__":
                                    if chat.broadcast and chat.username==None:
                                       closechannels.append(chat)
                                       groups.append(chat)
+                                   if chat.broadcast==False and chat.username
+                                      openchats.append(chat)
+                                      groups.append(chat)
+                                      
 
                                       
                                     #if isinstance(chat, Chat) and chat.migrated_to is None:
@@ -143,9 +147,15 @@ if __name__ == "__main__":
                                 for openchannel in openchannels:
                                    print(str(i) + ' - ' + openchannel.title)
                                    i += 1
+                                   
                                 print("Закрытые каналы:")
                                 for closechannel in closechannels:
                                    print(str(i) + ' - ' + closechannel.title)
+                                   i += 1
+
+                                print("Открытые группы:")
+                                for openchat in openchats:
+                                   print(str(i) + ' - ' + openchat.title)
                                    i += 1
                                       
                                    
