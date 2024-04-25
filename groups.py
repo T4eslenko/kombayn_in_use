@@ -63,7 +63,7 @@ def channelandgroups(api_id, api_hash):
 
                             # Закрытые каналы
                             if isinstance(chat, Channel) and hasattr(chat, 'broadcast'):
-                                if chat.broadcast and chat.username == None:
+                                if chat.broadcast and chat.username == None and chat.title != 'unsuported chat':
                                     closechannels.append(chat)
                                     groups.append(chat)
 
