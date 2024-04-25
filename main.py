@@ -113,12 +113,13 @@ if __name__ == "__main__":
                             ))
                             chats.extend(result.chats)
 
+                           #Парсим информацию обо всех группах
                             for chat in chats:
                                 try:
+                                   groups.append(chat)
                                     #if isinstance(chat, Chat) and chat.migrated_to is None:
-                                    groups.append(chat)
                                     #if chat.megagroup:
-                                        #groups.append(chat)
+                                    
                                 except:
                                     continue
                             
@@ -130,7 +131,7 @@ if __name__ == "__main__":
                                 print('-----------------------------')
                               
                                 for g in groups:
-                                    print(g.id)
+                                    print(g)
                                     i += 1
                                    
                                 g_index_str = str(input("Ввод: "))
