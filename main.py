@@ -122,7 +122,7 @@ if __name__ == "__main__":
                                    if chat.broadcast and chat.username==None:
                                       closechannels.append(chat)
                                       groups.append(chat)
-                                   if chat.broadcast==False and chat.username
+                                   if chat.broadcast==False and chat.username:
                                       openchats.append(chat)
                                       groups.append(chat)
                                       
