@@ -116,6 +116,19 @@ def channelandgroups(api_id, api_hash):
                             cg += 1
 
 
+                        # Исходный код
+                        total_lines = 0
+                        
+                        # Цикл по каждой строке кода
+                        for line in code.split('\n'):
+                            # Проверяем, есть ли переменная owner в строке
+                            if 'owner' in line:
+                                total_lines += 1
+                            # Проверяем, есть ли переменная admin в строке
+                            if 'admin' in line:
+                                total_lines += 1
+                        
+                        print("Общее количество строк с владельцами и администраторами:", total_lines)
 
                         print("---------------------------------------")
                         print(f"Открытые каналы: {oc}")
