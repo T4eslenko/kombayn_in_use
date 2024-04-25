@@ -74,6 +74,8 @@ def channelandgroups(api_id, api_hash):
                         cc = 0
                         og = 0
                         cg = 0
+                        owner_count = 0
+                        admin_count = 0
                         print('-----------------------------')
                         print('=ИНФОРМАЦИЯ О КАНАЛАХ И ЧАТАХ=')
                         print('-----------------------------')
@@ -84,6 +86,8 @@ def channelandgroups(api_id, api_hash):
                             admin = " (Администратор)" if openchannel.admin_rights is not None else ""
                             print(f"{oc} - {openchannel.title} \033[91m{owner} {admin}\033[0m ID:{openchannel.id} @{openchannel.username}")
                             oc += 1
+                            if 'владелец' in openchannel.title.lower() or 'администратор' in openchannel.title.lower():
+                                owner_count += 1
                         
                         print("Закрытые каналы:")
                         for closechannel in closechannels:
@@ -91,6 +95,8 @@ def channelandgroups(api_id, api_hash):
                             admin = " (Администратор)" if closechannel.admin_rights is not None else ""
                             print(f"{cc} - {closechannel.title} \033[91m{owner} {admin}\033[0m ID:{closechannel.id}")
                             cc += 1
+                            if 'владелец' in closechannel.title.lower() or 'администратор' in closechannel.title.lower():
+                                owner_count += 1
                         
                         print("Открытые группы:")
                         for openchat in openchats:
@@ -98,6 +104,8 @@ def channelandgroups(api_id, api_hash):
                             admin = " (Администратор)" if openchat.admin_rights is not None else ""
                             print(f"{og} - {openchat.title} \033[91m{owner} {admin}\033[0m ID:{openchat.id} @{openchat.username}")
                             og += 1
+                            if 'владелец' in openchat.title.lower() or 'администратор' in openchat.title.lower():
+                                owner_count += 1
                         
                         print("Закрытые группы:")
                         for closechat in closechats:
@@ -105,9 +113,9 @@ def channelandgroups(api_id, api_hash):
                             admin = " (Администратор)" if closechat.admin_rights is not None else ""
                             print(f"{cg} - {closechat.title} \033[91m{owner} {admin}\033[0m ID:{closechat.id}")
                             cg += 1
-                        
-              
-
+                            if 'владелец' in closechat.title.lower() or 'администратор' in closechat.title.lower():
+                                owner_count += 1
+                     
                         print("---------------------------------------")
                         print(f"Открытые каналы: {oc}")
                         print(f"Открытые группы: {og}")
@@ -115,6 +123,7 @@ def channelandgroups(api_id, api_hash):
                         print(f"\033[91mЗакрытые каналы: {cc}\033[0m")
                         print(f"\033[91mЗакрытые группы: {cg}\033[0m")
                         print("---------------------------------------")
+                        print("Количество строк, содержащих 'владелец' или 'администратор':", owner_count)
 
                         g_index_str = str(input("Ввод: "))
 
@@ -139,12 +148,3 @@ def channelandgroups(api_id, api_hash):
                                 else:
                                     print("Пожалуйста, сделайте свой выбор")
                                     time.sleep(2)
-                            except ValueError:
-                                print("Пожалуйста, сделайте свой выбор")
-                                time.sleep(2)
-                else:
-                    print("Пожалуйста, выберите существующий аккаунт в диапазоне от 0 до", len(sessions) - 1)
-                    time.sleep(2)
-            except ValueError:
-                print("Пожалуйста, выберите существующий аккаунт в диапазоне от 0 до", len(sessions) - 1)
-                time.sleep(2)
