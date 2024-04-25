@@ -103,7 +103,6 @@ if __name__ == "__main__":
                         i = int(user_input)
                         if 0 <= i < len(sessions):
                             client = TelegramClient(sessions[i].replace('\n', ''), api_id, api_hash)
-                           #.start(sessions[i].replace('\n', ''))
                             client.connect()
                             result = client(GetDialogsRequest(
                                 offset_date=last_date,
@@ -113,6 +112,8 @@ if __name__ == "__main__":
                                 hash=0
                             ))
                             chats.extend(result.chats)
+                            print(chats)
+                            input("нажми меня 1")
 
                             for chat in chats:
                                 try:
