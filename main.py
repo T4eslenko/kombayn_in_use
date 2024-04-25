@@ -163,7 +163,12 @@ if __name__ == "__main__":
                                    print(str(i) + ' - ' + openchat.title)
                                    i += 1
                                       
-                                   
+                                print("Закрытые группы:")
+                                for closechat in closechats:
+                                   print(str(i) + ' - ' + closechat.title)
+                                   i += 1
+
+                               
                                 g_index_str = str(input("Ввод: "))
             
                                 if g_index_str.lower() == 'e':
