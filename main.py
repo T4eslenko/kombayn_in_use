@@ -115,7 +115,7 @@ if __name__ == "__main__":
                            #Парсим информацию обо всех группах
                             for chat in chats:
                                 try:
-                                   if chat.broadcast and chat.username
+                                   if chat.broadcast and chat.username:
                                       openchannels.append(chat)
                                     #if isinstance(chat, Chat) and chat.migrated_to is None:
                                     #if chat.megagroup:
