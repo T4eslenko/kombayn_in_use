@@ -116,7 +116,7 @@ if __name__ == "__main__":
 
                             for chat in chats:
                                 try:
-                                   if chat.megagroup
+                                   if chat.megagroup:
                                       groups.append(chat)
                                    
                                    
