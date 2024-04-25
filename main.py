@@ -124,9 +124,6 @@ if __name__ == "__main__":
                                    if isinstance(chat, Chat) and chat.migrated_to is None:
                                       closechats.append(chat)
                                       groups.append(chat)
-                                   if chat.megagroup and chat.username==None:
-                                      closechats.append(chat)
-                                      groups.append(chat)
 
                                    
                                    if chat.broadcast and chat.username:
