@@ -84,6 +84,7 @@ if __name__ == "__main__":
             chatnames = []
             chatids = []
             chattitles = []
+            opengroups = []
 
             while not exit_flag:
                 os.system('cls||clear')
@@ -115,14 +116,20 @@ if __name__ == "__main__":
 
                             for chat in chats:
                                 try:
-                                    # Парсим чаты
-                                    if isinstance(chat, Chat) and chat.migrated_to is None and chat.username:
-                                        groups.append(chat)
-                                    if chat.megagroup and chat.username:
-                                       groups.append(chat)
-                                    #if chat.broadcast:
-                                        #chanel.append(chat)
                                    groups.append(chat)
+                                   
+                                   
+                                   # Парсим открытые группы
+                                    #if isinstance(chat, Chat) and chat.migrated_to is None and chat.username:
+                                        #opengroups.append(chat)
+                                    #if chat.megagroup and chat.username:
+                                       #opengroups.append(chat)
+                                    
+                               
+                               
+                               #if chat.broadcast:
+                                        #chanel.append(chat)
+                                   #groups.append(chat)
                                 except:
                                     continue
                             while True:
@@ -139,7 +146,7 @@ if __name__ == "__main__":
                                   #else:
                                       #print(str(i) + ' - ' + g.title + color.DARKCYAN + ' @' + g.username + color.END)
                                   #chatnames.append('@' + g.username)
-                                  chatids.append(g.id)
+                                  chatids.append(g)
                                   i += 1
                                 print()   
                                 g_index_str = str(input("Введите \033[92m'get'\033[0m для продолжения или \033[93m'е'\033[0m - для возврата: "))
