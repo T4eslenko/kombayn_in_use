@@ -47,13 +47,13 @@ def channelandgroups(api_id, api_hash):
                     for chat in chats:
                         #try:
                             # Закрытые группы
-                            if isinstance(chat, Channel) and hasattr(chat, 'broadcast'):
-                                if chat.broadcast == False and chat.username == None:
-                                    closechats.append(chat)
-                                    groups.append(chat)
-                            #if isinstance(chat, Chat) and chat.migrated_to is None:
-                                #closechats.append(chat)
-                                #groups.append(chat)
+                            #if isinstance(chat, Channel) and hasattr(chat, 'broadcast'):
+                                #if chat.broadcast == False and chat.username == None:
+                                    #closechats.append(chat)
+                                    #groups.append(chat)
+                            if isinstance(chat, Chat) and chat.migrated_to is None:
+                                closechats.append(chat)
+                                groups.append(chat)
 
                             # Открытые каналы
                             if isinstance(chat, Channel) and hasattr(chat, 'broadcast'):
