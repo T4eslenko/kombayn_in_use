@@ -177,10 +177,12 @@ if __name__ == "__main__":
                                 for closechat in closechats:
                                    print(str(i) + ' - ' + closechat.title)
                                    cg += 1
-                                print("Открытые каналы:" + oc)
-                                print("Закрытые каналы:" + cc)
-                                print("Открытые группы:" + og)
-                                print("Закрытые группы:" + cg)
+                                   
+                                print(f"Открытые каналы: {oc}")
+                                print(f"Закрытые каналы: {cc}")
+                                print(f"Открытые группы: {og}")
+                                print(f"Закрытые группы: {cg}")
+
                                 g_index_str = str(input("Ввод: "))
             
                                 if g_index_str.lower() == 'e':
