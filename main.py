@@ -117,9 +117,10 @@ if __name__ == "__main__":
                            #Парсим информацию обо всех группах
                             for chat in chats:
                                 #try:
-                                   if isinstance(chat, broadcast) and chat.broadcast == False and chat.username==None:
-                                      closechats.append(chat)
-                                      groups.append(chat)
+                                   if chat.broadcast:
+                                     if chat.broadcast==False and chat.username==None:
+                                        closechats.append(chat)
+                                        groups.append(chat)
                                    if isinstance(chat, Chat) and chat.migrated_to is None:
                                       closechats.append(chat)
                                       groups.append(chat)
