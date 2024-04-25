@@ -114,10 +114,10 @@ def channelandgroups(api_id, api_hash):
 
 
 
-                        print(f"Открытые каналы: {oc}")
-                        print(f"Закрытые каналы: {cc}")
-                        print(f"Открытые группы: {og}")
-                        print(f"Закрытые группы: {cg}")
+                        print(f"Открытые каналы: {oc}+1")
+                        print(f"Закрытые каналы: {cc}+1")
+                        print(f"Открытые группы: {og}+1")
+                        print(f"Закрытые группы: {cg}+1")
 
                         g_index_str = str(input("Ввод: "))
 
