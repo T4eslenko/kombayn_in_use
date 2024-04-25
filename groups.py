@@ -45,36 +45,28 @@ def channelandgroups(api_id, api_hash):
 
                     # Парсим информацию обо всех группах
                     for chat in chats:
-                        #try:
-                            # Закрытые группы
-                            if isinstance(chat, Channel) and hasattr(chat, 'broadcast'):
-                                if chat.broadcast == False and chat.username == None:
-                                    closechats.append(chat)
-                                    groups.append(chat)
-                            if isinstance(chat, Chat) and chat.migrated_to is None:
+                        if isinstance(chat, Channel) and hasattr(chat, 'broadcast'):
+                            if chat.broadcast == False and chat.username == None:
                                 closechats.append(chat)
                                 groups.append(chat)
+                        if isinstance(chat, Chat) and chat.migrated_to is None:
+                            closechats.append(chat)
+                            groups.append(chat)
 
-                            # Открытые каналы
-                            if isinstance(chat, Channel) and hasattr(chat, 'broadcast'):
-                                if chat.broadcast and chat.username:
-                                    openchannels.append(chat)
-                                    groups.append(chat)
+                        if isinstance(chat, Channel) and hasattr(chat, 'broadcast'):
+                            if chat.broadcast and chat.username:
+                                openchannels.append(chat)
+                                groups.append(chat)
 
-                            # Закрытые каналы
-                            if isinstance(chat, Channel) and hasattr(chat, 'broadcast'):
-                                if chat.broadcast and chat.username == None and chat.title != 'Unsupported Chat':
-                                    closechannels.append(chat)
-                                    groups.append(chat)
+                        if isinstance(chat, Channel) and hasattr(chat, 'broadcast'):
+                            if chat.broadcast and chat.username == None and chat.title != 'Unsupported Chat':
+                                closechannels.append(chat)
+                                groups.append(chat)
 
-                            # Открытые группы
-                            if isinstance(chat, Channel) and hasattr(chat, 'broadcast'):
-                                if chat.broadcast == False and chat.username:
-                                    openchats.append(chat)
-                                    groups.append(chat)
-
-                        #except:
-                            #continue
+                        if isinstance(chat, Channel) and hasattr(chat, 'broadcast'):
+                            if chat.broadcast == False and chat.username:
+                                openchats.append(chat)
+                                groups.append(chat)
 
                     while True:
                         os.system('cls||clear')
@@ -86,7 +78,6 @@ def channelandgroups(api_id, api_hash):
                         print('=ИНФОРМАЦИЯ О КАНАЛАХ И ЧАТАХ=')
                         print('-----------------------------')
 
-                        # for groups in groups:
                         print("Открытые каналы:")
                         for openchannel in openchannels:
                             owner = " (Владелец)" if openchannel.creator else ""
@@ -116,7 +107,7 @@ def channelandgroups(api_id, api_hash):
                             cg += 1
 
 
-                        # Исходный код
+                        # Подсчет количества строк с владельцами и администраторами
                         total_lines = 0
                         
                         # Цикл по каждой строке кода
