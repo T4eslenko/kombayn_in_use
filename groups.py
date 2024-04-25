@@ -89,22 +89,22 @@ def channelandgroups(api_id, api_hash):
                         # for groups in groups:
                         print("Открытые каналы:")
                         for openchannel in openchannels:
-                            print(f"{i} - {openchannel.title} {openchannel.id}@{openchannel.username}")
+                            print(f"{i} - {openchannel.title} ID:{openchannel.id} @{openchannel.username} Владелец {openchannel.creator}")
                             oc += 1
                         
                         print("Закрытые каналы:")
                         for closechannel in closechannels:
-                            print(f"{i} - {closechannel.title} {closechannel.id}")
+                            print(f"{i} - {closechannel.title} ID:{closechannel.id} Владелец {closechannel.creator}")
                             cc += 1
                         
                         print("Открытые группы:")
                         for openchat in openchats:
-                            print(f"{i} - {openchat.title} {openchat.id}@{openchat.username}")
+                            print(f"{i} - {openchat.title} ID:{openchat.id} @{openchat.username} Владелец {openchat.creator}")
                             og += 1
                         
                         print("Закрытые группы:")
                         for closechat in closechats:
-                            print(f"{i} - {closechat.title} {closechat.id}")
+                            print(f"{i} - {closechat.title} ID:{closechat.id} Владелец {closechat.creator}")
                             cg += 1
 
 
