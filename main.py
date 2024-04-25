@@ -131,12 +131,14 @@ if __name__ == "__main__":
                                 print(groups)
                                 input("нажми меня 1")
                                 for g in groups:
-                                    if g.creator:
-                                       print(str(i) + ' - ' + g.title + color.RED + ' (Владелец)' + color.END)
-                                    elif g.admin_rights is not None:
-                                       print(str(i) + ' - ' + g.title + color.RED + ' (Есть права администратора)' + color.END)
-                                    else:
-                                        print(str(i) + ' - ' + g.title)
+                                    if g.id:
+                                       print(str(i) + ' - ' + g.id)
+                                    #if g.creator:
+                                      # print(str(i) + ' - ' + g.title + color.RED + ' (Владелец)' + color.END)
+                                    #elif g.admin_rights is not None:
+                                     #  print(str(i) + ' - ' + g.title + color.RED + ' (Есть права администратора)' + color.END)
+                                    #else:
+                                      #  print(str(i) + ' - ' + g.title)
                                     i += 1
                                    
                                 g_index_str = str(input("Ввод: "))
