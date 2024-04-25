@@ -132,7 +132,7 @@ if __name__ == "__main__":
                                 print('-----------------------------')
                               
                                 for openchannel in openchannels:
-                                    print(openchannel)
+                                    print(str(i) + ' - ' + openchannel.title
                                     i += 1
                                    
                                 g_index_str = str(input("Ввод: "))
