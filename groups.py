@@ -76,6 +76,8 @@ def channelandgroups(api_id, api_hash):
                         cg = 0
                         owner_channel = 0
                         owner_group = 0
+                        owner_closegroup = 0
+                        owner_closechannel = 0
                         print('-----------------------------')
                         print('=ИНФОРМАЦИЯ О КАНАЛАХ И ЧАТАХ=')
                         print('-----------------------------')
@@ -97,6 +99,7 @@ def channelandgroups(api_id, api_hash):
                             cc += 1
                             if owner !="" or admin != "":
                                 owner_channel += 1
+                                owner_closechannel += 1
                         
                         print("Открытые группы:")
                         for openchat in openchats:
@@ -115,6 +118,7 @@ def channelandgroups(api_id, api_hash):
                             cg += 1
                             if owner !="" or admin != "":
                                 owner_group += 1
+                                owner_closegroup += 1
                      
                         print("---------------------------------------")
                         print(f"Открытые каналы: {oc}")
@@ -123,8 +127,8 @@ def channelandgroups(api_id, api_hash):
                         print(f"\033[91mЗакрытые каналы: {cc}\033[0m")
                         print(f"\033[91mЗакрытые группы: {cg}\033[0m")
                         print("---------------------------------------")
-                        print(f"\033[96mИмеет права админа в {owner_channel} каналах\033[0m")
-                        print(f"\033[96mИмеет права админа в {owner_group} группах\033[0m")
+                        print(f"\033[96mИмеет права админа в {owner_channel} каналах, из них в - {owner_closechannel} закрытых\033[0m")
+                        print(f"\033[96mИмеет права админа в {owner_group} группах, из них в - {owner_closegroup} закрытых\033[0m")
 
                         g_index_str = str(input("Ввод: "))
 
@@ -138,6 +142,8 @@ def channelandgroups(api_id, api_hash):
                             closechats = []
                             owner_channel = 0
                             owner_group = 0
+                            owner_closegroup = 0
+                            owner_closechannel = 0
                             break
                         else:
                             try:
