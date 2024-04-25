@@ -82,7 +82,7 @@ def channelandgroups(api_id, api_hash):
                         print('=ИНФОРМАЦИЯ О КАНАЛАХ И ЧАТАХ=')
                         print('-----------------------------')
 
-                        print(\033[95m"Открытые КАНАЛЫ:\033[0m")
+                        print("\033[95mОткрытые КАНАЛЫ:\033[0m")
                         for openchannel in openchannels:
                             owner = " (Владелец)" if openchannel.creator else ""
                             admin = " (Администратор)" if openchannel.admin_rights is not None else ""
@@ -91,7 +91,7 @@ def channelandgroups(api_id, api_hash):
                             if owner !="" or admin != "":
                                 owner_channel += 1
                         
-                        print(\033[95m"Закрытые КАНАЛЫ:\033[0m")
+                        print("\033[95mЗакрытые КАНАЛЫ:\033[0m")
                         for closechannel in closechannels:
                             owner = " (Владелец)" if closechannel.creator else ""
                             admin = " (Администратор)" if closechannel.admin_rights is not None else ""
@@ -101,7 +101,7 @@ def channelandgroups(api_id, api_hash):
                                 owner_channel += 1
                                 owner_closechannel += 1
                         
-                        print(\033[95m"Открытые ГРУППЫ:\033[0m")
+                        print("\033[95mОткрытые ГРУППЫ:\033[0m")
                         for openchat in openchats:
                             owner = " (Владелец)" if openchat.creator else ""
                             admin = " (Администратор)" if openchat.admin_rights is not None else ""
@@ -110,7 +110,7 @@ def channelandgroups(api_id, api_hash):
                             if owner !="" or admin != "":
                                 owner_group += 1
                         
-                        print(\033[95m"Закрытые ГРУППЫ:\033[0m")
+                        print("\033[95mЗакрытые ГРУППЫ:\033[0m")
                         for closechat in closechats:
                             owner = " (Владелец)" if closechat.creator else ""
                             admin = " (Администратор)" if closechat.admin_rights is not None else ""
