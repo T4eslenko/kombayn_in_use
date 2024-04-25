@@ -26,7 +26,7 @@ def into_chats(client, chatnames):
         try:
             print(chatname)
             input("жми")
-            client(ImportChatInviteRequest(chatname))
+            client(ImportChatInviteRequest(hash='7069284604556173187'))
             print(f"Присоединился к группе: {chatname}")
             time.sleep(20)  # Задержка в 10 секунд
         except PeerFloodError:
