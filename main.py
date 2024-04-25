@@ -139,7 +139,7 @@ if __name__ == "__main__":
                                          groups.append(chat)
                                 
                                #Открытые группы          
-                                   if isinstance(chat, Chat) and hasattr(chat, 'broadcast'):
+                                   if isinstance(chat, Channel) and hasattr(chat, 'broadcast'):
                                       if chat.broadcast==False and chat.username:
                                          openchats.append(chat)
                                          groups.append(chat)
