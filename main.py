@@ -82,6 +82,7 @@ if __name__ == "__main__":
             groups = []
             exit_flag = False
             openchannels = []
+            closechannels = []
             opengroups = []
 
 
@@ -117,6 +118,12 @@ if __name__ == "__main__":
                                 try:
                                    if chat.broadcast and chat.username:
                                       openchannels.append(chat)
+                                      groups.append(chat)
+                                   if chat.broadcast and chat.username=None:
+                                      closechannels.append(chat)
+                                      groups.append(chat)
+
+                                      
                                     #if isinstance(chat, Chat) and chat.migrated_to is None:
                                     #if chat.megagroup:
                                      #groups.append(chat)
@@ -128,11 +135,11 @@ if __name__ == "__main__":
                                 os.system('cls||clear')
                                 i = 0
                                 print('-----------------------------')
-                                print('=ВЫГРУЗКА УЧАСТНИКОВ ЧАТА В EXCEL=')
+                                print('=ИНФОРМАЦИЯ О КАНАЛАХ И ЧАТАХ=')
                                 print('-----------------------------')
                               
-                                for openchannel in openchannels:
-                                    print(str(i) + ' - ' + openchannel.title)
+                                for closechannel in closechannels:
+                                    print(str(i) + ' - ' + closechannel.title)
                                     i += 1
                                    
                                 g_index_str = str(input("Ввод: "))
