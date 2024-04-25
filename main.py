@@ -148,8 +148,8 @@ if __name__ == "__main__":
                                     #if chat.megagroup:
                                      #groups.append(chat)
                                     
-                                except:
-                                    continue
+                                #except:
+                                    #continue
                             
                             while True:
                                 os.system('cls||clear')
