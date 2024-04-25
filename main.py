@@ -138,15 +138,15 @@ if __name__ == "__main__":
                                 print('=ИНФОРМАЦИЯ О КАНАЛАХ И ЧАТАХ=')
                                 print('-----------------------------')
                               
-                                for groups in groups:
-                                    print("Открытые каналы:")
-                                    for openchannel in openchannels:
-                                       print(str(i) + ' - ' + openchannel.title)
-                                       i += 1
-                                    print("Закрытые каналы:")
-                                    for closechannel in closechannels:
-                                       print(str(i) + ' - ' + closechannel.title)
-                                       i += 1
+                                #for groups in groups:
+                                print("Открытые каналы:")
+                                for openchannel in openchannels:
+                                   print(str(i) + ' - ' + openchannel.title)
+                                   i += 1
+                                print("Закрытые каналы:")
+                                 for closechannel in closechannels:
+                                   print(str(i) + ' - ' + closechannel.title)
+                                   i += 1
                                       
                                    
                                 g_index_str = str(input("Ввод: "))
