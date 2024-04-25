@@ -45,7 +45,7 @@ def channelandgroups(api_id, api_hash):
 
                     # Парсим информацию обо всех группах
                     for chat in chats:
-                        try:
+                        #try:
                             # Закрытые группы
                             if isinstance(chat, Channel) and hasattr(chat, 'broadcast'):
                                 if chat.broadcast == False and chat.username == None:
@@ -73,8 +73,8 @@ def channelandgroups(api_id, api_hash):
                                     openchats.append(chat)
                                     groups.append(chat)
 
-                        except:
-                            continue
+                        #except:
+                            #continue
 
                     while True:
                         os.system('cls||clear')
@@ -89,23 +89,24 @@ def channelandgroups(api_id, api_hash):
                         # for groups in groups:
                         print("Открытые каналы:")
                         for openchannel in openchannels:
-                            print(str(i) + ' - ' + openchannel.title + openchannel.id + '@' + openchannel.username)
+                            print(f"{i} - {openchannel.title} {openchannel.id}@{openchannel.username}")
                             oc += 1
-
+                        
                         print("Закрытые каналы:")
                         for closechannel in closechannels:
-                            print(str(i) + ' - ' + closechannel.title + closechannel.id)
+                            print(f"{i} - {closechannel.title} {closechannel.id}")
                             cc += 1
-
+                        
                         print("Открытые группы:")
                         for openchat in openchats:
-                            print(str(i) + ' - ' + openchat.title + openchat.id + '@' + openchat.username)
+                            print(f"{i} - {openchat.title} {openchat.id}@{openchat.username}")
                             og += 1
-
+                        
                         print("Закрытые группы:")
                         for closechat in closechats:
-                            print(str(i) + ' - ' + closechat.title + closechat.id)
+                            print(f"{i} - {closechat.title} {closechat.id}")
                             cg += 1
+
 
                         print(f"Открытые каналы: {oc}")
                         print(f"Закрытые каналы: {cc}")
