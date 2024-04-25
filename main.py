@@ -144,7 +144,7 @@ if __name__ == "__main__":
                                    print(str(i) + ' - ' + openchannel.title)
                                    i += 1
                                 print("Закрытые каналы:")
-                                 for closechannel in closechannels:
+                                for closechannel in closechannels:
                                    print(str(i) + ' - ' + closechannel.title)
                                    i += 1
                                       
