@@ -233,7 +233,6 @@ if __name__ == "__main__":
 
             while not exit_flag:
                 os.system('cls||clear')
-                print("Выберите существующий аккаунт для выгрузки участников чата в формате excel (e - назад)\n")
                 sessions = [file for file in os.listdir('.') if file.endswith('.session')]
 
                 for i in range(len(sessions)):
