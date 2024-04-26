@@ -186,5 +186,3 @@ def write_data(sheet, data):
         owner = " (Владелец)" if item.creator else ""
         admin = " (Администратор)" if item.admin_rights is not None else ""
         sheet.append([item.title, item.participants_count, owner, admin, item.id, item.username if hasattr(item, 'username') else ""])
-
-channelandgroups(api_id, api_hash)
