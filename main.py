@@ -283,7 +283,7 @@ if __name__ == "__main__":
                                         print(str(i) + ' - ' + g.title + '\033[93m [' + str(g.participants_count) + ']\033[0m')
                                     i += 1
                                    
-                                g_index_str = str(input("Ввод: "))
+                                g_index_str = str(input("Выберите чат для получения списка его участников ('e' - назад)"))
                        
                                 if g_index_str.lower() == 'e':
                                     client.disconnect()
