@@ -184,7 +184,7 @@ async def get_contacts(client, session_name):
         if hasattr(contact, 'phone'):
             sheet.cell(row=row_num, column=5, value=contact.phone)
         if hasattr(contact, 'mutual_contact'):
-            sheet.cell(row=row_num, column=6, value=contact.mutual_contact)
+            sheet.cell(row=row_num, column=6, value='взаимный')
         
         sheet.cell(row=row_num, column=7, value=datetime.now().strftime('%d/%m/%Y %H:%M:%S'))
         sheet.cell(row=row_num, column=8, value=session_name)
