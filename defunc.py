@@ -48,7 +48,7 @@ def parsing_xlsx(client, index: int, id: bool, name: bool, group_title, group_id
     sheet = wb.active
     
     # Запись заголовков столбцов
-    headers = ['ID', 'First Name', 'Last Name', 'Username', 'Записан в контакты', 'Взаимный контакт', 'Бот']
+    headers = ['ID', 'First Name', 'Last Name', 'Username', 'Записан в контакты', 'Взаимный контакт', 'Бот', 'Название группы','ID группы']
     for col, header in enumerate(headers, start=1):
         sheet.cell(row=1, column=col, value=header)
     
@@ -76,6 +76,8 @@ def parsing_xlsx(client, index: int, id: bool, name: bool, group_title, group_id
             sheet.cell(row=row_num, column=6, value=user.mutual_contact)
         if hasattr(user, 'bot'):
             sheet.cell(row=row_num, column=7, value=user.bot)
+        sheet.cell(row=row_num, column=8, value=group_title)
+        sheet.cell(row=row_num, column=9, value=group_id)
         
         # Увеличиваем номер строки для следующего пользователя
         row_num += 1
