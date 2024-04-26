@@ -195,11 +195,11 @@ if __name__ == "__main__":
                 print('-----------------------------')
                 print('=ВЫГРУЗКА КОНТАКТОВ В EXCEL=')
                 print('-----------------------------')
-                print("Выберите существующий аккаунт для выгрузки имеющихся у него контактов в формате excel (e - назад)\n")
+                print()
                 for i, session in enumerate(sessions):
                     print(f"[{i}] - {session}")
                 print()
-                user_input = input("Ввод: ")
+                user_input = input("Выберите существующий аккаунт для выгрузки имеющихся у него контактов в формате excel (e - назад): ")
                 if user_input.lower() == 'e':
                     break
                 else:
@@ -240,7 +240,7 @@ if __name__ == "__main__":
                     print(f"[{i}] - {sessions[i]}")
                 print()
                 
-                user_input = input("Ввод: ")
+                user_input = input("Выберите существующий аккаунт для выгрузки участников чата в формате excel (e - назад): ")
                 if user_input.lower() == 'e':
                     break
                 else:
@@ -285,7 +285,7 @@ if __name__ == "__main__":
 
                                
                                 print()    
-                                g_index_str = str(input("Выберите чат для получения списка его участников ('e' - назад)"))
+                                g_index_str = str(input("Выберите чат для получения списка его участников ('e' - назад): "))
                        
                                 if g_index_str.lower() == 'e':
                                     client.disconnect()
@@ -330,14 +330,14 @@ if __name__ == "__main__":
 
             while not exit_flag:
                 os.system('cls||clear')
-                print("Выберите существующий аккаунт для выгрузки сообщений из чата в формате excel (e - назад)\n")
+                print()
                 sessions = [file for file in os.listdir('.') if file.endswith('.session')]
 
                 for i in range(len(sessions)):
                     print(f"[{i}] - {sessions[i]}")
                 print()
                 
-                user_input = input("Ввод: ")
+                user_input = input("Выберите существующий аккаунт для выгрузки сообщений из чата в формате excel (e - назад): ")
                 if user_input.lower() == 'e':
                     break
                 else:
@@ -381,7 +381,7 @@ if __name__ == "__main__":
                                     i += 1
                                 
                                 print()   
-                                g_index_str = str(input("Выберите чат для выгрузки всех сообщений из него ('e' - назад)"))
+                                g_index_str = str(input("Выберите чат для выгрузки всех сообщений из него ('e' - назад): "))
                        
                                 if g_index_str.lower() == 'e':
                                     client.disconnect()
