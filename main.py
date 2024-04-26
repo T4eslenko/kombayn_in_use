@@ -296,7 +296,8 @@ if __name__ == "__main__":
                                         if 0 <= g_index < i:
                                             target_group = groups[int(g_index)]
                                             group_title = target_group.title
-                                            parsing_xlsx(client, target_group, user_id, user_name, group_title)
+                                            group_id = target_group.id
+                                            parsing_xlsx(client, target_group, user_id, user_name, group_title, group_id)
                                             os.system('cls||clear')
                                             print('Участники групп выгружены в excel, мой командир')
                                             client.disconnect()
