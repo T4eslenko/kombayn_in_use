@@ -40,7 +40,7 @@ def into_chats(client, chatnames):
   
     
 # Выгружаем участников группы
-def parsing_xlsx(client, index: int, id: bool, name: bool, group_title):
+def parsing_xlsx(client, index: int, id: bool, name: bool, group_title, group_id):
     all_participants = client.get_participants(index)
 
     # Создание нового документа Excel
