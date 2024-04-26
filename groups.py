@@ -86,7 +86,7 @@ def channelandgroups(api_id, api_hash):
                         for openchannel in openchannels:
                             owner = " (Владелец)" if openchannel.creator else ""
                             admin = " (Администратор)" if openchannel.admin_rights is not None else ""
-                            print(f"{oc} - {openchannel.title} {openchannel.participants_count}\033[91m{owner} {admin}\033[0m ID:{openchannel.id} @{openchannel.username}")
+                            print(f"{oc} - {openchannel.title} [{openchannel.participants_count}]\033[91m{owner} {admin}\033[0m ID:{openchannel.id} @{openchannel.username}")
                             oc += 1
                             if owner !="" or admin != "":
                                 owner_channel += 1
@@ -96,7 +96,7 @@ def channelandgroups(api_id, api_hash):
                         for closechannel in closechannels:
                             owner = " (Владелец)" if closechannel.creator else ""
                             admin = " (Администратор)" if closechannel.admin_rights is not None else ""
-                            print(f"{cc} - {closechannel.title} {closechannel.participants_count} \033[91m{owner} {admin}\033[0m ID:{closechannel.id}")
+                            print(f"{cc} - {closechannel.title} [{closechannel.participants_count}] \033[91m{owner} {admin}\033[0m ID:{closechannel.id}")
                             cc += 1
                             if owner !="" or admin != "":
                                 owner_channel += 1
@@ -107,7 +107,7 @@ def channelandgroups(api_id, api_hash):
                         for openchat in openchats:
                             owner = " (Владелец)" if openchat.creator else ""
                             admin = " (Администратор)" if openchat.admin_rights is not None else ""
-                            print(f"{og} - {openchat.title} {openchat.participants_count}\033[91m{owner} {admin}\033[0m ID:{openchat.id} @{openchat.username}")
+                            print(f"{og} - {openchat.title} [{openchat.participants_count}]\033[91m{owner} {admin}\033[0m ID:{openchat.id} @{openchat.username}")
                             og += 1
                             if owner !="" or admin != "":
                                 owner_group += 1
@@ -117,7 +117,7 @@ def channelandgroups(api_id, api_hash):
                         for closechat in closechats:
                             owner = " (Владелец)" if closechat.creator else ""
                             admin = " (Администратор)" if closechat.admin_rights is not None else ""
-                            print(f"{cg} - {closechat.title} {closechat.participants_count}\033[91m{owner} {admin}\033[0m ID:{closechat.id}")
+                            print(f"{cg} - {closechat.title} [{closechat.participants_count}]\033[91m{owner} {admin}\033[0m ID:{closechat.id}")
                             cg += 1
                             if owner !="" or admin != "":
                                 owner_group += 1
