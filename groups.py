@@ -52,7 +52,7 @@ def channelandgroups(api_id, api_hash):
                             closechats.append(chat)
                             groups.append(chat)
 
-                        if isinstance(chat, Channel) and hasattr(chat, 'broadcast'):
+                        if isinstance(chat, Channel) and hasattr(chat, 'broadcast') and chat.participants_count != None:
                             if chat.broadcast and chat.username:
                                 openchannels.append(chat)
                                 groups.append(chat)
