@@ -71,11 +71,11 @@ def parsing_xlsx(client, index: int, id: bool, name: bool, group_title, group_id
                 usernamechat_with_at = f"@{user.username}"
                 sheet.cell(row=row_num, column=4, value=usernamechat_with_at)
         if hasattr(user, 'contact') and user.contact:
-            sheet.cell(row=row_num, column=5, value='Да')
+            sheet.cell(row=row_num, column=5, value='Сохранен')
         if hasattr(user, 'mutual_contact') and user.mutual_contact:
-            sheet.cell(row=row_num, column=6, value='Да')
-        if hasattr(user, 'bot'):
-            sheet.cell(row=row_num, column=7, value=user.bot)
+            sheet.cell(row=row_num, column=6, value='Взаимный')
+        if hasattr(user, 'bot') and user.bot:
+            sheet.cell(row=row_num, column=7, value='Бот')
         sheet.cell(row=row_num, column=8, value=group_title)
         sheet.cell(row=row_num, column=9, value=group_id)
         
