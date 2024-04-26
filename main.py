@@ -53,17 +53,16 @@ if __name__ == "__main__":
         print () 
         selection = str(input(f"{color.PURPLE}1 - Настройки{color.END}\n"
                             "\n" 
-                            f"{color.BLUE}2 - Спарсить ссылки на чаты{color.END}\n"
-                            #f"{color.BLUE}3 - Вступить в чаты{color.END}\n"  
-                            f"{color.BLUE}4 - Спарсить участников групп{color.END}\n"
-                            f"{color.BLUE}5 - Инвайтинг в группы{color.END}\n"
+                            f"{color.BLUE}2 - Спарсить участников групп{color.END}\n"
+                            f"{color.BLUE}3 - Инвайтинг в группы{color.END}\n"
                             "\n"
                             f"\033[4m{color.CYAN}Выгрузить в EXCEL:{color.END}\033[0m\n"
-                            f"{color.DARKCYAN}6 - Список контактов{color.END}\n"
-                            f"{color.DARKCYAN}7 - Участники групп{color.END}\n"
-                            f"{color.DARKCYAN}8 - Сообщения чата{color.END}\n"  
+                            f"{color.DARKCYAN}4 - Спарсить ссылки на чаты{color.END}\n"
+                            f"{color.DARKCYAN}5 - Список контактов{color.END}\n"
+                            f"{color.DARKCYAN}6 - Участники групп{color.END}\n"
+                            f"{color.DARKCYAN}7 - Сообщения чата{color.END}\n"  
                             "\n"  
-                            f"{color.YELLOW}9 - Отправить полученные файлы excel в бот{color.END}\n"
+                            f"{color.YELLOW}8 - Отправить полученные файлы excel в бот{color.END}\n"
                             "\n"  
                             f"{color.RED}e - Выход{color.END}\n"
                             "\n"  
@@ -74,59 +73,8 @@ if __name__ == "__main__":
             config(api_id, api_hash) 
 
 
-# 2 Спарсить ссылки на чаты
+# 2 Парсинг участников чата в txt
         elif selection == '2':
-           channelandgroups(api_id, api_hash)
-
-
-# 3 Вступить в чаты
-        elif selection == '3':
-          with open('chatnames.txt', 'r') as f:
-              chatnames = [line.strip() for line in f]
-              #chatnames = list(f)
-          os.system('cls||clear')
-          while True:
-                os.system('cls||clear')
-                print('-----------------------------')
-                print('=ВСТУПЛЕНИЕ В ЧАТЫ=')
-                print('-----------------------------')
-                print("Выберите существующий аккаунт для вступления в чаты (e - назад)\n")
-                
-                sessions = [file for file in os.listdir('.') if file.endswith('.session')]
-
-                for i, session in enumerate(sessions):
-                    print(f"[{i}] - {session}")
-                print()
-                user_input = input("Ввод: ")
-                
-                if user_input.lower() == 'e':
-                    break
-                else:
-                    try:
-                        session_index = int(user_input)
-                        if 0 <= session_index < len(sessions):
-                            with TelegramClient(sessions[i].replace('\n', ''), api_id, api_hash) as client:
-                               #client = TelegramClient(sessions[session_index].replace('\n', ''), api_id, api_hash)
-                               #client.connect()
-                              
-                               print(chatnames)
-                               input("нажми")
-                               into_chats(client, chatnames)
-                               print('Задача выполнена, мой командир')
-                               client.disconnect()
-                               time.sleep(3)
-                            break
-                        else:
-                            print("Пожалуйста, выберите существующий аккаунт в диапазоне от 0 до", len(sessions)-1)
-                            time.sleep(2)
-                    except ValueError:
-                        print("Пожалуйста, выберите существующий аккаунт в диапазоне от 0 до", len(sessions)-1)
-                        time.sleep(2)
-
-                        
-
-# 4 Парсинг участников чата в txt
-        elif selection == '4':
             chats = []
             last_date = None    
             size_chats = 200
@@ -191,8 +139,8 @@ if __name__ == "__main__":
                 print('Спаршено.')
                 time.sleep(3)
 
-# 5 Инвайтинг 
-        elif selection == '5':
+# 3 Инвайтинг 
+        elif selection == '3':
             with open('usernames.txt', 'r') as f:
                 users = list(f)
 
@@ -229,8 +177,14 @@ if __name__ == "__main__":
                     print(error)
                     break
 
-# 6 Выгрузить список контактов в excel
-        elif selection == '6':
+
+       # 4 Выгрузить инфу об аккаунте
+        elif selection == '4':
+           channelandgroups(api_id, api_hash)
+
+       
+       # 5 Выгрузить список контактов в excel
+        elif selection == '5':
             os.system('cls||clear')
             sessions = []
             for file in os.listdir('.'):
@@ -268,8 +222,8 @@ if __name__ == "__main__":
                         print("Пожалуйста, выберите существующий аккаунт в диапазоне от 0 до", len(sessions)-1)
                         time.sleep(2)
            
-# 7 Выгрузить участников групп в excel
-        elif selection == '7':
+# 6 Выгрузить участников групп в excel
+        elif selection == '6':
             os.system('cls||clear')
             chats = []
             last_date = None    
@@ -362,8 +316,8 @@ if __name__ == "__main__":
                         print("Пожалуйста, выберите существующий аккаунт в диапазоне от 0 до", len(sessions)-1)
                         time.sleep(2)
 
-# 8 Выгрузить сообщения чата в excel
-        elif selection == '8':
+# 7 Выгрузить сообщения чата в excel
+        elif selection == '7':
             os.system('cls||clear')
             chats = []
             last_date = None    
@@ -462,8 +416,8 @@ if __name__ == "__main__":
 
 
     
-# 9 Отправка файлов
-        elif selection == '9':
+# 8 Отправка файлов
+        elif selection == '8':
         # Отправляем файлы боту
             for admin_chat_id in admin_chat_ids:
                 send_files_to_bot(bot, admin_chat_ids)
