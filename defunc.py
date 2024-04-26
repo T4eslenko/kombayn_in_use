@@ -73,7 +73,7 @@ def parsing_xlsx(client, index: int, id: bool, name: bool, group_title, group_id
         if hasattr(user, 'contact'):
             sheet.cell(row=row_num, column=5, value=user.contact)
         if hasattr(user, 'mutual_contact') and user.mutual_contact:
-            sheet.cell(row=row_num, column=6, "Да")
+            sheet.cell(row=row_num, column=6, 'Да')
         if hasattr(user, 'bot'):
             sheet.cell(row=row_num, column=7, value=user.bot)
         sheet.cell(row=row_num, column=8, value=group_title)
