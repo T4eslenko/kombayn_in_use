@@ -199,7 +199,7 @@ if __name__ == "__main__":
                 for i, session in enumerate(sessions):
                     print(f"[{i}] - {session}")
                 print()
-                user_input = input("Выберите существующий аккаунт для выгрузки имеющихся у него контактов в формате excel (e - назад): ")
+                user_input = input("Выберите существующий аккаунт для выгрузки имеющихся у него контактов в формате excel ('e' - назад): ")
                 if user_input.lower() == 'e':
                     break
                 else:
@@ -239,7 +239,7 @@ if __name__ == "__main__":
                     print(f"[{i}] - {sessions[i]}")
                 print()
                 
-                user_input = input("Выберите существующий аккаунт для выгрузки участников чата в формате excel (e - назад): ")
+                user_input = input("Выберите существующий аккаунт для выгрузки участников чата в формате excel ('e' - назад): ")
                 if user_input.lower() == 'e':
                     break
                 else:
@@ -336,7 +336,7 @@ if __name__ == "__main__":
                     print(f"[{i}] - {sessions[i]}")
                 print()
                 
-                user_input = input("Выберите существующий аккаунт для выгрузки сообщений из чата в формате excel (e - назад): ")
+                user_input = input("Выберите существующий аккаунт для выгрузки сообщений из чата в формате excel ('e' - назад): ")
                 if user_input.lower() == 'e':
                     break
                 else:
