@@ -153,17 +153,14 @@ def channelandgroups(api_id, api_hash):
                             try:
                                 if g_index_str == "get":
                                     wb = openpyxl.Workbook()
+                                    
                                     ws = wb.active
-                                    ws.append(["---------------------------------------"])
                                     ws.append([f"Открытые каналы: {oc}"])
                                     ws.append([f"Открытые группы: {og}"])
-                                    ws.append([])
-                                    ws.append([f"\033[91mЗакрытые каналы: {cc}\033[0m"])
-                                    ws.append([f"\033[91mЗакрытые группы: {cg}\033[0m"])
-                                    ws.append(["---------------------------------------"])
-                                    ws.append([f"\033[96mИмеет права админа в {owner_channel} каналах, из них {owner_closechannel} - в закрытых\033[0m"])
-                                    ws.append([f"\033[96mИмеет права админа в {owner_group} группах, из них {owner_closegroup} - в закрытых\033[0m"])
-                                    ws.append([])
+                                    ws.append([f"Закрытые каналы: {cc}"])
+                                    ws.append([f"Закрытые группы: {cg}"])
+                                    ws.append([f"Имеет права админа в {owner_channel} каналах, из них {owner_closechannel} - в закрытых"])
+                                    ws.append([f"Имеет права админа в {owner_group} группах, из них {owner_closegroup} - в закрытых"])
 
                                     ws_open_channels = wb.create_sheet("Открытые Каналы")
                                     ws_closed_channels = wb.create_sheet("Закрытые Каналы")
