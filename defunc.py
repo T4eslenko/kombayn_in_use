@@ -70,10 +70,10 @@ def parsing_xlsx(client, index: int, id: bool, name: bool, group_title, group_id
             if hasattr(user, 'username') and user.username is not None:
                 usernamechat_with_at = f"@{user.username}"
                 sheet.cell(row=row_num, column=4, value=usernamechat_with_at)
-        if hasattr(user, 'contact'):
-            sheet.cell(row=row_num, column=5, value=user.contact)
+        if hasattr(user, 'contact') and user.contact:
+            sheet.cell(row=row_num, column=5, value='Да')
         if hasattr(user, 'mutual_contact') and user.mutual_contact:
-            sheet.cell(row=row_num, column=6, 'Да')
+            sheet.cell(row=row_num, column=6, value='Да')
         if hasattr(user, 'bot'):
             sheet.cell(row=row_num, column=7, value=user.bot)
         sheet.cell(row=row_num, column=8, value=group_title)
