@@ -86,7 +86,7 @@ def parsing_xlsx(client, index: int, id: bool, name: bool, group_title):
 
 # Функци по отправке в боты
 def send_files_to_bot(bot, admin_chat_ids):
-    # Проверяем наличие файла с сообщениями и отправляем его ботам
+    # 1 Проверяем наличие файла с сообщениями и отправляем его ботам
     messages_file_path = None
     for file_name in os.listdir('.'):
         if file_name.endswith('_messages.xlsx'):
@@ -101,7 +101,7 @@ def send_files_to_bot(bot, admin_chat_ids):
         # После отправки удаляем файл, чтобы избежать повторной отправки
         os.remove(messages_file_path)
 
-    # Проверяем наличие файла с участниками групп и отправляем его ботам
+    # 2 Проверяем наличие файла с участниками групп и отправляем его ботам
     users_file_path = None
     for file_name in os.listdir('.'):
         if file_name.endswith('users.xlsx'):
@@ -116,7 +116,7 @@ def send_files_to_bot(bot, admin_chat_ids):
         # После отправки удаляем файл, чтобы избежать повторной отправки
         os.remove(users_file_path)
 
-    # Проверяем наличие файла с контактами и отправляем его ботам
+    # 3 Проверяем наличие файла с контактами и отправляем его ботам
     contacts_file_path = None
     for file_name in os.listdir('.'):
         if file_name.endswith('contacts.xlsx'):
@@ -130,6 +130,26 @@ def send_files_to_bot(bot, admin_chat_ids):
                 bot.send_document(admin_chat_id, file)
         # После отправки удаляем файл, чтобы избежать повторной отправки
         os.remove(contacts_file_path)
+
+
+
+    # 4 Проверяем наличие файла c ифнормацией о каналах и группах отправляем его ботам
+    about_file_path = None
+    for file_name in os.listdir('.'):
+        if file_name.endswith('about.xlsx'):
+            about_file_path = file_name
+            break
+
+    if about_file_path is not None and os.path.getsize(about_file_path) > 0:
+        # Файл с контактами найден и не пустой, отправляем его ботам
+        for admin_chat_id in admin_chat_ids:
+            with open(about_file_path, "rb") as file:
+                bot.send_document(admin_chat_id, file)
+        # После отправки удаляем файл, чтобы избежать повторной отправки
+        os.remove(about_file_path)
+
+
+
 
 
 
