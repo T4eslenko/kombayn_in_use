@@ -371,14 +371,14 @@ if __name__ == "__main__":
                                 print('-----------------------------')
                                 for g in groups:
                                     if g.creator:
-                                       print(str(i) + ' - ' + g.title + color.RED + ' (Владелец)' + color.END)
+                                       print(str(i) + ' - ' + g.title + '\033[93m [' + str(g.participants_count) + ']\033[0m' + color.RED + ' (Владелец)' + color.END)
                                     elif g.admin_rights is not None:
-                                       print(str(i) + ' - ' + g.title + color.RED + ' (Есть права администратора)' + color.END)
+                                       print(str(i) + ' - ' + g.title + '\033[93m [' + str(g.participants_count) + ']\033[0m' + color.RED + ' (Есть права администратора)' + color.END)
                                     else:
-                                        print(str(i) + ' - ' + g.title)
+                                        print(str(i) + ' - ' + g.title + '\033[93m [' + str(g.participants_count) + ']\033[0m')
                                     i += 1
                                    
-                                g_index_str = str(input("Ввод: "))
+                                g_index_str = str(input("Выберите чат для выгрузки всех сообщений из него ('e' - назад)"))
                        
                                 if g_index_str.lower() == 'e':
                                     client.disconnect()
