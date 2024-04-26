@@ -3,6 +3,7 @@ import time
 from telethon.sync import TelegramClient
 from telethon.tl.functions.messages import GetDialogsRequest
 from telethon.tl.types import InputPeerEmpty, Chat, Channel
+import openpyxl
 
 def channelandgroups(api_id, api_hash):
     os.system('cls||clear')
@@ -43,7 +44,6 @@ def channelandgroups(api_id, api_hash):
                     ))
                     chats.extend(result.chats)
 
-                    # Парсим информацию обо всех группах
                     for chat in chats:
                         if isinstance(chat, Channel) and hasattr(chat, 'broadcast'):
                             if chat.broadcast == False and chat.username == None:
@@ -152,7 +152,16 @@ def channelandgroups(api_id, api_hash):
                         else:
                             try:
                                 if g_index_str == "get":
-                                    parsing_chats(chatids)
+                                    wb = openpyxl.Workbook()
+                                    ws_open_channels = wb.create_sheet("Открытые Каналы")
+                                    ws_closed_channels = wb.create_sheet("Закрытые Каналы")
+                                    ws_open_groups = wb.create_sheet("Открытые Группы")
+                                    ws_closed_groups = wb.create_sheet("Закрытые Группы")
+                                    write_data(ws_open_channels, openchannels)
+                                    write_data(ws_closed_channels, closechannels)
+                                    write_data(ws_open_groups, openchats)
+                                    write_data(ws_closed_groups, closechats)
+                                    wb.save(f"{sessions[i].replace('.session', '')}_about.xlsx")
                                     print('Ссылки на чаты добавлены в файл, мой командир')
                                     time.sleep(3)
                                     exit_flag = True
@@ -170,3 +179,12 @@ def channelandgroups(api_id, api_hash):
             except ValueError:
                 print("Пожалуйста, выберите существующий аккаунт в диапазоне от 0 до", len(sessions) - 1)
                 time.sleep(2)
+
+def write_data(sheet, data):
+    sheet.append(["Название", "Количество участников", "Владелец", "Администратор", "ID", "Ссылка"])
+    for item in data:
+        owner = " (Владелец)" if item.creator else ""
+        admin = " (Администратор)" if item.admin_rights is not None else ""
+        sheet.append([item.title, item.participants_count, owner, admin, item.id, item.username if hasattr(item, 'username') else ""])
+
+channelandgroups(api_id, api_hash)
