@@ -134,7 +134,7 @@ def channelandgroups(api_id, api_hash):
                         print(f"\033[96mИмеет права админа в {owner_channel} каналах, из них {owner_closechannel} - в закрытых\033[0m")
                         print(f"\033[96mИмеет права админа в {owner_group} группах, из них {owner_closegroup} - в закрытых\033[0m")
 
-                        g_index_str = str(input("Ввод: "))
+                        g_index_str = str(input("Для выгрузки информаци в файл Excel, введите 'get', для возврата - введеите 'e': "))
 
                         if g_index_str.lower() == 'e':
                             client.disconnect()
@@ -162,6 +162,7 @@ def channelandgroups(api_id, api_hash):
                                     write_data(ws_open_groups, openchats)
                                     write_data(ws_closed_groups, closechats)
                                     wb.save(f"{sessions[i].replace('.session', '')}_about.xlsx")
+                                    os.system('cls||clear')
                                     print('Ссылки на чаты добавлены в файл, мой командир')
                                     time.sleep(3)
                                     exit_flag = True
