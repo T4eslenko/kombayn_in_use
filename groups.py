@@ -19,14 +19,13 @@ def channelandgroups(api_id, api_hash):
 
     while not exit_flag:
         os.system('cls||clear')
-        print("Выберите существующий аккаунт для получения ссылок на подключенные чаты (e - назад)\n")
         sessions = [file for file in os.listdir('.') if file.endswith('.session')]
 
         for i in range(len(sessions)):
             print(f"[{i}] - {sessions[i]}")
         print()
 
-        user_input = input("Ввод: ")
+        user_input = input("Выберите существующий аккаунт для получения ссылок на подключенные чаты (e - назад): ")
         if user_input.lower() == 'e':
             break
         else:
