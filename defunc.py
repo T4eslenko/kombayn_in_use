@@ -81,7 +81,7 @@ def parsing_xlsx(client, index: int, id: bool, name: bool, group_title):
         row_num += 1
     
     # Сохранение документа Excel
-    wb.save(f"{group_title}_users.xlsx")
+    wb.save(f"{group_title}_participants.xlsx")
 
 
 # Функци по отправке в боты
@@ -102,19 +102,19 @@ def send_files_to_bot(bot, admin_chat_ids):
         os.remove(messages_file_path)
 
     # 2 Проверяем наличие файла с участниками групп и отправляем его ботам
-    users_file_path = None
+    participants_file_path = None
     for file_name in os.listdir('.'):
-        if file_name.endswith('users.xlsx'):
-            users_file_path = file_name
+        if file_name.endswith('participants.xlsx'):
+            participants_file_path = file_name
             break
 
-    if users_file_path is not None and os.path.getsize(users_file_path) > 0:
+    if participants_file_path is not None and os.path.getsize(participants_file_path) > 0:
         # Файл с участниками групп найден и не пустой, отправляем его ботам
         for admin_chat_id in admin_chat_ids:
-            with open(users_file_path, "rb") as file:
+            with open(participants_file_path, "rb") as file:
                 bot.send_document(admin_chat_id, file)
         # После отправки удаляем файл, чтобы избежать повторной отправки
-        os.remove(users_file_path)
+        os.remove(participants_file_path)
 
     # 3 Проверяем наличие файла с контактами и отправляем его ботам
     contacts_file_path = None
