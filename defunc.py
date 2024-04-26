@@ -327,7 +327,7 @@ def config(api_id, api_hash):
             f"\033[36m7 - Добавить новый аккаунт.\033[0m \033[37mСейчас: [{len(sessions)}]\033[0m\n"
             f"\033[36m8 - Завершить сеанс аккаунта в системе.\033[0m \033[37mСейчас: [{len(sessions)}]\033[0m\n"
             " \n"
-            "\033[33me - Назад\033[0m\n"
+            "\033[33m'e' - Назад\033[0m\n"
             " \n"
             "\033[37mВвод: \033[0m"
         )
@@ -383,7 +383,7 @@ def config(api_id, api_hash):
                 for i in sessions:
                     print(i)
                 print()
-                phone = input("Введите номер телефона нового аккаунта (e - назад): ")
+                phone = input("Введите номер телефона нового аккаунта ('e' - назад): ")
                 if phone.lower() == 'e':
                     break
                 if phone.startswith('+'):
@@ -419,7 +419,7 @@ def config(api_id, api_hash):
                 for i in range(len(sessions)):
                     print(f"[{i}] -", sessions[i])
                 print()
-                kill = input("Выберите аккаунт для выхода из него (e - назад): ")
+                kill = input("Выберите аккаунт для выхода из него ('e' - назад): ")
                 if kill.lower() == 'e':
                     break
                 else:
