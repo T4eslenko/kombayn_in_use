@@ -36,11 +36,11 @@ def channelandgroups(api_id, api_hash):
                     client.connect()
 
                     # Получение информации о пользователе
-                me = client.get_me()
-                userid = me.id
-                first_name = me.first_name
-                username = f"{me.username}" if me.username is not None else ""
-                lastname = me.last_name if me.last_name is not None else ""
+                    me = client.get_me()
+                    userid = me.id
+                    first_name = me.first_name
+                    username = f"{me.username}" if me.username is not None else ""
+                    lastname = me.last_name if me.last_name is not None else ""
 
                                            
                     
