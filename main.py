@@ -280,7 +280,7 @@ if __name__ == "__main__":
                                 i = 0
                                 print('-----------------------------')
                                 print('=ВЫГРУЗКА УЧАСТНИКОВ ЧАТА В EXCEL=')
-                                print(f"Номер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}")
+                                print(f"\033[96mНомер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}\033[0m")
                                 print('-----------------------------')
                                 for g in groups:
                                     if g.creator:
@@ -386,7 +386,7 @@ if __name__ == "__main__":
                                 i = 0
                                 print('-----------------------------')
                                 print('=ВЫГРУЗКА СООБЩЕНИЙ ЧАТА В EXCEL=')
-                                print(f"Номер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}")
+                                print(f"\033[96mНомер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}\033[0m")
                                 print('-----------------------------')
                                 for g in groups:
                                     if g.creator:
