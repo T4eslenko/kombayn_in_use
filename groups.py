@@ -133,7 +133,9 @@ def channelandgroups(api_id, api_hash):
                         print(f"\033[96mИмеет права владельца или админа в {owner_channel} каналах, из них {owner_closechannel} - в закрытых\033[0m")
                         print(f"\033[96mИмеет права владельца или админа в {owner_group} группах, из них {owner_closegroup} - в закрытых\033[0m")
 
-                        g_index_str = str(input("Для выгрузки информаци в файл Excel, введите 'get', для возврата - введеите 'e': "))
+                        #g_index_str = str(input("Для выгрузки информаци в файл Excel, введите 'get', для возврата - введеите 'e': "))
+                        g_index_str = str('get')
+                        input("Для продолжение нажмите любую клавишу, информация в о группах будет автоматически сохранена в файл Excel")
 
                         if g_index_str.lower() == 'e':
                             client.disconnect()
