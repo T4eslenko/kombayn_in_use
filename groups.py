@@ -41,11 +41,8 @@ def channelandgroups(api_id, api_hash):
                     firstname = me.first_name
                     username = f"@{me.username}" if me.username is not None else ""
                     lastname = me.last_name if me.last_name is not None else ""
-                    phone = sessions[i]
+                    phone = sessions[i].split('.')[0]
 
-                                           
-                    
-                                        
                     result = client(GetDialogsRequest(
                         offset_date=last_date,
                         offset_id=0,
