@@ -88,7 +88,7 @@ def channelandgroups(api_id, api_hash):
                         owner_closechannel = 0
                         print('-----------------------------')
                         print("=ИНФОРМАЦИЯ О КАНАЛАХ И ЧАТАХ=")
-                        print(f"\033[0mНомер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}\033[0m")
+                        print(f"\033[96mНомер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}\033[0m")
                         print('-----------------------------')
                         print()
                         print("\033[95mОткрытые КАНАЛЫ:\033[0m")
