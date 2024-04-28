@@ -38,9 +38,9 @@ def channelandgroups(api_id, api_hash):
                     # Получение информации о пользователе
                     me = client.get_me()
                     userid = me.id
-                    first_name = me.first_name
+                    firstname = me.first_name
                     username = f"@{me.username}" if me.username is not None else ""
-                    lastname = f"{me.last_name} " if me.last_name is not None else ""
+                    lastname = me.last_name if me.last_name is not None else ""
 
                                            
                     
@@ -90,7 +90,7 @@ def channelandgroups(api_id, api_hash):
                         owner_closechannel = 0
                         print('-----------------------------')
                         print("=ИНФОРМАЦИЯ О КАНАЛАХ И ЧАТАХ=")
-                        print(f"ID: {userid} ({first_name}{lastname}), {username}")
+                        print(f"ID: {userid} ({firstname}{lastname}) {username}")
                         print('-----------------------------')
                         print()
                         print("\033[95mОткрытые КАНАЛЫ:\033[0m")
