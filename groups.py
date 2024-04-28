@@ -168,6 +168,7 @@ def channelandgroups(api_id, api_hash):
                                     wb = openpyxl.Workbook()
                                     
                                     ws = wb.active
+                                    ws.append([f"Данные о пользователе: {userid} ({firstname}{lastname}) {username}"])
                                     ws.append([f"Открытые каналы: {oc}"])
                                     ws.append([f"Открытые группы: {og}"])
                                     ws.append([f"Закрытые каналы: {cc}"])
