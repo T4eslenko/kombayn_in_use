@@ -135,7 +135,7 @@ def channelandgroups(api_id, api_hash):
 
                         #g_index_str = str(input("Для выгрузки информаци в файл Excel, введите 'get', для возврата - введеите 'e': "))
                         g_index_str = str('get')
-                        input("Для продолжение нажмите любую клавишу, информация в о группах будет автоматически сохранена в файл Excel")
+                        input("Для продолжение нажмите любую клавишу, информация о группах будет автоматически сохранена в файл Excel")
 
                         if g_index_str.lower() == 'e':
                             client.disconnect()
