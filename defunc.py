@@ -156,7 +156,7 @@ def send_files_to_bot(bot, admin_chat_ids):
 
 
 # Выгружаем контакты в Excel
-async def get_contacts(client, session_name):
+async def get_contacts(client, session_name, userid):
     result = await client(GetContactsRequest(0))
     contacts = result.users
 
@@ -188,6 +188,7 @@ async def get_contacts(client, session_name):
         
         sheet.cell(row=row_num, column=7, value=datetime.now().strftime('%d/%m/%Y %H:%M:%S'))
         sheet.cell(row=row_num, column=8, value=session_name)
+        sheet.cell(row=row_num, column=9, value=userid)
      
         row_num += 1
 
