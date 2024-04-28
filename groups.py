@@ -41,6 +41,7 @@ def channelandgroups(api_id, api_hash):
                     firstname = me.first_name
                     username = f"@{me.username}" if me.username is not None else ""
                     lastname = me.last_name if me.last_name is not None else ""
+                    phone = sessions[i]
 
                                            
                     
@@ -90,7 +91,7 @@ def channelandgroups(api_id, api_hash):
                         owner_closechannel = 0
                         print('-----------------------------')
                         print("=ИНФОРМАЦИЯ О КАНАЛАХ И ЧАТАХ=")
-                        print(f"ID: {userid} ({firstname}{lastname}) {username}")
+                        print(f"Номер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}")
                         print('-----------------------------')
                         print()
                         print("\033[95mОткрытые КАНАЛЫ:\033[0m")
@@ -168,7 +169,7 @@ def channelandgroups(api_id, api_hash):
                                     wb = openpyxl.Workbook()
                                     
                                     ws = wb.active
-                                    ws.append([f"Данные о пользователе: {userid} ({firstname}{lastname}) {username}"])
+                                    ws.append([f"Номер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}"])
                                     ws.append([f"Открытые каналы: {oc}"])
                                     ws.append([f"Открытые группы: {og}"])
                                     ws.append([f"Закрытые каналы: {cc}"])
