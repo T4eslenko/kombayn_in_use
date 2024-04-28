@@ -208,8 +208,11 @@ if __name__ == "__main__":
                         if 0 <= session_index < len(sessions):
                             client = TelegramClient(sessions[session_index].replace('\n', ''), api_id, api_hash)
                             client.connect()
-                           #.start(sessions[session_index].replace('\n', ''))
-                            asyncio.get_event_loop().run_until_complete(get_contacts(client, sessions[session_index].replace('.session', '')))
+
+                            me = client.get_me()
+                            userid = me.id
+
+                            asyncio.get_event_loop().run_until_complete(get_contacts(client, sessions[session_index].replace('.session', ''), userid))
                             os.system('cls||clear')
                             print('Список контактов выгружен в excel, мой командир')
                             client.disconnect()
