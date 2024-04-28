@@ -34,6 +34,18 @@ def channelandgroups(api_id, api_hash):
                 if 0 <= i < len(sessions):
                     client = TelegramClient(sessions[i].replace('\n', ''), api_id, api_hash)
                     client.connect()
+
+                    # Получение информации о пользователе
+                    me = client.get_me()
+                    username = me.username
+                    first_name = me.first_name
+                    if username and first_name:
+                        print(f"Username: {username}")
+                        print(f"First name: {first_name}")
+                    else:
+                        print("Не удалось получить информацию о пользователе.")
+                    
+                    
                     result = client(GetDialogsRequest(
                         offset_date=last_date,
                         offset_id=0,
