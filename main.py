@@ -209,10 +209,16 @@ if __name__ == "__main__":
                             client = TelegramClient(sessions[session_index].replace('\n', ''), api_id, api_hash)
                             client.connect()
 
+                            # Получение информации о пользователе
                             me = client.get_me()
                             userid = me.id
+                            firstname = me.first_name
+                            username = f"@{me.username}" if me.username is not None else ""
+                            lastname = me.last_name if me.last_name is not None else ""
+                            phone = sessions[i].split('.')[0]
+                            userinfo = f"(Номер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username})
 
-                            asyncio.get_event_loop().run_until_complete(get_contacts(client, sessions[session_index].replace('.session', ''), userid))
+                            asyncio.get_event_loop().run_until_complete(get_contacts(client, sessions[session_index].replace('.session', ''), userid, userinfo))
                             os.system('cls||clear')
                             print('Список контактов выгружен в excel, мой командир')
                             client.disconnect()
