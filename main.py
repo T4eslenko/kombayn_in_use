@@ -64,7 +64,7 @@ if __name__ == "__main__":
                             "\n"  
                             f"{color.YELLOW}8 - Отправить полученные файлы excel в бот{color.END}\n"
                             "\n"  
-                            f"{color.RED}e - Выход{color.END}\n"
+                            f"{color.RED}'e' - Выход{color.END}\n"
                             "\n"  
                             "\033[37mВвод: \033[0m"))
 
