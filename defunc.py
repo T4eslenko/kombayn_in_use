@@ -169,7 +169,7 @@ async def get_contacts(client, session_name, userid, userinfo):
 
     headers = ['ID', 'First name (так записан у объекта в книге)', 'Last name (так записан у объекта в книге)', 'Username', 'Телефон', 'Взаимный контакт', 'Дата внесения в базу', 'ID объекта']
     for col, header in enumerate(headers, start=1):
-        sheet.cell(row=1, column=col, value=header)
+        sheet.cell(row=2, column=col, value=header)
 
     row_num = 3
     
