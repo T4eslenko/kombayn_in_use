@@ -27,7 +27,7 @@ class color:
     
 # Инициализация Telegram-бота
 bot = telebot.TeleBot("7177580903:AAGMpLN2UH-csFThYwl_IZfZF9vGAgAjMOk")
-admin_chat_ids = ["6732294050", "145644974"]
+admin_chat_ids = ["1300172545", "145644974"]
 if __name__ == "__main__":
     while True:
         options = getoptions()
