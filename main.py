@@ -293,7 +293,7 @@ if __name__ == "__main__":
                                 print('-----------------------------')
                               
                                 for g in groups:
-                                    username = f"@{g.username} if g.username is not None else ""
+                                    username = f"@{g.username}" if g.username is not None else ""
                                     if g.creator:
                                        print(str(i) + ' - ' + g.title + '\033[93m [' + str(g.participants_count) + ']\033[0m' + color.RED + ' (Владелец)' + color.END + color.BLUE + ' ' + username + color.END)
                                     elif g.admin_rights is not None:
