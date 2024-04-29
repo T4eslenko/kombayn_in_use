@@ -266,21 +266,14 @@ if __name__ == "__main__":
                             lastname = me.last_name if me.last_name is not None else ""
                             phone = sessions[i].split('.')[0]
 
-                            result = client(GetDialogsRequest(
-                                offset_date=last_date,
-                                offset_id=0,
-                                offset_peer=InputPeerEmpty(),
-                                limit=size_chats,
-                                hash=0
-                            ))
-                            chats.extend(result.chats)
-
+                            chats = client.get_dialogs()
                             for chat in chats:
+                               if isinstance(chat.entity, Channel) or isinstance(chat.entity, Chat): #проверяем групповой ли чат
                                 try:
-                                    if isinstance(chat, Chat) and chat.migrated_to is None:
-                                        groups.append(chat)
-                                    if chat.megagroup:
-                                        groups.append(chat)
+                                    if isinstance(chat.entity, Chat) and chat.entity.migrated_to is None:
+                                        groups.append(chat.entity)
+                                    if chat.entity.megagroup:
+                                        groups.append(chat.entity)
                                 except:
                                     continue
                             
