@@ -63,7 +63,7 @@ def channelandgroups(api_id, api_hash):
                     for chat in chats:
                         if isinstance(chat.entity, Channel) or isinstance(chat.entity, Chat): #проверяем групповой ли чат
                             if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast'):
-                                if chat.entity.broadcast == False and chat.username == None:
+                                if chat.entity.broadcast == False and chat.entity.username == None:
                                     closechats.append(chat.entity)
                                     groups.append(chat.entity)
                             if isinstance(chat.entity, Chat) and chat.entity.migrated_to is None:
