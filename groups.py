@@ -77,7 +77,7 @@ def channelandgroups(api_id, api_hash):
                                 groups.append(chat)
                         groups.append(chat)
 
-                    for group in chats
+                    for group in chats:
                     print(group)
                     input("нажми")
                     break
