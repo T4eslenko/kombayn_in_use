@@ -75,6 +75,11 @@ def channelandgroups(api_id, api_hash):
                             if chat.broadcast == False and chat.username:
                                 openchats.append(chat)
                                 groups.append(chat)
+                        groups.append(chat)
+
+                    print(groups)
+                    input("нажми")
+                    break
 
                     while True:
                         os.system('cls||clear')
