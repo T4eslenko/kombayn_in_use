@@ -288,7 +288,7 @@ if __name__ == "__main__":
                                 for g in groups:
                                     username = g.username if g.username is not None else ""
                                     if g.creator:
-                                       print(str(i) + ' - ' + g.title + '\033[93m [' + str(g.participants_count) + ']\033[0m' + color.RED + ' (Владелец)' + color.END + color.CYAN + '@'username + color.END)
+                                       print(str(i) + ' - ' + g.title + '\033[93m [' + str(g.participants_count) + ']\033[0m' + color.RED + ' (Владелец)' + color.END + color.CYAN + '@' username + color.END)
                                     elif g.admin_rights is not None:
                                        print(str(i) + ' - ' + g.title + '\033[93m [' + str(g.participants_count) + ']\033[0m' + color.RED + ' (Есть права администратора)' + color.END)
                                     else:
