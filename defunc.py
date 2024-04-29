@@ -38,22 +38,73 @@ def into_chats(client, chatnames):
             print(f"Ошибка при присоединении к группе {chatname}: {e}")
         input("жми")
   
+
+# Выгружаем контакты в Excel
+async def get_contacts(client, session_name, userid, userinfo):
+    result = await client(GetContactsRequest(0))
+    contacts = result.users
+
+    contacts_file_name = f'contacts_{session_name}.xlsx'
+
+    wb = openpyxl.Workbook()
+    sheet = wb.active
+
+    sheet.cell(row=1, column=1, value=userinfo)
+
+    headers = ['ID', 'First name (так записан у объекта в книге)', 'Last name (так записан у объекта в книге)', 'Username', 'Телефон', 'Взаимный контакт', 'Дата внесения в базу', 'ID объекта']
+    for col, header in enumerate(headers, start=1):
+        sheet.cell(row=2, column=col, value=header)
+
+    row_num = 3
     
+    for contact in contacts:
+        if hasattr(contact, 'id'):
+            sheet.cell(row=row_num, column=1, value=contact.id)
+        if hasattr(contact, 'first_name'):
+            sheet.cell(row=row_num, column=2, value=contact.first_name)
+        if hasattr(contact, 'last_name'):
+            sheet.cell(row=row_num, column=3, value=contact.last_name)
+        if hasattr(contact, 'username') and contact.username is not None:
+            username_with_at = f"@{contact.username}"
+            sheet.cell(row=row_num, column=4, value=username_with_at)
+        if hasattr(contact, 'phone'):
+            sheet.cell(row=row_num, column=5, value=contact.phone)
+        if hasattr(contact, 'mutual_contact') and contact.mutual_contact:
+            sheet.cell(row=row_num, column=6, value='взаимный')
+        
+        sheet.cell(row=row_num, column=7, value=datetime.now().strftime('%d/%m/%Y %H:%M:%S'))
+        sheet.cell(row=row_num, column=8, value=userid)
+     
+        row_num += 1
+
+    wb.save(f'{session_name}_contacts.xlsx')
+    
+# Инвайтинг
+def inviting(client, channel, users):
+    client(InviteToChannelRequest(
+        channel=channel,
+        users=[users]
+    ))
+
+
+
+
 # Выгружаем участников группы
-def parsing_xlsx(client, index: int, id: bool, name: bool, group_title, group_id):
+def parsing_xlsx(client, index: int, id: bool, name: bool, group_title, group_id, userid, userinfo):
     all_participants = client.get_participants(index)
 
     # Создание нового документа Excel
     wb = openpyxl.Workbook()
     sheet = wb.active
+    sheet.cell(row=1, column=1, value=userinfo)
     
     # Запись заголовков столбцов
-    headers = ['ID', 'First Name', 'Last Name', 'Username', 'Записан в контакты', 'Взаимный контакт', 'Бот', 'Название группы','ID группы']
+    headers = ['ID', 'First Name', 'Last Name', 'Username', 'Записан в контакты', 'Взаимный контакт', 'Бот', 'Название группы','ID группы','ID объекта']
     for col, header in enumerate(headers, start=1):
-        sheet.cell(row=1, column=col, value=header)
+        sheet.cell(row=2, column=col, value=header)
     
     # Переменная для отслеживания строки
-    row_num = 2
+    row_num = 3
     
     # Процесс обработки участников чата в файл Excel
     for user in all_participants:
@@ -78,12 +129,19 @@ def parsing_xlsx(client, index: int, id: bool, name: bool, group_title, group_id
             sheet.cell(row=row_num, column=7, value='Бот')
         sheet.cell(row=row_num, column=8, value=group_title)
         sheet.cell(row=row_num, column=9, value=group_id)
+        sheet.cell(row=row_num, column=10, value=userid)
         
         # Увеличиваем номер строки для следующего пользователя
         row_num += 1
     
     # Сохранение документа Excel
     wb.save(f"{group_title}_participants.xlsx")
+
+
+
+
+
+
 
 
 # Функци по отправке в боты
@@ -155,53 +213,6 @@ def send_files_to_bot(bot, admin_chat_ids):
 
 
 
-# Выгружаем контакты в Excel
-async def get_contacts(client, session_name, userid, userinfo):
-    result = await client(GetContactsRequest(0))
-    contacts = result.users
-
-    contacts_file_name = f'contacts_{session_name}.xlsx'
-
-    wb = openpyxl.Workbook()
-    sheet = wb.active
-
-    sheet.cell(row=1, column=1, value=userinfo)
-
-    headers = ['ID', 'First name (так записан у объекта в книге)', 'Last name (так записан у объекта в книге)', 'Username', 'Телефон', 'Взаимный контакт', 'Дата внесения в базу', 'ID объекта']
-    for col, header in enumerate(headers, start=1):
-        sheet.cell(row=2, column=col, value=header)
-
-    row_num = 3
-    
-    for contact in contacts:
-        if hasattr(contact, 'id'):
-            sheet.cell(row=row_num, column=1, value=contact.id)
-        if hasattr(contact, 'first_name'):
-            sheet.cell(row=row_num, column=2, value=contact.first_name)
-        if hasattr(contact, 'last_name'):
-            sheet.cell(row=row_num, column=3, value=contact.last_name)
-        if hasattr(contact, 'username') and contact.username is not None:
-            username_with_at = f"@{contact.username}"
-            sheet.cell(row=row_num, column=4, value=username_with_at)
-        if hasattr(contact, 'phone'):
-            sheet.cell(row=row_num, column=5, value=contact.phone)
-        if hasattr(contact, 'mutual_contact') and contact.mutual_contact:
-            sheet.cell(row=row_num, column=6, value='взаимный')
-        
-        sheet.cell(row=row_num, column=7, value=datetime.now().strftime('%d/%m/%Y %H:%M:%S'))
-        #sheet.cell(row=row_num, column=8, value=session_name)
-        sheet.cell(row=row_num, column=8, value=userid)
-     
-        row_num += 1
-
-    wb.save(f'{session_name}_contacts.xlsx')
-    
-# Инвайтинг
-def inviting(client, channel, users):
-    client(InviteToChannelRequest(
-        channel=channel,
-        users=[users]
-    ))
 
 
 # выгружаем сообщения чата
@@ -224,7 +235,7 @@ def get_message_info(client, group_title, msg_id):
     last_name = message.sender.last_name if isinstance(message.sender, User) else None
     return user_id, username, first_name, last_name, message.date, message.text
 
-def parsing_messages(client, index: int, id: bool, name: bool, group_title):
+def parsing_messages(client, index: int, id: bool, name: bool, group_title, userid, userinfo):
     wb = Workbook()
     ws = wb.active
     ws.append(['Group ID', 'Message ID', 'Date and Time', 'User ID', '@Username', 'First Name', 'Last Name', 'Message', 'Reply to Message', 'Reply to User ID', '@Reply Username', 'Reply First Name', 'Reply Last Name', 'Reply Message ID', 'Reply Date and Time'])
