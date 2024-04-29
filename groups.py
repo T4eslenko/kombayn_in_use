@@ -62,29 +62,33 @@ def channelandgroups(api_id, api_hash):
                     chats = client.get_dialogs()
                     for chat in chats:
                         if isinstance(chat.entity, Channel) or isinstance(chat.entity, Chat): #проверяем групповой ли чат
+                            # Определяем открытый канал
+                            if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast') and chat.entity.participants_count != None:
+                                if chat.entity.broadcast and chat.entity.username:
+                                    openchannels.append(chat.entity)
+                                    groups.append(chat.entity)
+                                    
+                            # Определяем закрытый канал
+                            if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast'):
+                                if chat.entity.broadcast and chat.entity.username == None and chat.entity.title != 'Unsupported Chat':
+                                    closechannels.append(chat.entity)
+                                    groups.append(chat.entity)
+                                    
+                            # Определяем открытый чат
+                            if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast'):
+                                if chat.entity.broadcast == False and chat.entity.username:
+                                    openchats.append(chat.entity)
+                                    groups.append(chat.entity)
+                            groups.append(chat.entity)
+                            
+                            # Определяем закрытый чат
                             if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast'):
                                 if chat.entity.broadcast == False and chat.entity.username == None:
                                     closechats.append(chat.entity)
                                     groups.append(chat.entity)
                             if isinstance(chat.entity, Chat) and chat.entity.migrated_to is None:
                                 closechats.append(chat.entity)
-                                groups.append(chat.entity)
-    
-                            if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast') and chat.entity.participants_count != None:
-                                if chat.entity.broadcast and chat.entity.username:
-                                    openchannels.append(chat.entity)
-                                    groups.append(chat.entity)
-    
-                            if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast'):
-                                if chat.entity.broadcast and chat.entity.username == None and chat.entity.title != 'Unsupported Chat':
-                                    closechannels.append(chat.entity)
-                                    groups.append(chat.entity)
-    
-                            if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast'):
-                                if chat.entity.broadcast == False and chat.entity.username:
-                                    openchats.append(chat.entity)
-                                    groups.append(chat.entity)
-                            groups.append(chat.entity)
+                                groups.append(chat.entity)                            
                     
         
                     while True:
