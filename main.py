@@ -284,7 +284,9 @@ if __name__ == "__main__":
                                 print('=ВЫГРУЗКА УЧАСТНИКОВ ЧАТА В EXCEL=')
                                 print(f"\033[96mНомер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}\033[0m")
                                 print('-----------------------------')
+                              
                                 for g in groups:
+                                    username = g.username if g.username is not None else ""
                                     if g.creator:
                                        print(str(i) + ' - ' + g.title + '\033[93m [' + str(g.participants_count) + ']\033[0m' + color.RED + ' (Владелец)' + color.END)
                                     elif g.admin_rights is not None:
