@@ -266,8 +266,8 @@ if __name__ == "__main__":
                             lastname = me.last_name if me.last_name is not None else ""
                             phone = sessions[i].split('.')[0]
 
-                           chats = client.get_dialogs()
-                           for chat in chats:
+                            chats = client.get_dialogs()
+                            for chat in chats:
                               if isinstance(chat.entity, Channel) or isinstance(chat.entity, Chat): #проверяем групповой ли чат
                                 
                                  # Определяем открытый чат
