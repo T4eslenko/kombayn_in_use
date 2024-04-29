@@ -310,6 +310,7 @@ if __name__ == "__main__":
                                     client.disconnect()
                                     groups = []
                                     chats = []
+                                    exit_flag = True
                                     break
                                 else:
                                     try:
