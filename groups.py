@@ -50,40 +50,41 @@ def channelandgroups(api_id, api_hash):
                     lastname = me.last_name if me.last_name is not None else ""
                     phone = sessions[i].split('.')[0]
 
-                    result = client(GetDialogsRequest(
-                        offset_date=last_date,
-                        offset_id=0,
-                        offset_peer=InputPeerEmpty(),
-                        limit=size_chats,
-                        hash=0
-                    ))
-                    chats.extend(result.chats)
+                    #result = client(GetDialogsRequest(
+                    #    offset_date=last_date,
+                    #    offset_id=0,
+                    #    offset_peer=InputPeerEmpty(),
+                    #    limit=size_chats,
+                    #    hash=0
+                    #))
+                    #chats.extend(result.chats)
                     
-                    #chats = client.get_dialogs()
-                    for chat in chats:
-                        if isinstance(chat, Channel) and hasattr(chat, 'broadcast'):
-                            if chat.broadcast == False and chat.username == None:
+                    dialogs = client.get_dialogs()
+                    if isinstance(dialog.entity, Channel) or isinstance(dialog.entity, Chat):
+                        for chat in dialogs:
+                            if isinstance(chat, Channel) and hasattr(chat, 'broadcast'):
+                                if chat.broadcast == False and chat.username == None:
+                                    closechats.append(chat)
+                                    groups.append(chat)
+                            if isinstance(chat, Chat) and chat.migrated_to is None:
                                 closechats.append(chat)
                                 groups.append(chat)
-                        if isinstance(chat, Chat) and chat.migrated_to is None:
-                            closechats.append(chat)
+    
+                            if isinstance(chat, Channel) and hasattr(chat, 'broadcast') and chat.participants_count != None:
+                                if chat.broadcast and chat.username:
+                                    openchannels.append(chat)
+                                    groups.append(chat)
+    
+                            if isinstance(chat, Channel) and hasattr(chat, 'broadcast'):
+                                if chat.broadcast and chat.username == None and chat.title != 'Unsupported Chat':
+                                    closechannels.append(chat)
+                                    groups.append(chat)
+    
+                            if isinstance(chat, Channel) and hasattr(chat, 'broadcast'):
+                                if chat.broadcast == False and chat.username:
+                                    openchats.append(chat)
+                                    groups.append(chat)
                             groups.append(chat)
-
-                        if isinstance(chat, Channel) and hasattr(chat, 'broadcast') and chat.participants_count != None:
-                            if chat.broadcast and chat.username:
-                                openchannels.append(chat)
-                                groups.append(chat)
-
-                        if isinstance(chat, Channel) and hasattr(chat, 'broadcast'):
-                            if chat.broadcast and chat.username == None and chat.title != 'Unsupported Chat':
-                                closechannels.append(chat)
-                                groups.append(chat)
-
-                        if isinstance(chat, Channel) and hasattr(chat, 'broadcast'):
-                            if chat.broadcast == False and chat.username:
-                                openchats.append(chat)
-                                groups.append(chat)
-                        groups.append(chat)
 
 
                     while True:
