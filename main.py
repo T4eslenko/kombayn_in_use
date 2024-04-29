@@ -375,23 +375,21 @@ if __name__ == "__main__":
                             lastname = me.last_name if me.last_name is not None else ""
                             phone = sessions[i].split('.')[0]
                            
-                            result = client(GetDialogsRequest(
-                                offset_date=last_date,
-                                offset_id=0,
-                                offset_peer=InputPeerEmpty(),
-                                limit=size_chats,
-                                hash=0
-                            ))
-                            chats.extend(result.chats)
-
+                            chats = client.get_dialogs()
                             for chat in chats:
-                                try:
-                                    if isinstance(chat, Chat) and chat.migrated_to is None:
-                                        groups.append(chat)
-                                    if chat.megagroup:
-                                        groups.append(chat)
-                                except:
-                                    continue
+                              if isinstance(chat.entity, Channel) or isinstance(chat.entity, Chat): #проверяем групповой ли чат
+                                
+                                 # Определяем открытый чат
+                                  if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast'):
+                                      if chat.entity.broadcast == False and chat.entity.username:
+                                          groups.append(chat.entity)
+                               
+                               # Определяем закрытый чат
+                                  if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast'):
+                                      if chat.entity.broadcast == False and chat.entity.username == None:
+                                          groups.append(chat.entity)
+                                  if isinstance(chat.entity, Chat) and chat.entity.migrated_to is None:
+                                      groups.append(chat.entity)    
                             
                             while True:
                                 os.system('cls||clear')
@@ -401,14 +399,14 @@ if __name__ == "__main__":
                                 print(f"\033[96mНомер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}\033[0m")
                                 print('-----------------------------')
                                 for g in groups:
+                                    username = f"@{g.username}" if g.username is not None else ""
                                     if g.creator:
-                                       print(str(i) + ' - ' + g.title + '\033[93m [' + str(g.participants_count) + ']\033[0m' + color.RED + ' (Владелец)' + color.END)
+                                       print(str(i) + ' - ' + g.title + '\033[93m [' + str(g.participants_count) + ']\033[0m' + color.RED + ' (Владелец)' + color.END + color.BLUE + ' ' + username + color.END)
                                     elif g.admin_rights is not None:
-                                       print(str(i) + ' - ' + g.title + '\033[93m [' + str(g.participants_count) + ']\033[0m' + color.RED + ' (Есть права администратора)' + color.END)
+                                       print(str(i) + ' - ' + g.title + '\033[93m [' + str(g.participants_count) + ']\033[0m' + color.RED + ' (Есть права администратора)' + color.END + color.BLUE + ' ' + username + color.END)
                                     else:
-                                        print(str(i) + ' - ' + g.title + '\033[93m [' + str(g.participants_count) + ']\033[0m')
-                                    i += 1
-                                
+                                        print(str(i) + ' - ' + g.title + '\033[93m [' + str(g.participants_count) + ']\033[0m'+ color.BLUE + ' ' + username + color.END)
+                                    i += 1                               
                                 print()   
                                 g_index_str = str(input("Выберите чат для выгрузки всех сообщений из него ('e' - назад): "))
                        
