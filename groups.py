@@ -59,33 +59,34 @@ def channelandgroups(api_id, api_hash):
                     #))
                     #chats.extend(result.chats)
                     
-                    dialogs = client.get_dialogs()
-                    for dialog in dialogs:
-                        if isinstance(dialog.entity, Channel) or isinstance(dialog.entity, Chat):
-                            if isinstance(dialog.entity, Channel) and hasattr(dialog.entity, 'broadcast'):
-                                if not dialog.entity.broadcast and dialog.entity.username is None:
-                                    closechats.append(dialog.entity)
-                                    groups.append(dialog.entity)
-                                elif dialog.entity.broadcast and dialog.entity.username:
-                                    openchannels.append(dialog.entity)
-                                    groups.append(dialog.entity)
-                                elif dialog.entity.broadcast and dialog.entity.username is None and dialog.entity.title != 'Unsupported Chat':
-                                    closechannels.append(dialog.entity)
-                                    groups.append(dialog.entity)
-                            elif isinstance(dialog.entity, Chat) and dialog.entity.migrated_to is None:
-                                closechats.append(dialog.entity)
-                                groups.append(dialog.entity)
-                            elif isinstance(dialog.entity, Channel) and hasattr(dialog.entity, 'broadcast') and dialog.entity.participants_count is not None:
-                                if not dialog.entity.broadcast and dialog.entity.username:
-                                    openchats.append(dialog.entity)
-                                    groups.append(dialog.entity)
-                            elif isinstance(dialog.entity, Channel) and hasattr(dialog.entity, 'broadcast'):
-                                if not dialog.entity.broadcast and dialog.entity.username is None:
-                                    openchats.append(dialog.entity)
-                                    groups.append(dialog.entity)
-                            else:
-                                groups.append(dialog.entity)
-
+                    chats = client.get_dialogs()
+                    for chat in chats:
+                        if isinstance(chat.entity, Channel) or isinstance(chat.entity, Chat): #проверяем групповой ли чат
+                            if isinstance(chat, Channel) and hasattr(chat, 'broadcast'):
+                                if chat.entity.broadcast == False and chat.username == None:
+                                    closechats.append(chat)
+                                    groups.append(chat)
+                            if isinstance(chat.entity, Chat) and chat.entity.migrated_to is None:
+                                closechats.append(chat)
+                                groups.append(chat)
+    
+                            if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast') and chat.entity.participants_count != None:
+                                if chat.entity.broadcast and chat.entity.username:
+                                    openchannels.append(chat)
+                                    groups.append(chat)
+    
+                            if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast'):
+                                if chat.entity.broadcast and chat.entity.username == None and chat.entity.title != 'Unsupported Chat':
+                                    closechannels.append(chat)
+                                    groups.append(chat)
+    
+                            if isinstance(chat, Channel) and hasattr(chat, 'broadcast'):
+                                if chat.entity.broadcast == False and chat.entity.username:
+                                    openchats.append(chat)
+                                    groups.append(chat)
+                            groups.append(chat)
+                    
+        
                     while True:
                         os.system('cls||clear')
                         oc = 0
