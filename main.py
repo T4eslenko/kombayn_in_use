@@ -265,6 +265,7 @@ if __name__ == "__main__":
                             username = f"@{me.username}" if me.username is not None else ""
                             lastname = me.last_name if me.last_name is not None else ""
                             phone = sessions[i].split('.')[0]
+                            userinfo = f"(Номер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username})"
 
                             chats = client.get_dialogs()
                             for chat in chats:
@@ -319,7 +320,7 @@ if __name__ == "__main__":
                                             target_group = groups[int(g_index)]
                                             group_title = target_group.title
                                             group_id = target_group.id
-                                            parsing_xlsx(client, target_group, user_id, user_name, group_title, group_id)
+                                            parsing_xlsx(client, target_group, user_id, user_name, group_title, group_id, userid, userinfo)
                                             os.system('cls||clear')
                                             print('Участники групп выгружены в excel, мой командир')
                                             client.disconnect()
@@ -374,6 +375,7 @@ if __name__ == "__main__":
                             username = f"@{me.username}" if me.username is not None else ""
                             lastname = me.last_name if me.last_name is not None else ""
                             phone = sessions[i].split('.')[0]
+                            userinfo = f"(Номер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username})"
                            
                             chats = client.get_dialogs()
                             for chat in chats:
@@ -424,7 +426,7 @@ if __name__ == "__main__":
                                             group_title = target_group.title
                                             os.system('cls||clear')
                                             print('Может потребоваться значительное количество времени, заварите кофе...')
-                                            parsing_messages(client, target_group, user_id, user_name, group_title)
+                                            parsing_messages(client, target_group, user_id, user_name, group_title, userid, userinfo)
                                             os.system('cls||clear')
                                             print('Сообщения чата выгружены в excel, мой командир')
                                             client.disconnect()
