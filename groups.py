@@ -59,8 +59,8 @@ def channelandgroups(api_id, api_hash):
                     #))
                     #chats.extend(result.chats)
                     
-                    dialogs = client.get_dialogs(entity)
-                    if isinstance(dialogs, Channel) or isinstance(dialogs, Chat):
+                    dialogs = client.get_dialogs()
+                    if isinstance(dialogs.entity, Channel) or isinstance(dialogs.entity, Chat):
                         for chat in dialogs:
                             if isinstance(chat, Channel) and hasattr(chat, 'broadcast'):
                                 if chat.broadcast == False and chat.username == None:
