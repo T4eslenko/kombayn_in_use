@@ -35,6 +35,13 @@ def channelandgroups(api_id, api_hash):
                     client = TelegramClient(sessions[i].replace('\n', ''), api_id, api_hash)
                     client.connect()
 
+                    qqqs = client.get_dialogs()
+
+                    for qqq in qqqs:
+                        print(qqq)
+                    input("нажми")
+                    break
+                    
                     # Получение информации о пользователе
                     me = client.get_me()
                     userid = me.id
@@ -77,10 +84,6 @@ def channelandgroups(api_id, api_hash):
                                 groups.append(chat)
                         groups.append(chat)
 
-                    for group in chats:
-                        print(group)
-                    input("нажми")
-                    break
 
                     while True:
                         os.system('cls||clear')
