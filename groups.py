@@ -50,16 +50,16 @@ def channelandgroups(api_id, api_hash):
                     lastname = me.last_name if me.last_name is not None else ""
                     phone = sessions[i].split('.')[0]
 
-                    #result = client(GetDialogsRequest(
-                        #offset_date=last_date,
-                        #offset_id=0,
-                        #offset_peer=InputPeerEmpty(),
-                        #limit=size_chats,
-                        #hash=0
-                    #))
-                    #chats.extend(result.chats)
+                    result = client(GetDialogsRequest(
+                        offset_date=last_date,
+                        offset_id=0,
+                        offset_peer=InputPeerEmpty(),
+                        limit=size_chats,
+                        hash=0
+                    ))
+                    chats.extend(result.chats)
                     
-                    chats = client.get_dialogs()
+                    #chats = client.get_dialogs()
                     for chat in chats:
                         if isinstance(chat, Channel) and hasattr(chat, 'broadcast'):
                             if chat.broadcast == False and chat.username == None:
