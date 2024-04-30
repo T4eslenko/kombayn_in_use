@@ -135,7 +135,24 @@ def parsing_xlsx(client, index: int, id: bool, name: bool, group_title, group_id
         row_num += 1
     
     # Сохранение документа Excel
-    wb.save(f"{group_title}_participants.xlsx")
+    #wb.save(f"{group_title}_participants.xlsx")
+    import re
+
+    def sanitize_filename(filename):
+    # Удаляем недопустимые символы из имени файла
+        return re.sub(r'[\\/*?:"<>|]', '', filename)
+
+# Пример использования
+    
+    clean_group_title = sanitize_filename(group_title)
+
+    if clean_group_title == group_title:
+        filename = f"{group_title}_participants.xlsx"
+    else:
+        filename = f"{clean_group_title}_participants.xlsx"
+
+    wb.save(filename)
+
 
 
 
