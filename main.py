@@ -396,13 +396,13 @@ if __name__ == "__main__":
                                   if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast'):
                                       if chat.entity.broadcast == False and chat.entity.username:
                                           groups.append(chat.entity)
-                                  groups.append(chat.entity)
                                   
                                   # Определяем закрытый чат
                                   if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast'):
                                       if chat.entity.broadcast == False and chat.entity.username == None:
                                           groups.append(chat.entity)
                                   if isinstance(chat.entity, Chat) and chat.entity.migrated_to is None:
+                                     groups.append(chat.entity)
      
                                  
                             
