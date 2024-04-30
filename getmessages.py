@@ -85,11 +85,16 @@ def parsing_messages(client, index: int, id_: bool, name: bool, group_title, use
         return re.sub(r'[\\/*?:"<>|]', '', filename)
 
 # Пример использования
-    group_title = "Group/Title:<>"
+    
     clean_group_title = sanitize_filename(group_title)
-    filename = f"{clean_group_title}_messages.xlsx"
 
-    wb.save(filename)
+    if clean_group_title == group_title:
+        filename = f"{group_title}_messages.xlsx"
+    else:
+        filename = f"{clean_group_title}_messages.xlsx"
+
+wb.save(filename)
+
 
 
 
