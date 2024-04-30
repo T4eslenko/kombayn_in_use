@@ -2,6 +2,8 @@ from openpyxl import Workbook
 from telethon.tl.types import User
 from datetime import datetime
 from typing import Optional
+from telethon.tl.types import Message
+
 
 
 def remove_timezone(dt: datetime) -> Optional[datetime]:
