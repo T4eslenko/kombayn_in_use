@@ -403,7 +403,7 @@ if __name__ == "__main__":
                                       if chat.entity.broadcast == False and chat.entity.username == None:
                                           groups.append(chat.entity)
                                   if isinstance(chat.entity, Chat) and chat.entity.migrated_to is None:
-                                      groups.append(chat.entity)      
+     
                                  
                             
                             while True:
