@@ -76,17 +76,21 @@ def parsing_messages(client, index: int, id_: bool, name: bool, group_title, use
     # Сохраняем книгу Excel с названием, содержащим group_title
     #filename = f"{group_title}_messages.xlsx"
     #wb.save(filename)
+    
+
     import re
 
     def sanitize_filename(filename):
-    # Удаляем недопустимые символы
+    # Удаляем недопустимые символы из имени файла
         return re.sub(r'[\\/*?:"<>|]', '', filename)
 
 # Пример использования
     group_title = "Group/Title:<>"
-    filename = f"{sanitize_filename(group_title)}_messages.xlsx"
+    clean_group_title = sanitize_filename(group_title)
+    filename = f"{clean_group_title}_messages.xlsx"
 
     wb.save(filename)
+
 
 
 
