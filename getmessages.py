@@ -1,5 +1,7 @@
 from openpyxl import Workbook
 from telethon.tl.types import User
+from datetime import datetime
+
 
 def remove_timezone(dt: datetime) -> Optional[datetime]:
     # Удаление информации о часовом поясе из объекта datetime
