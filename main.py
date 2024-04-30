@@ -341,7 +341,7 @@ if __name__ == "__main__":
                         print("Пожалуйста, выберите существующий аккаунт в диапазоне от 0 до", len(sessions)-1)
                         time.sleep(2)
 
-# 7 Выгрузить сообщения чата в excel
+# 7 Выгрузить сообщения канала в excel
         elif selection == '7':
             os.system('cls||clear')
             chats = []
@@ -382,17 +382,29 @@ if __name__ == "__main__":
                             for chat in chats:
                               if isinstance(chat.entity, Channel) or isinstance(chat.entity, Chat): #проверяем групповой ли чат
                                 
-                                 # Определяем открытый чат
+                                 # Определяем открытый канал
+                                  if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast') and chat.entity.participants_count != None:
+                                      if chat.entity.broadcast and chat.entity.username:
+                                          groups.append(chat.entity)
+                                          
+                                  # Определяем закрытый канал
+                                  if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast'):
+                                      if chat.entity.broadcast and chat.entity.username == None and chat.entity.title != 'Unsupported Chat':
+                                          groups.append(chat.entity)
+                                          
+                                  # Определяем открытый чат
                                   if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast'):
                                       if chat.entity.broadcast == False and chat.entity.username:
                                           groups.append(chat.entity)
-                               
-                               # Определяем закрытый чат
+                                  groups.append(chat.entity)
+                                  
+                                  # Определяем закрытый чат
                                   if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast'):
                                       if chat.entity.broadcast == False and chat.entity.username == None:
                                           groups.append(chat.entity)
                                   if isinstance(chat.entity, Chat) and chat.entity.migrated_to is None:
-                                      groups.append(chat.entity)    
+                                      groups.append(chat.entity)      
+                                 
                             
                             while True:
                                 os.system('cls||clear')
