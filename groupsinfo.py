@@ -100,7 +100,7 @@ def channelandgroups(api_id, api_hash, print_pages):
                         owner_group = 0
                         owner_closegroup = 0
                         owner_closechannel = 0
-                        print()
+
                         print("\033[95mОткрытые КАНАЛЫ:\033[0m")
                         openchannel_list = []
                         oc = 1
