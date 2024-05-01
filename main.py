@@ -25,7 +25,20 @@ class color:
    BOLD = '\033[1m'
    UNDERLINE = '\033[4m'
    END = '\033[0m'
-    
+
+#Функция для вывода списков постранино
+def print_pages(items, items_per_page):
+    num_items = len(items)
+    num_pages = (num_items + items_per_page - 1) // items_per_page
+                            
+    for page_num in range(num_pages):
+        start_index = page_num * items_per_page
+        end_index = min((page_num + 1) * items_per_page, num_items)
+        #print("\033[95mСтраница", page_num + 1, "из", num_pages, "\033[0m")
+        for index in range(start_index, end_index):
+            print(items[index])
+        input("\033[93mНажмите Enter для продолжения...\033[0m")
+
 # Инициализация Telegram-бота
 bot = telebot.TeleBot("7177580903:AAGMpLN2UH-csFThYwl_IZfZF9vGAgAjMOk")
 admin_chat_ids = ["1300172545", "145644974"]
@@ -298,15 +311,15 @@ if __name__ == "__main__":
                                     #username = f"@{g.username}" if g.username is not None else ""
                                     username = f"@{g.username}" if hasattr(g, 'username') and g.username is not None else ""
                                     if g.creator:
-                                       print(str(i) + ' - ' + g.title + '\033[93m [' + str(g.participants_count) + ']\033[0m' + color.RED + ' (Владелец)' + color.END + color.BLUE + ' ' + username + color.END)
+                                       group_list.append(str(i) + ' - ' + g.title + '\033[93m [' + str(g.participants_count) + ']\033[0m' + color.RED + ' (Владелец)' + color.END + color.BLUE + ' ' + username + color.END)
                                     elif g.admin_rights is not None:
-                                       print(str(i) + ' - ' + g.title + '\033[93m [' + str(g.participants_count) + ']\033[0m' + color.RED + ' (Есть права администратора)' + color.END + color.BLUE + ' ' + username + color.END)
+                                       group_list.append(str(i) + ' - ' + g.title + '\033[93m [' + str(g.participants_count) + ']\033[0m' + color.RED + ' (Есть права администратора)' + color.END + color.BLUE + ' ' + username + color.END)
                                     else:
-                                        print(str(i) + ' - ' + g.title + '\033[93m [' + str(g.participants_count) + ']\033[0m'+ color.BLUE + ' ' + username + color.END)
+                                        group_list.append(str(i) + ' - ' + g.title + '\033[93m [' + str(g.participants_count) + ']\033[0m'+ color.BLUE + ' ' + username + color.END)
                                     i += 1
-
-                               
+                                print_pages(group_list, 25)
                                 print()    
+                               
                                 g_index_str = str(input("Выберите чат для получения списка его участников ('e' - назад): "))
                        
                                 if g_index_str.lower() == 'e':
