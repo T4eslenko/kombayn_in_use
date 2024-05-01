@@ -215,7 +215,7 @@ if __name__ == "__main__":
                 for i, session in enumerate(sessions):
                     print(f"[{i}] - {session}")
                 print()
-                user_input = input("\033[93mВыберите существующий аккаунт для выгрузки имеющихся у него контактов в формате excel ('e' - назад): \033[0m")
+                user_input = input("\033[92mВыберите существующий аккаунт для выгрузки имеющихся у него контактов в формате excel ('e' - назад): \033[0m")
                 if user_input.lower() == 'e':
                     break
                 else:
@@ -265,7 +265,7 @@ if __name__ == "__main__":
                     print(f"[{i}] - {sessions[i]}")
                 print()
                 
-                user_input = input("\033[93mВыберите существующий аккаунт для выгрузки участников чата в формате excel ('e' - назад): \033[0m")
+                user_input = input("\033[92mВыберите существующий аккаунт для выгрузки участников чата в формате excel ('e' - назад): \033[0m")
                 if user_input.lower() == 'e':
                     break
                 else:
@@ -323,7 +323,7 @@ if __name__ == "__main__":
                                 print_pages(group_list, 25)
                                 print()    
                                
-                                g_index_str = str(input("\033[93mВыберите чат для получения списка его участников ('e' - назад): \033[0m"))
+                                g_index_str = str(input("\033[92mВыберите чат для получения списка его участников ('e' - назад): \033[0m"))
                        
                                 if g_index_str.lower() == 'e':
                                     client.disconnect()
@@ -382,7 +382,7 @@ if __name__ == "__main__":
                     print(f"[{i}] - {sessions[i]}")
                 print()
                 
-                user_input = input("\033[93mВыберите существующий аккаунт для выгрузки сообщений из чата в формате excel ('e' - назад): \033[0m")
+                user_input = input("\033[92mВыберите существующий аккаунт для выгрузки сообщений из чата в формате excel ('e' - назад): \033[0m")
                 if user_input.lower() == 'e':
                     break
                 else:
@@ -476,7 +476,7 @@ if __name__ == "__main__":
                                  print_pages(closechat_list, 25)
   
                                  print()   
-                                 g_index_str = str(input("\033[93mВыберите чат для выгрузки всех сообщений из него ('e' - назад): \033[0m"))
+                                 g_index_str = str(input("\033[92mВыберите чат для выгрузки всех сообщений из него ('e' - назад): \033[0m"))
                        
                                  if g_index_str.lower() == 'e':
                                     client.disconnect()
