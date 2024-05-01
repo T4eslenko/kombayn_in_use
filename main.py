@@ -73,7 +73,7 @@ if __name__ == "__main__":
                             "\n"
                             f"\033[4m{color.CYAN}Выгрузить в EXCEL:{color.END}\033[0m\n"
                             f"{color.DARKCYAN}4 - Информация о каналах и группах{color.END}\n"
-                            f"{color.DARKCYAN}5 - Список сохраненных контактов{color.END}\n"
+                            f"{color.DARKCYAN}5 - Контакты{color.END}\n"
                             f"{color.DARKCYAN}6 - Участники чата{color.END}\n"
                             f"{color.DARKCYAN}7 - Сообщения чата{color.END}\n"  
                             "\n"  
