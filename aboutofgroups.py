@@ -110,7 +110,7 @@ def channelandgroups(api_id, api_hash):
                                 for index in range(start_index, end_index):
                                     print(items[index])
                                 
-                                input("Нажмите Enter для продолжения...")
+                                input("\033[93mНажмите Enter для продолжения...\033[0m")
                         
                         # Ваш код для формирования списков openchannels, closechannels, openchats и closechats...
                         
