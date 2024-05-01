@@ -197,7 +197,7 @@ if __name__ == "__main__":
 
        # 4 Выгрузить инфу об аккаунте
         elif selection == '4':
-           channelandgroups(api_id, api_hash, print_pages)
+           channelandgroups(api_id, api_hash, print_pages, print_channel_lists)
 
        
        # 5 Выгрузить список контактов в excel
