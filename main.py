@@ -4,7 +4,7 @@ from telethon.tl.types import InputPeerEmpty
 from telethon.errors.rpcerrorlist import PeerFloodError, UserPrivacyRestrictedError
 from defunc import *
 from groupsinfo import *
-from getmessages import *
+#from getmessages import *
 import time
 import random
 import os
