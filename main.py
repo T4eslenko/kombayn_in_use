@@ -405,13 +405,13 @@ if __name__ == "__main__":
                          print("Пожалуйста, выберите существующий аккаунт в диапазоне от 0 до", len(sessions) - 1)
                          time.sleep(2)
          
-         def write_data(sheet, data):
-             sheet.append(["Название", "Количество участников", "Владелец", "Администратор", "ID", "Ссылка"])
-             for item in data:
-                 owner = " (Владелец)" if item.creator else ""
-                 admin = " (Администратор)" if item.admin_rights is not None else ""
-                 usernameadd = f"@{item.username}" if hasattr(item, 'username') and item.username is not None else ""
-                 sheet.append([item.title, item.participants_count, owner, admin, item.id, usernameadd])
+             def write_data(sheet, data):
+                sheet.append(["Название", "Количество участников", "Владелец", "Администратор", "ID", "Ссылка"])
+                for item in data:
+                    owner = " (Владелец)" if item.creator else ""
+                    admin = " (Администратор)" if item.admin_rights is not None else ""
+                    usernameadd = f"@{item.username}" if hasattr(item, 'username') and item.username is not None else ""
+                    sheet.append([item.title, item.participants_count, owner, admin, item.id, usernameadd])
               
        
        # 5 Выгрузить список контактов в excel
