@@ -233,5 +233,4 @@ def write_data(sheet, data):
         admin = " (Администратор)" if item.admin_rights is not None else ""
         usernameadd = f"@{item.username}" if hasattr(item, 'username') and item.username is not None else ""
         sheet.append([item.title, item.participants_count, owner, admin, item.id, usernameadd])
-        #sheet.append([item.title, item.participants_count, owner, admin, item.id, f"@{item.username}" if hasattr(item, 'username') else ""])
-        
+
