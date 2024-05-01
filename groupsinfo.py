@@ -164,6 +164,7 @@ def channelandgroups(api_id, api_hash):
                             closechannels = []
                             openchats = []
                             closechats = []
+                            openchannel_list = []
                             owner_channel = 0
                             owner_group = 0
                             owner_closegroup = 0
