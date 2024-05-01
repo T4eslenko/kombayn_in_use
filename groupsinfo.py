@@ -100,7 +100,7 @@ def channelandgroups(api_id, api_hash, print_pages, print_channel_lists):
 
                         
                         # Код для формирования списков openchannels, closechannels, openchats и closechats...
-                        print_channel_lists(openchannels, closechannels, openchats, closechats)
+                        print_channel_lists(openchannels, closechannels, openchats, closechats, print_pages)
 
 
                         print()
