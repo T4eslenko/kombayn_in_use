@@ -16,6 +16,19 @@ def channelandgroups(api_id, api_hash, print_pages):
     closechannels = []
     openchats = []
     closechats = []
+    oc = 0
+    cc = 0
+    og = 0
+    cg = 0
+    owner_channel = 0
+    owner_group = 0
+    owner_closegroup = 0
+    owner_closechannel = 0
+    openchannel_list = []
+    closechannel_list = []
+    closechat_list = []
+    openchat_list = []
+
 
     while not exit_flag:
         os.system('cls||clear')
@@ -89,20 +102,7 @@ def channelandgroups(api_id, api_hash, print_pages):
                         print(f"\033[96mНомер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}\033[0m")
                         print('-----------------------------')
                         print()
-
-                        
-                        # Вывод спика каналов и групп
-                        oc = 0
-                        cc = 0
-                        og = 0
-                        cg = 0
-                        owner_channel = 0
-                        owner_group = 0
-                        owner_closegroup = 0
-                        owner_closechannel = 0
-
                         print("\033[95mОткрытые КАНАЛЫ:\033[0m")
-                        openchannel_list = []
                         oc = 1
                         for openchannel in openchannels:
                             owner = " (Владелец)" if openchannel.creator else ""
@@ -115,7 +115,6 @@ def channelandgroups(api_id, api_hash, print_pages):
                         print()
                         
                         print("\033[95mЗакрытые КАНАЛЫ:\033[0m")
-                        closechannel_list = []
                         cc = 1
                         for closechannel in closechannels:
                             owner = " (Владелец)" if closechannel.creator else ""
@@ -129,7 +128,6 @@ def channelandgroups(api_id, api_hash, print_pages):
                         print()
                         
                         print("\033[95mОткрытые ГРУППЫ:\033[0m")
-                        openchat_list = []
                         og = 1
                         for openchat in openchats:
                             owner = " (Владелец)" if openchat.creator else ""
@@ -142,7 +140,6 @@ def channelandgroups(api_id, api_hash, print_pages):
                         print()
                         
                         print("\033[95mЗакрытые ГРУППЫ:\033[0m")
-                        closechat_list = []
                         cg = 1
                         for closechat in closechats:
                             owner = " (Владелец)" if closechat.creator else ""
@@ -154,6 +151,7 @@ def channelandgroups(api_id, api_hash, print_pages):
                                 owner_closegroup += 1
                         print_pages(closechat_list, 25)
                         print()
+                        
                         print("---------------------------------------")
                         print(f"Открытые каналы: {oc}")
                         print(f"Открытые группы: {og}")
@@ -172,17 +170,7 @@ def channelandgroups(api_id, api_hash, print_pages):
 
                         if g_index_str.lower() == 'e':
                             client.disconnect()
-                            groups = []
-                            chats = []
-                            openchannels = []
-                            closechannels = []
-                            openchats = []
-                            closechats = []
-                            openchannel_list = []
-                            owner_channel = 0
-                            owner_group = 0
-                            owner_closegroup = 0
-                            owner_closechannel = 0
+                            exit_flag = True
                             break
                         else:
                             try:
