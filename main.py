@@ -479,17 +479,17 @@ if __name__ == "__main__":
                                      i += 1
                                  print_pages(closechat_list, 25)
   
-                                print()   
-                                g_index_str = str(input("Выберите чат для выгрузки всех сообщений из него ('e' - назад): "))
+                                 print()   
+                                 g_index_str = str(input("Выберите чат для выгрузки всех сообщений из него ('e' - назад): "))
                        
-                                if g_index_str.lower() == 'e':
+                                 if g_index_str.lower() == 'e':
                                     client.disconnect()
                                     groups = []
                                     chats = []
                                     messages_list = []
                                     exit_flag = True
                                     break
-                                else:
+                                 else:
                                     try:
                                         g_index = int(g_index_str)
                                         if 0 <= g_index < i:
@@ -507,7 +507,7 @@ if __name__ == "__main__":
                                         else:
                                             print("Пожалуйста, выберите группу из списка")
                                             time.sleep(2)
-                                    except ValueError:
+                                     except ValueError:
                                         print("Пожалуйста, выберите группу из списка")
                                         time.sleep(2)
                         else:
