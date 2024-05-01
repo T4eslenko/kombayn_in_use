@@ -106,7 +106,7 @@ def channelandgroups(api_id, api_hash):
                                 start_index = page_num * items_per_page
                                 end_index = min((page_num + 1) * items_per_page, num_items)
                                 
-                                print("\033[95mСтраница", page_num + 1, "из", num_pages, "\033[0m")
+                                #print("\033[95mСтраница", page_num + 1, "из", num_pages, "\033[0m")
                                 for index in range(start_index, end_index):
                                     print(items[index])
                                 
@@ -169,6 +169,7 @@ def channelandgroups(api_id, api_hash):
 
                         #g_index_str = str(input("Для выгрузки информаци в файл Excel, введите 'get', для возврата - введеите 'e': "))
                         g_index_str = str('get')
+                        print()
                         input("Для продолжение нажмите любую клавишу, информация о группах будет автоматически сохранена в файл Excel")
 
                         if g_index_str.lower() == 'e':
