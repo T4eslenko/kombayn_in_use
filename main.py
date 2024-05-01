@@ -371,6 +371,7 @@ if __name__ == "__main__":
             openchats = []
             closechats = []
 
+
             while not exit_flag:
                 os.system('cls||clear')
                 print()
@@ -406,28 +407,23 @@ if __name__ == "__main__":
                                  # Определяем открытый канал
                                   if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast') and chat.entity.participants_count != None:
                                       if chat.entity.broadcast and chat.entity.username:
-                                          groups.append(chat.entity)
                                           openchannels.append(chat.entity)
                                           
                                   # Определяем закрытый канал
                                   if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast'):
                                       if chat.entity.broadcast and chat.entity.username == None and chat.entity.title != 'Unsupported Chat':
-                                          groups.append(chat.entity)
                                           closechannels.append(chat.entity)
                                           
                                   # Определяем открытый чат
                                   if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast'):
                                       if chat.entity.broadcast == False and chat.entity.username:
-                                          groups.append(chat.entity)
                                           openchats.append(chat.entity)
                                   
                                   # Определяем закрытый чат
                                   if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast'):
                                       if chat.entity.broadcast == False and chat.entity.username == None:
-                                          groups.append(chat.entity)
                                           closechats.append(chat.entity)
                                   if isinstance(chat.entity, Chat) and chat.entity.migrated_to is None:
-                                     groups.append(chat.entity)
                                      closechats.append(chat.entity)
      
                                  
@@ -439,8 +435,6 @@ if __name__ == "__main__":
                                  print('=ВЫГРУЗКА СООБЩЕНИЙ ЧАТА или КАНАЛА В EXCEL=')
                                  print(f"\033[96mНомер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}\033[0m")
                                  print('-----------------------------')
-                                 messages_list = []
-                                 groups = []
                                  print("\033[95mОткрытые КАНАЛЫ:\033[0m")
                                  openchannel_list = []
                                  for openchannel in openchannels:
@@ -491,7 +485,6 @@ if __name__ == "__main__":
                                     client.disconnect()
                                     groups = []
                                     chats = []
-                                    messages_list = []
                                     exit_flag = True
                                     break
                                  else:
