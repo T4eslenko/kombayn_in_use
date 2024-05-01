@@ -72,8 +72,8 @@ if __name__ == "__main__":
                             f"{color.BLUE}3 - Инвайтинг в группы{color.END}\n"
                             "\n"
                             f"\033[4m{color.CYAN}Выгрузить в EXCEL:{color.END}\033[0m\n"
-                            f"{color.DARKCYAN}4 - Информация о каналах и группах{color.END}\n"
-                            f"{color.DARKCYAN}5 - Контакты{color.END}\n"
+                            f"{color.DARKCYAN}4 - Контакты{color.END}\n"
+                            f"{color.DARKCYAN}5 - Информация о каналах и группах{color.END}\n"
                             f"{color.DARKCYAN}6 - Участники чата{color.END}\n"
                             f"{color.DARKCYAN}7 - Сообщения чата{color.END}\n"  
                             "\n"  
@@ -193,8 +193,8 @@ if __name__ == "__main__":
                     break
 
 
-       # 4 Выгрузить инфу об аккаунте
-        elif selection == '4':
+       # 5 Выгрузить инфу об аккаунте
+        elif selection == '5':
            #channelandgroups(api_id, api_hash, print_pages)
              def write_data(sheet, data):
                 sheet.append(["Название", "Количество участников", "Владелец", "Администратор", "ID", "Ссылка"])
@@ -411,8 +411,8 @@ if __name__ == "__main__":
                          time.sleep(2)   
               
        
-       # 5 Выгрузить список контактов в excel
-        elif selection == '5':
+       # 4 Выгрузить список контактов в excel
+        elif selection == '4':
             os.system('cls||clear')
             sessions = []
             for file in os.listdir('.'):
@@ -455,9 +455,9 @@ if __name__ == "__main__":
                             total_contacts = len(contacts)
                             total_mutual_contacts = sum(bool(getattr(contact, 'mutual_contact', None)) for contact in contacts)
                             total_contacts_with_phone = sum(bool(getattr(contact, 'phone', None)) for contact in contacts)
-                            print(f"\033[92mОбщее количество контактов: {total_contacts}\033[0m")
-                            print(f"\033[96mКоличество контактов с номерами телефонов: {total_contacts_with_phone}\033[0m")
-                            print(f"\033[96mКоличество взаимных контактов: {total_mutual_contacts}\033[0m")
+                            print(f"\033[96mОбщее количество контактов:\033[0m \033[91m{total_contacts}\033[0m")
+                            print(f"\033[96mКоличество контактов с номерами телефонов:\033[0m \033[91m{total_contacts_with_phone}\033[0m")
+                            print(f"\033[96mКоличество взаимных контактов:\033[0m \033[91m{total_mutual_contacts}\033[0m")
                             print()
                             print('\033[92mСписок контактов выгружен в excel, мой командир\033[0m')
                             print()
