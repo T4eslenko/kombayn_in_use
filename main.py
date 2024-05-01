@@ -403,23 +403,28 @@ if __name__ == "__main__":
                                   if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast') and chat.entity.participants_count != None:
                                       if chat.entity.broadcast and chat.entity.username:
                                           groups.append(chat.entity)
+                                          openchannels.append(chat.entity)
                                           
                                   # Определяем закрытый канал
                                   if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast'):
                                       if chat.entity.broadcast and chat.entity.username == None and chat.entity.title != 'Unsupported Chat':
                                           groups.append(chat.entity)
+                                          closechannels.append(chat.entity)
                                           
                                   # Определяем открытый чат
                                   if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast'):
                                       if chat.entity.broadcast == False and chat.entity.username:
                                           groups.append(chat.entity)
+                                          openchats.append(chat.entity)
                                   
                                   # Определяем закрытый чат
                                   if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast'):
                                       if chat.entity.broadcast == False and chat.entity.username == None:
                                           groups.append(chat.entity)
+                                          closechats.append(chat.entity)
                                   if isinstance(chat.entity, Chat) and chat.entity.migrated_to is None:
                                      groups.append(chat.entity)
+                                     closechats.append(chat.entity)
      
                                  
                             
