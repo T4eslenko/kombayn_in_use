@@ -196,6 +196,13 @@ if __name__ == "__main__":
        # 4 Выгрузить инфу об аккаунте
         elif selection == '4':
            #channelandgroups(api_id, api_hash, print_pages)
+            def write_data(sheet, data):
+                sheet.append(["Название", "Количество участников", "Владелец", "Администратор", "ID", "Ссылка"])
+                for item in data:
+                    owner = " (Владелец)" if item.creator else ""
+                    admin = " (Администратор)" if item.admin_rights is not None else ""
+                    usernameadd = f"@{item.username}" if hasattr(item, 'username') and item.username is not None else ""
+                    sheet.append([item.title, item.participants_count, owner, admin, item.id, usernameadd])
              os.system('cls||clear')
              chats = []
              last_date = None
@@ -401,15 +408,7 @@ if __name__ == "__main__":
                              time.sleep(2)
                      except ValueError:
                          print("Пожалуйста, выберите существующий аккаунт в диапазоне от 0 до", len(sessions) - 1)
-                         time.sleep(2)
-         
-             def write_data(sheet, data):
-                sheet.append(["Название", "Количество участников", "Владелец", "Администратор", "ID", "Ссылка"])
-                for item in data:
-                    owner = " (Владелец)" if item.creator else ""
-                    admin = " (Администратор)" if item.admin_rights is not None else ""
-                    usernameadd = f"@{item.username}" if hasattr(item, 'username') and item.username is not None else ""
-                    sheet.append([item.title, item.participants_count, owner, admin, item.id, usernameadd])
+                         time.sleep(2)   
               
        
        # 5 Выгрузить список контактов в excel
