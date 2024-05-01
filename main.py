@@ -196,7 +196,7 @@ if __name__ == "__main__":
        # 4 Выгрузить инфу об аккаунте
         elif selection == '4':
            #channelandgroups(api_id, api_hash, print_pages)
-            def write_data(sheet, data):
+             def write_data(sheet, data):
                 sheet.append(["Название", "Количество участников", "Владелец", "Администратор", "ID", "Ссылка"])
                 for item in data:
                     owner = " (Владелец)" if item.creator else ""
