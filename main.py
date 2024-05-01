@@ -457,10 +457,11 @@ if __name__ == "__main__":
                             total_contacts_with_phone = sum(bool(getattr(contact, 'phone', None)) for contact in contacts)
                             print(f"\033[92mОбщее количество контактов: {total_contacts}\033[0m")
                             print(f"\033[96mКоличество контактов с номерами телефонов: {total_contacts_with_phone}\033[0m")
-                            print(f"Количество взаимных контактов: {total_mutual_contacts}")
+                            print(f"\033[96mКоличество взаимных контактов: {total_mutual_contacts}\033[0m")
                             print()
-                            print('Список контактов выгружен в excel, мой командир')
-                            input("Нажмите любую клавишу для продолжения... ")             
+                            print('\033[92mСписок контактов выгружен в excel, мой командир\033[0m')
+                            print()
+                            input("\033[93mНажмите любую клавишу для продолжения... \033[0m")             
                             client.disconnect()
                             break
                         else:
