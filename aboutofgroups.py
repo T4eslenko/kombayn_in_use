@@ -50,15 +50,6 @@ def channelandgroups(api_id, api_hash):
                     lastname = me.last_name if me.last_name is not None else ""
                     phone = sessions[i].split('.')[0]
 
-                    #result = client(GetDialogsRequest(
-                    #    offset_date=last_date,
-                    #    offset_id=0,
-                    #    offset_peer=InputPeerEmpty(),
-                    #    limit=size_chats,
-                    #    hash=0
-                    #))
-                    #chats.extend(result.chats)
-                    
                     chats = client.get_dialogs()
                     for chat in chats:
                         if isinstance(chat.entity, Channel) or isinstance(chat.entity, Chat): #проверяем групповой ли чат
@@ -106,46 +97,64 @@ def channelandgroups(api_id, api_hash):
                         print(f"\033[96mНомер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}\033[0m")
                         print('-----------------------------')
                         print()
+                        # Функция для вывода списка постранично
+                        def print_pages(items, items_per_page):
+                            num_items = len(items)
+                            num_pages = (num_items + items_per_page - 1) // items_per_page
+                            
+                            for page_num in range(num_pages):
+                                start_index = page_num * items_per_page
+                                end_index = min((page_num + 1) * items_per_page, num_items)
+                                
+                                print("\033[95mСтраница", page_num + 1, "из", num_pages, "\033[0m")
+                                for index in range(start_index, end_index):
+                                    print(items[index])
+                                
+                                input("Нажмите Enter для продолжения...")
+                        
+                        # Ваш код для формирования списков openchannels, closechannels, openchats и closechats...
+                        
+                        # Вывод списка постранично
                         print("\033[95mОткрытые КАНАЛЫ:\033[0m")
+                        openchannel_list = []
                         for openchannel in openchannels:
                             owner = " (Владелец)" if openchannel.creator else ""
                             admin = " (Администратор)" if openchannel.admin_rights is not None else ""
-                            print(f"{oc} - {openchannel.title} \033[93m[{openchannel.participants_count}]\033[0m\033[91m {owner} {admin}\033[0m ID:{openchannel.id} \033[94m@{openchannel.username}\033[0m")
+                            openchannel_list.append(f"{oc} - {openchannel.title} \033[93m[{openchannel.participants_count}]\033[0m\033[91m {owner} {admin}\033[0m ID:{openchannel.id} \033[94m@{openchannel.username}\033[0m")
                             oc += 1
-                            if owner !="" or admin != "":
-                                owner_channel += 1
                         
-                        print()
+                        print_pages(openchannel_list, 10)
+                        
                         print("\033[95mЗакрытые КАНАЛЫ:\033[0m")
+                        closechannel_list = []
                         for closechannel in closechannels:
                             owner = " (Владелец)" if closechannel.creator else ""
                             admin = " (Администратор)" if closechannel.admin_rights is not None else ""
-                            print(f"{cc} - {closechannel.title} \033[93m[{closechannel.participants_count}]\033[0m \033[91m{owner} {admin}\033[0m ID:{closechannel.id}")
+                            closechannel_list.append(f"{cc} - {closechannel.title} \033[93m[{closechannel.participants_count}]\033[0m \033[91m{owner} {admin}\033[0m ID:{closechannel.id}")
                             cc += 1
-                            if owner !="" or admin != "":
-                                owner_channel += 1
-                                owner_closechannel += 1
                         
-                        print()
+                        print_pages(closechannel_list, 10)
+                        
                         print("\033[95mОткрытые ГРУППЫ:\033[0m")
+                        openchat_list = []
                         for openchat in openchats:
                             owner = " (Владелец)" if openchat.creator else ""
                             admin = " (Администратор)" if openchat.admin_rights is not None else ""
-                            print(f"{og} - {openchat.title} \033[93m[{openchat.participants_count}]\033[0m\033[91m {owner} {admin}\033[0m ID:{openchat.id} \033[94m@{openchat.username}\033[0m")
+                            openchat_list.append(f"{og} - {openchat.title} \033[93m[{openchat.participants_count}]\033[0m\033[91m {owner} {admin}\033[0m ID:{openchat.id} \033[94m@{openchat.username}\033[0m")
                             og += 1
-                            if owner !="" or admin != "":
-                                owner_group += 1
                         
-                        print()
+                        print_pages(openchat_list, 10)
+                        
                         print("\033[95mЗакрытые ГРУППЫ:\033[0m")
+                        closechat_list = []
                         for closechat in closechats:
                             owner = " (Владелец)" if closechat.creator else ""
                             admin = " (Администратор)" if closechat.admin_rights is not None else ""
-                            print(f"{cg} - {closechat.title} \033[93m[{closechat.participants_count}]\033[0m \033[91m{owner} {admin}\033[0m ID:{closechat.id}")
+                            closechat_list.append(f"{cg} - {closechat.title} \033[93m[{closechat.participants_count}]\033[0m \033[91m{owner} {admin}\033[0m ID:{closechat.id}")
                             cg += 1
-                            if owner !="" or admin != "":
-                                owner_group += 1
-                                owner_closegroup += 1
+                        
+                        print_pages(closechat_list, 10)
+                       
                      
                         print()
                         print("---------------------------------------")
