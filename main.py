@@ -311,7 +311,6 @@ if __name__ == "__main__":
                                
                                 group_list = []
                                 for g in groups:
-                                    #username = f"@{g.username}" if g.username is not None else ""
                                     username = f"@{g.username}" if hasattr(g, 'username') and g.username is not None else ""
                                     if g.creator:
                                        group_list.append(str(i) + ' - ' + g.title + '\033[93m [' + str(g.participants_count) + ']\033[0m' + color.RED + ' (Владелец)' + color.END + color.BLUE + ' ' + username + color.END)
@@ -431,15 +430,18 @@ if __name__ == "__main__":
                                 print('=ВЫГРУЗКА СООБЩЕНИЙ ЧАТА В EXCEL=')
                                 print(f"\033[96mНомер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}\033[0m")
                                 print('-----------------------------')
+                                messages_list = []
                                 for g in groups:
                                     username = f"@{g.username}" if hasattr(g, 'username') and g.username is not None else ""
                                     if g.creator:
-                                       print(str(i) + ' - ' + g.title + '\033[93m [' + str(g.participants_count) + ']\033[0m' + color.RED + ' (Владелец)' + color.END + color.BLUE + ' ' + username + color.END)
+                                       messages_list.append(str(i) + ' - ' + g.title + '\033[93m [' + str(g.participants_count) + ']\033[0m' + color.RED + ' (Владелец)' + color.END + color.BLUE + ' ' + username + color.END)
                                     elif g.admin_rights is not None:
-                                       print(str(i) + ' - ' + g.title + '\033[93m [' + str(g.participants_count) + ']\033[0m' + color.RED + ' (Есть права администратора)' + color.END + color.BLUE + ' ' + username + color.END)
+                                       messages_list.append(str(i) + ' - ' + g.title + '\033[93m [' + str(g.participants_count) + ']\033[0m' + color.RED + ' (Есть права администратора)' + color.END + color.BLUE + ' ' + username + color.END)
                                     else:
-                                        print(str(i) + ' - ' + g.title + '\033[93m [' + str(g.participants_count) + ']\033[0m'+ color.BLUE + ' ' + username + color.END)
+                                        messages_list.append(str(i) + ' - ' + g.title + '\033[93m [' + str(g.participants_count) + ']\033[0m'+ color.BLUE + ' ' + username + color.END)
                                     i += 1                               
+                                
+                                print_pages(group_list, 25)
                                 print()   
                                 g_index_str = str(input("Выберите чат для выгрузки всех сообщений из него ('e' - назад): "))
                        
@@ -447,6 +449,7 @@ if __name__ == "__main__":
                                     client.disconnect()
                                     groups = []
                                     chats = []
+                                    messages_list = []
                                     exit_flag = True
                                     break
                                 else:
