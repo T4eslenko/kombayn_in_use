@@ -192,7 +192,69 @@ if __name__ == "__main__":
                     print(error)
                     break
 
+       # 4 Выгрузить список контактов в excel
+        elif selection == '4':
+            os.system('cls||clear')
+            sessions = []
+            for file in os.listdir('.'):
+                if file.endswith('.session'):
+                        sessions.append(file)
+            while True:
+                os.system('cls||clear')
+                print('-----------------------------')
+                print('=ВЫГРУЗКА КОНТАКТОВ В EXCEL=')
+                print('-----------------------------')
+                print()
+                for i, session in enumerate(sessions):
+                    print(f"[{i}] - {session}")
+                print()
+                user_input = input("\033[92mВыберите существующий аккаунт для выгрузки имеющихся у него контактов в формате excel ('e' - назад): \033[0m")
+                if user_input.lower() == 'e':
+                    break
+                else:
+                    try:
+                        session_index = int(user_input)
+                        if 0 <= session_index < len(sessions):
+                            client = TelegramClient(sessions[session_index].replace('\n', ''), api_id, api_hash)
+                            client.connect()
 
+                            # Получение информации о пользователе
+                            me = client.get_me()
+                            userid = me.id
+                            firstname = me.first_name
+                            username = f"@{me.username}" if me.username is not None else ""
+                            lastname = me.last_name if me.last_name is not None else ""
+                            phone = sessions[i].split('.')[0]
+                            userinfo = f"(Номер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username})"
+
+                            asyncio.get_event_loop().run_until_complete(get_contacts(client, sessions[session_index].replace('.session', ''), userid, userinfo))
+                            os.system('cls||clear')
+                            
+                            print('=ИНФОРМАЦИЯ О КОНТАКТАХ=')
+                            print('-----------------------------')
+                            print()
+                            result = client(GetContactsRequest(0))
+                            contacts = result.users
+                            total_contacts = len(contacts)
+                            total_mutual_contacts = sum(bool(getattr(contact, 'mutual_contact', None)) for contact in contacts)
+                            total_contacts_with_phone = sum(bool(getattr(contact, 'phone', None)) for contact in contacts)
+                            print(f"\033[96mОбщее количество контактов:\033[0m \033[91m{total_contacts}\033[0m")
+                            print(f"\033[96mКоличество контактов с номерами телефонов:\033[0m \033[91m{total_contacts_with_phone}\033[0m")
+                            print(f"\033[96mКоличество взаимных контактов:\033[0m \033[91m{total_mutual_contacts}\033[0m")
+                            print()
+                            print('\033[92mСписок контактов выгружен в excel, мой командир\033[0m')
+                            print()
+                            input("\033[93mНажмите любую клавишу для продолжения... \033[0m")             
+                            client.disconnect()
+                            break
+                        else:
+                            print("Пожалуйста, выберите существующий аккаунт в диапазоне от 0 до", len(sessions)-1)
+                            time.sleep(2)
+                    except ValueError:
+                        print("Пожалуйста, выберите существующий аккаунт в диапазоне от 0 до", len(sessions)-1)
+                        time.sleep(2)
+
+       
        # 5 Выгрузить инфу об аккаунте
         elif selection == '5':
            #channelandgroups(api_id, api_hash, print_pages)
@@ -410,66 +472,6 @@ if __name__ == "__main__":
                          print("Пожалуйста, выберите существующий аккаунт в диапазоне от 0 до", len(sessions) - 1)
                          time.sleep(2)   
               
-       
-       # 4 Выгрузить список контактов в excel
-        elif selection == '4':
-            os.system('cls||clear')
-            sessions = []
-            for file in os.listdir('.'):
-                if file.endswith('.session'):
-                        sessions.append(file)
-            while True:
-                os.system('cls||clear')
-                print('-----------------------------')
-                print('=ВЫГРУЗКА КОНТАКТОВ В EXCEL=')
-                print('-----------------------------')
-                print()
-                for i, session in enumerate(sessions):
-                    print(f"[{i}] - {session}")
-                print()
-                user_input = input("\033[92mВыберите существующий аккаунт для выгрузки имеющихся у него контактов в формате excel ('e' - назад): \033[0m")
-                if user_input.lower() == 'e':
-                    break
-                else:
-                    try:
-                        session_index = int(user_input)
-                        if 0 <= session_index < len(sessions):
-                            client = TelegramClient(sessions[session_index].replace('\n', ''), api_id, api_hash)
-                            client.connect()
-
-                            # Получение информации о пользователе
-                            me = client.get_me()
-                            userid = me.id
-                            firstname = me.first_name
-                            username = f"@{me.username}" if me.username is not None else ""
-                            lastname = me.last_name if me.last_name is not None else ""
-                            phone = sessions[i].split('.')[0]
-                            userinfo = f"(Номер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username})"
-
-                            asyncio.get_event_loop().run_until_complete(get_contacts(client, sessions[session_index].replace('.session', ''), userid, userinfo))
-                            os.system('cls||clear')
-                            
-                            print('=ИНФОРМАЦИЯ О КОНТАКТАХ=')
-                            result = client(GetContactsRequest(0))
-                            contacts = result.users
-                            total_contacts = len(contacts)
-                            total_mutual_contacts = sum(bool(getattr(contact, 'mutual_contact', None)) for contact in contacts)
-                            total_contacts_with_phone = sum(bool(getattr(contact, 'phone', None)) for contact in contacts)
-                            print(f"\033[96mОбщее количество контактов:\033[0m \033[91m{total_contacts}\033[0m")
-                            print(f"\033[96mКоличество контактов с номерами телефонов:\033[0m \033[91m{total_contacts_with_phone}\033[0m")
-                            print(f"\033[96mКоличество взаимных контактов:\033[0m \033[91m{total_mutual_contacts}\033[0m")
-                            print()
-                            print('\033[92mСписок контактов выгружен в excel, мой командир\033[0m')
-                            print()
-                            input("\033[93mНажмите любую клавишу для продолжения... \033[0m")             
-                            client.disconnect()
-                            break
-                        else:
-                            print("Пожалуйста, выберите существующий аккаунт в диапазоне от 0 до", len(sessions)-1)
-                            time.sleep(2)
-                    except ValueError:
-                        print("Пожалуйста, выберите существующий аккаунт в диапазоне от 0 до", len(sessions)-1)
-                        time.sleep(2)
            
         # 6 Выгрузить участников групп в excel
         elif selection == '6':
