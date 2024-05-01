@@ -32,18 +32,20 @@ def print_pages(items, items_per_page):
     num_pages = (num_items + items_per_page - 1) // items_per_page
     
     max_items_per_page = 25  # Максимальное количество элементов на странице
+    printed_items = 0  # Количество уже выведенных элементов на текущей странице
     
     for page_num in range(num_pages):
         start_index = page_num * items_per_page
         end_index = min((page_num + 1) * items_per_page, num_items)
-        for index in range(start_index, min(end_index, start_index + max_items_per_page)):
+        for index in range(start_index, min(end_index, start_index + max_items_per_page - printed_items)):
             print(items[index])
+            printed_items += 1
         print()
         
-        # Запрос на нажатие кнопки, если на странице выведено меньше элементов, чем максимальное количество элементов на странице и количество элементов в текущей странице равно максимальному количеству элементов на странице
-        if end_index - start_index < max_items_per_page and end_index == (page_num + 1) * items_per_page:
+        # Запрос на нажатие кнопки, если выведено максимальное количество элементов на странице
+        if printed_items == max_items_per_page:
             input("\033[93mНажмите Enter для продолжения...\033[0m")
-
+            printed_items = 0  # Сбрасываем количество выведенных элементов на текущей странице
 
 
 # Инициализация Telegram-бота
