@@ -16,15 +16,6 @@ from telethon.errors.rpcerrorlist import PeerFloodError, UserPrivacyRestrictedEr
 
 # Формирование списка
 def print_channel_lists(openchannels, closechannels, openchats, closechats, print_pages):
-    oc = 0
-    cc = 0
-    og = 0
-    cg = 0
-    owner_channel = 0
-    owner_group = 0
-    owner_closegroup = 0
-    owner_closechannel = 0
-    print()
     print("\033[95mОткрытые КАНАЛЫ:\033[0m")
     openchannel_list = []
     oc = 1
