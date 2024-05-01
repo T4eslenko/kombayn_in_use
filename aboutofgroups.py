@@ -115,6 +115,7 @@ def channelandgroups(api_id, api_hash):
                         # Ваш код для формирования списков openchannels, closechannels, openchats и closechats...
                         
                         # Вывод списка постранично
+                        print()
                         print("\033[95mОткрытые КАНАЛЫ:\033[0m")
                         openchannel_list = []
                         for openchannel in openchannels:
@@ -124,7 +125,7 @@ def channelandgroups(api_id, api_hash):
                             oc += 1
                         
                         print_pages(openchannel_list, 25)
-                        
+                        print()
                         print("\033[95mЗакрытые КАНАЛЫ:\033[0m")
                         closechannel_list = []
                         for closechannel in closechannels:
@@ -134,7 +135,7 @@ def channelandgroups(api_id, api_hash):
                             cc += 1
                         
                         print_pages(closechannel_list, 25)
-                        
+                        print()
                         print("\033[95mОткрытые ГРУППЫ:\033[0m")
                         openchat_list = []
                         for openchat in openchats:
@@ -144,7 +145,7 @@ def channelandgroups(api_id, api_hash):
                             og += 1
                         
                         print_pages(openchat_list, 25)
-                        
+                        print()
                         print("\033[95mЗакрытые ГРУППЫ:\033[0m")
                         closechat_list = []
                         for closechat in closechats:
