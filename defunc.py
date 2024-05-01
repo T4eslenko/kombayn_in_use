@@ -59,7 +59,7 @@ def print_channel_lists(openchannels, closechannels, openchats, closechats, prin
         closechat_list.append(f"{cg} - {closechat.title} \033[93m[{closechat.participants_count}]\033[0m \033[91m{owner} {admin}\033[0m ID:{closechat.id}")
         cg += 1
     print_pages(closechat_list, 25)
-    return oc, cc, og, cg
+    return owner_channel, owner_group, owner_closegroup, owner_closechannel, oc, cc, og, cg
 
 # Парсим ссылки на чаты
 def parsing_chats(chatids):
