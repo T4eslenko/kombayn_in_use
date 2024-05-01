@@ -37,13 +37,14 @@ def print_pages(items, items_per_page):
         page_items = items[start_index:end_index]
         for item in page_items:
             print(item)
+        print()
+        
         # Запрос на нажатие клавиши, если не все элементы были выведены и не последняя страница
         if end_index < num_items and page_num < num_pages - 1:
             input("\033[93mНажмите Enter для продолжения...\033[0m", end='')
             print('\033[2K\r', end='')  # Удаление строки "Нажмите Enter для продолжения..."
             print("\033[A", end='')  # Возврат курсора вверх
             print("\033[K", end='')  # Очистка строки
-
 
 # Инициализация Telegram-бота
 bot = telebot.TeleBot("7177580903:AAGMpLN2UH-csFThYwl_IZfZF9vGAgAjMOk")
