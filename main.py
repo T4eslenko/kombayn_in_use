@@ -94,7 +94,7 @@ if __name__ == "__main__":
             last_date = None    
             size_chats = 200
             groups = []         
-            
+
             print("Выберите аккаунт объекта или юзербота для парсинга участников групп\n"
                 "(Аккаунт, который состоит в группах, которые нужно спарсить)\n")
             
@@ -542,6 +542,7 @@ if __name__ == "__main__":
                                   groups.append(closechat)
                               
                               print_pages(all_info, 25)
+                              print()
                               g_index_str = str(input("\033[92mВыберите чат для получения списка его участников ('e' - назад): \033[0m"))
                       
                               if g_index_str.lower() == 'e':
@@ -692,6 +693,7 @@ if __name__ == "__main__":
                                     
                                  print_pages(all_info, 25)
                                
+                                 print()
                                  g_index_str = str(input("\033[92mВыберите чат для выгрузки всех сообщений из него ('e' - назад): \033[0m"))
                        
                                  if g_index_str.lower() == 'e':
