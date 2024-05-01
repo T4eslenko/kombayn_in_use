@@ -317,7 +317,7 @@ if __name__ == "__main__":
                                     elif g.admin_rights is not None:
                                        group_list.append(str(i) + ' - ' + g.title + '\033[93m [' + str(g.participants_count) + ']\033[0m' + color.RED + ' (Есть права администратора)' + color.END + color.BLUE + ' ' + username + color.END)
                                     else:
-                                        group_list.append(str(i) + ' - ' + g.title + '\033[93m [' + str(g.participants_count) + ']\033[0m'+ color.BLUE + ' ' + username + color.END)
+                                       group_list.append(str(i) + ' - ' + g.title + '\033[93m [' + str(g.participants_count) + ']\033[0m'+ color.BLUE + ' ' + username + color.END)
                                     i += 1
                                 print_pages(group_list, 25)
                                 print()    
@@ -440,6 +440,7 @@ if __name__ == "__main__":
                                  print(f"\033[96mНомер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}\033[0m")
                                  print('-----------------------------')
                                  messages_list = []
+                                 groups = []
                                  print("\033[95mОткрытые КАНАЛЫ:\033[0m")
                                  openchannel_list = []
                                  for openchannel in openchannels:
@@ -447,6 +448,7 @@ if __name__ == "__main__":
                                      admin = " (Администратор)" if openchannel.admin_rights is not None else ""
                                      openchannel_list.append(f"{i} - {openchannel.title} \033[93m[{openchannel.participants_count}]\033[0m\033[91m {owner} {admin}\033[0m ID:{openchannel.id} \033[94m@{openchannel.username}\033[0m")
                                      i += 1
+                                     groups.append(openchannel.entity)
                                  print_pages(openchannel_list, 25)
                                  print()
                                  
@@ -457,6 +459,7 @@ if __name__ == "__main__":
                                      admin = " (Администратор)" if closechannel.admin_rights is not None else ""
                                      closechannel_list.append(f"{i} - {closechannel.title} \033[93m[{closechannel.participants_count}]\033[0m \033[91m{owner} {admin}\033[0m ID:{closechannel.id}")
                                      i += 1
+                                     groups.append(closechannel.entity)
                                  print_pages(closechannel_list, 25)
                                  print()
                                  
@@ -467,6 +470,7 @@ if __name__ == "__main__":
                                      admin = " (Администратор)" if openchat.admin_rights is not None else ""
                                      openchat_list.append(f"{i} - {openchat.title} \033[93m[{openchat.participants_count}]\033[0m\033[91m {owner} {admin}\033[0m ID:{openchat.id} \033[94m@{openchat.username}\033[0m")
                                      i += 1
+                                     groups.append(openchat.entity)
                                  print_pages(openchat_list, 25)
                                  print()  
 
@@ -477,6 +481,7 @@ if __name__ == "__main__":
                                      admin = " (Администратор)" if closechat.admin_rights is not None else ""
                                      closechat_list.append(f"{i} - {closechat.title} \033[93m[{closechat.participants_count}]\033[0m \033[91m{owner} {admin}\033[0m ID:{closechat.id}")
                                      i += 1
+                                     groups.append(closechat.entity)
                                  print_pages(closechat_list, 25)
   
                                  print()   
