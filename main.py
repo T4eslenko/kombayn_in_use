@@ -321,7 +321,7 @@ if __name__ == "__main__":
                                     else:
                                        all_info.append(str(i) + ' - ' + g.title + '\033[93m [' + str(g.participants_count) + ']\033[0m'+ color.BLUE + ' ' + username + color.END)
                                     i += 1
-                                print_pages(all_info.append, 25)
+                                print_pages(all_info, 25)
                                 print()    
                                
                                 g_index_str = str(input("\033[92mВыберите чат для получения списка его участников ('e' - назад): \033[0m"))
