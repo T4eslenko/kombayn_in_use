@@ -507,7 +507,7 @@ if __name__ == "__main__":
                                         else:
                                             print("Пожалуйста, выберите группу из списка")
                                             time.sleep(2)
-                                     except ValueError:
+                                    except ValueError:
                                         print("Пожалуйста, выберите группу из списка")
                                         time.sleep(2)
                         else:
