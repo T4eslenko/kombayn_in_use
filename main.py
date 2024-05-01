@@ -450,15 +450,23 @@ if __name__ == "__main__":
                             os.system('cls||clear')
                             
                             print('=ИНФОРМАЦИЯ О КОНТАКТАХ=')
-                            contacts = await client.get_contacts()
+
+                           # Получаем контакты
+                            result = await client(GetContactsRequest(0))
+                            contacts = result.users
+                           
+                            # Считаем информацию о контактах
                             total_contacts = len(contacts)
                             total_mutual_contacts = sum(len(contact.mutual_contacts) for contact in contacts)
                             contacts_with_phone = sum(bool(contact.phone) for contact in contacts)
+                           
+                            # Выводим информацию
                             print(f"Общее количество контактов: {total_contacts}")
                             print(f"Количество взаимных контактов: {total_mutual_contacts}")
                             print(f"Количество контактов с номерами телефонов: {contacts_with_phone}")
-                            зкште()
+                            print()
                             print('Список контактов выгружен в excel, мой командир')
+
                            
                             client.disconnect()
                             time.sleep(3)
