@@ -215,7 +215,7 @@ if __name__ == "__main__":
                 for i, session in enumerate(sessions):
                     print(f"[{i}] - {session}")
                 print()
-                user_input = input("Выберите существующий аккаунт для выгрузки имеющихся у него контактов в формате excel ('e' - назад): ")
+                user_input = input("\033[93mВыберите существующий аккаунт для выгрузки имеющихся у него контактов в формате excel ('e' - назад): \033[0m")
                 if user_input.lower() == 'e':
                     break
                 else:
@@ -254,6 +254,7 @@ if __name__ == "__main__":
             last_date = None    
             size_chats = 200
             groups = []
+            group_list = []
             exit_flag = False
 
             while not exit_flag:
@@ -264,7 +265,7 @@ if __name__ == "__main__":
                     print(f"[{i}] - {sessions[i]}")
                 print()
                 
-                user_input = input("Выберите существующий аккаунт для выгрузки участников чата в формате excel ('e' - назад): ")
+                user_input = input("\033[93mВыберите существующий аккаунт для выгрузки участников чата в формате excel ('e' - назад): \033[0m")
                 if user_input.lower() == 'e':
                     break
                 else:
@@ -322,13 +323,10 @@ if __name__ == "__main__":
                                 print_pages(group_list, 25)
                                 print()    
                                
-                                g_index_str = str(input("Выберите чат для получения списка его участников ('e' - назад): "))
+                                g_index_str = str(input("\033[93mВыберите чат для получения списка его участников ('e' - назад): \033[0m"))
                        
                                 if g_index_str.lower() == 'e':
                                     client.disconnect()
-                                    groups = []
-                                    chats = []
-                                    group_list = []
                                     exit_flag = True
                                     break
                                 else:
@@ -370,7 +368,10 @@ if __name__ == "__main__":
             closechannels = []
             openchats = []
             closechats = []
-
+            openchannel_list = []
+            closechannel_list = []
+            openchat_list = []
+            closechat_list = []
 
             while not exit_flag:
                 os.system('cls||clear')
@@ -381,7 +382,7 @@ if __name__ == "__main__":
                     print(f"[{i}] - {sessions[i]}")
                 print()
                 
-                user_input = input("Выберите существующий аккаунт для выгрузки сообщений из чата в формате excel ('e' - назад): ")
+                user_input = input("\033[93mВыберите существующий аккаунт для выгрузки сообщений из чата в формате excel ('e' - назад): \033[0m")
                 if user_input.lower() == 'e':
                     break
                 else:
@@ -436,7 +437,6 @@ if __name__ == "__main__":
                                  print(f"\033[96mНомер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}\033[0m")
                                  print('-----------------------------')
                                  print("\033[95mОткрытые КАНАЛЫ:\033[0m")
-                                 openchannel_list = []
                                  for openchannel in openchannels:
                                      owner = " (Владелец)" if openchannel.creator else ""
                                      admin = " (Администратор)" if openchannel.admin_rights is not None else ""
@@ -447,7 +447,6 @@ if __name__ == "__main__":
                                  print()
                                  
                                  print("\033[95mЗакрытые КАНАЛЫ:\033[0m")
-                                 closechannel_list = []
                                  for closechannel in closechannels:
                                      owner = " (Владелец)" if closechannel.creator else ""
                                      admin = " (Администратор)" if closechannel.admin_rights is not None else ""
@@ -458,7 +457,6 @@ if __name__ == "__main__":
                                  print()
                                  
                                  print("\033[95mОткрытые ГРУППЫ:\033[0m")
-                                 openchat_list = []
                                  for openchat in openchats:
                                      owner = " (Владелец)" if openchat.creator else ""
                                      admin = " (Администратор)" if openchat.admin_rights is not None else ""
@@ -469,7 +467,6 @@ if __name__ == "__main__":
                                  print()  
 
                                  print("\033[95mЗакрытые ГРУППЫ:\033[0m")
-                                 closechat_list = []
                                  for closechat in closechats:
                                      owner = " (Владелец)" if closechat.creator else ""
                                      admin = " (Администратор)" if closechat.admin_rights is not None else ""
@@ -479,12 +476,10 @@ if __name__ == "__main__":
                                  print_pages(closechat_list, 25)
   
                                  print()   
-                                 g_index_str = str(input("Выберите чат для выгрузки всех сообщений из него ('e' - назад): "))
+                                 g_index_str = str(input("\033[93mВыберите чат для выгрузки всех сообщений из него ('e' - назад): \033[0m"))
                        
                                  if g_index_str.lower() == 'e':
                                     client.disconnect()
-                                    groups = []
-                                    chats = []
                                     exit_flag = True
                                     break
                                  else:
