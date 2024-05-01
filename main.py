@@ -3,7 +3,7 @@ from telethon.tl.functions.messages import GetDialogsRequest
 from telethon.tl.types import InputPeerEmpty
 from telethon.errors.rpcerrorlist import PeerFloodError, UserPrivacyRestrictedError
 from defunc import *
-from aboutofgroups import *
+from groupsinfo import *
 from getmessages import *
 import time
 import random
@@ -306,7 +306,8 @@ if __name__ == "__main__":
                                 print('=ВЫГРУЗКА УЧАСТНИКОВ ЧАТА В EXCEL=')
                                 print(f"\033[96mНомер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}\033[0m")
                                 print('-----------------------------')
-                              
+                               
+                                group_list = []
                                 for g in groups:
                                     #username = f"@{g.username}" if g.username is not None else ""
                                     username = f"@{g.username}" if hasattr(g, 'username') and g.username is not None else ""
@@ -326,6 +327,7 @@ if __name__ == "__main__":
                                     client.disconnect()
                                     groups = []
                                     chats = []
+                                    group_list = []
                                     exit_flag = True
                                     break
                                 else:
