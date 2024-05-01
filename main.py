@@ -37,6 +37,7 @@ def print_pages(items, items_per_page):
         #print("\033[95mСтраница", page_num + 1, "из", num_pages, "\033[0m")
         for index in range(start_index, end_index):
             print(items[index])
+        print()
         input("\033[93mНажмите Enter для продолжения...\033[0m")
 
 # Инициализация Telegram-бота
