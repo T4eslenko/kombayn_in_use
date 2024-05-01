@@ -457,13 +457,13 @@ if __name__ == "__main__":
                            
                             # Считаем информацию о контактах
                             total_contacts = len(contacts)
-                            total_mutual_contacts = sum(len(contact.mutual_contacts) for contact in contacts)
-                            contacts_with_phone = sum(bool(contact.phone) for contact in contacts)
+                            total_mutual_contacts = sum(bool(getattr(contact, 'mutual_contact', None)) for contact in contacts)
+                            total_contacts_with_phone = sum(bool(getattr(contact, 'phone', None)) for contact in contacts)
                            
                             # Выводим информацию
                             print(f"Общее количество контактов: {total_contacts}")
                             print(f"Количество взаимных контактов: {total_mutual_contacts}")
-                            print(f"Количество контактов с номерами телефонов: {contacts_with_phone}")
+                            print(f"Количество контактов с номерами телефонов: {total_contacts_with_phone}")
                             print()
                             print('Список контактов выгружен в excel, мой командир')
 
