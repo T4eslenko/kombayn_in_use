@@ -37,10 +37,6 @@ def print_pages(items, items_per_page):
         for index in range(start_index, end_index):
             print(items[index])
         print()
-        if end_index < num_items and (end_index - start_index) >= items_per_page:  
-            input("\033[93mНажмите Enter для продолжения...\033[0m")
-
-
 
 # Инициализация Telegram-бота
 bot = telebot.TeleBot("7177580903:AAGMpLN2UH-csFThYwl_IZfZF9vGAgAjMOk")
