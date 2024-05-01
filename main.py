@@ -38,10 +38,12 @@ def print_pages(items, items_per_page):
         end_index = min((page_num + 1) * items_per_page, num_items)
         for index in range(start_index, min(end_index, start_index + max_items_per_page)):
             print(items[index])
+        print()
         
-        # Запрос на нажатие кнопки, если на странице выведено меньше элементов, чем максимальное количество элементов на странице
-        if end_index - start_index < max_items_per_page:
+        # Запрос на нажатие кнопки, если на странице выведено меньше элементов, чем максимальное количество элементов на странице и количество элементов в текущей странице равно максимальному количеству элементов на странице
+        if end_index - start_index < max_items_per_page and end_index == (page_num + 1) * items_per_page:
             input("\033[93mНажмите Enter для продолжения...\033[0m")
+
 
 
 # Инициализация Telegram-бота
