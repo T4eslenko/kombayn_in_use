@@ -525,7 +525,7 @@ if __name__ == "__main__":
 
 
                                 all_info.append("\033[95mОткрытые ГРУППЫ:\033[0m")
-                                 for openchat in openchats:
+                                for openchat in openchats:
                                      owner = " (Владелец)" if openchat.creator else ""
                                      admin = " (Администратор)" if openchat.admin_rights is not None else ""
                                      all_info.append(f"{i} - {openchat.title} \033[93m[{openchat.participants_count}]\033[0m\033[91m {owner} {admin}\033[0m ID:{openchat.id} \033[94m@{openchat.username}\033[0m")
