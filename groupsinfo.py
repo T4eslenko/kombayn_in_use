@@ -5,7 +5,7 @@ from telethon.tl.functions.messages import GetDialogsRequest
 from telethon.tl.types import InputPeerEmpty, Chat, Channel
 import openpyxl
 
-def channelandgroups(api_id, api_hash, print_pages):
+def channelandgroups(api_id, api_hash, print_pages, print_channel_lists):
     os.system('cls||clear')
     chats = []
     last_date = None
