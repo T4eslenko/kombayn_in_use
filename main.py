@@ -366,6 +366,10 @@ if __name__ == "__main__":
             size_chats = 200
             groups = []
             exit_flag = False
+            openchannels = []
+            closechannels = []
+            openchats = []
+            closechats = []
 
             while not exit_flag:
                 os.system('cls||clear')
