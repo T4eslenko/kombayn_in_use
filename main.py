@@ -258,7 +258,6 @@ if __name__ == "__main__":
             group_list = []
             all_info = []
             exit_flag = False
-            all_info = []
 
             while not exit_flag:
                 os.system('cls||clear')
@@ -374,6 +373,7 @@ if __name__ == "__main__":
             closechannel_list = []
             openchat_list = []
             closechat_list = []
+            all_info = []
 
             while not exit_flag:
                 os.system('cls||clear')
