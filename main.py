@@ -441,7 +441,7 @@ if __name__ == "__main__":
                                         messages_list.append(str(i) + ' - ' + g.title + '\033[93m [' + str(g.participants_count) + ']\033[0m'+ color.BLUE + ' ' + username + color.END)
                                     i += 1                               
                                 
-                                print_pages(group_list, 25)
+                                print_pages(messages_list, 25)
                                 print()   
                                 g_index_str = str(input("Выберите чат для выгрузки всех сообщений из него ('e' - назад): "))
                        
