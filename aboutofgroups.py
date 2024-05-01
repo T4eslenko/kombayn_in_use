@@ -123,7 +123,7 @@ def channelandgroups(api_id, api_hash):
                             openchannel_list.append(f"{oc} - {openchannel.title} \033[93m[{openchannel.participants_count}]\033[0m\033[91m {owner} {admin}\033[0m ID:{openchannel.id} \033[94m@{openchannel.username}\033[0m")
                             oc += 1
                         
-                        print_pages(openchannel_list, 10)
+                        print_pages(openchannel_list, 25)
                         
                         print("\033[95mЗакрытые КАНАЛЫ:\033[0m")
                         closechannel_list = []
@@ -133,7 +133,7 @@ def channelandgroups(api_id, api_hash):
                             closechannel_list.append(f"{cc} - {closechannel.title} \033[93m[{closechannel.participants_count}]\033[0m \033[91m{owner} {admin}\033[0m ID:{closechannel.id}")
                             cc += 1
                         
-                        print_pages(closechannel_list, 10)
+                        print_pages(closechannel_list, 25)
                         
                         print("\033[95mОткрытые ГРУППЫ:\033[0m")
                         openchat_list = []
@@ -143,7 +143,7 @@ def channelandgroups(api_id, api_hash):
                             openchat_list.append(f"{og} - {openchat.title} \033[93m[{openchat.participants_count}]\033[0m\033[91m {owner} {admin}\033[0m ID:{openchat.id} \033[94m@{openchat.username}\033[0m")
                             og += 1
                         
-                        print_pages(openchat_list, 10)
+                        print_pages(openchat_list, 25)
                         
                         print("\033[95mЗакрытые ГРУППЫ:\033[0m")
                         closechat_list = []
@@ -153,7 +153,7 @@ def channelandgroups(api_id, api_hash):
                             closechat_list.append(f"{cg} - {closechat.title} \033[93m[{closechat.participants_count}]\033[0m \033[91m{owner} {admin}\033[0m ID:{closechat.id}")
                             cg += 1
                         
-                        print_pages(closechat_list, 10)
+                        print_pages(closechat_list, 25)
                        
                      
                         print()
