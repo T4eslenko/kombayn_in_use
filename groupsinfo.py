@@ -113,7 +113,6 @@ def channelandgroups(api_id, api_hash, print_pages):
                             if owner !="" or admin != "":
                                 owner_channel += 1
                         #print_pages(openchannel_list, 25)
-                        all_info.append( )
                         
                         all_info.append("\033[95mЗакрытые КАНАЛЫ:\033[0m")
                         cc = 1
@@ -126,7 +125,6 @@ def channelandgroups(api_id, api_hash, print_pages):
                                 owner_channel += 1
                                 owner_closechannel += 1
                         #print_pages(closechannel_list, 25)
-                        all_info.append( )
                         
                         all_info.append("\033[95mОткрытые ГРУППЫ:\033[0m")
                         og = 1
@@ -138,7 +136,6 @@ def channelandgroups(api_id, api_hash, print_pages):
                             if owner !="" or admin != "":
                                 owner_group += 1
                         #print_pages(openchat_list, 25)
-                        all_info.append( )
                         
                         all_info.append("\033[95mЗакрытые ГРУППЫ:\033[0m")
                         cg = 1
