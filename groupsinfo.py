@@ -153,11 +153,6 @@ def channelandgroups(api_id, api_hash, print_pages):
                                 owner_group += 1
                                 owner_closegroup += 1
                         print_pages(closechat_list, 25)
-                        #Формируем списки
-                        #print_channel_lists(openchannels, closechannels, openchats, closechats, print_pages, owner_channel, owner_group, owner_closegroup, owner_closechannel)
-                        #owner_channel, owner_group, owner_closegroup, owner_closechannel, oc, cc, og, cg = print_channel_lists(openchannels, closechannels, openchats, closechats, print_pages, owner_channel, owner_group, owner_closegroup, owner_closechannel)
-
-
                         print()
                         print("---------------------------------------")
                         print(f"Открытые каналы: {oc}")
@@ -166,6 +161,7 @@ def channelandgroups(api_id, api_hash, print_pages):
                         print(f"\033[91mЗакрытые каналы: {cc}\033[0m")
                         print(f"\033[91mЗакрытые группы: {cg}\033[0m")
                         print("---------------------------------------")
+                        print()
                         print(f"\033[96mИмеет права владельца или админа в {owner_channel} каналах, из них {owner_closechannel} - в закрытых\033[0m")
                         print(f"\033[96mИмеет права владельца или админа в {owner_group} группах, из них {owner_closegroup} - в закрытых\033[0m")
 
