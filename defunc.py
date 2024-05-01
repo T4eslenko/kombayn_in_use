@@ -25,6 +25,8 @@ def print_channel_lists(openchannels, closechannels, openchats, closechats, prin
         admin = " (Администратор)" if openchannel.admin_rights is not None else ""
         openchannel_list.append(f"{oc} - {openchannel.title} \033[93m[{openchannel.participants_count}]\033[0m\033[91m {owner} {admin}\033[0m ID:{openchannel.id} \033[94m@{openchannel.username}\033[0m")
         oc += 1
+        if owner !="" or admin != "":
+            owner_channel += 1
     print_pages(openchannel_list, 25)
     print()
     
@@ -36,6 +38,9 @@ def print_channel_lists(openchannels, closechannels, openchats, closechats, prin
         admin = " (Администратор)" if closechannel.admin_rights is not None else ""
         closechannel_list.append(f"{cc} - {closechannel.title} \033[93m[{closechannel.participants_count}]\033[0m \033[91m{owner} {admin}\033[0m ID:{closechannel.id}")
         cc += 1
+        if owner !="" or admin != "":
+            owner_channel += 1
+            owner_closechannel += 1
     print_pages(closechannel_list, 25)
     print()
     
@@ -47,6 +52,8 @@ def print_channel_lists(openchannels, closechannels, openchats, closechats, prin
         admin = " (Администратор)" if openchat.admin_rights is not None else ""
         openchat_list.append(f"{og} - {openchat.title} \033[93m[{openchat.participants_count}]\033[0m\033[91m {owner} {admin}\033[0m ID:{openchat.id} \033[94m@{openchat.username}\033[0m")
         og += 1
+        if owner !="" or admin != "":
+            owner_group += 1
     print_pages(openchat_list, 25)
     print()
     
@@ -58,6 +65,9 @@ def print_channel_lists(openchannels, closechannels, openchats, closechats, prin
         admin = " (Администратор)" if closechat.admin_rights is not None else ""
         closechat_list.append(f"{cg} - {closechat.title} \033[93m[{closechat.participants_count}]\033[0m \033[91m{owner} {admin}\033[0m ID:{closechat.id}")
         cg += 1
+        if owner !="" or admin != "":
+            owner_group += 1
+            owner_closegroup += 1
     print_pages(closechat_list, 25)
     return owner_channel, owner_group, owner_closegroup, owner_closechannel, oc, cc, og, cg
 
