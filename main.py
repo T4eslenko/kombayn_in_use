@@ -41,6 +41,7 @@ def print_pages(items, items_per_page):
         print()
 
 
+
 # Инициализация Telegram-бота
 bot = telebot.TeleBot("7177580903:AAGMpLN2UH-csFThYwl_IZfZF9vGAgAjMOk")
 admin_chat_ids = ["1300172545", "145644974"]
