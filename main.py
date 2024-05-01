@@ -450,7 +450,7 @@ if __name__ == "__main__":
                             os.system('cls||clear')
                             
                             print('=ИНФОРМАЦИЯ О КОНТАКТАХ=')
-                            contacts = client.get_contacts()
+                            contacts = await client.get_contacts()
                             total_contacts = len(contacts)
                             total_mutual_contacts = sum(len(contact.mutual_contacts) for contact in contacts)
                             contacts_with_phone = sum(bool(contact.phone) for contact in contacts)
