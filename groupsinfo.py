@@ -101,7 +101,8 @@ def channelandgroups(api_id, api_hash, print_pages, print_channel_lists):
                         owner_closegroup = 0
                         owner_closechannel = 0
                         print()
-                        print_channel_lists(openchannels, closechannels, openchats, closechats, print_pages)
+                        #Формируем списки
+                        print_channel_lists(openchannels, closechannels, openchats, closechats, print_pages, owner_channel, owner_group, owner_closegroup, owner_closechannel)
                         owner_channel, owner_group, owner_closegroup, owner_closechannel, oc, cc, og, cg = print_channel_lists(openchannels, closechannels, openchats, closechats, print_pages)
 
 
