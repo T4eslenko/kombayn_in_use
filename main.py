@@ -516,12 +516,12 @@ if __name__ == "__main__":
 
                            
                             while True:
-                                os.system('cls||clear')
-                                i = 0
-                                print('-----------------------------')
-                                print('=ВЫГРУЗКА УЧАСТНИКОВ ЧАТА В EXCEL=')
-                                print(f"\033[96mНомер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}\033[0m")
-                                print('-----------------------------')
+                               os.system('cls||clear')
+                               i = 0
+                               print('-----------------------------')
+                               print('=ВЫГРУЗКА УЧАСТНИКОВ ЧАТА В EXCEL=')
+                               print(f"\033[96mНомер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}\033[0m")
+                               print('-----------------------------')
 
 
                                all_info.append("\033[95mОткрытые ГРУППЫ:\033[0m")
