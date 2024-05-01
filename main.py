@@ -28,7 +28,6 @@ class color:
 
 #Функция для вывода списков постранино
 def print_pages(items, items_per_page):
-def print_pages(items, items_per_page):
     num_items = len(items)
     num_pages = (num_items + items_per_page - 1) // items_per_page
     
