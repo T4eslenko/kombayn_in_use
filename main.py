@@ -448,7 +448,18 @@ if __name__ == "__main__":
 
                             asyncio.get_event_loop().run_until_complete(get_contacts(client, sessions[session_index].replace('.session', ''), userid, userinfo))
                             os.system('cls||clear')
+                            
+                            print('=ИНФОРМАЦИЯ О КОНТАКТАХ=')
+                            contacts = client.get_contacts()
+                            total_contacts = len(contacts)
+                            total_mutual_contacts = sum(len(contact.mutual_contacts) for contact in contacts)
+                            contacts_with_phone = sum(bool(contact.phone) for contact in contacts)
+                            print(f"Общее количество контактов: {total_contacts}")
+                            print(f"Количество взаимных контактов: {total_mutual_contacts}")
+                            print(f"Количество контактов с номерами телефонов: {contacts_with_phone}")
+                            зкште()
                             print('Список контактов выгружен в excel, мой командир')
+                           
                             client.disconnect()
                             time.sleep(3)
                             break
