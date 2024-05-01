@@ -452,7 +452,7 @@ if __name__ == "__main__":
                             print('=ИНФОРМАЦИЯ О КОНТАКТАХ=')
 
                            # Получаем контакты
-                            result = await client(GetContactsRequest(0))
+                            result = client(GetContactsRequest(0))
                             contacts = result.users
                            
                             # Считаем информацию о контактах
