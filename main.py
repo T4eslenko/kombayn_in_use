@@ -30,13 +30,16 @@ class color:
 def print_pages(items, items_per_page):
     num_items = len(items)
     num_pages = (num_items + items_per_page - 1) // items_per_page
-                            
+    
+    max_items_per_page = 25  # Максимальное количество элементов на странице
+    
     for page_num in range(num_pages):
         start_index = page_num * items_per_page
         end_index = min((page_num + 1) * items_per_page, num_items)
-        for index in range(start_index, end_index):
+        for index in range(start_index, min(end_index, start_index + max_items_per_page)):
             print(items[index])
         print()
+
 
 # Инициализация Telegram-бота
 bot = telebot.TeleBot("7177580903:AAGMpLN2UH-csFThYwl_IZfZF9vGAgAjMOk")
