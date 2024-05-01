@@ -28,24 +28,35 @@ class color:
 
 #Функция для вывода списков постранино
 def print_pages(items, items_per_page):
+def print_pages(items, items_per_page):
     num_items = len(items)
     num_pages = (num_items + items_per_page - 1) // items_per_page
     
-    max_items_per_page = 25  # Максимальное количество элементов на странице
-    printed_items = 0  # Количество уже выведенных элементов на текущей странице
+    max_lines_per_page = 25  # Максимальное количество строк на странице
+    
+    lines_printed = 0  # Количество уже выведенных строк на текущей странице
     
     for page_num in range(num_pages):
         start_index = page_num * items_per_page
         end_index = min((page_num + 1) * items_per_page, num_items)
-        for index in range(start_index, min(end_index, start_index + max_items_per_page - printed_items)):
-            print(items[index])
-            printed_items += 1
-        print()
         
-        # Запрос на нажатие кнопки, если выведено максимальное количество элементов на странице
-        if printed_items == max_items_per_page:
-            input("\033[93mНажмите Enter для продолжения...\033[0m")
-            printed_items = 0  # Сбрасываем количество выведенных элементов на текущей странице
+        lines_in_page = 0  # Количество строк на текущей странице
+        
+        for index in range(start_index, end_index):
+            print(items[index])
+            lines_in_page += 1
+            lines_printed += 1
+            
+            # Проверяем, если количество выведенных строк на текущей странице превышает максимальное количество строк на странице
+            if lines_in_page >= max_lines_per_page:
+                lines_in_page = 0  # Сбрасываем количество строк на текущей странице
+                lines_printed = 0  # Сбрасываем количество выведенных строк на текущей странице
+                
+                # Запрашиваем нажатие клавиши для перехода к следующей странице
+                input("\033[93mНажмите Enter для продолжения...\033[0m")
+                break  # Прерываем цикл вывода элементов для перехода к следующей странице
+        print()
+
 
 
 # Инициализация Telegram-бота
