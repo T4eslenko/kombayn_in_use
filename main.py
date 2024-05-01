@@ -461,131 +461,120 @@ if __name__ == "__main__":
            
         # 6 Выгрузить участников групп в excel
         elif selection == '6':
-            os.system('cls||clear')
-            chats = []
-            last_date = None    
-            size_chats = 200
-            groups = []
-            group_list = []
-            all_info = []
-            exit_flag = False
-
-            while not exit_flag:
-                os.system('cls||clear')
-                sessions = [file for file in os.listdir('.') if file.endswith('.session')]
-
-                for i in range(len(sessions)):
-                    print(f"[{i}] - {sessions[i]}")
-                print()
-                
-                user_input = input("\033[92mВыберите существующий аккаунт для выгрузки участников чата в формате excel ('e' - назад): \033[0m")
-                if user_input.lower() == 'e':
-                    break
-                else:
-                    try:
-                        i = int(user_input)
-                        if 0 <= i < len(sessions):
-                            client = TelegramClient(sessions[i].replace('\n', ''), api_id, api_hash)
-                            client.connect()
-
-                            # Получение информации о пользователе
-                            me = client.get_me()
-                            userid = me.id
-                            firstname = me.first_name
-                            username = f"@{me.username}" if me.username is not None else ""
-                            lastname = me.last_name if me.last_name is not None else ""
-                            phone = sessions[i].split('.')[0]
-                            userinfo = f"(Номер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username})"
-
-                            chats = client.get_dialogs()
-                            for chat in chats:
+          os.system('cls||clear')
+          chats = []
+          last_date = None    
+          size_chats = 200
+          groups = []
+          group_list = []
+          all_info = []
+          exit_flag = False
+      
+          while not exit_flag:
+              os.system('cls||clear')
+              sessions = [file for file in os.listdir('.') if file.endswith('.session')]
+      
+              for i in range(len(sessions)):
+                  print(f"[{i}] - {sessions[i]}")
+              print()
+              
+              user_input = input("\033[92mВыберите существующий аккаунт для выгрузки участников чата в формате excel ('e' - назад): \033[0m")
+              if user_input.lower() == 'e':
+                  break
+              else:
+                  try:
+                      i = int(user_input)
+                      if 0 <= i < len(sessions):
+                          client = TelegramClient(sessions[i].replace('\n', ''), api_id, api_hash)
+                          client.connect()
+      
+                          # Получение информации о пользователе
+                          me = client.get_me()
+                          userid = me.id
+                          firstname = me.first_name
+                          username = f"@{me.username}" if me.username is not None else ""
+                          lastname = me.last_name if me.last_name is not None else ""
+                          phone = sessions[i].split('.')[0]
+                          userinfo = f"(Номер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username})"
+      
+                          chats = client.get_dialogs()
+                          for chat in chats:
                               if isinstance(chat.entity, Channel) or isinstance(chat.entity, Chat): #проверяем групповой ли чат
-                                
-                                 # Определяем открытый чат
+                                  
+                                  # Определяем открытый чат
                                   if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast'):
                                       if chat.entity.broadcast == False and chat.entity.username:
                                           groups.append(chat.entity)
-                               
-                               # Определяем закрытый чат
+                                  
+                                  # Определяем закрытый чат
                                   if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast'):
                                       if chat.entity.broadcast == False and chat.entity.username == None:
                                           groups.append(chat.entity)
                                   if isinstance(chat.entity, Chat) and chat.entity.migrated_to is None:
                                       groups.append(chat.entity)    
+      
+      
+                              
+                          while True:
+                              os.system('cls||clear')
+                              i = 0
+                              print('-----------------------------')
+                              print('=ВЫГРУЗКА УЧАСТНИКОВ ЧАТА В EXCEL=')
+                              print(f"\033[96mНомер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}\033[0m")
+                              print('-----------------------------')
+      
+      
+                              all_info.append("\033[95mОткрытые ГРУППЫ:\033[0m")
+                              for openchat in openchats:
+                                  owner = " (Владелец)" if openchat.creator else ""
+                                  admin = " (Администратор)" if openchat.admin_rights is not None else ""
+                                  all_info.append(f"{i} - {openchat.title} \033[93m[{openchat.participants_count}]\033[0m\033[91m {owner} {admin}\033[0m ID:{openchat.id} \033[94m@{openchat.username}\033[0m")
+                                  i += 1
+                                  groups.append(openchat)
+      
+                              all_info.append("\033[95mЗакрытые ГРУППЫ:\033[0m")
+                              for closechat in closechats:
+                                  owner = " (Владелец)" if closechat.creator else ""
+                                  admin = " (Администратор)" if closechat.admin_rights is not None else ""
+                                  all_info.append(f"{i} - {closechat.title} \033[93m[{closechat.participants_count}]\033[0m \033[91m{owner} {admin}\033[0m ID:{closechat.id}")
+                                  i += 1
+                                  groups.append(closechat)
+                              
+                              print_pages(all_info, 25)
+                              g_index_str = str(input("\033[92mВыберите чат для получения списка его участников ('e' - назад): \033[0m"))
+                      
+                              if g_index_str.lower() == 'e':
+                                  client.disconnect()
+                                  exit_flag = True
+                                  break
+                              else:
+                                  try:
+                                      g_index = int(g_index_str)
+                                      if 0 <= g_index < i:
+                                          target_group = groups[int(g_index)]
+                                          group_title = target_group.title
+                                          group_id = target_group.id
+                                          parsing_xlsx(client, target_group, user_id, user_name, group_title, group_id, userid, userinfo)
+                                          os.system('cls||clear')
+                                          print('Участники групп выгружены в excel, мой командир')
+                                          client.disconnect()
+                                          time.sleep(3)
+                                          exit_flag = True
+                                          break
+                                      else:
+                                          print("Пожалуйста, выберите группу из списка")
+                                          time.sleep(2)
+                                  except ValueError:
+                                      print("Пожалуйста, выберите группу из списка")
+                                      time.sleep(2)
+                      else:
+                          print("Пожалуйста, выберите существующий аккаунт в диапазоне от 0 до", len(sessions)-1)
+                          time.sleep(2)
+                  except ValueError:
+                      print("Пожалуйста, выберите существующий аккаунт в диапазоне от 0 до", len(sessions)-1)
+                      time.sleep(2)
 
-
-                           
-                            while True:
-                               os.system('cls||clear')
-                               i = 0
-                               print('-----------------------------')
-                               print('=ВЫГРУЗКА УЧАСТНИКОВ ЧАТА В EXCEL=')
-                               print(f"\033[96mНомер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}\033[0m")
-                               print('-----------------------------')
-
-
-                               all_info.append("\033[95mОткрытые ГРУППЫ:\033[0m")
-                               for openchat in openchats:
-                                     owner = " (Владелец)" if openchat.creator else ""
-                                     admin = " (Администратор)" if openchat.admin_rights is not None else ""
-                                     all_info.append(f"{i} - {openchat.title} \033[93m[{openchat.participants_count}]\033[0m\033[91m {owner} {admin}\033[0m ID:{openchat.id} \033[94m@{openchat.username}\033[0m")
-                                     i += 1
-                                     groups.append(openchat)
-
-                                all_info.append("\033[95mЗакрытые ГРУППЫ:\033[0m")
-                                for closechat in closechats:
-                                     owner = " (Владелец)" if closechat.creator else ""
-                                     admin = " (Администратор)" if closechat.admin_rights is not None else ""
-                                     all_info.append(f"{i} - {closechat.title} \033[93m[{closechat.participants_count}]\033[0m \033[91m{owner} {admin}\033[0m ID:{closechat.id}")
-                                     i += 1
-                                     groups.append(closechat)
-                                    
-                                print_pages(all_info, 25)
-                                #for g in groups:
-                                #    username = f"@{g.username}" if hasattr(g, 'username') and g.username is not None else ""
-                                #    if g.creator:
-                                #       all_info.append(str(i) + ' - ' + g.title + '\033[93m [' + str(g.participants_count) + ']\033[0m' + color.RED + ' (Владелец)' + color.END + color.BLUE + ' ' + username + color.END)
-                                #    elif g.admin_rights is not None:
-                                #      all_info.append(str(i) + ' - ' + g.title + '\033[93m [' + str(g.participants_count) + ']\033[0m' + color.RED + ' (Есть права администратора)' + color.END + color.BLUE + ' ' + username + color.END)
-                                #   else:
-                                #       all_info.append(str(i) + ' - ' + g.title + '\033[93m [' + str(g.participants_count) + ']\033[0m'+ color.BLUE + ' ' + username + color.END)
-                                #    i += 1
-                                #print_pages(all_info, 25)
-                                #print()    
-                               
-                                g_index_str = str(input("\033[92mВыберите чат для получения списка его участников ('e' - назад): \033[0m"))
-                       
-                                if g_index_str.lower() == 'e':
-                                    client.disconnect()
-                                    exit_flag = True
-                                    break
-                                else:
-                                    try:
-                                        g_index = int(g_index_str)
-                                        if 0 <= g_index < i:
-                                            target_group = groups[int(g_index)]
-                                            group_title = target_group.title
-                                            group_id = target_group.id
-                                            parsing_xlsx(client, target_group, user_id, user_name, group_title, group_id, userid, userinfo)
-                                            os.system('cls||clear')
-                                            print('Участники групп выгружены в excel, мой командир')
-                                            client.disconnect()
-                                            time.sleep(3)
-                                            exit_flag = True
-                                            break
-                                        else:
-                                            print("Пожалуйста, выберите группу из списка")
-                                            time.sleep(2)
-                                    except ValueError:
-                                        print("Пожалуйста, выберите группу из списка")
-                                        time.sleep(2)
-                        else:
-                            print("Пожалуйста, выберите существующий аккаунт в диапазоне от 0 до", len(sessions)-1)
-                            time.sleep(2)
-                    except ValueError:
-                        print("Пожалуйста, выберите существующий аккаунт в диапазоне от 0 до", len(sessions)-1)
-                        time.sleep(2)
-
+           
         # 7 Выгрузить сообщения канала в excel
         elif selection == '7':
             os.system('cls||clear')
