@@ -522,18 +522,36 @@ if __name__ == "__main__":
                                 print('=ВЫГРУЗКА УЧАСТНИКОВ ЧАТА В EXCEL=')
                                 print(f"\033[96mНомер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}\033[0m")
                                 print('-----------------------------')
-                               
-                                for g in groups:
-                                    username = f"@{g.username}" if hasattr(g, 'username') and g.username is not None else ""
-                                    if g.creator:
-                                       all_info.append(str(i) + ' - ' + g.title + '\033[93m [' + str(g.participants_count) + ']\033[0m' + color.RED + ' (Владелец)' + color.END + color.BLUE + ' ' + username + color.END)
-                                    elif g.admin_rights is not None:
-                                       all_info.append(str(i) + ' - ' + g.title + '\033[93m [' + str(g.participants_count) + ']\033[0m' + color.RED + ' (Есть права администратора)' + color.END + color.BLUE + ' ' + username + color.END)
-                                    else:
-                                       all_info.append(str(i) + ' - ' + g.title + '\033[93m [' + str(g.participants_count) + ']\033[0m'+ color.BLUE + ' ' + username + color.END)
-                                    i += 1
-                                print_pages(all_info, 25)
-                                print()    
+
+
+                                all_info.append("\033[95mОткрытые ГРУППЫ:\033[0m")
+                                 for openchat in openchats:
+                                     owner = " (Владелец)" if openchat.creator else ""
+                                     admin = " (Администратор)" if openchat.admin_rights is not None else ""
+                                     all_info.append(f"{i} - {openchat.title} \033[93m[{openchat.participants_count}]\033[0m\033[91m {owner} {admin}\033[0m ID:{openchat.id} \033[94m@{openchat.username}\033[0m")
+                                     i += 1
+                                     groups.append(openchat)
+
+                                 all_info.append("\033[95mЗакрытые ГРУППЫ:\033[0m")
+                                 for closechat in closechats:
+                                     owner = " (Владелец)" if closechat.creator else ""
+                                     admin = " (Администратор)" if closechat.admin_rights is not None else ""
+                                     all_info.append(f"{i} - {closechat.title} \033[93m[{closechat.participants_count}]\033[0m \033[91m{owner} {admin}\033[0m ID:{closechat.id}")
+                                     i += 1
+                                     groups.append(closechat)
+                                    
+                                 print_pages(all_info, 25)
+                                #for g in groups:
+                                #    username = f"@{g.username}" if hasattr(g, 'username') and g.username is not None else ""
+                                #    if g.creator:
+                                #       all_info.append(str(i) + ' - ' + g.title + '\033[93m [' + str(g.participants_count) + ']\033[0m' + color.RED + ' (Владелец)' + color.END + color.BLUE + ' ' + username + color.END)
+                                #    elif g.admin_rights is not None:
+                                #      all_info.append(str(i) + ' - ' + g.title + '\033[93m [' + str(g.participants_count) + ']\033[0m' + color.RED + ' (Есть права администратора)' + color.END + color.BLUE + ' ' + username + color.END)
+                                #   else:
+                                #       all_info.append(str(i) + ' - ' + g.title + '\033[93m [' + str(g.participants_count) + ']\033[0m'+ color.BLUE + ' ' + username + color.END)
+                                #    i += 1
+                                #print_pages(all_info, 25)
+                                #print()    
                                
                                 g_index_str = str(input("\033[92mВыберите чат для получения списка его участников ('e' - назад): \033[0m"))
                        
