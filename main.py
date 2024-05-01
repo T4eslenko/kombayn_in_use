@@ -450,26 +450,18 @@ if __name__ == "__main__":
                             os.system('cls||clear')
                             
                             print('=ИНФОРМАЦИЯ О КОНТАКТАХ=')
-
-                           # Получаем контакты
                             result = client(GetContactsRequest(0))
                             contacts = result.users
-                           
-                            # Считаем информацию о контактах
                             total_contacts = len(contacts)
                             total_mutual_contacts = sum(bool(getattr(contact, 'mutual_contact', None)) for contact in contacts)
                             total_contacts_with_phone = sum(bool(getattr(contact, 'phone', None)) for contact in contacts)
-                           
-                            # Выводим информацию
-                            print(f"Общее количество контактов: {total_contacts}")
+                            print(f"\033[92mОбщее количество контактов: {total_contacts}\033[0m")
+                            print(f"\033[96mКоличество контактов с номерами телефонов: {total_contacts_with_phone}\033[0m")
                             print(f"Количество взаимных контактов: {total_mutual_contacts}")
-                            print(f"Количество контактов с номерами телефонов: {total_contacts_with_phone}")
                             print()
                             print('Список контактов выгружен в excel, мой командир')
-
-                           
+                            input("Нажмите любую клавишу для продолжения... ")             
                             client.disconnect()
-                            time.sleep(3)
                             break
                         else:
                             print("Пожалуйста, выберите существующий аккаунт в диапазоне от 0 до", len(sessions)-1)
