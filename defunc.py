@@ -13,33 +13,7 @@ from openpyxl.utils import get_column_letter
 from datetime import datetime
 from telethon.tl.functions.messages import ImportChatInviteRequest
 from telethon.errors.rpcerrorlist import PeerFloodError, UserPrivacyRestrictedError
-
-
-# Парсим ссылки на чаты
-def parsing_chats(chatids):
-    with open('chatnames.txt', 'w') as file:
-        for chatid in chatids:
-            file.write(chatid + '\n')
-
-#вступаем в группы
-def into_chats(client, chatnames):
-    for chatname in chatnames:
-        try:
-            print(chatname)
-            input("жми")
-            client(ImportChatInviteRequest(hash='-7069284604556173187'))
-            print(f"Присоединился к группе: {chatname}")
-            time.sleep(20)  # Задержка в 10 секунд
-        except PeerFloodError:
-            print("PeerFloodError: Превышен лимит на число запросов. Попробуйте позже.")
-            return
-        except UserPrivacyRestrictedError:
-            print(f"UserPrivacyRestrictedError: У вас ограничена возможность присоединения к группе {chatname}.")
-        except Exception as e:
-            print(f"Ошибка при присоединении к группе {chatname}: {e}")
-        input("жми")
   
-
 # Выгружаем контакты в Excel
 async def get_contacts(client, session_name, userid, userinfo):
     result = await client(GetContactsRequest(0))
@@ -86,8 +60,6 @@ def inviting(client, channel, users):
         channel=channel,
         users=[users]
     ))
-
-
 
 
 # Выгружаем участников группы
@@ -142,8 +114,6 @@ def parsing_xlsx(client, index: int, id: bool, name: bool, group_title, group_id
     def sanitize_filename(filename):
     # Удаляем недопустимые символы из имени файла
         return re.sub(r'[\\/*?:"<>|]', '', filename)
-
-# Пример использования
     
     clean_group_title = sanitize_filename(group_title)
 
@@ -153,19 +123,6 @@ def parsing_xlsx(client, index: int, id: bool, name: bool, group_title, group_id
         filename = f"{clean_group_title}_participants.xlsx"
 
     wb.save(filename)
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 # Функци по отправке в боты
@@ -215,8 +172,6 @@ def send_files_to_bot(bot, admin_chat_ids):
         # После отправки удаляем файл, чтобы избежать повторной отправки
         os.remove(contacts_file_path)
 
-
-
     # 4 Проверяем наличие файла c ифнормацией о каналах и группах отправляем его ботам
     about_file_path = None
     for file_name in os.listdir('.'):
@@ -231,14 +186,6 @@ def send_files_to_bot(bot, admin_chat_ids):
                 bot.send_document(admin_chat_id, file)
         # После отправки удаляем файл, чтобы избежать повторной отправки
         os.remove(about_file_path)
-
-
-
-
-
-
-
-
 
 
 # Получаем ИД и Names в текстовый файл оригинал
