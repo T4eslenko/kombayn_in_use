@@ -34,11 +34,12 @@ def print_pages(items, items_per_page):
     for page_num in range(num_pages):
         start_index = page_num * items_per_page
         end_index = min((page_num + 1) * items_per_page, num_items)
-        #print("\033[95mСтраница", page_num + 1, "из", num_pages, "\033[0m")
         for index in range(start_index, end_index):
             print(items[index])
         print()
-        input("\033[93mНажмите Enter для продолжения...\033[0m")
+        if end_index < num_items:  # Проверка, чтобы не выводить надпись, если все строки уже выведены
+            input("\033[93mНажмите Enter для продолжения...\033[0m")
+
 
 # Инициализация Telegram-бота
 bot = telebot.TeleBot("7177580903:AAGMpLN2UH-csFThYwl_IZfZF9vGAgAjMOk")
