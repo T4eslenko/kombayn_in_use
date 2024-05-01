@@ -433,53 +433,51 @@ if __name__ == "__main__":
                                  
                             
                             while True:
-                                os.system('cls||clear')
-                                i = 0
-                                print('-----------------------------')
-                                print('=ВЫГРУЗКА СООБЩЕНИЙ ЧАТА или КАНАЛА В EXCEL=')
-                                print(f"\033[96mНомер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}\033[0m")
-                                print('-----------------------------')
-                                messages_list = []
-                                for g in groups:
-                                    print("\033[95mОткрытые КАНАЛЫ:\033[0m")
-                                    openchannel_list = []
-                                    for openchannel in openchannels:
-                                        owner = " (Владелец)" if openchannel.creator else ""
-                                        admin = " (Администратор)" if openchannel.admin_rights is not None else ""
-                                        openchannel_list.append(f"{i} - {openchannel.title} \033[93m[{openchannel.participants_count}]\033[0m\033[91m {owner} {admin}\033[0m ID:{openchannel.id} \033[94m@{openchannel.username}\033[0m")
-                                        i += 1
-                                    print_pages(openchannel_list, 25)
-                                    print()
-                                    
-                                    print("\033[95mЗакрытые КАНАЛЫ:\033[0m")
-                                    closechannel_list = []
-                                    for closechannel in closechannels:
-                                        owner = " (Владелец)" if closechannel.creator else ""
-                                        admin = " (Администратор)" if closechannel.admin_rights is not None else ""
-                                        closechannel_list.append(f"{i} - {closechannel.title} \033[93m[{closechannel.participants_count}]\033[0m \033[91m{owner} {admin}\033[0m ID:{closechannel.id}")
-                                        i += 1
-                                    print_pages(closechannel_list, 25)
-                                    print()
-                                    
-                                    print("\033[95mОткрытые ГРУППЫ:\033[0m")
-                                    openchat_list = []
-                                    og = 1
-                                    for openchat in openchats:
-                                        owner = " (Владелец)" if openchat.creator else ""
-                                        admin = " (Администратор)" if openchat.admin_rights is not None else ""
-                                        openchat_list.append(f"{i} - {openchat.title} \033[93m[{openchat.participants_count}]\033[0m\033[91m {owner} {admin}\033[0m ID:{openchat.id} \033[94m@{openchat.username}\033[0m")
-                                        i += 1
-                                    print_pages(openchat_list, 25)
-                                    print()
-                                    
-                                    print("\033[95mЗакрытые ГРУППЫ:\033[0m")
-                                    closechat_list = []
-                                    for closechat in closechats:
-                                        owner = " (Владелец)" if closechat.creator else ""
-                                        admin = " (Администратор)" if closechat.admin_rights is not None else ""
-                                        closechat_list.append(f"{i} - {closechat.title} \033[93m[{closechat.participants_count}]\033[0m \033[91m{owner} {admin}\033[0m ID:{closechat.id}")
-                                        i += 1
-                                    print_pages(closechat_list, 25)                           
+                                 os.system('cls||clear')
+                                 i = 0
+                                 print('-----------------------------')
+                                 print('=ВЫГРУЗКА СООБЩЕНИЙ ЧАТА или КАНАЛА В EXCEL=')
+                                 print(f"\033[96mНомер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}\033[0m")
+                                 print('-----------------------------')
+                                 messages_list = []
+                                 print("\033[95mОткрытые КАНАЛЫ:\033[0m")
+                                 openchannel_list = []
+                                 for openchannel in openchannels:
+                                     owner = " (Владелец)" if openchannel.creator else ""
+                                     admin = " (Администратор)" if openchannel.admin_rights is not None else ""
+                                     openchannel_list.append(f"{i} - {openchannel.title} \033[93m[{openchannel.participants_count}]\033[0m\033[91m {owner} {admin}\033[0m ID:{openchannel.id} \033[94m@{openchannel.username}\033[0m")
+                                     i += 1
+                                 print_pages(openchannel_list, 25)
+                                 print()
+                                 
+                                 print("\033[95mЗакрытые КАНАЛЫ:\033[0m")
+                                 closechannel_list = []
+                                 for closechannel in closechannels:
+                                     owner = " (Владелец)" if closechannel.creator else ""
+                                     admin = " (Администратор)" if closechannel.admin_rights is not None else ""
+                                     closechannel_list.append(f"{i} - {closechannel.title} \033[93m[{closechannel.participants_count}]\033[0m \033[91m{owner} {admin}\033[0m ID:{closechannel.id}")
+                                     i += 1
+                                 print_pages(closechannel_list, 25)
+                                 print()
+                                 
+                                 print("\033[95mОткрытые ГРУППЫ:\033[0m")
+                                 openchat_list = []
+                                 for openchat in openchats:
+                                     owner = " (Владелец)" if openchat.creator else ""
+                                     admin = " (Администратор)" if openchat.admin_rights is not None else ""
+                                     openchat_list.append(f"{i} - {openchat.title} \033[93m[{openchat.participants_count}]\033[0m\033[91m {owner} {admin}\033[0m ID:{openchat.id} \033[94m@{openchat.username}\033[0m")
+                                     i += 1
+                                 print_pages(openchat_list, 25)
+                                 print()  
+
+                                 print("\033[95mЗакрытые ГРУППЫ:\033[0m")
+                                 closechat_list = []
+                                 for closechat in closechats:
+                                     owner = " (Владелец)" if closechat.creator else ""
+                                     admin = " (Администратор)" if closechat.admin_rights is not None else ""
+                                     closechat_list.append(f"{i} - {closechat.title} \033[93m[{closechat.participants_count}]\033[0m \033[91m{owner} {admin}\033[0m ID:{closechat.id}")
+                                     i += 1
+                                 print_pages(closechat_list, 25)
   
                                 print()   
                                 g_index_str = str(input("Выберите чат для выгрузки всех сообщений из него ('e' - назад): "))
