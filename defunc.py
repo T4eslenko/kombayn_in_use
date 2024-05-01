@@ -15,7 +15,7 @@ from telethon.tl.functions.messages import ImportChatInviteRequest
 from telethon.errors.rpcerrorlist import PeerFloodError, UserPrivacyRestrictedError
 
 # Формирование списка
-def print_channel_lists(openchannels, closechannels, openchats, closechats):
+def print_channel_lists(openchannels, closechannels, openchats, closechats, print_pages):
     print()
     print("\033[95mОткрытые КАНАЛЫ:\033[0m")
     openchannel_list = []
