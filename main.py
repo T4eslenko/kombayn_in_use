@@ -5,7 +5,6 @@ from telethon.errors.rpcerrorlist import PeerFloodError, UserPrivacyRestrictedEr
 from defunc import *
 from groupsinfo import *
 from getmessages import *
-#from makelist import *
 import time
 import random
 import os
