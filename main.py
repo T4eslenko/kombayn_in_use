@@ -437,6 +437,7 @@ if __name__ == "__main__":
                                  print('=ВЫГРУЗКА СООБЩЕНИЙ ЧАТА или КАНАЛА В EXCEL=')
                                  print(f"\033[96mНомер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}\033[0m")
                                  print('-----------------------------')
+                               
                                  all_info.append("\033[95mОткрытые КАНАЛЫ:\033[0m")
                                  for openchannel in openchannels:
                                      owner = " (Владелец)" if openchannel.creator else ""
@@ -444,7 +445,6 @@ if __name__ == "__main__":
                                      all_info.append(f"{i} - {openchannel.title} \033[93m[{openchannel.participants_count}]\033[0m\033[91m {owner} {admin}\033[0m ID:{openchannel.id} \033[94m@{openchannel.username}\033[0m")
                                      i += 1
                                      groups.append(openchannel)
-                                 print()
                                  
                                  all_info.append("\033[95mЗакрытые КАНАЛЫ:\033[0m")
                                  for closechannel in closechannels:
@@ -453,7 +453,6 @@ if __name__ == "__main__":
                                      all_info.append(f"{i} - {closechannel.title} \033[93m[{closechannel.participants_count}]\033[0m \033[91m{owner} {admin}\033[0m ID:{closechannel.id}")
                                      i += 1
                                      groups.append(closechannel)
-                                 print()
                                  
                                  all_info.append("\033[95mОткрытые ГРУППЫ:\033[0m")
                                  for openchat in openchats:
@@ -462,7 +461,6 @@ if __name__ == "__main__":
                                      all_info.append(f"{i} - {openchat.title} \033[93m[{openchat.participants_count}]\033[0m\033[91m {owner} {admin}\033[0m ID:{openchat.id} \033[94m@{openchat.username}\033[0m")
                                      i += 1
                                      groups.append(openchat)
-                                 print()  
 
                                  all_info.append("\033[95mЗакрытые ГРУППЫ:\033[0m")
                                  for closechat in closechats:
@@ -471,9 +469,9 @@ if __name__ == "__main__":
                                      all_info.append(f"{i} - {closechat.title} \033[93m[{closechat.participants_count}]\033[0m \033[91m{owner} {admin}\033[0m ID:{closechat.id}")
                                      i += 1
                                      groups.append(closechat)
+                                    
                                  print_pages(all_info, 25)
-  
-                                 print()   
+                               
                                  g_index_str = str(input("\033[92mВыберите чат для выгрузки всех сообщений из него ('e' - назад): \033[0m"))
                        
                                  if g_index_str.lower() == 'e':
