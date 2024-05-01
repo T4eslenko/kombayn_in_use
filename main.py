@@ -258,6 +258,7 @@ if __name__ == "__main__":
             group_list = []
             all_info = []
             exit_flag = False
+            all_info = []
 
             while not exit_flag:
                 os.system('cls||clear')
