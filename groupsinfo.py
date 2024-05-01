@@ -84,14 +84,6 @@ def channelandgroups(api_id, api_hash, print_pages, print_channel_lists):
         
                     while True:
                         os.system('cls||clear')
-                        oc = 0
-                        cc = 0
-                        og = 0
-                        cg = 0
-                        owner_channel = 0
-                        owner_group = 0
-                        owner_closegroup = 0
-                        owner_closechannel = 0
                         print('-----------------------------')
                         print("=ИНФОРМАЦИЯ О КАНАЛАХ И ЧАТАХ=")
                         print(f"\033[96mНомер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}\033[0m")
@@ -99,7 +91,7 @@ def channelandgroups(api_id, api_hash, print_pages, print_channel_lists):
                         print()
 
                         
-                        # Код для формирования списков openchannels, closechannels, openchats и closechats...
+                        # Вывод спика каналов и групп
                         
                         print_channel_lists(openchannels, closechannels, openchats, closechats, print_pages)
                         owner_channel, owner_group, owner_closegroup, owner_closechannel, oc, cc, og, cg = print_channel_lists(openchannels, closechannels, openchats, closechats, print_pages)
