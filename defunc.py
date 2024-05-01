@@ -72,14 +72,15 @@ def parsing_xlsx(client, index: int, id: bool, name: bool, group_title, group_id
     wb = openpyxl.Workbook()
     sheet = wb.active
     sheet.cell(row=1, column=1, value=userinfo)
-    
+    sheet.cell(row=2, column=1, value=group_title)
+  
     # Запись заголовков столбцов
-    headers = ['ID', 'First Name', 'Last Name', 'Username', 'Записан в контакты', 'Взаимный контакт', 'Бот', 'Название группы','ID группы','ID объекта']
+    headers = ['ID', 'First Name', 'Last Name', 'Username', 'Записан в контакты', 'Взаимный контакт', 'Бот', 'ID группы','ID объекта']
     for col, header in enumerate(headers, start=1):
-        sheet.cell(row=2, column=col, value=header)
+        sheet.cell(row=3, column=col, value=header)
     
     # Переменная для отслеживания строки
-    row_num = 3
+    row_num = 4
     
     # Процесс обработки участников чата в файл Excel
     for user in all_participants:
@@ -102,9 +103,8 @@ def parsing_xlsx(client, index: int, id: bool, name: bool, group_title, group_id
             sheet.cell(row=row_num, column=6, value='Взаимный')
         if hasattr(user, 'bot') and user.bot:
             sheet.cell(row=row_num, column=7, value='Бот')
-        sheet.cell(row=row_num, column=8, value=group_title)
-        sheet.cell(row=row_num, column=9, value=group_id)
-        sheet.cell(row=row_num, column=10, value=userid)
+        sheet.cell(row=row_num, column=8, value=group_id)
+        sheet.cell(row=row_num, column=9, value=userid)
         
         # Увеличиваем номер строки для следующего пользователя
         row_num += 1
