@@ -418,6 +418,11 @@ def config(api_id, api_hash):
                     owner_group = 0
                     owner_closegroup = 0
                     owner_closechannel = 0
+                    oc = 0
+                    cc = 0
+                    og = 0
+                    cg = 0
+                    cd = 0
               
                     print("Аккаунт успешно добавлен. Вот сводная информация:")
                     # Получение информации о пользователе
