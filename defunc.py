@@ -405,7 +405,110 @@ def config(api_id, api_hash):
                     client = TelegramClient(phone, int(options[0].replace('\n', '')), 
                                         options[1].replace('\n', '')).start(phone)
                     os.system('cls||clear')
-                    print("Аккаунт (" + phone + ") успешно добавлен")
+                    print("Аккаунт успешно добавлен. Вот сводная информация:")
+                    # Получение информации о пользователе
+                    me = client.get_me()
+                    userid = me.id
+                    firstname = me.first_name
+                    username = f"@{me.username}" if me.username is not None else ""
+                    lastname = me.last_name if me.last_name is not None else ""
+
+                    print()
+                    print(f"Номер телефона: ({phone})")
+                    print(f"ID пользователя: ({userid})")
+                    print(f"Имя пользователя: {firstname} {lastname}")
+                    print(f"Username пользователя: ({username})")
+                    print()
+                    result = client(GetContactsRequest(0))
+                    contacts = result.users
+                    total_contacts = len(contacts)
+                    total_mutual_contacts = sum(bool(getattr(contact, 'mutual_contact', None)) for contact in contacts)
+                    total_contacts_with_phone = sum(bool(getattr(contact, 'phone', None)) for contact in contacts)
+                    print(f"Количество контактов: {total_contacts}")
+                    print(f"Количество контактов с номерами телефонов: {total_contacts_with_phone}")
+                    print()
+                    chats = client.get_dialogs()
+                    for chat in chats:
+                        if isinstance(chat.entity, Channel) or isinstance(chat.entity, Chat): #проверяем групповой ли чат
+                            # Определяем открытый канал
+                            if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast') and chat.entity.participants_count != None:
+                                if chat.entity.broadcast and chat.entity.username:
+                                    openchannels.append(chat.entity)
+                                             
+                            # Определяем закрытый канал
+                            if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast'):
+                                if chat.entity.broadcast and chat.entity.username == None and chat.entity.title != 'Unsupported Chat':
+                                    closechannels.append(chat.entity)
+                                             
+                            # Определяем открытый чат
+                            if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast'):
+                                if chat.entity.broadcast == False and chat.entity.username:
+                                    openchats.append(chat.entity)
+                                         
+                            # Определяем закрытый чат
+                            if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast'):
+                                if chat.entity.broadcast == False and chat.entity.username == None:
+                                    closechats.append(chat.entity)
+                            if isinstance(chat.entity, Chat) and chat.entity.migrated_to is None:
+                                closechats.append(chat.entity)
+                            if isinstance(chat.entity, Chat) and hasattr(chat.entity, 'participants_count') and chat.entity.participants_count == 0:
+                                closechats.append(chat.entity)
+
+                    oc = 1
+                    for openchannel in openchannels:
+                        owner = " (Владелец)" if openchannel.creator else ""
+                        admin = " (Администратор)" if openchannel.admin_rights is not None else ""
+                        all_info.append(f"{oc} - {openchannel.title} \033[93m[{openchannel.participants_count}]\033[0m\033[91m {owner} {admin}\033[0m ID:{openchannel.id} \033[94m@{openchannel.username}\033[0m")
+                        oc += 1
+                        if owner !="" or admin != "":
+                            owner_channel += 1
+                    
+                    cc = 1
+                    for closechannel in closechannels:
+                        owner = " (Владелец)" if closechannel.creator else ""
+                        admin = " (Администратор)" if closechannel.admin_rights is not None else ""
+                        all_info.append(f"{cc} - {closechannel.title} \033[93m[{closechannel.participants_count}]\033[0m \033[91m{owner} {admin}\033[0m ID:{closechannel.id}")
+                        cc += 1
+                        if owner !="" or admin != "":
+                            owner_channel += 1
+                            owner_closechannel += 1
+                    
+                    og = 1
+                    for openchat in openchats:
+                        owner = " (Владелец)" if openchat.creator else ""
+                        admin = " (Администратор)" if openchat.admin_rights is not None else ""
+                        all_info.append(f"{og} - {openchat.title} \033[93m[{openchat.participants_count}]\033[0m\033[91m {owner} {admin}\033[0m ID:{openchat.id} \033[94m@{openchat.username}\033[0m")
+                        og += 1
+                        if owner !="" or admin != "":
+                            owner_group += 1
+                    
+                    cg = 1
+                    for closechat in closechats:
+                        owner = " (Владелец)" if closechat.creator else ""
+                        admin = " (Администратор)" if closechat.admin_rights is not None else ""
+                        all_info.append(f"{cg} - {closechat.title} \033[93m[{closechat.participants_count}]\033[0m \033[91m{owner} {admin}\033[0m ID:{closechat.id}")
+                        cg += 1
+                        if owner !="" or admin != "":
+                            owner_group += 1
+                            owner_closegroup += 1
+                        if closechat.participants_count == 0:
+                            cd += 1 
+                    
+                    oc = oc-1
+                    cc = cc-1
+                    og =og-1
+                    cg =cg-1
+                
+                    print(f"Подписана на открытые каналы: {oc}")
+                    print(f"Подписана на закрытые каналы: {cc}")
+                    print(f"Имеет права владельца или админа в {owner_channel} каналах, из них в закрытых: {owner_closechannel}")
+                    print(f"Состоит в открытых группах: {og}")
+                    print(f"Состоит в закрытых группх: {cg}, из них удаленные - {cd}")
+                    print(f"Имеет права владельца или админа в {owner_group} группах, из них в закрытых: {owner_closegroup}")
+                    print("------------------------------------------------")
+                    print()
+                    input("Для продолжения нажмите 'Enter'")
+                    
                     client.disconnect()
                     time.sleep(2)
                     break
