@@ -352,7 +352,7 @@ if __name__ == "__main__":
                                      if isinstance(chat.entity, Chat) and chat.entity.migrated_to is None:
                                          closechats.append(chat.entity)
                                          groups.append(chat.entity) 
-                                     if isinstance(chat.entity, Chat) and participants_count==0:
+                                     if isinstance(chat.entity, Chat) and hasattr(chat.entity, 'participants_count') and chat.entity.participants_count == 0:
                                          closechats.append(chat.entity)
                                          groups.append(chat.entity)
                              
