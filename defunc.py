@@ -405,6 +405,18 @@ def config(api_id, api_hash):
                     client = TelegramClient(phone, int(options[0].replace('\n', '')), 
                                         options[1].replace('\n', '')).start(phone)
                     os.system('cls||clear')
+                    
+                    chats = []
+                    groups = []
+                    openchannels = []
+                    closechannels = []
+                    openchats = []
+                    closechats = []
+                    owner_channel = 0
+                    owner_group = 0
+                    owner_closegroup = 0
+                    owner_closechannel = 0
+              
                     print("Аккаунт успешно добавлен. Вот сводная информация:")
                     # Получение информации о пользователе
                     me = client.get_me()
