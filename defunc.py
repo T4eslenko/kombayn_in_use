@@ -4,8 +4,10 @@ import time
 import openpyxl
 from telethon.tl.functions.channels import InviteToChannelRequest
 from telethon.tl.functions.contacts import GetContactsRequest
+from telethon.tl.types import Chat, Channel
+from telethon.tl.functions.messages import GetDialogsRequest
 from telethon.tl.types import InputPhoneContact
-from telethon.tl.types import User, Chat
+from telethon.tl.types import User, Chat, Channel
 from telethon.tl.types import Message
 from telethon.sync import TelegramClient
 from openpyxl import Workbook
@@ -405,7 +407,6 @@ def config(api_id, api_hash):
                     client = TelegramClient(phone, int(options[0].replace('\n', '')), 
                                         options[1].replace('\n', '')).start(phone)
                     os.system('cls||clear')
-                    
                     chats = []
                     groups = []
                     openchannels = []
@@ -431,14 +432,15 @@ def config(api_id, api_hash):
                     print(f"Имя пользователя: {firstname} {lastname}")
                     print(f"Username пользователя: ({username})")
                     print()
+                    
                     result = client(GetContactsRequest(0))
                     contacts = result.users
                     total_contacts = len(contacts)
-                    total_mutual_contacts = sum(bool(getattr(contact, 'mutual_contact', None)) for contact in contacts)
                     total_contacts_with_phone = sum(bool(getattr(contact, 'phone', None)) for contact in contacts)
                     print(f"Количество контактов: {total_contacts}")
                     print(f"Количество контактов с номерами телефонов: {total_contacts_with_phone}")
                     print()
+                  
                     chats = client.get_dialogs()
                     for chat in chats:
                         if isinstance(chat.entity, Channel) or isinstance(chat.entity, Chat): #проверяем групповой ли чат
