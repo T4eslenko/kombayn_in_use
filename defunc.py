@@ -433,10 +433,10 @@ def config(api_id, api_hash):
                     lastname = me.last_name if me.last_name is not None else ""
 
                     print()
-                    print(f"Номер телефона: ({phone})")
-                    print(f"ID пользователя: ({userid})")
+                    print(f"Номер телефона: {phone}")
+                    print(f"ID пользователя: {userid}")
                     print(f"Имя пользователя: {firstname} {lastname}")
-                    print(f"Username пользователя: ({username})")
+                    print(f"Username пользователя: {username}")
                     print()
                     
                     result = client(GetContactsRequest(0))
@@ -519,9 +519,10 @@ def config(api_id, api_hash):
                     og =og-1
                     cg =cg-1
                 
-                    print(f"Подписана на открытые каналы: {oc}")
-                    print(f"Подписана на закрытые каналы: {cc}")
+                    print(f"Подписан на открытые каналы: {oc}")
+                    print(f"Подписан на закрытые каналы: {cc}")
                     print(f"Имеет права владельца или админа в {owner_channel} каналах, из них в закрытых: {owner_closechannel}")
+                    print()
                     print(f"Состоит в открытых группах: {og}")
                     print(f"Состоит в закрытых группх: {cg}, из них удаленные - {cd}")
                     print(f"Имеет права владельца или админа в {owner_group} группах, из них в закрытых: {owner_closegroup}")
