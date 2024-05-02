@@ -308,12 +308,12 @@ if __name__ == "__main__":
                              client = TelegramClient(sessions[i].replace('\n', ''), api_id, api_hash)
                              client.connect()
          
-                             #qqqs = client.get_dialogs()
+                             qqqs = client.get_dialogs()
          
-                             #for qqq in qqqs:
-                                 #print(qqq)
-                             #input("нажми")
-                             #break
+                             for qqq in qqqs:
+                                 print(qqq)
+                             input("нажми")
+                             break
                              
                              # Получение информации о пользователе
                              me = client.get_me()
