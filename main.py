@@ -400,6 +400,7 @@ if __name__ == "__main__":
                                  
                                  all_info.append("\033[95mЗакрытые ГРУППЫ:\033[0m")
                                  cg = 1
+                                 cd = 1
                                  for closechat in closechats:
                                      owner = " (Владелец)" if closechat.creator else ""
                                      admin = " (Администратор)" if closechat.admin_rights is not None else ""
@@ -408,6 +409,7 @@ if __name__ == "__main__":
                                      if owner !="" or admin != "":
                                          owner_group += 1
                                          owner_closegroup += 1
+                                     cd = if closechat.participants_count == 0
                                  
                                  print_pages(all_info, 25)
                                  print()
@@ -417,7 +419,7 @@ if __name__ == "__main__":
                                  print(f"Открытые группы: {og}")
                                  print()
                                  print(f"\033[91mЗакрытые каналы: {cc}\033[0m")
-                                 print(f"\033[91mЗакрытые группы: {cg}\033[0m")
+                                 print(f"\033[91mЗакрытые группы: {cg}\033[0m, из них удаленные - {cd}")
                                  print("---------------------------------------")
                                  print()
                                  print(f"\033[96mИмеет права владельца или админа в {owner_channel} каналах, из них {owner_closechannel} - в закрытых\033[0m")
@@ -664,9 +666,6 @@ if __name__ == "__main__":
                                           closechats.append(chat.entity)
                                   if isinstance(chat.entity, Chat) and chat.entity.migrated_to is None:
                                      closechats.append(chat.entity)
-                                  if isinstance(chat.entity, Chat) and hasattr(chat.entity, 'participants_count') and chat.entity.participants_count == 0:
-                                     closechats.append(chat.entity)
-     
                                  
                             
                             while True:
