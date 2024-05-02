@@ -366,7 +366,7 @@ if __name__ == "__main__":
                                  print('-----------------------------')
                                  print()
                                  all_info.append("\033[95mОткрытые КАНАЛЫ:\033[0m")
-                                 #oc = 1
+                                 oc = 1
                                  for openchannel in openchannels:
                                      owner = " (Владелец)" if openchannel.creator else ""
                                      admin = " (Администратор)" if openchannel.admin_rights is not None else ""
@@ -377,7 +377,7 @@ if __name__ == "__main__":
                                  #print_pages(openchannel_list, 25)
                                  
                                  all_info.append("\033[95mЗакрытые КАНАЛЫ:\033[0m")
-                                 #cc = 1
+                                 cc = 1
                                  for closechannel in closechannels:
                                      owner = " (Владелец)" if closechannel.creator else ""
                                      admin = " (Администратор)" if closechannel.admin_rights is not None else ""
@@ -389,7 +389,7 @@ if __name__ == "__main__":
                                  #print_pages(closechannel_list, 25)
                                  
                                  all_info.append("\033[95mОткрытые ГРУППЫ:\033[0m")
-                                 #og = 1
+                                 og = 1
                                  for openchat in openchats:
                                      owner = " (Владелец)" if openchat.creator else ""
                                      admin = " (Администратор)" if openchat.admin_rights is not None else ""
@@ -400,8 +400,7 @@ if __name__ == "__main__":
                                  #print_pages(openchat_list, 25)
                                  
                                  all_info.append("\033[95mЗакрытые ГРУППЫ:\033[0m")
-                                 #cg = 1
-                                 #cd = 0
+                                 cg = 1
                                  for closechat in closechats:
                                      owner = " (Владелец)" if closechat.creator else ""
                                      admin = " (Администратор)" if closechat.admin_rights is not None else ""
@@ -413,6 +412,10 @@ if __name__ == "__main__":
                                      if closechat.participants_count == 0:
                                          cd += 1 
                                  
+                                 oc = oc-1
+                                 cc = cc-1
+                                 og =og-1
+                                 cg =cg-1
                                  print_pages(all_info, 25)
                                  print()
                                  
