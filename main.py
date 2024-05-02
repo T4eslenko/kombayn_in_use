@@ -400,7 +400,7 @@ if __name__ == "__main__":
                                  
                                  all_info.append("\033[95mЗакрытые ГРУППЫ:\033[0m")
                                  cg = 1
-                                 cd = 1
+                                 cd = 0
                                  for closechat in closechats:
                                      owner = " (Владелец)" if closechat.creator else ""
                                      admin = " (Администратор)" if closechat.admin_rights is not None else ""
