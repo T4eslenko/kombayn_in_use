@@ -343,7 +343,6 @@ if __name__ == "__main__":
                                          if chat.entity.broadcast == False and chat.entity.username:
                                              openchats.append(chat.entity)
                                              groups.append(chat.entity)
-                                     groups.append(chat.entity)
                                      
                                      # Определяем закрытый чат
                                      if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast'):
@@ -352,7 +351,10 @@ if __name__ == "__main__":
                                              groups.append(chat.entity)
                                      if isinstance(chat.entity, Chat) and chat.entity.migrated_to is None:
                                          closechats.append(chat.entity)
-                                         groups.append(chat.entity)                            
+                                         groups.append(chat.entity) 
+                                     if isinstance(chat.entity, Chat) and participants_count=0:
+                                         closechats.append(chat.entity)
+                                         groups.append(chat.entity)
                              
                  
                              while True:
