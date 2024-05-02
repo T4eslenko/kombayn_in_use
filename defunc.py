@@ -413,6 +413,7 @@ def config(api_id, api_hash):
                     closechannels = []
                     openchats = []
                     closechats = []
+                    all_info = []
                     owner_channel = 0
                     owner_group = 0
                     owner_closegroup = 0
