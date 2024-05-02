@@ -331,31 +331,26 @@ if __name__ == "__main__":
                                      if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast') and chat.entity.participants_count != None:
                                          if chat.entity.broadcast and chat.entity.username:
                                              openchannels.append(chat.entity)
-                                             groups.append(chat.entity)
                                              
                                      # Определяем закрытый канал
                                      if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast'):
                                          if chat.entity.broadcast and chat.entity.username == None and chat.entity.title != 'Unsupported Chat':
                                              closechannels.append(chat.entity)
-                                             groups.append(chat.entity)
                                              
                                      # Определяем открытый чат
                                      if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast'):
                                          if chat.entity.broadcast == False and chat.entity.username:
                                              openchats.append(chat.entity)
-                                             groups.append(chat.entity)
                                      
                                      # Определяем закрытый чат
                                      if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast'):
                                          if chat.entity.broadcast == False and chat.entity.username == None:
                                              closechats.append(chat.entity)
-                                             groups.append(chat.entity)
                                      if isinstance(chat.entity, Chat) and chat.entity.migrated_to is None:
                                          closechats.append(chat.entity)
-                                         groups.append(chat.entity) 
                                      if isinstance(chat.entity, Chat) and hasattr(chat.entity, 'participants_count') and chat.entity.participants_count == 0:
                                          closechats.append(chat.entity)
-                                         groups.append(chat.entity)
+  
                              
                  
                              while True:
@@ -374,7 +369,6 @@ if __name__ == "__main__":
                                      oc += 1
                                      if owner !="" or admin != "":
                                          owner_channel += 1
-                                 #print_pages(openchannel_list, 25)
                                  
                                  all_info.append("\033[95mЗакрытые КАНАЛЫ:\033[0m")
                                  cc = 1
@@ -386,7 +380,6 @@ if __name__ == "__main__":
                                      if owner !="" or admin != "":
                                          owner_channel += 1
                                          owner_closechannel += 1
-                                 #print_pages(closechannel_list, 25)
                                  
                                  all_info.append("\033[95mОткрытые ГРУППЫ:\033[0m")
                                  og = 1
@@ -397,7 +390,6 @@ if __name__ == "__main__":
                                      og += 1
                                      if owner !="" or admin != "":
                                          owner_group += 1
-                                 #print_pages(openchat_list, 25)
                                  
                                  all_info.append("\033[95mЗакрытые ГРУППЫ:\033[0m")
                                  cg = 1
