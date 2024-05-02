@@ -279,7 +279,7 @@ if __name__ == "__main__":
              cc = 0
              og = 0
              cg = 0
-             dc = 0
+             cd = 0
              owner_channel = 0
              owner_group = 0
              owner_closegroup = 0
