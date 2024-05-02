@@ -409,7 +409,8 @@ if __name__ == "__main__":
                                      if owner !="" or admin != "":
                                          owner_group += 1
                                          owner_closegroup += 1
-                                     cd = 1 if closechat.participants_count == 0
+                                     if closechat.participants_count == 0
+                                         cd += 1 
                                  
                                  print_pages(all_info, 25)
                                  print()
