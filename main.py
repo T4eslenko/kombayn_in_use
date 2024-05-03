@@ -640,8 +640,7 @@ if __name__ == "__main__":
                             phone = sessions[i].split('.')[0]
                             userinfo = f"(Номер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username})"
 
-                            count_messages_openchannels = []
-                           
+                            chat_message_counts = {}
                             chats = client.get_dialogs()
                             for chat in chats:
                               count_messages = 0
