@@ -310,12 +310,12 @@ if __name__ == "__main__":
                              client = TelegramClient(sessions[i].replace('\n', ''), api_id, api_hash)
                              client.connect()
          
-                             qqqs = client.get_dialogs()
+                             #qqqs = client.get_dialogs()
          
-                             for qqq in qqqs:
-                                 print(qqq)
-                             input("нажми")
-                             break
+                             #for qqq in qqqs:
+                              #   print(qqq)
+                             #input("нажми")
+                             #break
                              
                              # Получение информации о пользователе
                              me = client.get_me()
@@ -647,7 +647,10 @@ if __name__ == "__main__":
                               count_messages = 0
                               if isinstance(chat.entity, Channel) or isinstance(chat.entity, Chat): #проверяем групповой ли чат
                                   messages = client.get_messages(chat.entity, limit=0)
-                                  count_messages = messages.total 
+                                  count_messages = messages.total
+                     
+                                  # Добавляем количество сообщений в словарь, где ключ - ID чата
+                                  chat_message_counts[chat.entity.id] = count_messages
                                  
                                  # Определяем открытый канал
                                   if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast') and chat.entity.participants_count != None:
@@ -685,35 +688,44 @@ if __name__ == "__main__":
                                  for openchannel in openchannels:
                                      owner = " (Владелец)" if openchannel.creator else ""
                                      admin = " (Администратор)" if openchannel.admin_rights is not None else ""
-                                     all_info.append(f"{i} - {openchannel.title} \033[93m[{openchannel.participants_count}]\033[0m {count_messages_openchannels} сообщений \033[91m{owner} {admin}\033[0m ID:{openchannel.id} \033[94m@{openchannel.username}\033[0m")
+                                     # Получаем количество сообщений для данного чата
+                                     messages_count = chat_message_counts.get(openchannel.id, 0)
+                                     all_info.append(f"{i} - {openchannel.title} \033[93m[{openchannel.participants_count}]\033[0m {messages_count} сообщений \033[91m{owner} {admin}\033[0m ID:{openchannel.id} \033[94m@{openchannel.username}\033[0m")
                                      i += 1
                                      groups.append(openchannel)
-                                 
+                                  
                                  all_info.append("\033[95mЗакрытые КАНАЛЫ:\033[0m")
                                  for closechannel in closechannels:
                                      owner = " (Владелец)" if closechannel.creator else ""
                                      admin = " (Администратор)" if closechannel.admin_rights is not None else ""
-                                     all_info.append(f"{i} - {closechannel.title} \033[93m[{closechannel.participants_count}]\033[0m \033[91m{owner} {admin}\033[0m ID:{closechannel.id}")
+                                     # Получаем количество сообщений для данного чата
+                                     messages_count = chat_message_counts.get(closechannel.id, 0)
+                                     all_info.append(f"{i} - {closechannel.title} \033[93m[{closechannel.participants_count}]\033[0m {messages_count} сообщений \033[91m{owner} {admin}\033[0m ID:{closechannel.id}")
                                      i += 1
                                      groups.append(closechannel)
-                                 
+                                  
                                  all_info.append("\033[95mОткрытые ГРУППЫ:\033[0m")
                                  for openchat in openchats:
                                      owner = " (Владелец)" if openchat.creator else ""
                                      admin = " (Администратор)" if openchat.admin_rights is not None else ""
-                                     all_info.append(f"{i} - {openchat.title} \033[93m[{openchat.participants_count}]\033[0m \033[91m {owner} {admin}\033[0m ID:{openchat.id} \033[94m@{openchat.username}\033[0m")
+                                     # Получаем количество сообщений для данного чата
+                                     messages_count = chat_message_counts.get(openchat.id, 0)
+                                     all_info.append(f"{i} - {openchat.title} \033[93m[{openchat.participants_count}]\033[0m {messages_count} сообщений \033[91m {owner} {admin}\033[0m ID:{openchat.id} \033[94m@{openchat.username}\033[0m")
                                      i += 1
                                      groups.append(openchat)
-
+                                 
                                  all_info.append("\033[95mЗакрытые ГРУППЫ:\033[0m")
                                  for closechat in closechats:
                                      owner = " (Владелец)" if closechat.creator else ""
                                      admin = " (Администратор)" if closechat.admin_rights is not None else ""
-                                     all_info.append(f"{i} - {closechat.title} \033[93m[{closechat.participants_count}]\033[0m \033[91m {owner} {admin}\033[0m ID:{closechat.id}")
+                                     # Получаем количество сообщений для данного чата
+                                     messages_count = chat_message_counts.get(closechat.id, 0)
+                                     all_info.append(f"{i} - {closechat.title} \033[93m[{closechat.participants_count}]\033[0m {messages_count} сообщений \033[91m {owner} {admin}\033[0m ID:{closechat.id}")
                                      i += 1
                                      groups.append(closechat)
-                                    
+                                 
                                  print_pages(all_info, 25)
+
                                
                                  print()
                                  g_index_str = str(input("\033[92mВыберите чат для выгрузки всех сообщений из него ('e' - назад): \033[0m"))
