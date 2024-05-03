@@ -553,6 +553,7 @@ if __name__ == "__main__":
                               for openchat in openchats:
                                   owner = " (Владелец)" if openchat.creator else ""
                                   admin = " (Администратор)" if openchat.admin_rights is not None else ""
+                                  messages_count = chat_message_counts.get(openchat.id, 0)
                                   all_info.append(f"{i} - {openchat.title} \033[93m[{openchat.participants_count}\033[0m участников / \033[93m{messages_count}\033[0m сообщений] \033[91m{owner} {admin}\033[0m ID:{openchat.id} \033[94m@{openchat.username}\033[0m")
                                   i += 1
                                   groups.append(openchat)
@@ -561,6 +562,7 @@ if __name__ == "__main__":
                               for closechat in closechats:
                                   owner = " (Владелец)" if closechat.creator else ""
                                   admin = " (Администратор)" if closechat.admin_rights is not None else ""
+                                  messages_count = chat_message_counts.get(closechat.id, 0)
                                   all_info.append(f"{i} - {closechat.title} \033[93m[{closechat.participants_count}\033[0m участников / \033[93m{messages_count}\033[0m сообщений] \033[91m{owner} {admin}\033[0m ID:{closechat.id}")
                                   i += 1
                                   groups.append(closechat)
