@@ -639,6 +639,8 @@ if __name__ == "__main__":
                             lastname = me.last_name if me.last_name is not None else ""
                             phone = sessions[i].split('.')[0]
                             userinfo = f"(Номер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username})"
+
+                            count_messages_openchannels = 0
                            
                             chats = client.get_dialogs()
                             for chat in chats:
