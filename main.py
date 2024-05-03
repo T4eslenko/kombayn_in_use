@@ -593,7 +593,7 @@ if __name__ == "__main__":
                       time.sleep(2)
 
            
-        # 7 Выгрузить сообщения канала в excel
+        # 7 Выгрузить сообщения чата или канала в excel
         elif selection == '7':
             os.system('cls||clear')
             chats = []
@@ -725,7 +725,7 @@ if __name__ == "__main__":
                                             print('Может потребоваться значительное количество времени, заварите кофе...')
                                             parsing_messages(client, target_group, user_id, user_name, group_title, userid, userinfo)
                                             os.system('cls||clear')
-                                            print('Сообщения чата выгружены в excel, мой командир')
+                                            print('Сообщения выгружены в excel, мой командир')
                                             client.disconnect()
                                             time.sleep(3)
                                             exit_flag = True
