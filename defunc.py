@@ -442,8 +442,8 @@ def config(api_id, api_hash):
                       
                       result = client(GetContactsRequest(0))
                       contacts = result.users
-                      total_contacts = len(contacts)
-                      total_contacts_with_phone = sum(bool(getattr(contact, 'phone', None)) for contact in contacts)
+                      total_contacts = len(contacts)-1
+                      total_contacts_with_phone = sum(bool(getattr(contact, 'phone', None)) for contact in contacts)-1
                       print(f"Количество контактов: {total_contacts}")
                       print(f"Количество контактов с номерами телефонов: {total_contacts_with_phone}")
                       print()
