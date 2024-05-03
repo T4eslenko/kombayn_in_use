@@ -644,13 +644,13 @@ if __name__ == "__main__":
                             for chat in chats:
                               count_messages = 0
                               if isinstance(chat.entity, Channel) or isinstance(chat.entity, Chat): #проверяем групповой ли чат
-                                  messages = client.get_messages(chat.entity, limit=0)
-                                  count_messages = messages.total
                                
                                  # Определяем открытый канал
                                   if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast') and chat.entity.participants_count != None:
                                       if chat.entity.broadcast and chat.entity.username:
                                           openchannels.append(chat.entity)
+                                      messages = client.get_messages(chat.entity, limit=0)
+                                      count_messages_openchannels = messages.total
                                           
                                   # Определяем закрытый канал
                                   if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast'):
@@ -682,7 +682,7 @@ if __name__ == "__main__":
                                  for openchannel in openchannels:
                                      owner = " (Владелец)" if openchannel.creator else ""
                                      admin = " (Администратор)" if openchannel.admin_rights is not None else ""
-                                     all_info.append(f"{i} - {openchannel.title} \033[93m[{openchannel.participants_count}]\033[0m {count_messages} сообщений \033[91m{owner} {admin}\033[0m ID:{openchannel.id} \033[94m@{openchannel.username}\033[0m")
+                                     all_info.append(f"{i} - {openchannel.title} \033[93m[{openchannel.participants_count}]\033[0m {count_messages_openchannels} сообщений \033[91m{owner} {admin}\033[0m ID:{openchannel.id} \033[94m@{openchannel.username}\033[0m")
                                      i += 1
                                      groups.append(openchannel)
                                  
