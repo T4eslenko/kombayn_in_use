@@ -128,7 +128,12 @@ def parsing_xlsx(client, index: int, id: bool, name: bool, group_title, group_id
 
     wb.save(filename)
 
-#Выгружаем сообщения 
+#Выгружаем сообщения
+from openpyxl import Workbook
+from datetime import datetime
+from typing import Optional
+import re
+
 def remove_timezone(dt: datetime) -> Optional[datetime]:
     # Удаление информации о часовом поясе из объекта datetime
     if dt is None:
@@ -137,9 +142,8 @@ def remove_timezone(dt: datetime) -> Optional[datetime]:
         dt = dt.astimezone().replace(tzinfo=None)
     return dt
 
-def get_message_info(client, group_title, msg_id):
+def get_message_info(message):
     # Получение информации о сообщении
-    message = client.get_messages(group_title, ids=[msg_id])[0]
     if message is None:
         return None, None, None, None, None, None
     user_id = message.sender_id if isinstance(message.sender, User) else None
@@ -155,12 +159,12 @@ def parsing_messages(client, index: int, id_: bool, name: bool, group_title, use
     ws.cell(row=2, column=1, value=group_title)
     ws.append(['ID объекта', 'Group ID', 'Message ID', 'Date and Time', 'User ID', '@Username', 'First Name', 'Last Name', 'Message', 'Reply to Message', 'Reply to User ID', '@Reply Username', 'Reply First Name', 'Reply Last Name', 'Reply Message ID', 'Reply Date and Time'])
 
-    for message in client.get_messages(group_title, limit=None, reverse=True):
+    for message in client.iter_messages(group_title):
         # Проверяем, что message является экземпляром Message
         if not isinstance(message, Message):
             continue
         # Основная информация о сообщении
-        user_id, username, first_name, last_name, date, text = get_message_info(client, group_title, message.id)
+        user_id, username, first_name, last_name, date, text = get_message_info(message)
         if date is None:
             continue
         row_data = [
@@ -178,7 +182,7 @@ def parsing_messages(client, index: int, id_: bool, name: bool, group_title, use
         # Если сообщение является ответом на другое сообщение
         if isinstance(message.reply_to_msg_id, int):
             reply_msg_id = message.reply_to_msg_id
-            reply_user_id, reply_username, reply_first_name, reply_last_name, reply_date, reply_text = get_message_info(client, group_title, reply_msg_id)
+            reply_user_id, reply_username, reply_first_name, reply_last_name, reply_date, reply_text = get_message_info(client.get_messages(group_title, ids=[reply_msg_id])[0])
             if reply_date is None:
                 continue
             row_data.extend([
@@ -196,18 +200,9 @@ def parsing_messages(client, index: int, id_: bool, name: bool, group_title, use
 
         ws.append(row_data)
 
-    # Сохраняем книгу Excel с названием, содержащим group_title
-    #filename = f"{group_title}_messages.xlsx"
-    #wb.save(filename)
-    
-
-    import re
-
-    def sanitize_filename(filename):
     # Удаляем недопустимые символы из имени файла
+    def sanitize_filename(filename):
         return re.sub(r'[\\/*?:"<>|]', '', filename)
-
-# Пример использования
     
     clean_group_title = sanitize_filename(group_title)
 
@@ -217,6 +212,7 @@ def parsing_messages(client, index: int, id_: bool, name: bool, group_title, use
         filename = f"{clean_group_title}_messages.xlsx"
 
     wb.save(filename)
+
 
 
 
