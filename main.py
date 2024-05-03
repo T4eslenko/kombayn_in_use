@@ -644,8 +644,8 @@ if __name__ == "__main__":
                             for chat in chats:
                               count_messages = 0
                               if isinstance(chat.entity, Channel) or isinstance(chat.entity, Chat): #проверяем групповой ли чат
-                                 if hasattr(chat.entity, 'participants_count'):
-                                    participants_count = chat.entity.participants_count
+                                  if hasattr(chat.entity, 'participants_count'):
+                                      participants_count = chat.entity.participants_count
                                
                                  # Определяем открытый канал
                                   if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast') and chat.entity.participants_count != None:
