@@ -17,6 +17,8 @@ from telethon.tl.functions.messages import ImportChatInviteRequest
 from telethon.errors.rpcerrorlist import PeerFloodError, UserPrivacyRestrictedError
 from datetime import datetime
 from typing import Optional
+import re
+
   
 # Выгружаем контакты в Excel
 async def get_contacts(client, session_name, userid, userinfo):
@@ -129,11 +131,6 @@ def parsing_xlsx(client, index: int, id: bool, name: bool, group_title, group_id
     wb.save(filename)
 
 #Выгружаем сообщения 
-from openpyxl import Workbook
-from datetime import datetime
-from typing import Optional
-import re
-
 def remove_timezone(dt: datetime) -> Optional[datetime]:
     # Удаление информации о часовом поясе из объекта datetime
     if dt is None:
@@ -159,7 +156,7 @@ def parsing_messages(client, index: int, id_: bool, name: bool, group_title, use
     ws.cell(row=2, column=1, value=group_title)
     ws.append(['ID объекта', 'Group ID', 'Message ID', 'Date and Time', 'User ID', '@Username', 'First Name', 'Last Name', 'Message', 'Reply to Message', 'Reply to User ID', '@Reply Username', 'Reply First Name', 'Reply Last Name', 'Reply Message ID', 'Reply Date and Time'])
 
-    for message in client.iter_messages(group_title):
+    for message in client.iter_messages(group_title, reverse=True):
         # Проверяем, что message является экземпляром Message
         if not isinstance(message, Message):
             continue
