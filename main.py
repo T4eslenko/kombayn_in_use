@@ -643,6 +643,7 @@ if __name__ == "__main__":
                             count_messages_openchannels = []
                            
                             chats = client.get_dialogs()
+                            messages = client.get_messages(chat.entity, limit=0)
                             for chat in chats:
                               count_messages = 0
                               if isinstance(chat.entity, Channel) or isinstance(chat.entity, Chat): #проверяем групповой ли чат
@@ -651,8 +652,7 @@ if __name__ == "__main__":
                                   if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast') and chat.entity.participants_count != None:
                                       if chat.entity.broadcast and chat.entity.username:
                                           openchannels.append(chat.entity)
-                                      messages = client.get_messages(chat.entity, limit=0)
-                                      count_messages_openchannels.append(messages.total)
+                                          count_messages_openchannels.append(messages.total)
                                           
                                   # Определяем закрытый канал
                                   if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast'):
