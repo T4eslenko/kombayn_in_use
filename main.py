@@ -699,7 +699,7 @@ if __name__ == "__main__":
                                      admin = " (Администратор)" if closechannel.admin_rights is not None else ""
                                      # Получаем количество сообщений для данного чата
                                      messages_count = chat_message_counts.get(closechannel.id, 0)
-                                     all_info.append(f"{i} - {closechannel.title} \033[93m[{closechannel.participants_count}]\033[0m {messages_count} сообщений \033[91m{owner} {admin}\033[0m ID:{closechannel.id}")
+                                     all_info.append(f"{i} - {closechannel.title} \033[93m[{closechannel.participants_count}\033[0m участников/\033[95m{messages_count}\033[0m сообщений] \033[91m{owner} {admin}\033[0m ID:{closechannel.id}")
                                      i += 1
                                      groups.append(closechannel)
                                   
