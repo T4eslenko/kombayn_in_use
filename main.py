@@ -642,8 +642,11 @@ if __name__ == "__main__":
                            
                             chats = client.get_dialogs()
                             for chat in chats:
+                              count_messages = 0
                               if isinstance(chat.entity, Channel) or isinstance(chat.entity, Chat): #проверяем групповой ли чат
-                                
+                                 if hasattr(chat.entity, 'participants_count'):
+                                    participants_count = chat.entity.participants_count
+                               
                                  # Определяем открытый канал
                                   if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast') and chat.entity.participants_count != None:
                                       if chat.entity.broadcast and chat.entity.username:
@@ -679,7 +682,7 @@ if __name__ == "__main__":
                                  for openchannel in openchannels:
                                      owner = " (Владелец)" if openchannel.creator else ""
                                      admin = " (Администратор)" if openchannel.admin_rights is not None else ""
-                                     all_info.append(f"{i} - {openchannel.title} \033[93m[{openchannel.participants_count}]\033[0m\033[91m {owner} {admin}\033[0m ID:{openchannel.id} \033[94m@{openchannel.username}\033[0m")
+                                     all_info.append(f"{i} - {openchannel.title} \033[93m[{openchannel.participants_count}]\033[0m\033[91m {participants_count} участников {owner} {admin}\033[0m ID:{openchannel.id} \033[94m@{openchannel.username}\033[0m")
                                      i += 1
                                      groups.append(openchannel)
                                  
@@ -687,7 +690,7 @@ if __name__ == "__main__":
                                  for closechannel in closechannels:
                                      owner = " (Владелец)" if closechannel.creator else ""
                                      admin = " (Администратор)" if closechannel.admin_rights is not None else ""
-                                     all_info.append(f"{i} - {closechannel.title} \033[93m[{closechannel.participants_count}]\033[0m \033[91m{owner} {admin}\033[0m ID:{closechannel.id}")
+                                     all_info.append(f"{i} - {closechannel.title} \033[93m[{closechannel.participants_count}]\033[0m \033[91m {participants_count} участников {owner} {admin}\033[0m ID:{closechannel.id}")
                                      i += 1
                                      groups.append(closechannel)
                                  
@@ -695,7 +698,7 @@ if __name__ == "__main__":
                                  for openchat in openchats:
                                      owner = " (Владелец)" if openchat.creator else ""
                                      admin = " (Администратор)" if openchat.admin_rights is not None else ""
-                                     all_info.append(f"{i} - {openchat.title} \033[93m[{openchat.participants_count}]\033[0m\033[91m {owner} {admin}\033[0m ID:{openchat.id} \033[94m@{openchat.username}\033[0m")
+                                     all_info.append(f"{i} - {openchat.title} \033[93m[{openchat.participants_count}]\033[0m\033[91m {participants_count} участников {owner} {admin}\033[0m ID:{openchat.id} \033[94m@{openchat.username}\033[0m")
                                      i += 1
                                      groups.append(openchat)
 
@@ -703,7 +706,7 @@ if __name__ == "__main__":
                                  for closechat in closechats:
                                      owner = " (Владелец)" if closechat.creator else ""
                                      admin = " (Администратор)" if closechat.admin_rights is not None else ""
-                                     all_info.append(f"{i} - {closechat.title} \033[93m[{closechat.participants_count}]\033[0m \033[91m{owner} {admin}\033[0m ID:{closechat.id}")
+                                     all_info.append(f"{i} - {closechat.title} \033[93m[{closechat.participants_count}]\033[0m \033[91m {participants_count} участников {owner} {admin}\033[0m ID:{closechat.id}")
                                      i += 1
                                      groups.append(closechat)
                                     
