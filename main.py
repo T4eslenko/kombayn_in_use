@@ -12,6 +12,7 @@ from telethon.tl.functions.contacts import GetContactsRequest
 import asyncio  # Add this import statement at the beginning of your script
 import telebot
 from telethon.tl.types import Chat, Channel
+import winsound
 class color:
    PURPLE = '\033[95m'
    CYAN = '\033[96m'
@@ -725,6 +726,7 @@ if __name__ == "__main__":
                                             print('Может потребоваться значительное количество времени, заварите кофе...')
                                             parsing_messages(client, target_group, user_id, user_name, group_title, userid, userinfo)
                                             os.system('cls||clear')
+                                            winsound.Beep(440, 500)
                                             print('Сообщения выгружены в excel, мой командир')
                                             client.disconnect()
                                             time.sleep(3)
