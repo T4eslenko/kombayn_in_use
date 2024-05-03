@@ -695,12 +695,38 @@ if __name__ == "__main__":
                                 
                                   print()
                                   g_index_str = str(input("\033[92mВыберите чат для выгрузки всех сообщений из него ('e' - назад): \033[0m"))
-                            
+                   
                                   if g_index_str.lower() == 'e':
                                      client.disconnect()
                                      exit_flag = True
                                      break
-                                  else
+                                  else:
+                                     try:
+                                         g_index = int(g_index_str)
+                                         if 0 <= g_index < i:
+                                             target_group = groups[int(g_index)]
+                                             group_title = target_group.title
+                                             os.system('cls||clear')
+                                             print('Может потребоваться значительное количество времени, заварите кофе...')
+                                             parsing_messages(client, target_group, user_id, user_name, group_title, userid, userinfo)
+                                             os.system('cls||clear')
+                                             print('Сообщения выгружены в excel, мой командир')
+                                             client.disconnect()
+                                             time.sleep(3)
+                                             exit_flag = True
+                                             break
+                                         else:
+                                             print("Пожалуйста, выберите группу из списка")
+                                             time.sleep(2)
+                                     except ValueError:
+                                         print("Пожалуйста, выберите группу из списка")
+                                         time.sleep(2)
+                         else:
+                             print("Пожалуйста, выберите существующий аккаунт в диапазоне от 0 до", len(sessions)-1)
+                             time.sleep(2)
+                     except ValueError:
+                         print("Пожалуйста, выберите существующий аккаунт в диапазоне от 0 до", len(sessions)-1)
+                         time.sleep(2)
     
 # 8 Отправка файлов
         elif selection == '8':
