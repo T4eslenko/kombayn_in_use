@@ -65,11 +65,11 @@ def get_messages_from_chats(client):
     for chat in chats:
         count_messages = 0
         if isinstance(chat.entity, Channel) or isinstance(chat.entity, Chat): # проверяем групповой ли чат
-            #messages = client.get_messages(chat.entity, limit=0)
-            #count_messages = messages.total
+            messages = client.get_messages(chat.entity, limit=0)
+            count_messages = messages.total
 
             # Добавляем количество сообщений в словарь, где ключ - ID чата
-            #chat_message_counts[chat.entity.id] = count_messages
+            chat_message_counts[chat.entity.id] = count_messages
 
             # Определяем открытый канал
             if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast') and chat.entity.participants_count is not None:
@@ -599,7 +599,7 @@ if __name__ == "__main__":
                                      admin = " (Администратор)" if openchannel.admin_rights is not None else ""
                                      # Получаем количество сообщений для данного чата
                                      messages_count = chat_message_counts.get(openchannel.id, 0)
-                                     all_info.append(f"{i} - {openchannel.title} [\033[93m[{openchannel.participants_count}\033[0m участников / \033[93m{messages_count}\033[0m сообщений] \033[91m{owner} {admin}\033[0m ID:{openchannel.id} \033[94m@{openchannel.username}\033[0m")
+                                     all_info.append(f"{i} - {openchannel.title} \033[93m[{openchannel.participants_count}\033[0m участников / \033[93m{messages_count}\033[0m сообщений] \033[91m{owner} {admin}\033[0m ID:{openchannel.id} \033[94m@{openchannel.username}\033[0m")
                                      i += 1
                                      groups.append(openchannel)
                                   
