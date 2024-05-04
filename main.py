@@ -42,7 +42,7 @@ def print_pages(items, items_per_page):
             print("\033[A\033[K", end='')
 
 
-def get_user_info(client, session):
+def get_user_info(client, sessions):
     """Функция для получения информации о пользователе и его ID."""
     me = client.get_me()
     userid = me.id
@@ -130,8 +130,8 @@ if __name__ == "__main__":
                             client.connect()
 
                             # Получение информации о пользователе
-                            get_user_info(client, session)
-                            userid, userinfo, phone, firstname,lastname, username = get_user_info(client, session)
+                            get_user_info(client, sessions)
+                            userid, userinfo, phone, firstname,lastname, username = get_user_info(client, sessions)
                            
                             #me = client.get_me()
                             #userid = me.id
@@ -231,8 +231,8 @@ if __name__ == "__main__":
                              #break
                              
                              # Получение информации о пользователе
-                             get_user_info(client, session)
-                             userid, userinfo, phone, firstname,lastname, username = get_user_info(client, session)
+                             get_user_info(client, sessions)
+                             userid, userinfo, phone, firstname,lastname, username = get_user_info(client, sessions)
          
                              chats = client.get_dialogs()
                              for chat in chats:
@@ -419,8 +419,8 @@ if __name__ == "__main__":
                           client.connect()
       
                           # Получение информации о пользователе
-                          get_user_info(client, session)
-                          userid, userinfo, phone, firstname,lastname, username = get_user_info(client, session)
+                          get_user_info(client, sessions)
+                          userid, userinfo, phone, firstname,lastname, username = get_user_info(client, sessions)
                          
                           chats = client.get_dialogs()
                           for chat in chats:
@@ -538,8 +538,8 @@ if __name__ == "__main__":
                             client.connect()
                            
                             # Получение информации о пользователе
-                            get_user_info(client, session)
-                            userid, userinfo, phone, firstname,lastname, username = get_user_info(client, session)
+                            get_user_info(client, sessions)
+                            userid, userinfo, phone, firstname,lastname, username = get_user_info(client, sessions)
 
                             chat_message_counts = {}
                             chats = client.get_dialogs()
