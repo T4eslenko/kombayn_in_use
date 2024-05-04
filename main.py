@@ -66,11 +66,14 @@ def get_messages_from_chats(client, selection):
         count_messages = 0
         if isinstance(chat.entity, Channel) or isinstance(chat.entity, Chat): # проверяем групповой ли чат
             if selection == 7:
-               messages = client.get_messages(chat.entity, limit=0)
-               count_messages = messages.total
+                messages = client.get_messages(chat.entity, limit=0)
+                count_messages = messages.total
 
-               # Добавляем количество сообщений в словарь, где ключ - ID чата
-               chat_message_counts[chat.entity.id] = count_messages
+                # Добавляем количество сообщений в словарь, где ключ - ID чата
+                chat_message_counts[chat.entity.id] = count_messages
+                print(selection)
+                input(";vb")
+                break
 
             # Определяем открытый канал
             if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast') and chat.entity.participants_count is not None:
