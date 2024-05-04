@@ -243,10 +243,6 @@ if __name__ == "__main__":
              owner_group = 0
              owner_closegroup = 0
              owner_closechannel = 0
-             openchannel_list = []
-             closechannel_list = []
-             closechat_list = []
-             openchat_list = []
              all_info = []
          
          
@@ -263,9 +259,9 @@ if __name__ == "__main__":
                      break
                  else:
                      try:
-                         i = int(user_input)
+                         session_index = int(user_input)
                          if 0 <= i < len(sessions):
-                             client = TelegramClient(sessions[i].replace('\n', ''), api_id, api_hash)
+                             client = TelegramClient(sessions[session_index].replace('\n', ''), api_id, api_hash)
                              client.connect()
          
                              #qqqs = client.get_dialogs()
@@ -415,8 +411,6 @@ if __name__ == "__main__":
           group_list = []
           all_info = []
           exit_flag = False
-          openchats = []
-          closechats = []
           openchat_list = []
           closechat_list = []
           all_info = []
@@ -516,10 +510,6 @@ if __name__ == "__main__":
             size_chats = 200
             groups = []
             exit_flag = False
-            openchannels = []
-            closechannels = []
-            openchats = []
-            closechats = []
             openchannel_list = []
             closechannel_list = []
             openchat_list = []
