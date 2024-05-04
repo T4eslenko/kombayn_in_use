@@ -88,21 +88,14 @@ def get_messages_from_chats(client, selection):
 
             # Определяем закрытый чат
             if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast'):
-                if not chat.entity.broadcast and chat.entity.username is None:
-                    closechats.append(chat.entity)
+               if chat.entity.broadcast == False and chat.entity.username == None:
+                  closechats.append(chat.entity)
             if isinstance(chat.entity, Chat) and chat.entity.migrated_to is None:
-                closechats.append(chat.entity)
+               closechats.append(chat.entity)
             if selection == '5': #Добавляем нулевые чаты для общей информации
                if isinstance(chat.entity, Chat) and hasattr(chat.entity, 'participants_count') and chat.entity.participants_count == 0:
-                  if isinstance(chat.entity.migrated_to, InputChannel):
-                     migrated_channel_id = chat.entity.migrated_to.channel_id
-                     # Проверка, упоминается ли channel_id в других диалогах
-                     if migrated_channel_id not in mentioned_channels:
-                         # Если нет, добавляем текущий диалог в список closechats
-                         closechats.append(chat.entity)
-                     mentioned_channels.append(migrated_channel_id)
+                  closechats.append(chat.entity)
  
-
     return chat_message_counts, openchannels, closechannels, openchats, closechats
 
 # Инициализация Telegram-бота
