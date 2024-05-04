@@ -24,6 +24,24 @@ class color:
    UNDERLINE = '\033[4m'
    END = '\033[0m'
 
+
+#вывод строк постранично
+def print_pages(items, items_per_page):
+    num_items = len(items)
+    num_pages = (num_items + items_per_page - 1) // items_per_page
+    
+    for page_num in range(num_pages):
+        start_index = page_num * items_per_page
+        end_index = min(start_index + items_per_page, num_items)
+        page_items = items[start_index:end_index]
+        for item in page_items:
+            print(item)
+        # Запрос на нажатие клавиши, если не все элементы были выведены и не последняя страница
+        if end_index < num_items and page_num < num_pages - 1:
+            input("\033[93mНажмите Enter для продолжения...\033[0m")
+            print("\033[A\033[K", end='')
+
+
 def get_user_info(client, session):
     """Функция для получения информации о пользователе и его ID."""
     me = client.get_me()
@@ -764,19 +782,3 @@ if __name__ == "__main__":
                 except Exception as error:
                     print(error)
                     break
-
-#вывод строк постранично
-def print_pages(items, items_per_page):
-    num_items = len(items)
-    num_pages = (num_items + items_per_page - 1) // items_per_page
-    
-    for page_num in range(num_pages):
-        start_index = page_num * items_per_page
-        end_index = min(start_index + items_per_page, num_items)
-        page_items = items[start_index:end_index]
-        for item in page_items:
-            print(item)
-        # Запрос на нажатие клавиши, если не все элементы были выведены и не последняя страница
-        if end_index < num_items and page_num < num_pages - 1:
-            input("\033[93mНажмите Enter для продолжения...\033[0m")
-            print("\033[A\033[K", end='')
