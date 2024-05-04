@@ -98,7 +98,7 @@ if __name__ == "__main__":
 
 
        # 4 Выгрузить список контактов в excel
-        elif selection == '4':
+        if selection == '4':
             os.system('cls||clear')
             sessions = []
             for file in os.listdir('.'):
@@ -682,7 +682,7 @@ if __name__ == "__main__":
 
 
 # 1 Настройки
-        if selection == '1':
+        elif selection == '1':
             config(api_id, api_hash) 
 
 
