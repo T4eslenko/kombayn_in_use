@@ -65,8 +65,8 @@ def count_chat_messages(client):
     for chat in chats:
         count_messages = 0
         if isinstance(chat.entity, Channel) or isinstance(chat.entity, Chat): # проверяем групповой ли чат
-            messages = client.get_messages(chat.entity, limit=0)
-            count_messages = messages.total
+            #messages = client.get_messages(chat.entity, limit=0)
+            #count_messages = messages.total
 
             # Добавляем количество сообщений в словарь, где ключ - ID чата
             chat_message_counts[chat.entity.id] = count_messages
