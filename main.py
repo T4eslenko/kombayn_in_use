@@ -64,11 +64,8 @@ def get_messages_from_chats(client, selection):
     chats = client.get_dialogs()
     for chat in chats:
         count_messages = 0
-        print(selection)
-        input(";vb")
-        break
         if isinstance(chat.entity, Channel) or isinstance(chat.entity, Chat): # проверяем групповой ли чат
-            if selection == 7:
+            if selection == '7':
                 messages = client.get_messages(chat.entity, limit=0)
                 count_messages = messages.total
 
