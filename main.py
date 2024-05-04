@@ -113,7 +113,7 @@ if __name__ == "__main__":
 
                             # Получение информации о пользователе
                             get_user_info(client, session)
-                            userid, user_info = get_user_info(client, session)
+                            userid, userinfo = get_user_info(client, session)
                            
                             #me = client.get_me()
                             #userid = me.id
