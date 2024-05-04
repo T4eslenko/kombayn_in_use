@@ -225,8 +225,8 @@ if __name__ == "__main__":
                             firstname = me.first_name
                             username = f"@{me.username}" if me.username is not None else ""
                             lastname = me.last_name if me.last_name is not None else ""
-                            phone_session = sessions[session_index].split('.')[0]
-                            userinfo = f"(Номер телефона: +{phone_session}, ID: {userid}, ({firstname}{lastname}) {username})"
+                            phone = sessions[session_index].split('.')[0]
+                            userinfo = f"(Номер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username})"
 
                             asyncio.get_event_loop().run_until_complete(get_contacts(client, sessions[session_index].replace('.session', ''), userid, userinfo))
                             os.system('cls||clear')
