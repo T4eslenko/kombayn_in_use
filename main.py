@@ -53,7 +53,47 @@ def get_user_info(client, sessions):
     userinfo = f"(Номер телефона: +{phone}, ID: {userid}, ({firstname} {lastname}) {username})"
     return userid, userinfo, phone, firstname,lastname, username
 
+def count_chat_messages(client):
+    """Функция для подсчета количества сообщений в чатах и определения типов чатов."""
+    chat_message_counts = {}
+    openchannels = []
+    closechannels = []
+    openchats = []
+    closechats = []
 
+    chats = client.get_dialogs()
+    for chat in chats:
+        count_messages = 0
+        if isinstance(chat.entity, Channel) or isinstance(chat.entity, Chat): # проверяем групповой ли чат
+            messages = client.get_messages(chat.entity, limit=0)
+            count_messages = messages.total
+
+            # Добавляем количество сообщений в словарь, где ключ - ID чата
+            chat_message_counts[chat.entity.id] = count_messages
+
+            # Определяем открытый канал
+            if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast') and chat.entity.participants_count is not None:
+                if chat.entity.broadcast and chat.entity.username:
+                    openchannels.append(chat.entity)
+
+            # Определяем закрытый канал
+            if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast'):
+                if chat.entity.broadcast and chat.entity.username is None and chat.entity.title != 'Unsupported Chat':
+                    closechannels.append(chat.entity)
+
+            # Определяем открытый чат
+            if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast'):
+                if not chat.entity.broadcast and chat.entity.username:
+                    openchats.append(chat.entity)
+
+            # Определяем закрытый чат
+            if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast'):
+                if not chat.entity.broadcast and chat.entity.username is None:
+                    closechats.append(chat.entity)
+            if isinstance(chat.entity, Chat) and chat.entity.migrated_to is None:
+                closechats.append(chat.entity)
+
+    return chat_message_counts, openchannels, closechannels, openchats, closechats
 
 # Инициализация Telegram-бота
 bot = telebot.TeleBot("7177580903:AAGMpLN2UH-csFThYwl_IZfZF9vGAgAjMOk")
@@ -539,39 +579,10 @@ if __name__ == "__main__":
                             get_user_info(client, sessions)
                             userid, userinfo, phone, firstname,lastname, username = get_user_info(client, sessions)
 
-                            chat_message_counts = {}
-                            chats = client.get_dialogs()
-                            for chat in chats:
-                              count_messages = 0
-                              if isinstance(chat.entity, Channel) or isinstance(chat.entity, Chat): #проверяем групповой ли чат
-                                  messages = client.get_messages(chat.entity, limit=0)
-                                  count_messages = messages.total
-                     
-                                  # Добавляем количество сообщений в словарь, где ключ - ID чата
-                                  chat_message_counts[chat.entity.id] = count_messages
-                                 
-                                 # Определяем открытый канал
-                                  if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast') and chat.entity.participants_count != None:
-                                      if chat.entity.broadcast and chat.entity.username:
-                                          openchannels.append(chat.entity)
+                            # Получение информации о чатах и каналах
+                            count_chat_messages(client)
+                            chat_message_counts, openchannels, closechannels, openchats, closechats = count_chat_messages(client)
 
-                                          
-                                  # Определяем закрытый канал
-                                  if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast'):
-                                      if chat.entity.broadcast and chat.entity.username == None and chat.entity.title != 'Unsupported Chat':
-                                          closechannels.append(chat.entity)
-                                          
-                                  # Определяем открытый чат
-                                  if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast'):
-                                      if chat.entity.broadcast == False and chat.entity.username:
-                                          openchats.append(chat.entity)
-                                  
-                                  # Определяем закрытый чат
-                                  if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast'):
-                                      if chat.entity.broadcast == False and chat.entity.username == None:
-                                          closechats.append(chat.entity)
-                                  if isinstance(chat.entity, Chat) and chat.entity.migrated_to is None:
-                                     closechats.append(chat.entity)
                                  
                             
                             while True:
