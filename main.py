@@ -31,8 +31,8 @@ def get_user_info(client, session):
     firstname = me.first_name
     username = f"@{me.username}" if me.username is not None else ""
     lastname = me.last_name if me.last_name is not None else ""
-    phone = session.split('.')[0]
-    userinfo = f"(Номер телефона: +{phone}, ID: {userid}, ({firstname} {lastname}) {username})"
+    phone = sessions[session_index].split('.')[0]
+    userinfo = f"(Номер телефона: +{phone_session}, ID: {userid}, ({firstname} {lastname}) {username})"
     return userid, userinfo
 
 
