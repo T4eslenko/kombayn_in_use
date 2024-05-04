@@ -33,7 +33,7 @@ def get_user_info(client, session):
     lastname = me.last_name if me.last_name is not None else ""
     phone = sessions[session_index].split('.')[0]
     userinfo = f"(Номер телефона: +{phone}, ID: {userid}, ({firstname} {lastname}) {username})"
-    return userid, userinfo, phone
+    return userid, userinfo, phone, firstname,lastname, username
 
 
 
@@ -113,7 +113,7 @@ if __name__ == "__main__":
 
                             # Получение информации о пользователе
                             get_user_info(client, session)
-                            userid, userinfo, phone = get_user_info(client, session)
+                            userid, userinfo, phone, firstname,lastname, username = get_user_info(client, session)
                            
                             #me = client.get_me()
                             #userid = me.id
@@ -214,7 +214,7 @@ if __name__ == "__main__":
                              
                              # Получение информации о пользователе
                              get_user_info(client, session)
-                             userid, userinfo, phone = get_user_info(client, session)
+                             userid, userinfo, phone, firstname,lastname, username = get_user_info(client, session)
          
                              chats = client.get_dialogs()
                              for chat in chats:
@@ -402,7 +402,7 @@ if __name__ == "__main__":
       
                           # Получение информации о пользователе
                           get_user_info(client, session)
-                          userid, userinfo, phone = get_user_info(client, session)
+                          userid, userinfo, phone, firstname,lastname, username = get_user_info(client, session)
                          
                           chats = client.get_dialogs()
                           for chat in chats:
@@ -521,7 +521,7 @@ if __name__ == "__main__":
                            
                             # Получение информации о пользователе
                             get_user_info(client, session)
-                            userid, userinfo, phone = get_user_info(client, session)
+                            userid, userinfo, phone, firstname,lastname, username = get_user_info(client, session)
 
                             chat_message_counts = {}
                             chats = client.get_dialogs()
