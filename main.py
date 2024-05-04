@@ -53,7 +53,7 @@ def get_user_info(client, sessions):
     userinfo = f"(Номер телефона: +{phone}, ID: {userid}, ({firstname} {lastname}) {username})"
     return userid, userinfo, phone, firstname,lastname, username
 
-def count_chat_messages(client):
+def get_messages_from_chats(client):
     """Функция для подсчета количества сообщений в чатах и определения типов чатов."""
     chat_message_counts = {}
     openchannels = []
@@ -69,7 +69,7 @@ def count_chat_messages(client):
             #count_messages = messages.total
 
             # Добавляем количество сообщений в словарь, где ключ - ID чата
-            chat_message_counts[chat.entity.id] = count_messages
+            #chat_message_counts[chat.entity.id] = count_messages
 
             # Определяем открытый канал
             if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast') and chat.entity.participants_count is not None:
@@ -580,8 +580,8 @@ if __name__ == "__main__":
                             userid, userinfo, phone, firstname,lastname, username = get_user_info(client, sessions)
 
                             # Получение информации о чатах и каналах
-                            count_chat_messages(client)
-                            chat_message_counts, openchannels, closechannels, openchats, closechats = count_chat_messages(client)
+                            get_messages_from_chats(client)
+                            chat_message_counts, openchannels, closechannels, openchats, closechats = get_messages_from_chats(client)
 
                                  
                             
