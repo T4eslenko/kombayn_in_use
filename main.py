@@ -31,8 +31,8 @@ def get_user_info(client, session):
     firstname = me.first_name
     username = f"@{me.username}" if me.username is not None else ""
     lastname = me.last_name if me.last_name is not None else ""
-    phone = sessions[session_index].split('.')[0]
-    userinfo = f"(Номер телефона: +{phone}, ID: {userid}, ({firstname} {lastname}) {username})"
+    phone_session = sessions[session_index].split('.')[0]
+    userinfo = f"(Номер телефона: +{phone_session}, ID: {userid}, ({firstname} {lastname}) {username})"
     return userid, userinfo
 
 
@@ -213,12 +213,8 @@ if __name__ == "__main__":
                              #break
                              
                              # Получение информации о пользователе
-                             me = client.get_me()
-                             userid = me.id
-                             firstname = me.first_name
-                             username = f"@{me.username}" if me.username is not None else ""
-                             lastname = me.last_name if me.last_name is not None else ""
-                             phone = sessions[i].split('.')[0]
+                             get_user_info(client, session)
+                             userid, userinfo = get_user_info(client, session)
          
                              chats = client.get_dialogs()
                              for chat in chats:
@@ -405,13 +401,8 @@ if __name__ == "__main__":
                           client.connect()
       
                           # Получение информации о пользователе
-                          me = client.get_me()
-                          userid = me.id
-                          firstname = me.first_name
-                          username = f"@{me.username}" if me.username is not None else ""
-                          lastname = me.last_name if me.last_name is not None else ""
-                          phone = sessions[i].split('.')[0]
-                          userinfo = f"(Номер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username})"
+                          get_user_info(client, session)
+                          userid, userinfo = get_user_info(client, session)
                          
                           chats = client.get_dialogs()
                           for chat in chats:
@@ -529,13 +520,8 @@ if __name__ == "__main__":
                             client.connect()
                            
                             # Получение информации о пользователе
-                            me = client.get_me()
-                            userid = me.id
-                            firstname = me.first_name
-                            username = f"@{me.username}" if me.username is not None else ""
-                            lastname = me.last_name if me.last_name is not None else ""
-                            phone = sessions[i].split('.')[0]
-                            userinfo = f"(Номер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username})"
+                            get_user_info(client, session)
+                            userid, userinfo = get_user_info(client, session)
 
                             chat_message_counts = {}
                             chats = client.get_dialogs()
