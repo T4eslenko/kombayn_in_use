@@ -317,10 +317,11 @@ if __name__ == "__main__":
                                      og += 1
                                      if owner !="" or admin != "":
                                          owner_group += 1
-                                 
+
+                                 closechats_sorted = sorted(closechats, key=lambda chat: chat.participants_count, reverse=True)
                                  all_info.append("\033[95mЗакрытые ГРУППЫ:\033[0m")
                                  cg = 1
-                                 for closechat in closechats:
+                                 for closechat in closechats_sorted:
                                      owner = " (Владелец)" if closechat.creator else ""
                                      admin = " (Администратор)" if closechat.admin_rights is not None else ""
                                      all_info.append(f"{cg} - {closechat.title} \033[93m[{closechat.participants_count}]\033[0m \033[91m{owner} {admin}\033[0m ID:{closechat.id}")
