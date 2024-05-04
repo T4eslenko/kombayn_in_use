@@ -69,10 +69,7 @@ def get_messages_from_chats(client, selection):
             if selection == '7': #выгружаем количество сообщений при функции выгрузить сообщение
                 messages = client.get_messages(chat.entity, limit=0)
                 count_messages = messages.total
-
-                # Добавляем количество сообщений в словарь, где ключ - ID чата
                 chat_message_counts[chat.entity.id] = count_messages
-
 
             # Определяем открытый канал
             if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast') and chat.entity.participants_count is not None:
@@ -97,12 +94,12 @@ def get_messages_from_chats(client, selection):
                 closechats.append(chat.entity)
             if selection == '5': #Добавляем нулевые чаты для общей информации
                if isinstance(chat.entity, Chat) and hasattr(chat.entity, 'participants_count') and chat.entity.participants_count == 0:
-                  if isinstance(dialog.entity.migrated_to, InputChannel):
-                     migrated_channel_id = dialog.entity.migrated_to.channel_id
+                  if isinstance(chat.entity.migrated_to, InputChannel):
+                     migrated_channel_id = chat.entity.migrated_to.channel_id
                      # Проверка, упоминается ли channel_id в других диалогах
                      if migrated_channel_id not in mentioned_channels:
                          # Если нет, добавляем текущий диалог в список closechats
-                         closechats.append(dialog.entity)
+                         closechats.append(chat.entity)
                      mentioned_channels.append(migrated_channel_id)
  
 
