@@ -94,6 +94,9 @@ def get_messages_from_chats(client, selection):
                     closechats.append(chat.entity)
             if isinstance(chat.entity, Chat) and chat.entity.migrated_to is None:
                 closechats.append(chat.entity)
+            if selection == '5':
+               if isinstance(chat.entity, Chat) and hasattr(chat.entity, 'participants_count') and chat.entity.participants_count == 0:
+                  closechats.append(chat.entity)
 
     return chat_message_counts, openchannels, closechannels, openchats, closechats
 
@@ -275,35 +278,11 @@ if __name__ == "__main__":
                              # Получение информации о пользователе
                              get_user_info(client, sessions)
                              userid, userinfo, phone, firstname,lastname, username = get_user_info(client, sessions)
-         
-                             chats = client.get_dialogs()
-                             for chat in chats:
-                                 if isinstance(chat.entity, Channel) or isinstance(chat.entity, Chat): #проверяем групповой ли чат
-                                     # Определяем открытый канал
-                                     if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast') and chat.entity.participants_count != None:
-                                         if chat.entity.broadcast and chat.entity.username:
-                                             openchannels.append(chat.entity)
-                                             
-                                     # Определяем закрытый канал
-                                     if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast'):
-                                         if chat.entity.broadcast and chat.entity.username == None and chat.entity.title != 'Unsupported Chat':
-                                             closechannels.append(chat.entity)
-                                             
-                                     # Определяем открытый чат
-                                     if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast'):
-                                         if chat.entity.broadcast == False and chat.entity.username:
-                                             openchats.append(chat.entity)
-                                     
-                                     # Определяем закрытый чат
-                                     if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast'):
-                                         if chat.entity.broadcast == False and chat.entity.username == None:
-                                             closechats.append(chat.entity)
-                                     if isinstance(chat.entity, Chat) and chat.entity.migrated_to is None:
-                                         closechats.append(chat.entity)
-                                     if isinstance(chat.entity, Chat) and hasattr(chat.entity, 'participants_count') and chat.entity.participants_count == 0:
-                                         closechats.append(chat.entity)
-  
-                             
+
+                             # Получение информации о чатах и каналах
+                             get_messages_from_chats(client, selection)
+                             chat_message_counts, openchannels, closechannels, openchats, closechats = get_messages_from_chats(client, selection)
+                            
                  
                              while True:
                                  os.system('cls||clear')
