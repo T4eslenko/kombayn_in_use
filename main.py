@@ -65,7 +65,7 @@ def get_messages_from_chats(client, selection):
     for chat in chats:
         count_messages = 0
         if isinstance(chat.entity, Channel) or isinstance(chat.entity, Chat): # проверяем групповой ли чат
-            if selection == '7':
+            if selection == '7': #выгружаем количество сообщений при функции выгрузить сообщение
                 messages = client.get_messages(chat.entity, limit=0)
                 count_messages = messages.total
 
@@ -94,7 +94,7 @@ def get_messages_from_chats(client, selection):
                     closechats.append(chat.entity)
             if isinstance(chat.entity, Chat) and chat.entity.migrated_to is None:
                 closechats.append(chat.entity)
-            if selection == '5':
+            if selection == '5': #Добавляем нулевые чаты для общей информации
                if isinstance(chat.entity, Chat) and hasattr(chat.entity, 'participants_count') and chat.entity.participants_count == 0:
                   closechats.append(chat.entity)
 
@@ -260,12 +260,12 @@ if __name__ == "__main__":
                              client = TelegramClient(sessions[session_index].replace('\n', ''), api_id, api_hash)
                              client.connect()
          
-                             #qqqs = client.get_dialogs()
+                             qqqs = client.get_dialogs()
          
-                             #for qqq in qqqs:
-                              #   print(qqq)
-                             #input("нажми")
-                             #break
+                             for qqq in qqqs:
+                                print(qqq)
+                             input("нажми")
+                             break
                              
                              # Получение информации о пользователе
                              get_user_info(client, sessions)
