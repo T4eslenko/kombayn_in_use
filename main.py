@@ -11,7 +11,7 @@ from telethon.tl.types import InputPhoneContact
 from telethon.tl.functions.contacts import GetContactsRequest
 import asyncio  # Add this import statement at the beginning of your script
 import telebot
-from telethon.tl.types import Chat, Channel
+from telethon.tl.types import Chat, Channel, InputChannel
 class color:
    PURPLE = '\033[95m'
    CYAN = '\033[96m'
@@ -60,6 +60,7 @@ def get_messages_from_chats(client, selection):
     closechannels = []
     openchats = []
     closechats = []
+    mentioned_channels = []
 
     chats = client.get_dialogs()
     for chat in chats:
@@ -96,7 +97,14 @@ def get_messages_from_chats(client, selection):
                 closechats.append(chat.entity)
             if selection == '5': #Добавляем нулевые чаты для общей информации
                if isinstance(chat.entity, Chat) and hasattr(chat.entity, 'participants_count') and chat.entity.participants_count == 0:
-                  closechats.append(chat.entity)
+                  if isinstance(dialog.entity.migrated_to, InputChannel):
+                     migrated_channel_id = dialog.entity.migrated_to.channel_id
+                     # Проверка, упоминается ли channel_id в других диалогах
+                     if migrated_channel_id not in mentioned_channels:
+                         # Если нет, добавляем текущий диалог в список closechats
+                         closechats.append(dialog.entity)
+                     mentioned_channels.append(migrated_channel_id)
+ 
 
     return chat_message_counts, openchannels, closechannels, openchats, closechats
 
