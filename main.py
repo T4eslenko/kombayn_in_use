@@ -65,6 +65,7 @@ def get_type_of_chats(client, selection):
     deactivated_chats = []
     all_chats_ids = []
     chats = client.get_dialogs()
+    migrated_to = chat.migrated_to
    
     for chat in chats:
       
