@@ -75,7 +75,7 @@ def get_type_of_chats(client, selection):
             
             if selection == '7': #выгружаем количество сообщений при функции выгрузить сообщение
                 messages = client.get_messages(chat.entity, limit=0)
-                count_messages = messages.total
+                chat_message_counts = messages.total
 
             # Определяем открытый канал
             if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast') and chat.entity.participants_count is not None:
