@@ -112,7 +112,12 @@ def get_type_of_chats(client, selection):
               for chat in chats:
                   if deleted not in all_chats_ids:
                       if isinstance(chat.entity, Chat) and hasattr(chat.entity, 'participants_count') and chat.entity.participants_count == 0:
-                          chat_info = chat.entity
+                          
+                          chat_info = {
+                              'chat.entity,
+                              'title': chat.entity.title,
+                              # Добавьте любую другую информацию о чате, которая вам нужна
+                          }
                           closechats_deleted.append(chat_info)
                           print(chat)
                           print(chat.entity)
@@ -197,14 +202,6 @@ if __name__ == "__main__":
                             # Получение информации о пользователе
                             get_user_info(client, sessions)
                             userid, userinfo, phone, firstname,lastname, username = get_user_info(client, sessions)
-                           
-                            #me = client.get_me()
-                            #userid = me.id
-                            #firstname = me.first_name
-                            #username = f"@{me.username}" if me.username is not None else ""
-                            #lastname = me.last_name if me.last_name is not None else ""
-                            #phone = sessions[session_index].split('.')[0]
-                            #userinfo = f"(Номер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username})"
 
                             asyncio.get_event_loop().run_until_complete(get_contacts(client, sessions[session_index].replace('.session', ''), userid, userinfo))
                             os.system('cls||clear')
