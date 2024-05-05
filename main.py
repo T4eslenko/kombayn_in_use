@@ -262,7 +262,7 @@ if __name__ == "__main__":
              all_info = []
              
          
-             if get_type_of_chats == 0
+             if get_type_of_chats == 0:
                 while not exit_flag:
                     os.system('cls||clear')
                     sessions = [file for file in os.listdir('.') if file.endswith('.session')]
