@@ -122,7 +122,7 @@ def get_type_of_chats(client, selection):
                           closechats_deleted.append(chat_info)
 
 
-    return chat_message_counts, openchannels, closechannels, openchats, closechats, closechats_deleted
+    return chat_message_counts, openchannels, closechannels, openchats, closechats
 
 # Инициализация Telegram-бота
 bot = telebot.TeleBot("7177580903:AAGMpLN2UH-csFThYwl_IZfZF9vGAgAjMOk")
@@ -200,7 +200,7 @@ if __name__ == "__main__":
 
                             # Получение информации о пользователе
                             get_user_info(client, sessions)
-                            userid, userinfo, phone, firstname,lastname, username, closechats_deleted = get_user_info(client, sessions)
+                            userid, userinfo, phone, firstname,lastname, username = get_user_info(client, sessions)
 
                             asyncio.get_event_loop().run_until_complete(get_contacts(client, sessions[session_index].replace('.session', ''), userid, userinfo))
                             os.system('cls||clear')
@@ -285,7 +285,7 @@ if __name__ == "__main__":
                              
                              # Получение информации о пользователе
                              get_user_info(client, sessions)
-                             userid, userinfo, phone, firstname,lastname, username, closechats_deleted = get_user_info(client, sessions)
+                             userid, userinfo, phone, firstname,lastname, username = get_user_info(client, sessions)
 
                              # Получение информации о чатах и каналах
                              get_type_of_chats(client, selection)
@@ -464,7 +464,7 @@ if __name__ == "__main__":
       
                           # Получение информации о пользователе
                           get_user_info(client, sessions)
-                          userid, userinfo, phone, firstname,lastname, username, closechats_deleted = get_user_info(client, sessions)
+                          userid, userinfo, phone, firstname,lastname, username = get_user_info(client, sessions)
                          
                          # Получение информации о чатах и каналах
                           get_type_of_chats(client, selection)
@@ -566,7 +566,7 @@ if __name__ == "__main__":
                            
                             # Получение информации о пользователе
                             get_user_info(client, sessions)
-                            userid, userinfo, phone, firstname,lastname, username, closechats_deleted = get_user_info(client, sessions)
+                            userid, userinfo, phone, firstname,lastname, username = get_user_info(client, sessions)
 
                             # Получение информации о чатах и каналах
                             get_type_of_chats(client, selection)
