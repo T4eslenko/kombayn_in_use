@@ -95,8 +95,7 @@ def get_type_of_chats(client, selection):
                if isinstance(chat.entity, Chat) and hasattr(chat.entity, 'participants_count') and chat.entity.participants_count == 0:
                   if hasattr(chat.entity, 'migrated_to'):
                        migrated_channel_id = getattr(chat.entity.migrated_to, 'channel_id', None)
-                       count_occurrences = sum(1 for entity_chat in chats if isinstance(entity_chat.entity, Chat) and hasattr(entity_chat.entity, 'migrated_to') and getattr(entity_chat.entity.migrated_to, 'channel_id', None) == migrated_channel_id)
-                       print(count_occurrences)
+                       count_occurrences = sum(1 for entity_chat in chats if isinstance(entity_chat.entity, Chat) and hasattr(entity_chat.entity, 'migrated_to') and getattr(entity_chat.entity.migrated_to, 'channel_id', None) == migrated_channel_id and entity_chat.entity.id != chat.entity.id)
                        input("жмяк")     
     return chat_message_counts, openchannels, closechannels, openchats, closechats
 
