@@ -112,10 +112,15 @@ def get_type_of_chats(client, selection):
                  for chat in chats:
                      if deleted not in all_chats_ids:
                         if isinstance(chat.entity, Chat) and hasattr(chat.entity, 'participants_count') and chat.entity.participants_count == 0:
-                            closechatsdeleted.append(chat.entity)
-                            print(chat)
-                            print(closechatsdeleted)
-                            input("вжал")
+                            chat_info = {
+                                 'chat_id': chat.entity.id,
+                                 'title': chat.entity.title,
+                                 # Добавьте любую другую информацию о чате, которая вам нужна
+                             }
+                             closechats_deleted.append(chat_info)
+                             print(chat)
+                             print(chat.entity)
+                             print(chat_info)
     return chat_message_counts, openchannels, closechannels, openchats, closechats
 
 # Инициализация Telegram-бота
