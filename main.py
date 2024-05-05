@@ -62,16 +62,17 @@ def get_type_of_chats(client, selection):
     closechats = []
 
     count_messages = 0
-    chat_deleted = []
+    deactivated_chats = []
     all_chats_ids = []
     chats = client.get_dialogs()
    
     for chat in chats:
-
+      
         if isinstance(chat.entity, Channel) or isinstance(chat.entity, Chat): # проверяем групповой ли чат
+            if hasattr(chat, 'deactivated') and chat.deactivated == True and hasattr(chat, 'migrated_to') and isinstance(chat.migrated_to, InputChannel):
+               deactivated_chats.append(chat.migrated_to.channel_id)
             
-            if hasattr(chat, 'migrated_to') and isinstance(chat.migrated_to, InputChannel):
-                all_chats_ids.append(chat.migrated_to.channel_id)
+
            
             if selection == '7': #выгружаем количество сообщений при функции выгрузить сообщение
                 messages = client.get_messages(chat.entity, limit=0)
@@ -82,34 +83,45 @@ def get_type_of_chats(client, selection):
             if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast') and chat.entity.participants_count is not None:
                 if chat.entity.broadcast and chat.entity.username:
                     openchannels.append(chat.entity)
+                    all_chats_ids.append(entity.id)
 
             # Определяем закрытый канал
             if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast'):
                 if chat.entity.broadcast and chat.entity.username is None and chat.entity.title != 'Unsupported Chat':
                     closechannels.append(chat.entity)
+                    all_chats_ids.append(entity.id)
 
             # Определяем открытый чат
             if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast'):
                 if not chat.entity.broadcast and chat.entity.username:
                     openchats.append(chat.entity)
+                    all_chats_ids.append(entity.id)
 
             # Определяем закрытый чат
             if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast'):
                if chat.entity.broadcast == False and chat.entity.username == None:
                   closechats.append(chat.entity)
+                  all_chats_ids.append(entity.id)
             if isinstance(chat.entity, Chat) and chat.entity.migrated_to is None:
                closechats.append(chat.entity)
+               all_chats_ids.append(entity.id)
             if selection == '5': #Добавляем нулевые чаты для общей информации
-               if isinstance(chat.entity, Chat) and hasattr(chat.entity, 'participants_count') and chat.entity.participants_count == 0:
-                  if hasattr(chat.entity, 'migrated_to'):
+               for chat_id in deactivated_chats:
+                   if chat_id not in all_chats_ids:
+                       closechats.append(chat.entity)
+
+
+               
+               #if isinstance(chat.entity, Chat) and hasattr(chat.entity, 'participants_count') and chat.entity.participants_count == 0:
+                #  if hasattr(chat.entity, 'migrated_to'):
            
-                     if isinstance(chat.entity, Chat) and hasattr(chat.entity, 'migrated_to') and getattr(chat.entity.migrated_to, 'channel_id', None) is not None:
-                        chat_deleted.append(getattr(chat.entity.migrated_to, 'channel_id', None))    
-                        for chat_id in chat_deleted:
-                           if chat_id not in all_chats_ids:
-                              closechats.append(chat.entity)
+                 #    if isinstance(chat.entity, Chat) and hasattr(chat.entity, 'migrated_to') and getattr(chat.entity.migrated_to, 'channel_id', None) is not None:
+                        #chat_deleted.append(getattr(chat.entity.migrated_to, 'channel_id', None))    
+                  #      for chat_id in deactivated_chats:
+                   #        if chat_id not in all_chats_ids:
+                    #          closechats.append(chat.entity)
     
-    print(chat_deleted)
+    print(deactivated_chats)
     print(all_chats_ids)
     input("жмяк")     
     return chat_message_counts, openchannels, closechannels, openchats, closechats
