@@ -83,28 +83,28 @@ def get_type_of_chats(client, selection):
             if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast') and chat.entity.participants_count is not None:
                 if chat.entity.broadcast and chat.entity.username:
                     openchannels.append(chat.entity)
-                    all_chats_ids.append(entity.id)
+                    all_chats_ids.append(chat.entity.id)
 
             # Определяем закрытый канал
             if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast'):
                 if chat.entity.broadcast and chat.entity.username is None and chat.entity.title != 'Unsupported Chat':
                     closechannels.append(chat.entity)
-                    all_chats_ids.append(entity.id)
+                    all_chats_ids.append(chat.entity.id)
 
             # Определяем открытый чат
             if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast'):
                 if not chat.entity.broadcast and chat.entity.username:
                     openchats.append(chat.entity)
-                    all_chats_ids.append(entity.id)
+                    all_chats_ids.append(chat.entity.id)
 
             # Определяем закрытый чат
             if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast'):
                if chat.entity.broadcast == False and chat.entity.username == None:
                   closechats.append(chat.entity)
-                  all_chats_ids.append(entity.id)
+                  all_chats_ids.append(chat.entity.id)
             if isinstance(chat.entity, Chat) and chat.entity.migrated_to is None:
                closechats.append(chat.entity)
-               all_chats_ids.append(entity.id)
+               all_chats_ids.append(chat.entity.id)
             if selection == '5': #Добавляем нулевые чаты для общей информации
                for chat_id in deactivated_chats:
                    if chat_id not in all_chats_ids:
