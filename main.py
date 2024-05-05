@@ -232,7 +232,7 @@ if __name__ == "__main__":
              groups = []
              exit_flag = False
              openchannel_count = 0
-             closehannel_count = 0
+             closechannel_count = 0
              opengroup_count = 0
              closegroup_count = 0
              chatdeleted_count = 0
@@ -284,6 +284,7 @@ if __name__ == "__main__":
                                  print(f"\033[96mНомер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}\033[0m")
                                  print('-----------------------------')
                                  print()
+                                
                                  all_info.append("\033[95mОткрытые КАНАЛЫ:\033[0m")
                                  openchannel_count = 1
                                  for openchannel in openchannels:
@@ -295,12 +296,12 @@ if __name__ == "__main__":
                                          owner_channel += 1
                                  
                                  all_info.append("\033[95mЗакрытые КАНАЛЫ:\033[0m")
-                                 closehannel_count = 1
+                                 closechannel_count = 1
                                  for closechannel in closechannels:
                                      owner = " (Владелец)" if closechannel.creator else ""
                                      admin = " (Администратор)" if closechannel.admin_rights is not None else ""
-                                     all_info.append(f"{closehannel_count} - {closechannel.title} \033[93m[{closechannel.participants_count}]\033[0m \033[91m{owner} {admin}\033[0m ID:{closechannel.id}")
-                                     closehannel_count += 1
+                                     all_info.append(f"{closechannel_count} - {closechannel.title} \033[93m[{closechannel.participants_count}]\033[0m \033[91m{owner} {admin}\033[0m ID:{closechannel.id}")
+                                     closechannel_count += 1
                                      if owner !="" or admin != "":
                                          owner_channel += 1
                                          owner_closechannel += 1
@@ -329,7 +330,7 @@ if __name__ == "__main__":
                                          chatdeleted_count += 1 
                                  
                                  openchannel_count = openchannel_count-1
-                                 closehannel_count = closehannel_count-1
+                                 closechannel_count = closechannel_count-1
                                  opengroup_count =opengroup_count-1
                                  closegroup_count =closegroup_count-1
                                  print_pages(all_info, 25)
@@ -339,7 +340,7 @@ if __name__ == "__main__":
                                  print(f"Открытые каналы: {openchannel_count}")
                                  print(f"Открытые группы: {opengroup_count}")
                                  print()
-                                 print(f"\033[91mЗакрытые каналы: {closehannel_count}\033[0m")
+                                 print(f"\033[91mЗакрытые каналы: {closechannel_count}\033[0m")
                                  print(f"\033[91mЗакрытые группы: {closegroup_count}\033[0m, из них удаленные - {chatdeleted_count}")
                                  print("---------------------------------------")
                                  print()
@@ -364,7 +365,7 @@ if __name__ == "__main__":
                                              ws.append([f"Номер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}"])
                                              ws.append([f"Открытые каналы: {openchannel_count}"])
                                              ws.append([f"Открытые группы: {opengroup_count}"])
-                                             ws.append([f"Закрытые каналы: {closehannel_count}"])
+                                             ws.append([f"Закрытые каналы: {closechannel_count}"])
                                              ws.append([f"Закрытые группы: {closegroup_count}"])
                                              ws.append([f"Имеет права владельца или админа в {owner_channel} каналах, из них {owner_closechannel} - в закрытых"])
                                              ws.append([f"Имеет права владельца или админа в {owner_group} группах, из них {owner_closegroup} - в закрытых"])
