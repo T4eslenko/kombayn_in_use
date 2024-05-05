@@ -354,9 +354,9 @@ if __name__ == "__main__":
                                  all_info.append("\033[95mУдаленные ГРУППЫ:\033[0m")
                                  closegroupdel_count = 1
                                  for delgroup in delgroups:
-                                     owner = " (Владелец)" if delgroup[3]['creator'] else ""
-                                     admin = " (Администратор)" if delgroup[4]['admin_rights'] is not None else ""
-                                     all_info.append(f"{closegroupdel_count} - {delgroup[2]['title']} \033[91m{owner} {admin}\033[0m ID:{delgroup[1]['ID']}")
+                                     owner = " (Владелец)" if delgroup[0]['creator'] else ""
+                                     admin = " (Администратор)" if delgroup[0]['admin_rights'] is not None else ""
+                                     all_info.append(f"{closegroupdel_count} - {delgroup[0]['title']} \033[91m{owner} {admin}\033[0m ID:{delgroup[0]['ID']}")
                                      closegroupdel_count += 1
                                      if owner !="" or admin != "":
                                          owner_group += 1
