@@ -66,8 +66,6 @@ def get_type_of_chats(client, selection):
     all_chats_ids = []
     closechats_deleted = []
     chats = client.get_dialogs()
-    print(selection)
-    input("selection")
    
     for chat in chats:
       
@@ -124,8 +122,7 @@ def get_type_of_chats(client, selection):
                           }
                           closechats_deleted.append(chat_info)
 
-    print(closechats_deleted)
-    time.sleep(3)
+
     delgroups = closechats_deleted
     return delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats
 
@@ -354,13 +351,11 @@ if __name__ == "__main__":
                                  for delgroup in delgroups:
                                      owner = " (Владелец)" if delgroup['creator'] else ""
                                      admin = " (Администратор)" if delgroup['admin_rights'] is not None else ""
-                                     all_info.append(f"{closegroup_count} - {delgroup['title']} \033[91m{owner} {admin}\033[0m ID:{delgroup['id']}")
-
+                                     all_info.append(f"{closegroupdel_count} - {delgroup['title']} \033[91m{owner} {admin}\033[0m ID:{delgroup['ID']}")
                                      closegroupdel_count += 1
                                      if owner !="" or admin != "":
                                          owner_group += 1
                                          owner_closegroup += 1
-         
                                          chatdeleted_count += 1 
                                  
                                  openchannel_count = openchannel_count-1
