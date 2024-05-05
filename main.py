@@ -105,7 +105,10 @@ def get_type_of_chats(client, selection):
                   if hasattr(chat.entity, 'migrated_to'):
            
                      if isinstance(chat.entity, Chat) and hasattr(chat.entity, 'migrated_to') and getattr(chat.entity.migrated_to, 'channel_id', None) is not None:
-                        chat_deleted.append(getattr(chat.entity.migrated_to, 'channel_id', None))     
+                        chat_deleted.append(getattr(chat.entity.migrated_to, 'channel_id', None))    
+                  for chat_id in chat_deleted:
+                     if chat_id not in all_chats_ids:
+                        closechats.append(chat.entity)
     
     print(chat_deleted)
     print(all_chats_ids)
