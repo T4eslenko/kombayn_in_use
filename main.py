@@ -259,7 +259,7 @@ if __name__ == "__main__":
              owner_closechannel = 0
              all_info = []
              
-                while not exit_flag:
+             while not exit_flag:
                     os.system('cls||clear')
                     sessions = [file for file in os.listdir('.') if file.endswith('.session')]
             
