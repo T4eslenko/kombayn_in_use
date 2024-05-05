@@ -233,7 +233,6 @@ if __name__ == "__main__":
 
        
        # 5 Выгрузить инфу об аккаунте
-        get_type_of_chats_done = 0
         elif selection == '5':
            #channelandgroups(api_id, api_hash, print_pages)
              def write_data(sheet, data):
