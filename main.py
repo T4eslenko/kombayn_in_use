@@ -113,6 +113,7 @@ def get_type_of_chats(client, selection):
                      if deleted not in all_chats_ids:
                          closechats_deleted.append(chat.entity)
                          print(closechats_deleted)
+                         print(chats)
                          print(deactivated_chats)
                          print(all_chats_ids)
                          input("вжал")
