@@ -114,7 +114,7 @@ def get_type_of_chats(client, selection):
                         if isinstance(chat.entity, Chat) and hasattr(chat.entity, 'participants_count') and chat.entity.participants_count == 0:
                             closechatsdeleted.append(chat.entity)
                             print(chat)
-                            print(closechats_deleted)
+                            print(closechatsdeleted)
                             input("вжал")
     return chat_message_counts, openchannels, closechannels, openchats, closechats
 
