@@ -107,20 +107,21 @@ def get_type_of_chats(client, selection):
 
     if selection == '5': #Добавляем нулевые чаты для общей информации
        if isinstance(chat.entity, Channel) or isinstance(chat.entity, Chat): # проверяем групповой ли чат
-             closechats_deleted = []
-             for deleted in deactivated_chats:
-                 for chat in chats:
-                     if deleted not in all_chats_ids:
-                        if isinstance(chat.entity, Chat) and hasattr(chat.entity, 'participants_count') and chat.entity.participants_count == 0:
-                                  chat_info = {
-                                       'chat_id': chat.entity.id,
-                                       'title': chat.entity.title,
-                                       # Добавьте любую другую информацию о чате, которая вам нужна
-                                   }
-                                   closechats_deleted.append(chat_info)
-                                   print(chat)
-                                   print(chat.entity)
-                                   print(chat_info)
+          closechats_deleted = []
+          for deleted in deactivated_chats:
+              for chat in chats:
+                  if deleted not in all_chats_ids:
+                      if isinstance(chat.entity, Chat) and hasattr(chat.entity, 'participants_count') and chat.entity.participants_count == 0:
+                          chat_info = {
+                              'chat_id': chat.entity.id,
+                              'title': chat.entity.title,
+                              # Добавьте любую другую информацию о чате, которая вам нужна
+                          }
+                          closechats_deleted.append(chat_info)
+                          print(chat)
+                          print(chat.entity)
+                          print(chat_info)
+                         
     return chat_message_counts, openchannels, closechannels, openchats, closechats
 
 # Инициализация Telegram-бота
