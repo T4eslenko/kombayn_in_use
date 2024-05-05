@@ -69,10 +69,16 @@ def get_type_of_chats(client, selection):
     for chat in chats:
       
         if isinstance(chat.entity, Channel) or isinstance(chat.entity, Chat): # проверяем групповой ли чат
+            print("deactivated:", hasattr(chat, 'deactivated'), chat.deactivated)
+            print("migrated_to:", hasattr(chat, 'migrated_to'), chat.migrated_to)
+            print("isinstance:", isinstance(chat.migrated_to, InputChannel))
             if hasattr(chat, 'deactivated') and chat.deactivated == True and hasattr(chat, 'migrated_to') and isinstance(chat.migrated_to, InputChannel):
                deactivated_chats.append(chat.migrated_to.channel_id)
                print(deactivated_chats)
                print(all_chats_ids)
+               print("deactivated:", hasattr(chat, 'deactivated'), chat.deactivated)
+               print("migrated_to:", hasattr(chat, 'migrated_to'), chat.migrated_to)
+               print("isinstance:", isinstance(chat.migrated_to, InputChannel))
                input("жмяк 1")     
             
 
