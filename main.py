@@ -237,13 +237,15 @@ if __name__ == "__main__":
        
        # 5 Выгрузить инфу об аккаунте
         elif selection == '5':
+        elif selection == '5':
+           #channelandgroups(api_id, api_hash, print_pages)
              def write_data(sheet, data):
-                 sheet.append(["Название", "Количество участников", "Владелец", "Администратор", "ID", "Ссылка"])
-                 for item in data:
-                     owner = " (Владелец)" if item.creator else ""
-                     admin = " (Администратор)" if item.admin_rights is not None else ""
-                     usernameadd = f"@{item.username}" if hasattr(item, 'username') and item.username is not None else ""
-                     sheet.append([item.title, item.participants_count, owner, admin, item.id, usernameadd])
+                sheet.append(["Название", "Количество участников", "Владелец", "Администратор", "ID", "Ссылка"])
+                for item in data:
+                    owner = " (Владелец)" if item.creator else ""
+                    admin = " (Администратор)" if item.admin_rights is not None else ""
+                    usernameadd = f"@{item.username}" if hasattr(item, 'username') and item.username is not None else ""
+                    sheet.append([item.title, item.participants_count, owner, admin, item.id, usernameadd])
              os.system('cls||clear')
              chats = []
              last_date = None
@@ -251,7 +253,7 @@ if __name__ == "__main__":
              groups = []
              exit_flag = False
              openchannel_count = 0
-             closechannel_count = 0
+             closehannel_count = 0
              opengroup_count = 0
              closegroup_count = 0
              chatdeleted_count = 0
@@ -260,6 +262,7 @@ if __name__ == "__main__":
              owner_closegroup = 0
              owner_closechannel = 0
              all_info = []
+         
          
              while not exit_flag:
                  os.system('cls||clear')
@@ -285,14 +288,16 @@ if __name__ == "__main__":
                               ##  print(qqq)
                             ## input("нажми")
                             # break
-         
+                             
                              # Получение информации о пользователе
-                             userid, userinfo, phone, firstname,lastname, username, closechats_deleted = get_user_info(client, sessions)
-         
+                             get_user_info(client, sessions)
+                             userid, userinfo, phone, firstname,lastname, username = get_user_info(client, sessions)
+
                              # Получение информации о чатах и каналах
+                             get_type_of_chats(client, selection)
                              chat_message_counts, openchannels, closechannels, openchats, closechats = get_type_of_chats(client, selection)
-         
-         
+                            
+                 
                              while True:
                                  os.system('cls||clear')
                                  print('-----------------------------')
@@ -300,7 +305,6 @@ if __name__ == "__main__":
                                  print(f"\033[96mНомер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}\033[0m")
                                  print('-----------------------------')
                                  print()
-         
                                  all_info.append("\033[95mОткрытые КАНАЛЫ:\033[0m")
                                  openchannel_count = 1
                                  for openchannel in openchannels:
@@ -310,18 +314,18 @@ if __name__ == "__main__":
                                      openchannel_count += 1
                                      if owner !="" or admin != "":
                                          owner_channel += 1
-         
+                                 
                                  all_info.append("\033[95mЗакрытые КАНАЛЫ:\033[0m")
-                                 closechannel_count = 1
+                                 closehannel_count = 1
                                  for closechannel in closechannels:
                                      owner = " (Владелец)" if closechannel.creator else ""
                                      admin = " (Администратор)" if closechannel.admin_rights is not None else ""
-                                     all_info.append(f"{closechannel_count} - {closechannel.title} \033[93m[{closechannel.participants_count}]\033[0m \033[91m{owner} {admin}\033[0m ID:{closechannel.id}")
-                                     closechannel_count += 1
+                                     all_info.append(f"{closehannel_count} - {closechannel.title} \033[93m[{closechannel.participants_count}]\033[0m \033[91m{owner} {admin}\033[0m ID:{closechannel.id}")
+                                     closehannel_count += 1
                                      if owner !="" or admin != "":
                                          owner_channel += 1
                                          owner_closechannel += 1
-         
+                                 
                                  all_info.append("\033[95mОткрытые ГРУППЫ:\033[0m")
                                  opengroup_count = 1
                                  for openchat in openchats:
@@ -331,7 +335,7 @@ if __name__ == "__main__":
                                      opengroup_count += 1
                                      if owner !="" or admin != "":
                                          owner_group += 1
-         
+
                                  all_info.append("\033[95mЗакрытые ГРУППЫ:\033[0m")
                                  closegroup_count = 1
                                  for closechat in closechats:
@@ -344,35 +348,19 @@ if __name__ == "__main__":
                                          owner_closegroup += 1
                                      if closechat.participants_count == 0:
                                          chatdeleted_count += 1 
-         
-                                 all_info.append("\033[95mУдалённые ГРУППЫ:\033[0m")
-                                 for closechat_deleted in closechats_deleted:
-                                     print(closechat_deleted)
-                                     input("dckk")
-                                     owner = " (Владелец)" if closechat.creator else ""
-                                     admin = " (Администратор)" if closechat.admin_rights is not None else ""
-                                     all_info.append(f"{closegroup_count} - {closechat.title} \033[93m[{closechat.participants_count}]\033[0m \033[91m{owner} {admin}\033[0m ID:{closechat.id}")
-                                     closegroup_count += 1
-                                     if owner !="" or admin != "":
-                                         owner_group += 1
-                                         owner_closegroup += 1
-                                     if closechat.participants_count == 0:
-                                         chatdeleted_count += 1 
-         
-         
-         
+                                 
                                  openchannel_count = openchannel_count-1
-                                 closechannel_count = closechannel_count-1
+                                 closehannel_count = closehannel_count-1
                                  opengroup_count =opengroup_count-1
                                  closegroup_count =closegroup_count-1
                                  print_pages(all_info, 25)
                                  print()
-         
+                                 
                                  print("---------------------------------------")
                                  print(f"Открытые каналы: {openchannel_count}")
                                  print(f"Открытые группы: {opengroup_count}")
                                  print()
-                                 print(f"\033[91mЗакрытые каналы: {closechannel_count}\033[0m")
+                                 print(f"\033[91mЗакрытые каналы: {closehannel_count}\033[0m")
                                  print(f"\033[91mЗакрытые группы: {closegroup_count}\033[0m, из них удаленные - {chatdeleted_count}")
                                  print("---------------------------------------")
                                  print()
@@ -392,12 +380,12 @@ if __name__ == "__main__":
                                      try:
                                          if g_index_str == "get":
                                              wb = openpyxl.Workbook()
-         
+                                             
                                              ws = wb.active
                                              ws.append([f"Номер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}"])
                                              ws.append([f"Открытые каналы: {openchannel_count}"])
                                              ws.append([f"Открытые группы: {opengroup_count}"])
-                                             ws.append([f"Закрытые каналы: {closechannel_count}"])
+                                             ws.append([f"Закрытые каналы: {closehannel_count}"])
                                              ws.append([f"Закрытые группы: {closegroup_count}"])
                                              ws.append([f"Имеет права владельца или админа в {owner_channel} каналах, из них {owner_closechannel} - в закрытых"])
                                              ws.append([f"Имеет права владельца или админа в {owner_group} группах, из них {owner_closegroup} - в закрытых"])
@@ -428,8 +416,7 @@ if __name__ == "__main__":
                              time.sleep(2)
                      except ValueError:
                          print("Пожалуйста, выберите существующий аккаунт в диапазоне от 0 до", len(sessions) - 1)
-                         time.sleep(2)
-
+                         time.sleep(2)   
               
            
         # 6 Выгрузить участников групп в excel
