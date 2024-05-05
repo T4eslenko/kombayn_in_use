@@ -121,7 +121,7 @@ def get_type_of_chats(client, selection):
                           print(chat)
                           print(chat.entity)
                           print(chat_info)
-                         
+                          input("жмяк")
     return chat_message_counts, openchannels, closechannels, openchats, closechats
 
 # Инициализация Telegram-бота
