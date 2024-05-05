@@ -284,11 +284,9 @@ if __name__ == "__main__":
                                # break
                                 
                                 # Получение информации о пользователе
-                                get_user_info(client, sessions)
                                 userid, userinfo, phone, firstname,lastname, username, closechats_deleted = get_user_info(client, sessions)
    
                                 # Получение информации о чатах и каналах
-                                get_type_of_chats(client, selection)
                                 chat_message_counts, openchannels, closechannels, openchats, closechats = get_type_of_chats(client, selection)
                                
                     
@@ -463,11 +461,9 @@ if __name__ == "__main__":
                           client.connect()
       
                           # Получение информации о пользователе
-                          get_user_info(client, sessions)
                           userid, userinfo, phone, firstname,lastname, username = get_user_info(client, sessions)
                          
                          # Получение информации о чатах и каналах
-                          get_type_of_chats(client, selection)
                           chat_message_counts, openchannels, closechannels, openchats, closechats = get_type_of_chats(client, selection)
                          
                           while True:
@@ -565,11 +561,9 @@ if __name__ == "__main__":
                             client.connect()
                            
                             # Получение информации о пользователе
-                            get_user_info(client, sessions)
                             userid, userinfo, phone, firstname,lastname, username = get_user_info(client, sessions)
 
                             # Получение информации о чатах и каналах
-                            get_type_of_chats(client, selection)
                             chat_message_counts, openchannels, closechannels, openchats, closechats = get_type_of_chats(client, selection)
 
                                  
