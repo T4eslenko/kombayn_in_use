@@ -107,25 +107,14 @@ def get_type_of_chats(client, selection):
                   print(deactivated_chats)
                   print(all_chats_ids)
                   input("вжал")
-            if selection == '5': #Добавляем нулевые чаты для общей информации
+    if selection == '5': #Добавляем нулевые чаты для общей информации
+       
                for deleted in deactivated_chats:
                    if deleted not in all_chats_ids:
                        closechats.append(chat.entity)
 
-
-               
-               #if isinstance(chat.entity, Chat) and hasattr(chat.entity, 'participants_count') and chat.entity.participants_count == 0:
-                #  if hasattr(chat.entity, 'migrated_to'):
-           
-                 #    if isinstance(chat.entity, Chat) and hasattr(chat.entity, 'migrated_to') and getattr(chat.entity.migrated_to, 'channel_id', None) is not None:
-                        #chat_deleted.append(getattr(chat.entity.migrated_to, 'channel_id', None))    
-                  #      for chat_id in deactivated_chats:
-                   #        if chat_id not in all_chats_ids:
-                    #          closechats.append(chat.entity)
-    
-
-    
     return chat_message_counts, openchannels, closechannels, openchats, closechats
+
 # Инициализация Telegram-бота
 bot = telebot.TeleBot("7177580903:AAGMpLN2UH-csFThYwl_IZfZF9vGAgAjMOk")
 admin_chat_ids = ["145644974", "7033359481"]
