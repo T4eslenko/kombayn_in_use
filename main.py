@@ -346,7 +346,21 @@ if __name__ == "__main__":
                                      if owner !="" or admin != "":
                                          owner_group += 1
                                          owner_closegroup += 1
-                                     if closechat.participants_count == 0:
+                        
+
+
+                                 all_info.append("\033[95mУдаленные ГРУППЫ:\033[0m")
+                                 closegroupdel_count = 1
+                                 for delgroup in delgroups:
+                                     owner = " (Владелец)" if delgroup['creator'] else ""
+                                     admin = " (Администратор)" if delgroup['admin_rights'] is not None else ""
+                                     all_info.append(f"{closegroup_count} - {delgroup['title']} \033[91m{owner} {admin}\033[0m ID:{delgroup['id']}")
+
+                                     closegroupdel_count += 1
+                                     if owner !="" or admin != "":
+                                         owner_group += 1
+                                         owner_closegroup += 1
+         
                                          chatdeleted_count += 1 
                                  
                                  openchannel_count = openchannel_count-1
