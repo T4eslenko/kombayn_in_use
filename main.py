@@ -68,9 +68,9 @@ def get_type_of_chats(client, selection):
         all_chats_ids = []
         if isinstance(chat.entity, Channel) or isinstance(chat.entity, Chat): # проверяем групповой ли чат
             if isinstance(chat.entity, Channel):
-               all_chats_ids.append(getattr(chat.entity, 'id', None))
+               all_chats_ids.append(chat.entity.id)
             if isinstance(chat.entity, Chat):
-               all_chats_ids.append(getattr(chat.entity, 'id', None))
+               all_chats_ids.append(chat.entity.id)
            
             if isinstance(chat.entity, Chat) and hasattr(chat.entity, 'migrated_to') and getattr(chat.entity.migrated_to, 'channel_id', None) is not None:
                all_chat_deleted.append(getattr(chat.entity.migrated_to, 'channel_id', None))
