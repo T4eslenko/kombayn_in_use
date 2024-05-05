@@ -64,7 +64,6 @@ def get_type_of_chats(client, selection):
     chats = client.get_dialogs()
     for chat in chats:
         count_messages = 0
-        current_entity = chat.entity
         if isinstance(chat.entity, Channel) or isinstance(chat.entity, Chat): # проверяем групповой ли чат
             if selection == '7': #выгружаем количество сообщений при функции выгрузить сообщение
                 messages = client.get_messages(chat.entity, limit=0)
@@ -96,13 +95,8 @@ def get_type_of_chats(client, selection):
                if isinstance(chat.entity, Chat) and hasattr(chat.entity, 'participants_count') and chat.entity.participants_count == 0:
                   if hasattr(chat.entity, 'migrated_to'):
                       migrated_channel_id = chat.entity.migrated_to.channel_id
-                      # Проверяем, есть ли другие чаты с таким же channel_id среди чатов с participants_count == 0
-                      if not any(isinstance(entity, Chat) and entity != chat.entity and 
-                                 hasattr(entity, 'migrated_to') and 
-                                 entity.migrated_to.channel_id == migrated_channel_id 
-                                 for entity in chats if isinstance(entity, Chat) and 
-                                 hasattr(entity, 'participants_count') and entity.participants_count == 0):
-                          closechats.append(chat.entity)
+                      if any(chat.entity.migrated_to.channel_id != migrated_channel_id for entity in chats):
+                         closechats.append(chat.entity)
 
                                
     return chat_message_counts, openchannels, closechannels, openchats, closechats
