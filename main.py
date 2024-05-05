@@ -66,6 +66,8 @@ def get_type_of_chats(client, selection):
     all_chats_ids = []
     closechats_deleted = []
     chats = client.get_dialogs()
+    print(selection)
+    input("selection")
    
     for chat in chats:
       
