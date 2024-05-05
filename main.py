@@ -70,21 +70,14 @@ def get_type_of_chats(client, selection):
       
         if isinstance(chat.entity, Channel) or isinstance(chat.entity, Chat): # проверяем групповой ли чат
             if isinstance(chat.entity, Chat) and hasattr(chat.entity, 'participants_count') and chat.entity.participants_count == 0:
-            #if hasattr(chat.entity, 'deactivated'):
                if chat.entity.migrated_to is not None and isinstance(chat.entity.migrated_to, InputChannel):
-    
-                        print(deactivated_chats)
-                        print(all_chats_ids)
-                     
-                        input("жмяк 1")  
-                        deactivated_chats.append(chat.entity.migrated_to.channel_id)
+                  deactivated_chats.append(chat.entity.migrated_to.channel_id)
             
 
            
             if selection == '7': #выгружаем количество сообщений при функции выгрузить сообщение
                 messages = client.get_messages(chat.entity, limit=0)
                 count_messages = messages.total
-                chat_message_counts[chat.entity.id] = count_messages
 
             # Определяем открытый канал
             if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast') and chat.entity.participants_count is not None:
@@ -113,8 +106,8 @@ def get_type_of_chats(client, selection):
                closechats.append(chat.entity)
                all_chats_ids.append(chat.entity.id)
             if selection == '5': #Добавляем нулевые чаты для общей информации
-               for chat_id in deactivated_chats:
-                   if chat_id not in all_chats_ids:
+               for deleted in deactivated_chats:
+                   if deleted not in all_chats_ids:
                        closechats.append(chat.entity)
 
 
@@ -128,9 +121,7 @@ def get_type_of_chats(client, selection):
                    #        if chat_id not in all_chats_ids:
                     #          closechats.append(chat.entity)
     
-    print(deactivated_chats)
-    print(all_chats_ids)
-    input("жмяк")     
+
     
     return chat_message_counts, openchannels, closechannels, openchats, closechats
 # Инициализация Telegram-бота
