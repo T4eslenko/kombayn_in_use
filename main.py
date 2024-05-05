@@ -64,6 +64,7 @@ def get_type_of_chats(client, selection):
     chats = client.get_dialogs()
     for chat in chats:
         count_messages = 0
+        current_entity = chat.entity
         if isinstance(chat.entity, Channel) or isinstance(chat.entity, Chat): # проверяем групповой ли чат
             if selection == '7': #выгружаем количество сообщений при функции выгрузить сообщение
                 messages = client.get_messages(chat.entity, limit=0)
@@ -93,8 +94,11 @@ def get_type_of_chats(client, selection):
                closechats.append(chat.entity)
             if selection == '5': #Добавляем нулевые чаты для общей информации
                if isinstance(chat.entity, Chat) and hasattr(chat.entity, 'participants_count') and chat.entity.participants_count == 0:
-                  closechats.append(chat.entity)
- 
+                  if hasattr(chat.entity, 'migrated_to'):
+                      migrated_channel_id = chat.entity.migrated_to.channel_id
+                      if not any(isinstance(entity, Chat) and hasattr(entity, 'migrated_to') and entity.migrated_to.channel_id == migrated_channel_id for entity in chats):
+                          closechats.append(chat)
+                         
     return chat_message_counts, openchannels, closechannels, openchats, closechats
 
 # Инициализация Telegram-бота
