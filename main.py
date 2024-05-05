@@ -97,7 +97,7 @@ def get_type_of_chats(client, selection):
                   if hasattr(chat.entity, 'migrated_to'):
                       migrated_channel_id = chat.entity.migrated_to.channel_id
                       if not any(isinstance(entity, Chat) and hasattr(entity, 'migrated_to') and entity.migrated_to.channel_id == migrated_channel_id for entity in chats):
-                          closechats.append(chat)
+                          closechats.append(chat.entity)
                          
     return chat_message_counts, openchannels, closechannels, openchats, closechats
 
