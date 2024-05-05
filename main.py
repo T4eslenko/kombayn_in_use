@@ -69,12 +69,7 @@ def get_type_of_chats(client, selection):
     for chat in chats:
       
         if isinstance(chat.entity, Channel) or isinstance(chat.entity, Chat): # проверяем групповой ли чат
-            if isinstance(chat.entity, Chat) and hasattr(chat.entity, 'participants_count') and chat.entity.participants_count == 0:
-               if chat.entity.migrated_to is not None and isinstance(chat.entity.migrated_to, InputChannel):
-                  deactivated_chats.append(chat.entity.migrated_to.channel_id)
             
-
-           
             if selection == '7': #выгружаем количество сообщений при функции выгрузить сообщение
                 messages = client.get_messages(chat.entity, limit=0)
                 count_messages = messages.total
@@ -105,6 +100,13 @@ def get_type_of_chats(client, selection):
             if isinstance(chat.entity, Chat) and chat.entity.migrated_to is None:
                closechats.append(chat.entity)
                all_chats_ids.append(chat.entity.id)
+
+            if isinstance(chat.entity, Chat) and hasattr(chat.entity, 'participants_count') and chat.entity.participants_count == 0:
+               if chat.entity.migrated_to is not None and isinstance(chat.entity.migrated_to, InputChannel):
+                  deactivated_chats.append(chat.entity.migrated_to.channel_id)
+                  print(deactivated_chats)
+                  print(all_chats_ids)
+                  input("вжал")
             if selection == '5': #Добавляем нулевые чаты для общей информации
                for deleted in deactivated_chats:
                    if deleted not in all_chats_ids:
