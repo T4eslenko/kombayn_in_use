@@ -126,10 +126,11 @@ def get_type_of_chats(client, selection):
                   print(all_chats_ids)
                   input("all_chats_ids")             
                   if ID_migrated_values not in all_chats_ids:
-                      print(условие)
+                      print("условие")
                       input("условие")  
                       if isinstance(chat.entity, Chat) and hasattr(chat.entity, 'participants_count') and chat.entity.participants_count == 0:
                           closechats_deleted.append(deactivated_chats)
+                          os.system('cls||clear')
                           print(closechats_deleted)
                           input("closechats_deleted")
 
