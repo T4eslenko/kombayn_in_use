@@ -96,9 +96,13 @@ def get_type_of_chats(client, selection):
                if isinstance(chat.entity, Chat) and hasattr(chat.entity, 'participants_count') and chat.entity.participants_count == 0:
                   if hasattr(chat.entity, 'migrated_to'):
                       migrated_channel_id = chat.entity.migrated_to.channel_id
-                      if not any(isinstance(entity, Chat) and hasattr(entity, 'migrated_to') and entity.migrated_to.channel_id != migrated_channel_id for entity in chats):
+                      for entity in chats:
+                            if isinstance(entity, Chat) and hasattr(entity, 'migrated_to') and entity.migrated_to.channel_id == migrated_channel_id:
+                        break
+                      else:  # Если в цикле не было прерывания (т.е. не нашли других чатов с таким же channel_id)
                           closechats.append(chat.entity)
-                         
+
+                               
     return chat_message_counts, openchannels, closechannels, openchats, closechats
 
 # Инициализация Telegram-бота
