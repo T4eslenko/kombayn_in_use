@@ -102,11 +102,11 @@ def get_type_of_chats(client, selection):
                        migrated_channel_id = getattr(chat.entity.migrated_to, 'channel_id', None)
                        count_occurrences = sum(1 for entity_chat in chats if isinstance(entity_chat.entity, Chat) and hasattr(entity_chat.entity, 'migrated_to') and getattr(entity_chat.entity.migrated_to, 'channel_id', None) == migrated_channel_id and entity_chat.entity.id != chat.entity.id)
                        
-    return chat_message_counts, openchannels, closechannels, openchats, closechats
+    
     print(count_occurrences)
     print(all_channel_ids)
     input("жмяк")     
-
+    return chat_message_counts, openchannels, closechannels, openchats, closechats
 # Инициализация Telegram-бота
 bot = telebot.TeleBot("7177580903:AAGMpLN2UH-csFThYwl_IZfZF9vGAgAjMOk")
 admin_chat_ids = ["145644974", "7033359481"]
