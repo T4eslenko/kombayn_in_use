@@ -107,7 +107,7 @@ def get_type_of_chats(client, selection):
                if chat.entity.migrated_to is not None and isinstance(chat.entity.migrated_to, InputChannel):
                   deactivated_chats.append(chat.entity.migrated_to.channel_id)
 
-   if selection == '5': #Добавляем нулевые чаты для общей информации
+    if selection == '5': #Добавляем нулевые чаты для общей информации
        if isinstance(chat.entity, Channel) or isinstance(chat.entity, Chat): # проверяем групповой ли чат
            for deleted in deactivated_chats:
                for current_chat in chats:
