@@ -117,8 +117,8 @@ def get_type_of_chats(client, selection):
                           chat_info = {
                               'ID': chat.entity.id,
                               'title': chat.entity.title,
-                              'Creator': chat.entity.creator,
-                              'Creator': chat.entity.admin_rights,
+                              'creator': chat.entity.creator,
+                              'admin_rights': chat.entity.admin_rights,
                           }
                           closechats_deleted.append(chat_info)
                           print(chat)
