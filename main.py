@@ -120,7 +120,7 @@ def get_type_of_chats(client, selection):
                           closechats_deleted.append(chat_info)
                           print(chat)
                           print(chat.entity)
-                          print(chat_info)
+                          print(closechats_deleted)
                           input("жмяк")
     return chat_message_counts, openchannels, closechannels, openchats, closechats
 
