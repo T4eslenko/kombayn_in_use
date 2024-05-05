@@ -360,8 +360,9 @@ if __name__ == "__main__":
                                  
                                  openchannel_count = openchannel_count-1
                                  closehannel_count = closehannel_count-1
-                                 opengroup_count =opengroup_count-1
-                                 closegroup_count =closegroup_count+closegroupdel_count-1
+                                 opengroup_count = opengroup_count-1
+                                 closegroupdel_count = closegroupdel_count-1
+                                 closegroup_count = closegroup_count+closegroupdel_count-1
                                  print_pages(all_info, 25)
                                  print()
                                  
