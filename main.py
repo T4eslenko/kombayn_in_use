@@ -53,14 +53,13 @@ def get_user_info(client, sessions):
     userinfo = f"(Номер телефона: +{phone}, ID: {userid}, ({firstname} {lastname}) {username})"
     return userid, userinfo, phone, firstname,lastname, username
 
-def get_messages_from_chats(client, selection):
+def get_type_of_chats(client, selection):
     """Функция для подсчета количества сообщений в чатах и определения типов чатов."""
     chat_message_counts = {}
     openchannels = []
     closechannels = []
     openchats = []
     closechats = []
-    mentioned_channels = []
 
     chats = client.get_dialogs()
     for chat in chats:
@@ -270,8 +269,8 @@ if __name__ == "__main__":
                              userid, userinfo, phone, firstname,lastname, username = get_user_info(client, sessions)
 
                              # Получение информации о чатах и каналах
-                             get_messages_from_chats(client, selection)
-                             chat_message_counts, openchannels, closechannels, openchats, closechats = get_messages_from_chats(client, selection)
+                             get_type_of_chats(client, selection)
+                             chat_message_counts, openchannels, closechannels, openchats, closechats = get_type_of_chats(client, selection)
                             
                  
                              while True:
@@ -432,8 +431,8 @@ if __name__ == "__main__":
                           userid, userinfo, phone, firstname,lastname, username = get_user_info(client, sessions)
                          
                          # Получение информации о чатах и каналах
-                          get_messages_from_chats(client, selection)
-                          chat_message_counts, openchannels, closechannels, openchats, closechats = get_messages_from_chats(client, selection)
+                          get_type_of_chats(client, selection)
+                          chat_message_counts, openchannels, closechannels, openchats, closechats = get_type_of_chats(client, selection)
                          
                           while True:
                               os.system('cls||clear')
@@ -534,8 +533,8 @@ if __name__ == "__main__":
                             userid, userinfo, phone, firstname,lastname, username = get_user_info(client, sessions)
 
                             # Получение информации о чатах и каналах
-                            get_messages_from_chats(client, selection)
-                            chat_message_counts, openchannels, closechannels, openchats, closechats = get_messages_from_chats(client, selection)
+                            get_type_of_chats(client, selection)
+                            chat_message_counts, openchannels, closechannels, openchats, closechats = get_type_of_chats(client, selection)
 
                                  
                             
