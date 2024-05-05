@@ -114,8 +114,7 @@ def get_type_of_chats(client, selection):
                       if isinstance(chat.entity, Chat) and hasattr(chat.entity, 'participants_count') and chat.entity.participants_count == 0:
                           
                           chat_info = {
-                              chat.entity,
-                              'title': chat.entity.title,
+                              'title': chat.entity,
                               # Добавьте любую другую информацию о чате, которая вам нужна
                           }
                           closechats_deleted.append(chat_info)
