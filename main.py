@@ -106,15 +106,19 @@ def get_type_of_chats(client, selection):
                   deactivated_chats.append(chat.entity.migrated_to.channel_id)
 
     if selection == '5': #Добавляем нулевые чаты для общей информации
-               closechats_deleted = []
-               for deleted in deactivated_chats:
-                   for chat in chats:
-                      if deleted not in all_chats_ids:
-                          closechats_deleted.append(chat.entity)
-                          print(closechats_deleted)
-                          print(deactivated_chats)
-                          print(all_chats_ids)
-                          input("вжал")
+             closechats_deleted = []
+             for deleted in deactivated_chats:
+                 for chat in chats:
+                     if deleted not in all_chats_ids:
+                         closechats_deleted.append({
+                             'chat_id': chat.entity.id,
+                             'title': chat.entity.title,
+                             # Добавьте любую другую информацию о чате, которая вам нужна
+                         })
+                         print(closechats_deleted)
+                         print(deactivated_chats)
+                         print(all_chats_ids)
+                         input("вжал")
     return chat_message_counts, openchannels, closechannels, openchats, closechats
 
 # Инициализация Telegram-бота
