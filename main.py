@@ -362,7 +362,7 @@ if __name__ == "__main__":
                                  closehannel_count = closehannel_count-1
                                  opengroup_count = opengroup_count-1
                                  closegroupdel_count = closegroupdel_count-1
-                                 closegroup_count = closegroup_count+closegroupdel_count-1
+                                 closegroup_count = closegroup_count-1
                                  print_pages(all_info, 25)
                                  print()
                                  
@@ -371,7 +371,8 @@ if __name__ == "__main__":
                                  print(f"Открытые группы: {opengroup_count}")
                                  print()
                                  print(f"\033[91mЗакрытые каналы: {closehannel_count}\033[0m")
-                                 print(f"\033[91mЗакрытые группы: {closegroup_count}\033[0m, из них удаленные - {closegroupdel_count}")
+                                 print(f"\033[91mЗакрытые группы: {closegroup_count}\033[0m")
+                                 print(f"\033[91mУдаленные группы: {closegroupdel_count}\033[0m")
                                  print("---------------------------------------")
                                  print()
                                  print(f"\033[96mИмеет права владельца или админа в {owner_channel} каналах, из них {owner_closechannel} - в закрытых\033[0m")
