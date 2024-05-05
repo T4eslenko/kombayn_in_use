@@ -129,7 +129,7 @@ def get_type_of_chats(client, selection):
     print(deactivated_chats)
     print(all_chats_ids)
     input("жмяк")     
-    break
+    
     return chat_message_counts, openchannels, closechannels, openchats, closechats
 # Инициализация Telegram-бота
 bot = telebot.TeleBot("7177580903:AAGMpLN2UH-csFThYwl_IZfZF9vGAgAjMOk")
