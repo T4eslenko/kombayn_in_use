@@ -96,6 +96,8 @@ def get_type_of_chats(client, selection):
                if isinstance(chat.entity, Chat) and hasattr(chat.entity, 'participants_count') and chat.entity.participants_count == 0:
                   if hasattr(chat.entity, 'migrated_to'):
                       migrated_channel_id = chat.entity.migrated_to.channel_id
+                      print(migrated_channel_id)
+                      input("жми...")
                       for entity in chats:
                             if isinstance(entity, Chat) and hasattr(entity, 'migrated_to') and entity.migrated_to.channel_id == migrated_channel_id:
                               break
