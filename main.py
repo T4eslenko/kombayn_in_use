@@ -106,10 +106,11 @@ def get_type_of_chats(client, selection):
                   deactivated_chats.append(chat.entity.migrated_to.channel_id)
 
     if selection == '5': #Добавляем нулевые чаты для общей информации
-       
+               closechats_deleted = []
                for deleted in deactivated_chats:
                    if deleted not in all_chats_ids:
-                       closechats.append(chat.entity)
+                       closechats_deleted.append(chat.entity)
+                       print(closechats_deleted)
                        print(deactivated_chats)
                        print(all_chats_ids)
                        input("вжал")
