@@ -60,11 +60,13 @@ def get_type_of_chats(client, selection):
     closechannels = []
     openchats = []
     closechats = []
+    all_channel_ids = []
 
     chats = client.get_dialogs()
     for chat in chats:
         count_messages = 0
         if isinstance(chat.entity, Channel) or isinstance(chat.entity, Chat): # проверяем групповой ли чат
+            all_channel_ids.append(getattr(entity_chat.entity.migrated_to, 'channel_id'))
             if selection == '7': #выгружаем количество сообщений при функции выгрузить сообщение
                 messages = client.get_messages(chat.entity, limit=0)
                 count_messages = messages.total
@@ -96,6 +98,8 @@ def get_type_of_chats(client, selection):
                   if hasattr(chat.entity, 'migrated_to'):
                        migrated_channel_id = getattr(chat.entity.migrated_to, 'channel_id', None)
                        count_occurrences = sum(1 for entity_chat in chats if isinstance(entity_chat.entity, Chat) and hasattr(entity_chat.entity, 'migrated_to') and getattr(entity_chat.entity.migrated_to, 'channel_id', None) == migrated_channel_id and entity_chat.entity.id != chat.entity.id)
+                       print(count_occurrences)
+                       print(all_channel_ids)
                        input("жмяк")     
     return chat_message_counts, openchannels, closechannels, openchats, closechats
 
