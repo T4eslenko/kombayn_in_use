@@ -110,7 +110,7 @@ def get_type_of_chats(client, selection):
     if selection == '5': #Добавляем нулевые чаты для общей информации
        if isinstance(chat.entity, Channel) or isinstance(chat.entity, Chat): # проверяем групповой ли чат
            for deleted in deactivated_chats:
-               for current_chat in chats:
+               #for current_chat in chats:
                    if deleted not in all_chats_ids:
                        if isinstance(current_chat.entity, Chat) and hasattr(current_chat.entity, 'participants_count') and current_chat.entity.participants_count == 0:
                            
