@@ -111,11 +111,7 @@ def get_type_of_chats(client, selection):
              for deleted in deactivated_chats:
                  for chat in chats:
                      if deleted not in all_chats_ids:
-                         closechats_deleted.append({
-                             'chat_id': chat.entity.id,
-                             'title': chat.entity.title,
-                             # Добавьте любую другую информацию о чате, которая вам нужна
-                         })
+                         closechats_deleted.append(chat.entity.id)
                          print(closechats_deleted)
                          print(deactivated_chats)
                          print(all_chats_ids)
