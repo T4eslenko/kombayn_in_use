@@ -113,26 +113,19 @@ def get_type_of_chats(client, selection):
                      'admin_rights': chat.entity.admin_rights,
                   }
                   deactivated_chats.append(deactivated_chats_all)
-                  print(deactivated_chats)
-                  input("deactivated_chats")
+   
                        
 
     if selection == '5': #Добавляем нулевые чаты для общей информации
        if isinstance(chat.entity, Channel) or isinstance(chat.entity, Chat): # проверяем групповой ли чат
           for current_deleted_chat in deactivated_chats:
                   ID_migrated_values = current_deleted_chat['ID_migrated']
-                  print(ID_migrated_values)
-                  input("ID_migrated_values")
-                  print(all_chats_ids)
-                  input("all_chats_ids")             
+                              
                   if ID_migrated_values not in all_chats_ids:
-                      print("условие")
-                      input("условие")  
+                      
                     #  if isinstance(chat.entity, Chat) and hasattr(chat.entity, 'participants_count') and chat.entity.participants_count == 0:
                       closechats_deleted.append(deactivated_chats)
-                      os.system('cls||clear')
-                      print(closechats_deleted)
-                      input("closechats_deleted")
+                  
 
 
     delgroups = closechats_deleted
@@ -361,9 +354,9 @@ if __name__ == "__main__":
                                  all_info.append("\033[95mУдаленные ГРУППЫ:\033[0m")
                                  closegroupdel_count = 1
                                  for delgroup in delgroups:
-                                     owner = " (Владелец)" if delgroup['creator'] else ""
-                                     admin = " (Администратор)" if delgroup['admin_rights'] is not None else ""
-                                     all_info.append(f"{closegroupdel_count} - {delgroup['title']} \033[91m{owner} {admin}\033[0m ID:{delgroup['ID']}")
+                                     owner = " (Владелец)" if delgroup.get['creator'] else ""
+                                     admin = " (Администратор)" if delgroup.get['admin_rights'] is not None else ""
+                                     all_info.append(f"{closegroupdel_count} - {delgroup.get['title']} \033[91m{owner} {admin}\033[0m ID:{delgroup.get['ID']}")
                                      closegroupdel_count += 1
                                      if owner !="" or admin != "":
                                          owner_group += 1
