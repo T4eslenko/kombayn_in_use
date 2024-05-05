@@ -69,17 +69,6 @@ def get_type_of_chats(client, selection):
     for chat in chats:
 
         if isinstance(chat.entity, Channel) or isinstance(chat.entity, Chat): # проверяем групповой ли чат
-            if isinstance(chat.entity, Channel):
-               all_chats_ids.append(chat.entity.id)
-            if isinstance(chat.entity, Chat):
-               all_chats_ids.append(chat.entity.id)
-           
-            if isinstance(chat.entity, Chat) and hasattr(chat.entity, 'migrated_to') and getattr(chat.entity.migrated_to, 'channel_id', None) is not None:
-               all_chat_deleted.append(getattr(chat.entity.migrated_to, 'channel_id', None))
-               
-               
-               
-
            
             if selection == '7': #выгружаем количество сообщений при функции выгрузить сообщение
                 messages = client.get_messages(chat.entity, limit=0)
@@ -110,9 +99,12 @@ def get_type_of_chats(client, selection):
             if selection == '5': #Добавляем нулевые чаты для общей информации
                if isinstance(chat.entity, Chat) and hasattr(chat.entity, 'participants_count') and chat.entity.participants_count == 0:
                   if hasattr(chat.entity, 'migrated_to'):
-                       migrated_channel_id = getattr(chat.entity.migrated_to, 'channel_id', None)
-                       count_occurrences = sum(1 for entity_chat in chats if isinstance(entity_chat.entity, Chat) and hasattr(entity_chat.entity, 'migrated_to') and getattr(entity_chat.entity.migrated_to, 'channel_id', None) == migrated_channel_id and entity_chat.entity.id != chat.entity.id)
-                       
+                     
+                     if isinstance(chat.entity, Chat):
+                        all_chats_ids.append(chat.entity.id)
+           
+                     if isinstance(chat.entity, Chat) and hasattr(chat.entity, 'migrated_to') and getattr(chat.entity.migrated_to, 'channel_id', None) is not None:
+                        all_chat_deleted.append(getattr(chat.entity.migrated_to, 'channel_id', None))     
     
     print(count_occurrences)
     print(all_chat_deleted)
