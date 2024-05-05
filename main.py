@@ -65,7 +65,6 @@ def get_type_of_chats(client, selection):
     deactivated_chats = []
     all_chats_ids = []
     chats = client.get_dialogs()
-    migrated_to = 0
    
     for chat in chats:
       
@@ -77,7 +76,7 @@ def get_type_of_chats(client, selection):
                   print(all_chats_ids)
                
                   input("жмяк 1")  
-                  deactivated_chats.append(migrated_to.channel_id)
+                  deactivated_chats.append(chat.entity.migrated_to.channel_id)
             
 
            
