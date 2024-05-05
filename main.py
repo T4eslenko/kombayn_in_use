@@ -111,7 +111,7 @@ def get_type_of_chats(client, selection):
                      'title': chat.entity.title,
                      'creator': chat.entity.creator,
                      'admin_rights': chat.entity.admin_rights,
-                  {
+                  }
                   deactivated_chats.append(deactivated_chats_all)
                        
 
