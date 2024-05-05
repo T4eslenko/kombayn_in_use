@@ -237,7 +237,6 @@ if __name__ == "__main__":
        
        # 5 Выгрузить инфу об аккаунте
         elif selection == '5':
-        elif selection == '5':
            #channelandgroups(api_id, api_hash, print_pages)
              def write_data(sheet, data):
                 sheet.append(["Название", "Количество участников", "Владелец", "Администратор", "ID", "Ссылка"])
