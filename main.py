@@ -105,23 +105,22 @@ def get_type_of_chats(client, selection):
 
             if isinstance(chat.entity, Chat) and hasattr(chat.entity, 'participants_count') and chat.entity.participants_count == 0:
                if chat.entity.migrated_to is not None and isinstance(chat.entity.migrated_to, InputChannel):
-                  deactivated_chats.append(chat.entity.migrated_to.channel_id)
+                  deactivated_chats_all = {
+                     'ID_migrated': chat.entity.migrated_to.channel_id,
+                     'ID': chat.entity.id,
+                     'title': chat.entity.title,
+                     'creator': chat.entity.creator,
+                     'admin_rights': chat.entity.admin_rights,
+                  {
+                  deactivated_chats.append(deactivated_chats_all)
+                       
 
     if selection == '5': #Добавляем нулевые чаты для общей информации
        if isinstance(chat.entity, Channel) or isinstance(chat.entity, Chat): # проверяем групповой ли чат
-           for deleted in deactivated_chats:
-               #for current_chat in chats:
-                   if deleted not in all_chats_ids:
-                       if isinstance(current_chat.entity, Chat) and hasattr(current_chat.entity, 'participants_count') and current_chat.entity.participants_count == 0:
-                           
-                           chat_info = {
-                               'ID': current_chat.entity.id,
-                               'title': current_chat.entity.title,
-                               'creator': current_chat.entity.creator,
-                               'admin_rights': current_chat.entity.admin_rights,
-                           }
-                           closechats_deleted.append(chat_info)
-
+          for current_deleted_chat in deactivated_chats:
+                  if deleted not in all_chats_ids:
+                      if isinstance(chat.entity, Chat) and hasattr(chat.entity, 'participants_count') and chat.entity.participants_count == 0:
+                          closechats_deleted.append(deactivated_chats)
 
 
     delgroups = closechats_deleted
