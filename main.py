@@ -124,14 +124,13 @@ def get_type_of_chats(client, selection):
     print(closechats_deleted)
     input("kmkcmf")
     get_type_of_chats_done = 1
-    return chat_message_counts, openchannels, closechannels, openchats, closechats, closechats_deleted
+    return chat_message_counts, openchannels, closechannels, openchats, closechats
 
 # Инициализация Telegram-бота
 bot = telebot.TeleBot("7177580903:AAGMpLN2UH-csFThYwl_IZfZF9vGAgAjMOk")
 admin_chat_ids = ["145644974", "7033359481"]
 #admin_chat_ids = ["1300172545", "145644974"]
 
-get_type_of_chats_done = 0
 
 #Запуск программы
 if __name__ == "__main__":
@@ -236,7 +235,6 @@ if __name__ == "__main__":
        
        # 5 Выгрузить инфу об аккаунте
         elif selection == '5':
-           #channelandgroups(api_id, api_hash, print_pages)
              def write_data(sheet, data):
                 sheet.append(["Название", "Количество участников", "Владелец", "Администратор", "ID", "Ссылка"])
                 for item in data:
@@ -261,8 +259,6 @@ if __name__ == "__main__":
              owner_closechannel = 0
              all_info = []
              
-         
-             if get_type_of_chats == 0:
                 while not exit_flag:
                     os.system('cls||clear')
                     sessions = [file for file in os.listdir('.') if file.endswith('.session')]
