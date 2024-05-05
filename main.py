@@ -60,14 +60,23 @@ def get_type_of_chats(client, selection):
     closechannels = []
     openchats = []
     closechats = []
-    all_channel_ids = []
 
     chats = client.get_dialogs()
     for chat in chats:
         count_messages = 0
+        all_chat_deleted = []
+        all_chats_ids = []
         if isinstance(chat.entity, Channel) or isinstance(chat.entity, Chat): # проверяем групповой ли чат
+            if isinstance(chat.entity, Channel)
+               all_chats_ids.append(chat.entity, Channel)
+            if isinstance(chat.entity, id)
+               all_chats_ids.append(chat.entity, id)
+           
             if isinstance(chat.entity, Chat) and hasattr(chat.entity, 'migrated_to') and getattr(chat.entity.migrated_to, 'channel_id', None) is not None:
-               all_channel_ids.append(getattr(chat.entity.migrated_to, 'channel_id', None))
+               all_chat_deleted.append(getattr(chat.entity.migrated_to, 'channel_id', None))
+               
+               
+               
 
            
             if selection == '7': #выгружаем количество сообщений при функции выгрузить сообщение
@@ -104,7 +113,8 @@ def get_type_of_chats(client, selection):
                        
     
     print(count_occurrences)
-    print(all_channel_ids)
+    print(all_chat_deleted)
+    print(all_chats_ids)
     input("жмяк")     
     return chat_message_counts, openchannels, closechannels, openchats, closechats
 # Инициализация Telegram-бота
