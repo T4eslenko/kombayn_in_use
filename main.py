@@ -61,11 +61,13 @@ def get_type_of_chats(client, selection):
     openchats = []
     closechats = []
 
+    count_messages = 0
+    all_chat_deleted = []
+    all_chats_ids = []
     chats = client.get_dialogs()
+   
     for chat in chats:
-        count_messages = 0
-        all_chat_deleted = []
-        all_chats_ids = []
+
         if isinstance(chat.entity, Channel) or isinstance(chat.entity, Chat): # проверяем групповой ли чат
             if isinstance(chat.entity, Channel):
                all_chats_ids.append(chat.entity.id)
