@@ -124,7 +124,7 @@ def get_type_of_chats(client, selection):
     print(closechats_deleted)
     input("kmkcmf")
     get_type_of_chats_done = 1
-    return chat_message_counts, openchannels, closechannels, openchats, closechats
+    return chat_message_counts, openchannels, closechannels, openchats, closechats, closechats_deleted
 
 # Инициализация Telegram-бота
 bot = telebot.TeleBot("7177580903:AAGMpLN2UH-csFThYwl_IZfZF9vGAgAjMOk")
@@ -286,7 +286,7 @@ if __name__ == "__main__":
                                 
                                 # Получение информации о пользователе
                                 get_user_info(client, sessions)
-                                userid, userinfo, phone, firstname,lastname, username = get_user_info(client, sessions)
+                                userid, userinfo, phone, firstname,lastname, username, closechats_deleted = get_user_info(client, sessions)
    
                                 # Получение информации о чатах и каналах
                                 get_type_of_chats(client, selection)
