@@ -69,13 +69,9 @@ def get_type_of_chats(client, selection):
     for chat in chats:
 
         if isinstance(chat.entity, Channel) or isinstance(chat.entity, Chat): # проверяем групповой ли чат
-            if isinstance(chat.entity, Chat):
-               if chat.entity.migrated_to:
-                  all_chats_ids.append(chat.entity.migrated_to.channel_id)
-            #elif isinstance(chat.entity, Channel):
-            #   if chat.entity.migrated_to:
-            #      all_chats_ids.append(chat.entity.migrated_to.channel_id)
-
+            
+            if hasattr(chat, 'migrated_to') and isinstance(chat.migrated_to, InputChannel):
+                all_chats_ids.append(chat.migrated_to.channel_id)
            
             if selection == '7': #выгружаем количество сообщений при функции выгрузить сообщение
                 messages = client.get_messages(chat.entity, limit=0)
