@@ -64,6 +64,7 @@ def get_type_of_chats(client, selection):
     count_messages = 0
     deactivated_chats = []
     all_chats_ids = []
+    closechats_deleted = []
     chats = client.get_dialogs()
    
     for chat in chats:
@@ -107,8 +108,6 @@ def get_type_of_chats(client, selection):
 
     if selection == '5': #Добавляем нулевые чаты для общей информации
        if isinstance(chat.entity, Channel) or isinstance(chat.entity, Chat): # проверяем групповой ли чат
-          closechats_deleted = []
-          closechatsdeleted = []
           for deleted in deactivated_chats:
               for chat in chats:
                   if deleted not in all_chats_ids:
@@ -121,11 +120,8 @@ def get_type_of_chats(client, selection):
                               'admin_rights': chat.entity.admin_rights,
                           }
                           closechats_deleted.append(chat_info)
-                          print(chat)
-                          closechatsdeleted.append(chat.entity)
-                          print(closechatsdeleted)
-                          print(closechats_deleted)
-                          input("жмяк")
+
+
     return chat_message_counts, openchannels, closechannels, openchats, closechats
 
 # Инициализация Telegram-бота
@@ -347,7 +343,23 @@ if __name__ == "__main__":
                                          owner_closegroup += 1
                                      if closechat.participants_count == 0:
                                          chatdeleted_count += 1 
-                                 
+
+                                 all_info.append("\033[95mУдалённые ГРУППЫ:\033[0m")
+                                 for closechat_deleted in closechats_deleted:
+                                     print(closechat_deleted)
+                                     input("dckk")
+                                     owner = " (Владелец)" if closechat.creator else ""
+                                     admin = " (Администратор)" if closechat.admin_rights is not None else ""
+                                     all_info.append(f"{closegroup_count} - {closechat.title} \033[93m[{closechat.participants_count}]\033[0m \033[91m{owner} {admin}\033[0m ID:{closechat.id}")
+                                     closegroup_count += 1
+                                     if owner !="" or admin != "":
+                                         owner_group += 1
+                                         owner_closegroup += 1
+                                     if closechat.participants_count == 0:
+                                         chatdeleted_count += 1 
+
+                                
+                                
                                  openchannel_count = openchannel_count-1
                                  closechannel_count = closechannel_count-1
                                  opengroup_count =opengroup_count-1
