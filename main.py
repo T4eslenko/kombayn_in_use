@@ -95,9 +95,16 @@ def get_type_of_chats(client, selection):
                if isinstance(chat.entity, Chat) and hasattr(chat.entity, 'participants_count') and chat.entity.participants_count == 0:
                   if hasattr(chat.entity, 'migrated_to'):
                        migrated_channel_id = getattr(chat.entity.migrated_to, 'channel_id', None)
+                       print(migrated_channel_id)
+                       input("жмяк")
+                       break
                        if migrated_channel_id is not None:
                            # Проверяем, есть ли другие чаты с таким же channel_id
-                           found_elsewhere = any((isinstance(entity.entity, Chat) or isinstance(entity.entity, Channel)) and hasattr(entity.entity, 'migrated_to') and entity.entity.migrated_to is not None and getattr(entity.entity.migrated_to, 'channel_id', None) == migrated_channel_id for entity in chats)
+                           found_elsewhere = False
+                           for entity_chat in chats:
+                               if entity_chat.entity.id != chat.entity.id and hasattr(entity_chat.entity, 'migrated_to') and getattr(entity_chat.entity.migrated_to, 'channel_id', None) == migrated_channel_id:
+                                   found_elsewhere = True
+                                   break
                            if not found_elsewhere:
                                closechats.append(chat.entity)
                                
