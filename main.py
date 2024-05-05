@@ -113,6 +113,9 @@ def get_type_of_chats(client, selection):
                      'admin_rights': chat.entity.admin_rights,
                   }
                   deactivated_chats.append(deactivated_chats_all)
+                  print(deactivated_chats)
+                  print(deactivated_chats_all)
+                  input("fkrj")
                        
 
     if selection == '5': #Добавляем нулевые чаты для общей информации
