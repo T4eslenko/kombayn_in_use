@@ -121,7 +121,8 @@ def get_type_of_chats(client, selection):
                           }
                           closechats_deleted.append(chat_info)
 
-
+    print(closechats_deleted)
+    input("kmkcmf")
     return chat_message_counts, openchannels, closechannels, openchats, closechats, closechats_deleted
 
 # Инициализация Telegram-бота
