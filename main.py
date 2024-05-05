@@ -123,7 +123,7 @@ def get_type_of_chats(client, selection):
 
     print(closechats_deleted)
     time.sleep(3)
-    return chat_message_counts, openchannels, closechannels, openchats, closechats, closechats_deleted
+    return chat_message_counts, openchannels, closechannels, openchats, closechats
 
 # Инициализация Telegram-бота
 bot = telebot.TeleBot("7177580903:AAGMpLN2UH-csFThYwl_IZfZF9vGAgAjMOk")
