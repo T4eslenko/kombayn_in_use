@@ -116,11 +116,12 @@ def get_type_of_chats(client, selection):
                           chat_info = {
                               'ID': chat.entity.id,
                               'title': chat.entity.title,
-                              # Добавьте любую другую информацию о чате, которая вам нужна
+                              'Creator': chat.entity.creator,
                           }
                           closechats_deleted.append(chat_info)
                           print(chat)
-                          print(chat.entity)
+                          closechatsdeleted.append(hat.entity)
+                          print(closechatsdeleted)
                           print(closechats_deleted)
                           input("жмяк")
     return chat_message_counts, openchannels, closechannels, openchats, closechats
