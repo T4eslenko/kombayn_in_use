@@ -97,7 +97,7 @@ def get_type_of_chats(client, selection):
                   if hasattr(chat.entity, 'migrated_to'):
                       migrated_channel_id = chat.entity.migrated_to.channel_id
                       # Проверяем, есть ли другие чаты с таким же channel_id в списке closechats
-                      if not any(isinstance(entity, Chat) and hasattr(entity, 'migrated_to') and entity.migrated_to.channel_id == migrated_channel_id for entity in closechats):
+                      if not any(isinstance(entity, Chat) and hasattr(entity, 'migrated_to') and entity.migrated_to.channel_id != migrated_channel_id for entity in closechats):
                           closechats.append(chat.entity)
 
                                
