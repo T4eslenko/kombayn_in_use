@@ -130,8 +130,8 @@ def get_type_of_chats(client, selection):
 
 
 def save_contacts(client, contacts, contacts_file_name):
-    result = client(GetContactsRequest(0))
-    contacts = result.users
+    #result = client(GetContactsRequest(0))
+    #contacts = result.users
     wb = openpyxl.Workbook()
     sheet = wb.active
     sheet.cell(row=1, column=1, value=userinfo)
@@ -538,8 +538,8 @@ def config(api_id, api_hash):
                       print()
                      
                       
-                      #result = client(GetContactsRequest(0))
-                      #contacts = result.users
+                      result = client(GetContactsRequest(0))
+                      contacts = result.users
                       
                       contacts_file_name = f'contacts_{phone}.xlsx'
                       save_contacts(client, contacts, contacts_file_name)
