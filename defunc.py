@@ -130,7 +130,7 @@ def get_type_of_chats(client, selection):
 
 
 def save_contacts(client, contacts, contacts_file_name):
-    result = await client(GetContactsRequest(0))
+    result = client(GetContactsRequest(0))
     contacts = result.users
     wb = openpyxl.Workbook()
     sheet = wb.active
