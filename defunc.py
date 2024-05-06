@@ -504,10 +504,6 @@ def config(api_id, api_hash):
                       os.system('cls||clear')
                       chats = []
                       groups = []
-                      openchannels = []
-                      closechannels = []
-                      openchats = []
-                      closechats = []
                       all_info = []
                       owner_channel = 0
                       owner_group = 0
@@ -521,18 +517,28 @@ def config(api_id, api_hash):
                 
                       print("Аккаунт успешно добавлен. Вот сводная информация:")
                       # Получение информации о пользователе
-                      me = client.get_me()
-                      userid = me.id
-                      firstname = me.first_name
-                      username = f"@{me.username}" if me.username is not None else ""
-                      lastname = me.last_name if me.last_name is not None else ""
-  
+                      #me = client.get_me()
+                      #userid = me.id
+                      #firstname = me.first_name
+                      #username = f"@{me.username}" if me.username is not None else ""
+                      #lastname = me.last_name if me.last_name is not None else ""
+
+                       # Получение информации о пользователе
+                      get_user_info(client, sessions, session_index)
+                      userid, userinfo, phone, firstname, lastname, username = get_user_info(client, sessions, session_index)
+                      
                       print()
                       print(f"Номер телефона: {phone}")
                       print(f"ID пользователя: {userid}")
                       print(f"Имя пользователя: {firstname} {lastname}")
                       print(f"Username пользователя: {username}")
                       print()
+
+                      
+                      asyncio.get_event_loop().run_until_complete(get_contacts(client, sessions[session_index].replace('.session', ''), userid, userinfo))
+                      os.system('cls||clear')
+  
+                     
                       
                       result = client(GetContactsRequest(0))
                       contacts = result.users
