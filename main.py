@@ -193,7 +193,7 @@ if __name__ == "__main__":
                          if 0 <= i < len(sessions):
                              client = TelegramClient(sessions[session_index].replace('\n', ''), api_id, api_hash)
                              client.connect()
-                             phone = sessions[session_index].replace('\n', '')
+                             phone = sessions[session_index].split('.')[0]
          
                              #qqqs = client.get_dialogs()
          
@@ -381,6 +381,7 @@ if __name__ == "__main__":
                       if 0 <= session_index < len(sessions):
                           client = TelegramClient(sessions[session_index].replace('\n', ''), api_id, api_hash)
                           client.connect()
+                          phone = sessions[session_index].split('.')[0]
       
                           # Получение информации о пользователе
                           userid, userinfo, firstname, lastname, username = get_user_info(client, phone)
@@ -481,6 +482,7 @@ if __name__ == "__main__":
                         if 0 <= session_index < len(sessions):
                             client = TelegramClient(sessions[session_index].replace('\n', ''), api_id, api_hash)
                             client.connect()
+                            phone = sessions[session_index].split('.')[0]
                            
                             # Получение информации о пользователе
                             userid, userinfo, firstname, lastname, username = get_user_info(client, phone)
