@@ -33,6 +33,7 @@ def print_pages(items, items_per_page):
         # Запрос на нажатие клавиши, если не все элементы были выведены и не последняя страница
         if end_index < num_items and page_num < num_pages - 1:
             input("\033[93mНажмите Enter для продолжения...\033[0m")
+            os.system('cls||clear')
             print("\033[A\033[K", end='')
 
 
