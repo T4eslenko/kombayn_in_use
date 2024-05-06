@@ -251,7 +251,7 @@ if __name__ == "__main__":
                     title_value = item['title']
                     owner = " (Владелец)" if owner_value else ""
                     admin = " (Администратор)" if admin_value is not None else ""
-                    sheet.append([item.title, owner, admin, item.id])
+                    sheet.append([title_value, owner, admin, id_value])
                    
              os.system('cls||clear')
              chats = []
