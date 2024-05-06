@@ -464,7 +464,7 @@ def config(api_id, api_hash):
                       chatdeleted_count = 0
                 
                       print("Аккаунт успешно добавлен. Вот сводная информация:")
-                      userid, userinfo, phone, firstname, lastname, username = get_user_info(client, phone)
+                      userid, userinfo, firstname, lastname, username = get_user_info(client, phone)
                       # Получение информации о пользователе
                       #me = client.get_me()
                       #userid = me.id
