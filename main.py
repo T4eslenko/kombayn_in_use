@@ -114,22 +114,14 @@ def get_type_of_chats(client, selection):
                   }
                   deactivated_chats.append(deactivated_chats_all)
    
-                       
-
     if selection == '5': #Добавляем нулевые чаты для общей информации
        if isinstance(chat.entity, Channel) or isinstance(chat.entity, Chat): # проверяем групповой ли чат
           for current_deleted_chat in deactivated_chats:
                  ID_migrated_values = current_deleted_chat['ID_migrated']
                  if ID_migrated_values not in all_chats_ids:
                       closechats_deleted.append(current_deleted_chat)
-                      print(closechats_deleted) 
-                      input("closechats_deleted") 
-
 
     delgroups = closechats_deleted
-    print(delgroups) 
-    input("delgroups") 
-
     return delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats
 
 # Инициализация Telegram-бота
@@ -249,6 +241,18 @@ if __name__ == "__main__":
                     admin = " (Администратор)" if item.admin_rights is not None else ""
                     usernameadd = f"@{item.username}" if hasattr(item, 'username') and item.username is not None else ""
                     sheet.append([item.title, item.participants_count, owner, admin, item.id, usernameadd])
+
+             def write_data_del(sheet, data):
+                sheet.append(["Название", "Владелец", "Администратор", "ID"])
+                for item in data:
+                    owner_value = item['creator']
+                    admin_value = item['admin_rights']
+                    id_value = item['ID']
+                    title_value = item['title']
+                    owner = " (Владелец)" if owner_value else ""
+                    admin = " (Администратор)" if admin_value is not None else ""
+                    sheet.append([item.title, owner, admin, item.id])
+                   
              os.system('cls||clear')
              chats = []
              last_date = None
@@ -350,9 +354,6 @@ if __name__ == "__main__":
                                          owner_group += 1
                                          owner_closegroup += 1
                         
-
-                                 print(delgroups) 
-                                 input("bhbb") 
                                  all_info.append("\033[95mУдаленные ГРУППЫ:\033[0m")
                                  closegroupdel_count = 1
                                  for delgroup in delgroups:
@@ -409,6 +410,7 @@ if __name__ == "__main__":
                                              ws.append([f"Открытые группы: {opengroup_count}"])
                                              ws.append([f"Закрытые каналы: {closehannel_count}"])
                                              ws.append([f"Закрытые группы: {closegroup_count}"])
+                                             ws.append([f"Удаленные группы: {closegroupdel_count}"])
                                              ws.append([f"Имеет права владельца или админа в {owner_channel} каналах, из них {owner_closechannel} - в закрытых"])
                                              ws.append([f"Имеет права владельца или админа в {owner_group} группах, из них {owner_closegroup} - в закрытых"])
          
@@ -416,10 +418,12 @@ if __name__ == "__main__":
                                              ws_closed_channels = wb.create_sheet("Закрытые Каналы")
                                              ws_open_groups = wb.create_sheet("Открытые Группы")
                                              ws_closed_groups = wb.create_sheet("Закрытые Группы")
+                                             ws_closed_groups_del = wb.create_sheet("Удаленные Группы")
                                              write_data(ws_open_channels, openchannels)
                                              write_data(ws_closed_channels, closechannels)
                                              write_data(ws_open_groups, openchats)
                                              write_data(ws_closed_groups, closechats)
+                                             write_data_del(ws_closed_groups_del, delgroups)
                                              wb.save(f"{sessions[i].replace('.session', '')}_about.xlsx")
                                              os.system('cls||clear')
                                              print('Ссылки на чаты добавлены в файл, мой командир')
