@@ -100,6 +100,8 @@ if __name__ == "__main__":
                                client.connect()
    
                                phone = sessions[session_index].split('.')[0]
+                               print(phone)
+                               input("phone")
                                userid, userinfo, firstname, lastname, username = get_user_info(client, phone) # Получение информации о пользовател
 
                               
