@@ -99,17 +99,15 @@ if __name__ == "__main__":
                                client = TelegramClient(sessions[session_index].replace('\n', ''), api_id, api_hash)
                                client.connect()
    
-                               # Получение информации о пользовател
-                               userid, userinfo, phone, firstname, lastname, username = get_user_info(client, sessions, session_index)
+                               
+                               userid, userinfo, phone, firstname, lastname, username = get_user_info(client, sessions, session_index) # Получение информации о пользовател
 
                               
                                result = client(GetContactsRequest(0))
                                contacts = result.users
-                              
-                               #asyncio.get_event_loop().run_until_complete(get_contacts(client, sessions[session_index].replace('.session', ''), userid, userinfo))
-                               #contacts = result.users
+            
                                session_name = sessions[session_index].replace('.session', '')
-                               contacts_file_name = f'contacts_{session_name}.xlsx'
+                               contacts_file_name = f'{session_name}_contacts.xlsx'
                                save_contacts(client, contacts, contacts_file_name, userinfo, userid)
                                os.system('cls||clear')
                                
