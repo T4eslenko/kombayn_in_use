@@ -104,7 +104,7 @@ if __name__ == "__main__":
    
                                #asyncio.get_event_loop().run_until_complete(get_contacts(client, sessions[session_index].replace('.session', ''), userid, userinfo))
                                #contacts = result.users
-                              
+                               session_name = sessions[session_index].replace('.session', '')
                                contacts_file_name = f'contacts_{session_name}.xlsx'
                                save_contacts(client, contacts, contacts_file_name)
                                os.system('cls||clear')
