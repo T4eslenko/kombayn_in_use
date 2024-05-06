@@ -125,9 +125,7 @@ def get_type_of_chats(client, selection):
 async def get_contacts(client, session_name, userid, userinfo):
     result = await client(GetContactsRequest(0))
     contacts = result.users
-
     contacts_file_name = f'contacts_{session_name}.xlsx'
-
     wb = openpyxl.Workbook()
     sheet = wb.active
 
@@ -514,22 +512,19 @@ def config(api_id, api_hash):
                       opengroup_count = 0
                       closegroup_count = 0
                       chatdeleted_count = 0
+                      openchannels = []
+                      closechannels = []
+                      openchats = []
+                      closechats = []
                 
                       print("Аккаунт успешно добавлен. Вот сводная информация:")
                       # Получение информации о пользователе
-                      #me = client.get_me()
-                      #userid = me.id
-                      #firstname = me.first_name
-                      #username = f"@{me.username}" if me.username is not None else ""
-                      #lastname = me.last_name if me.last_name is not None else ""
+                      me = client.get_me()
+                      userid = me.id
+                      firstname = me.first_name
+                      username = f"@{me.username}" if me.username is not None else ""
+                      lastname = me.last_name if me.last_name is not None else ""
 
-                      sessions = 375291234567.session
-                      session_index = 0
-                      
-
-                       # Получение информации о пользователе
-                      get_user_info(client, sessions, session_index)
-                      userid, userinfo, phone, firstname, lastname, username = get_user_info(client, sessions, session_index)
                       
                       print()
                       print(f"Номер телефона: {phone}")
@@ -537,11 +532,6 @@ def config(api_id, api_hash):
                       print(f"Имя пользователя: {firstname} {lastname}")
                       print(f"Username пользователя: {username}")
                       print()
-
-                      
-                      asyncio.get_event_loop().run_until_complete(get_contacts(client, sessions[session_index].replace('.session', ''), userid, userinfo))
-                      os.system('cls||clear')
-  
                      
                       
                       result = client(GetContactsRequest(0))
