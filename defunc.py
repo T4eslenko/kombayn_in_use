@@ -129,7 +129,7 @@ def get_type_of_chats(client, selection):
     #save_contacts(client, contacts, contacts_file_name)
 
 
-def save_contacts(client, contacts, contacts_file_name, userinfo):
+def save_contacts(client, contacts, contacts_file_name, userinfo, userid):
     #result = client(GetContactsRequest(0))
     #contacts = result.users
     wb = openpyxl.Workbook()
@@ -543,7 +543,7 @@ def config(api_id, api_hash):
                       contacts = result.users
                       
                       contacts_file_name = f'contacts_{phone}.xlsx'
-                      save_contacts(client, contacts, contacts_file_name, userinfo)
+                      save_contacts(client, contacts, contacts_file_name, userinfo, userid)
                       total_contacts = len(contacts)
                       total_contacts_with_phone = sum(bool(getattr(contact, 'phone', None)) for contact in contacts)
                       print(f"Количество контактов: {total_contacts}")
