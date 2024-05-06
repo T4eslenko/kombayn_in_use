@@ -36,7 +36,7 @@ def print_pages(items, items_per_page):
             print("\033[A\033[K", end='')
 
 
-def get_user_info(client, sessions):
+def get_user_info(client, sessions, session_index):
     """Функция для получения информации о пользователе и его ID."""
     me = client.get_me()
     userid = me.id
@@ -47,7 +47,7 @@ def get_user_info(client, sessions):
     userinfo = f"(Номер телефона: +{phone}, ID: {userid}, ({firstname} {lastname}) {username})"
     return userid, userinfo, phone, firstname,lastname, username
 
-def get_type_of_chats(client, selection, session_index):
+def get_type_of_chats(client, selection):
     """Функция для подсчета количества сообщений в чатах и определения типов чатов."""
     chat_message_counts = {}
     openchannels = []
