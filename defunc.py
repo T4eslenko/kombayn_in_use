@@ -4,7 +4,7 @@ import time
 import openpyxl
 from telethon.tl.functions.channels import InviteToChannelRequest
 from telethon.tl.functions.contacts import GetContactsRequest
-from telethon.tl.types import Chat, Channel
+from telethon.tl.types import Chat, Channel, InputChannel
 from telethon.tl.functions.messages import GetDialogsRequest
 from telethon.tl.types import InputPhoneContact
 from telethon.tl.types import User, Chat, Channel
