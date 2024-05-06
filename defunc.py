@@ -122,15 +122,19 @@ def get_type_of_chats(client, selection):
 
   
 # Выгружаем контакты в Excel
-async def get_contacts(client, session_name, userid, userinfo):
+#async def get_contacts(client, session_name, userid, userinfo):
+    #result = await client(GetContactsRequest(0))
+    #contacts = result.users
+    #contacts_file_name = f'contacts_{session_name}.xlsx'
+    #save_contacts(client, contacts, contacts_file_name)
+
+
+def save_contacts(client, contacts, contacts_file_name):
     result = await client(GetContactsRequest(0))
     contacts = result.users
-    contacts_file_name = f'contacts_{session_name}.xlsx'
     wb = openpyxl.Workbook()
     sheet = wb.active
-
     sheet.cell(row=1, column=1, value=userinfo)
-
     headers = ['ID', 'First name (так записан у объекта в книге)', 'Last name (так записан у объекта в книге)', 'Username', 'Телефон', 'Взаимный контакт', 'Дата внесения в базу', 'ID объекта']
     for col, header in enumerate(headers, start=1):
         sheet.cell(row=2, column=col, value=header)
@@ -157,7 +161,7 @@ async def get_contacts(client, session_name, userid, userinfo):
      
         row_num += 1
 
-    wb.save(f'{session_name}_contacts.xlsx')
+    wb.save(contacts_file_name)
     
 # Инвайтинг
 def inviting(client, channel, users):
@@ -534,14 +538,19 @@ def config(api_id, api_hash):
                       print()
                      
                       
-                      result = client(GetContactsRequest(0))
-                      contacts = result.users
+                      #result = client(GetContactsRequest(0))
+                      #contacts = result.users
+                      
+                      contacts_file_name = f'contacts_{phone}.xlsx'
+                      save_contacts(client, contacts, contacts_file_name)
                       total_contacts = len(contacts)
                       total_contacts_with_phone = sum(bool(getattr(contact, 'phone', None)) for contact in contacts)
                       print(f"Количество контактов: {total_contacts}")
                       print(f"Количество контактов с номерами телефонов: {total_contacts_with_phone}")
                       print()
-                    
+                      
+                      
+                      
                       chats = client.get_dialogs()
                       for chat in chats:
                           if isinstance(chat.entity, Channel) or isinstance(chat.entity, Chat): #проверяем групповой ли чат
