@@ -591,7 +591,7 @@ if __name__ == "__main__":
 
 # 1 Настройки
         elif selection == '1':
-            config(api_id, api_hash) 
+            config(api_id, api_hash, selection) 
 
 
 # 2 Парсинг участников чата в txt
