@@ -120,7 +120,7 @@ def get_type_of_chats(client, selection):
        if isinstance(chat.entity, Channel) or isinstance(chat.entity, Chat): # проверяем групповой ли чат
           #for current_deleted_chat in deactivated_chats:
                   current_deleted_chat = deactivated_chats
-                  ID_migrated_values = current_deleted_chat['ID_migrated']
+                  ID_migrated_values = current_deleted_chat[0]['ID_migrated']
                               
                   if ID_migrated_values not in all_chats_ids:
                       
