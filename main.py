@@ -99,8 +99,7 @@ if __name__ == "__main__":
                                client = TelegramClient(sessions[session_index].replace('\n', ''), api_id, api_hash)
                                client.connect()
    
-                               # Получение информации о пользователе
-                               get_user_info(client, sessions, session_index)
+                               # Получение информации о пользовател
                                userid, userinfo, phone, firstname, lastname, username = get_user_info(client, sessions, session_index)
    
                                asyncio.get_event_loop().run_until_complete(get_contacts(client, sessions[session_index].replace('.session', ''), userid, userinfo))
