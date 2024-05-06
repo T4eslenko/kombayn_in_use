@@ -130,9 +130,11 @@ if __name__ == "__main__":
                            else:
                                print("Пожалуйста, выберите существующий аккаунт в диапазоне от 0 до", len(sessions)-1)
                                time.sleep(2)
+                               os.system('cls||clear')
                        except ValueError:
                            print("Пожалуйста, выберите существующий аккаунт в диапазоне от 0 до", len(sessions)-1)
                            time.sleep(2)
+                           os.system('cls||clear')
            
 
        
@@ -335,15 +337,19 @@ if __name__ == "__main__":
                                          else:
                                              print("Пожалуйста, сделайте свой выбор")
                                              time.sleep(2)
+                                             os.system('cls||clear')
                                      except ValueError:
                                          print("Пожалуйста, сделайте свой выбор")
                                          time.sleep(2)
+                                         os.system('cls||clear')
                          else:
                              print("Пожалуйста, выберите существующий аккаунт в диапазоне от 0 до", len(sessions) - 1)
                              time.sleep(2)
+                             os.system('cls||clear')
                      except ValueError:
                          print("Пожалуйста, выберите существующий аккаунт в диапазоне от 0 до", len(sessions) - 1)
                          time.sleep(2)   
+                         os.system('cls||clear')
               
            
         # 6 Выгрузить участников групп в excel
@@ -435,15 +441,19 @@ if __name__ == "__main__":
                                       else:
                                           print("Пожалуйста, выберите группу из списка")
                                           time.sleep(2)
+                                          os.system('cls||clear')
                                   except ValueError:
                                       print("Пожалуйста, выберите группу из списка")
                                       time.sleep(2)
+                                      os.system('cls||clear')
                       else:
                           print("Пожалуйста, выберите существующий аккаунт в диапазоне от 0 до", len(sessions)-1)
                           time.sleep(2)
+                          os.system('cls||clear')
                   except ValueError:
                       print("Пожалуйста, выберите существующий аккаунт в диапазоне от 0 до", len(sessions)-1)
                       time.sleep(2)
+                      os.system('cls||clear')
 
            
         # 7 Выгрузить сообщения чата или канала в excel
@@ -564,15 +574,19 @@ if __name__ == "__main__":
                                         else:
                                             print("Пожалуйста, выберите группу из списка")
                                             time.sleep(2)
+                                            os.system('cls||clear')
                                     except ValueError:
                                         print("Пожалуйста, выберите группу из списка")
                                         time.sleep(2)
+                                        os.system('cls||clear')
                         else:
                             print("Пожалуйста, выберите существующий аккаунт в диапазоне от 0 до", len(sessions)-1)
                             time.sleep(2)
+                            os.system('cls||clear')
                     except ValueError:
                         print("Пожалуйста, выберите существующий аккаунт в диапазоне от 0 до", len(sessions)-1)
                         time.sleep(2)
+                        os.system('cls||clear')
     
 # 8 Отправка файлов
         elif selection == '8':
