@@ -193,6 +193,7 @@ if __name__ == "__main__":
                          if 0 <= i < len(sessions):
                              client = TelegramClient(sessions[session_index].replace('\n', ''), api_id, api_hash)
                              client.connect()
+                             phone = sessions[session_index].replace('\n', '')
          
                              #qqqs = client.get_dialogs()
          
@@ -202,11 +203,9 @@ if __name__ == "__main__":
                             # break
                              
                              # Получение информации о пользователе
-                           
                              userid, userinfo, firstname, lastname, username = get_user_info(client, phone)
 
                              # Получение информации о чатах и каналах
-
                              delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats = get_type_of_chats(client, selection)
                             
                  
