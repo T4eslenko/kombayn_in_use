@@ -36,16 +36,16 @@ def print_pages(items, items_per_page):
             print("\033[A\033[K", end='')
 
 
-def get_user_info(client, sessions, session_index):
+def get_user_info(client, phone):
     """Функция для получения информации о пользователе и его ID."""
     me = client.get_me()
     userid = me.id
     firstname = me.first_name
     username = f"@{me.username}" if me.username is not None else ""
     lastname = me.last_name if me.last_name is not None else ""
-    phone = sessions[session_index].split('.')[0]
+    
     userinfo = f"(Номер телефона: +{phone}, ID: {userid}, ({firstname} {lastname}) {username})"
-    return userid, userinfo, phone, firstname,lastname, username
+    return userid, userinfo, firstname,lastname, username
 
 def get_type_of_chats(client, selection):
     """Функция для подсчета количества сообщений в чатах и определения типов чатов."""
@@ -462,19 +462,16 @@ def config(api_id, api_hash):
                       opengroup_count = 0
                       closegroup_count = 0
                       chatdeleted_count = 0
-                      openchannels = []
-                      closechannels = []
-                      openchats = []
-                      closechats = []
                 
                       print("Аккаунт успешно добавлен. Вот сводная информация:")
+                      userid, userinfo, phone, firstname, lastname, username = get_user_info(client, phone)
                       # Получение информации о пользователе
-                      me = client.get_me()
-                      userid = me.id
-                      firstname = me.first_name
-                      username = f"@{me.username}" if me.username is not None else ""
-                      lastname = me.last_name if me.last_name is not None else ""
-                      userinfo = f"(Номер телефона: +{phone}, ID: {userid}, ({firstname} {lastname}) {username})"
+                      #me = client.get_me()
+                      #userid = me.id
+                      #firstname = me.first_name
+                      #username = f"@{me.username}" if me.username is not None else ""
+                      #lastname = me.last_name if me.last_name is not None else ""
+                      #userinfo = f"(Номер телефона: +{phone}, ID: {userid}, ({firstname} {lastname}) {username})"
 
                       
                       print()
