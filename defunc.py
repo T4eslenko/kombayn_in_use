@@ -353,7 +353,7 @@ def parsing(client, index: int, id: bool, name: bool):
 
 
 #Настройки
-def config(api_id, api_hash):
+def config(api_id, api_hash, selection):
     while True:
         os.system('cls||clear')
 
