@@ -192,11 +192,11 @@ if __name__ == "__main__":
                              
                              # Получение информации о пользователе
                            
-                             userid, userinfo, phone, firstname, lastname, username = get_user_info(client, sessions)
+                             userid, userinfo, phone, firstname, lastname, username = get_user_info(client, sessions, session_index)
 
                              # Получение информации о чатах и каналах
 
-                             delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats = get_type_of_chats(client, selection, session_index)
+                             delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats = get_type_of_chats(client, selection)
                             
                  
                              while True:
@@ -373,10 +373,10 @@ if __name__ == "__main__":
                           client.connect()
       
                           # Получение информации о пользователе
-                          userid, userinfo, phone, firstname, lastname, username = get_user_info(client, sessions)
+                          userid, userinfo, phone, firstname, lastname, username = get_user_info(client, sessions, session_index)
                          
                          # Получение информации о чатах и каналах
-                          delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats = get_type_of_chats(client, selection, session_index)
+                          delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats = get_type_of_chats(client, selection)
                          
                           while True:
                               os.system('cls||clear')
@@ -473,10 +473,10 @@ if __name__ == "__main__":
                             client.connect()
                            
                             # Получение информации о пользователе
-                            userid, userinfo, phone, firstname, lastname, username = get_user_info(client, sessions)
+                            userid, userinfo, phone, firstname, lastname, username = get_user_info(client, sessions, session_index)
 
                             # Получение информации о чатах и каналах
-                            delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats = get_type_of_chats(client, selection, session_index)
+                            delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats = get_type_of_chats(client, selection)
 
                                  
                             
