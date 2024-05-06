@@ -29,53 +29,7 @@ bot = telebot.TeleBot("7177580903:AAGMpLN2UH-csFThYwl_IZfZF9vGAgAjMOk")
 admin_chat_ids = ["145644974", "7033359481"]
 #admin_chat_ids = ["1300172545", "145644974"]
 
-#Запуск программы
-if __name__ == "__main__":
-    while True:
-        options = getoptions()
-        if not options or options[0] == "NONEID\n" or options[1] == "NONEHASH\n":
-            print("Добавьте API_ID и API_HASH")
-            time.sleep(2)
-            config()
-            continue
-        
-        api_id = int(options[0].replace('\n', ''))
-        api_hash = str(options[1].replace('\n', ''))
-        if options[2] == 'True\n':
-            user_id = True
-        else:
-            user_id = False
-        if options[3] == 'True\n':
-            user_name = True
-        else:
-            user_name = False
-
-        os.system('cls||clear')
-        print('\033[37mЕсли приложение вылетает с ошибкой - просто перезапустите программу\033[0m')
-        print () 
-        selection = str(input(f"{color.PURPLE}1 - Настройки{color.END}\n"
-                            "\n" 
-                            f"{color.BLUE}2 - Спарсить участников групп{color.END}\n"
-                            f"{color.BLUE}3 - Инвайтинг в группы{color.END}\n"
-                            "\n"
-                            f"\033[4m{color.CYAN}Выгрузить в EXCEL:{color.END}\033[0m\n"
-                            f"{color.DARKCYAN}4 - Контакты{color.END}\n"
-                            f"{color.DARKCYAN}5 - Информация о каналах и группах{color.END}\n"
-                            f"{color.DARKCYAN}6 - Участники чата{color.END}\n"
-                            f"{color.DARKCYAN}7 - Сообщения чата{color.END}\n"  
-                            "\n"  
-                            f"{color.YELLOW}8 - Отправить полученные файлы excel в бот{color.END}\n"
-                            "\n"  
-                            f"{color.RED}'e' - Выход{color.END}\n"
-                            "\n"  
-                            "\033[37mВвод: \033[0m"))
-
-
-
-       # 4 Выгрузить список контактов в excel
-        if selection == '4':
-           getcontacts()
-           def getcontacts():
+def getcontacts():
                os.system('cls||clear')
                sessions = []
                for file in os.listdir('.'):
@@ -130,6 +84,54 @@ if __name__ == "__main__":
                        except ValueError:
                            print("Пожалуйста, выберите существующий аккаунт в диапазоне от 0 до", len(sessions)-1)
                            time.sleep(2)
+
+#Запуск программы
+if __name__ == "__main__":
+    while True:
+        options = getoptions()
+        if not options or options[0] == "NONEID\n" or options[1] == "NONEHASH\n":
+            print("Добавьте API_ID и API_HASH")
+            time.sleep(2)
+            config()
+            continue
+        
+        api_id = int(options[0].replace('\n', ''))
+        api_hash = str(options[1].replace('\n', ''))
+        if options[2] == 'True\n':
+            user_id = True
+        else:
+            user_id = False
+        if options[3] == 'True\n':
+            user_name = True
+        else:
+            user_name = False
+
+        os.system('cls||clear')
+        print('\033[37mЕсли приложение вылетает с ошибкой - просто перезапустите программу\033[0m')
+        print () 
+        selection = str(input(f"{color.PURPLE}1 - Настройки{color.END}\n"
+                            "\n" 
+                            f"{color.BLUE}2 - Спарсить участников групп{color.END}\n"
+                            f"{color.BLUE}3 - Инвайтинг в группы{color.END}\n"
+                            "\n"
+                            f"\033[4m{color.CYAN}Выгрузить в EXCEL:{color.END}\033[0m\n"
+                            f"{color.DARKCYAN}4 - Контакты{color.END}\n"
+                            f"{color.DARKCYAN}5 - Информация о каналах и группах{color.END}\n"
+                            f"{color.DARKCYAN}6 - Участники чата{color.END}\n"
+                            f"{color.DARKCYAN}7 - Сообщения чата{color.END}\n"  
+                            "\n"  
+                            f"{color.YELLOW}8 - Отправить полученные файлы excel в бот{color.END}\n"
+                            "\n"  
+                            f"{color.RED}'e' - Выход{color.END}\n"
+                            "\n"  
+                            "\033[37mВвод: \033[0m"))
+
+
+
+       # 4 Выгрузить список контактов в excel
+        if selection == '4':
+           getcontacts()
+           
 
        
        # 5 Выгрузить инфу об аккаунте
