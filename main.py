@@ -393,7 +393,7 @@ if __name__ == "__main__":
                                  #g_index_str = str(input("Для выгрузки информаци в файл Excel, введите 'get', для возврата - введеите 'e': "))
                                  g_index_str = str('get')
                                  print()
-                                 input("Для продолжение нажмите любую клавишу, информация о группах будет автоматически сохранена в файл Excel  ")
+                                 
          
                                  if g_index_str.lower() == 'e':
                                      client.disconnect()
@@ -425,6 +425,7 @@ if __name__ == "__main__":
                                              write_data(ws_closed_groups, closechats)
                                              write_data_del(ws_closed_groups_del, delgroups)
                                              wb.save(f"{sessions[i].replace('.session', '')}_about.xlsx")
+                                             input("Для продолжение нажмите любую клавишу, информация о группах будет автоматически сохранена в файл Excel  ")
                                              os.system('cls||clear')
                                              print('Ссылки на чаты добавлены в файл, мой командир')
                                              time.sleep(3)
