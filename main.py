@@ -337,10 +337,12 @@ if __name__ == "__main__":
                                          else:
                                              print("Пожалуйста, сделайте свой выбор")
                                              time.sleep(2)
+                                             all_info = []
                                              os.system('cls||clear')
                                      except ValueError:
                                          print("Пожалуйста, сделайте свой выбор")
                                          time.sleep(2)
+                                         all_info = []
                                          os.system('cls||clear')
                          else:
                              print("Пожалуйста, выберите существующий аккаунт в диапазоне от 0 до", len(sessions) - 1)
@@ -576,10 +578,12 @@ if __name__ == "__main__":
                                         else:
                                             print("Пожалуйста, выберите группу из списка")
                                             time.sleep(2)
+                                            all_info = []
                                             os.system('cls||clear')
                                     except ValueError:
                                         print("Пожалуйста, выберите группу из списка")
                                         time.sleep(2)
+                                        all_info = []
                                         os.system('cls||clear')
                         else:
                             print("Пожалуйста, выберите существующий аккаунт в диапазоне от 0 до", len(sessions)-1)
