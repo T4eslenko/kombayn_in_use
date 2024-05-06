@@ -325,7 +325,7 @@ if __name__ == "__main__":
                                              write_data(ws_closed_channels, closechannels)
                                              write_data(ws_open_groups, openchats)
                                              write_data(ws_closed_groups, closechats)
-                                             wb.save(f"{sessions[i].replace('.session', '')}_about.xlsx")
+                                             wb.save(f"{phone}_about.xlsx")
                                              os.system('cls||clear')
                                              print('Ссылки на чаты добавлены в файл, мой командир')
                                              time.sleep(3)
