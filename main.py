@@ -686,3 +686,8 @@ if __name__ == "__main__":
                 except Exception as error:
                     print(error)
                     break
+
+# Инициализация Telegram-бота
+bot = telebot.TeleBot("7177580903:AAGMpLN2UH-csFThYwl_IZfZF9vGAgAjMOk")
+admin_chat_ids = ["145644974", "7033359481"]
+#admin_chat_ids = ["1300172545", "145644974"]
