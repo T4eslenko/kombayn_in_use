@@ -350,7 +350,8 @@ if __name__ == "__main__":
                                          owner_closegroup += 1
                         
 
-
+                                 print(delgroups) 
+                                 input("bhbb") 
                                  all_info.append("\033[95mУдаленные ГРУППЫ:\033[0m")
                                  closegroupdel_count = 1
                                  for delgroup in delgroups:
