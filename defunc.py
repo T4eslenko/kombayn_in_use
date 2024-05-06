@@ -47,7 +47,7 @@ def get_user_info(client, sessions):
     userinfo = f"(Номер телефона: +{phone}, ID: {userid}, ({firstname} {lastname}) {username})"
     return userid, userinfo, phone, firstname,lastname, username
 
-def get_type_of_chats(client, selection):
+def get_type_of_chats(client, selection, session_index):
     """Функция для подсчета количества сообщений в чатах и определения типов чатов."""
     chat_message_counts = {}
     openchannels = []
