@@ -523,6 +523,10 @@ def config(api_id, api_hash):
                       #username = f"@{me.username}" if me.username is not None else ""
                       #lastname = me.last_name if me.last_name is not None else ""
 
+                      sessions = 375291234567.session
+                      session_index = 0
+                      
+
                        # Получение информации о пользователе
                       get_user_info(client, sessions, session_index)
                       userid, userinfo, phone, firstname, lastname, username = get_user_info(client, sessions, session_index)
