@@ -194,8 +194,6 @@ if __name__ == "__main__":
                              client = TelegramClient(sessions[session_index].replace('\n', ''), api_id, api_hash)
                              client.connect()
                              phone = sessions[session_index].split('.')[0]
-                             print(phone)
-                             input("phone")
                              #qqqs = client.get_dialogs()
          
                              ##for qqq in qqqs:
@@ -294,55 +292,35 @@ if __name__ == "__main__":
                                  print()
                                  print(f"\033[96mИмеет права владельца или админа в {owner_channel} каналах, из них {owner_closechannel} - в закрытых\033[0m")
                                  print(f"\033[96mИмеет права владельца или админа в {owner_group} группах, из них {owner_closegroup} - в закрытых\033[0m")
-         
-                                 #g_index_str = str(input("Для выгрузки информаци в файл Excel, введите 'get', для возврата - введеите 'e': "))
-                                 g_index_str = str('get')
                                  print()
                                  
-         
-                                 if g_index_str.lower() == 'e':
-                                     client.disconnect()
-                                     exit_flag = True
-                                     break
-                                 else:
-                                     try:
-                                         if g_index_str == "get":
-                                             wb = openpyxl.Workbook()
-                                             
-                                             ws = wb.active
-                                             ws.append([f"Номер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}"])
-                                             ws.append([f"Открытые каналы: {openchannel_count}"])
-                                             ws.append([f"Открытые группы: {opengroup_count}"])
-                                             ws.append([f"Закрытые каналы: {closehannel_count}"])
-                                             ws.append([f"Закрытые группы: {closegroup_count}"])
-                                             ws.append([f"Удаленные группы: {closegroupdel_count}"])
-                                             ws.append([f"Имеет права владельца или админа в {owner_channel} каналах, из них {owner_closechannel} - в закрытых"])
-                                             ws.append([f"Имеет права владельца или админа в {owner_group} группах, из них {owner_closegroup} - в закрытых"])
-         
-                                             ws_open_channels = wb.create_sheet("Открытые Каналы")
-                                             ws_closed_channels = wb.create_sheet("Закрытые Каналы")
-                                             ws_open_groups = wb.create_sheet("Открытые Группы")
-                                             ws_closed_groups = wb.create_sheet("Закрытые Группы")
-                                             ws_closed_groups_del = wb.create_sheet("Удаленные Группы")
-                                             write_data(ws_open_channels, openchannels)
-                                             write_data(ws_closed_channels, closechannels)
-                                             write_data(ws_open_groups, openchats)
-                                             write_data(ws_closed_groups, closechats)
-                                             write_data_del(ws_closed_groups_del, delgroups)
-                                             wb.save(f"{sessions[i].replace('.session', '')}_about.xlsx")
-                                             input("Для продолжение нажмите любую клавишу, информация о группах будет автоматически сохранена в файл Excel  ")
-                                             os.system('cls||clear')
-                                             print('Ссылки на чаты добавлены в файл, мой командир')
-                                             time.sleep(3)
-                                             exit_flag = True
-                                             client.disconnect()
-                                             break
-                                         else:
-                                             print("Пожалуйста, сделайте свой выбор")
-                                             time.sleep(2)
-                                     except ValueError:
-                                         print("Пожалуйста, сделайте свой выбор")
-                                         time.sleep(2)
+               				  	   ws = wb.active
+               					   ws.append([f"Номер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}"])
+               					   ws.append([f"Открытые каналы: {openchannel_count}"])
+               					   ws.append([f"Открытые группы: {opengroup_count}"])
+               					   ws.append([f"Закрытые каналы: {closehannel_count}"])
+               					   ws.append([f"Закрытые группы: {closegroup_count}"])
+               					   ws.append([f"Удаленные группы: {closegroupdel_count}"])
+               					   ws.append([f"Имеет права владельца или админа в {owner_channel} каналах, из них {owner_closechannel} - в закрытых"])
+               					   ws.append([f"Имеет права владельца или админа в {owner_group} группах, из них {owner_closegroup} - в закрытых"])
+               					   ws_open_channels = wb.create_sheet("Открытые Каналы")
+               					   ws_closed_channels = wb.create_sheet("Закрытые Каналы")
+               					   ws_open_groups = wb.create_sheet("Открытые Группы")
+               					   ws_closed_groups = wb.create_sheet("Закрытые Группы")
+               					   ws_closed_groups_del = wb.create_sheet("Удаленные Группы")
+               					   write_data(ws_open_channels, openchannels)
+               					   write_data(ws_closed_channels, closechannels)
+               					   write_data(ws_open_groups, openchats)
+               					   write_data(ws_closed_groups, closechats)
+               					   write_data_del(ws_closed_groups_del, delgroups)
+               					   wb.save(f"{phone}_about.xlsx")
+               					   input("Для продолжение нажмите любую клавишу, информация о группах будет автоматически сохранена в файл Excel  ")
+               					   os.system('cls||clear')
+               					   print('Ссылки на чаты добавлены в файл, мой командир')
+               					   time.sleep(3)
+               					   exit_flag = True
+               					   client.disconnect()
+               					   break                              
                          else:
                              print("Пожалуйста, выберите существующий аккаунт в диапазоне от 0 до", len(sessions) - 1)
                              time.sleep(2)
