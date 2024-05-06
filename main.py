@@ -64,7 +64,7 @@ def get_type_of_chats(client, selection):
     count_messages = 0
     deactivated_chats = []
     all_chats_ids = []
-    closechats_deleted = []
+    delgroups = []
     chats = client.get_dialogs()
    
     for chat in chats:
@@ -119,9 +119,9 @@ def get_type_of_chats(client, selection):
           for current_deleted_chat in deactivated_chats:
                  ID_migrated_values = current_deleted_chat['ID_migrated']
                  if ID_migrated_values not in all_chats_ids:
-                      closechats_deleted.append(current_deleted_chat)
+                      delgroups.append(current_deleted_chat)
 
-    delgroups = closechats_deleted
+    #delgroups = closechats_deleted
     return delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats
 
 # Инициализация Telegram-бота
