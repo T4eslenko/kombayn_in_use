@@ -101,7 +101,11 @@ if __name__ == "__main__":
    
                                # Получение информации о пользовател
                                userid, userinfo, phone, firstname, lastname, username = get_user_info(client, sessions, session_index)
-   
+
+                              
+                               result = client(GetContactsRequest(0))
+                               contacts = result.users
+                              
                                #asyncio.get_event_loop().run_until_complete(get_contacts(client, sessions[session_index].replace('.session', ''), userid, userinfo))
                                #contacts = result.users
                                session_name = sessions[session_index].replace('.session', '')
@@ -112,8 +116,7 @@ if __name__ == "__main__":
                                print('=ИНФОРМАЦИЯ О КОНТАКТАХ=')
                                print('-----------------------------')
                                print()
-                               #result = client(GetContactsRequest(0))
-                               #contacts = result.users
+                               
                                total_contacts = len(contacts)
                                total_mutual_contacts = sum(bool(getattr(contact, 'mutual_contact', None)) for contact in contacts)
                                total_contacts_with_phone = sum(bool(getattr(contact, 'phone', None)) for contact in contacts)
