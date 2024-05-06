@@ -75,7 +75,7 @@ if __name__ == "__main__":
        # 4 Выгрузить список контактов в excel
         if selection == '4':
            getcontacts()
-           def getcontacts()
+           def getcontacts():
                os.system('cls||clear')
                sessions = []
                for file in os.listdir('.'):
