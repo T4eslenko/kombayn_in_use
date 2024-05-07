@@ -110,7 +110,7 @@ if __name__ == "__main__":
                                #result = client(GetContactsRequest(0))
                                #contacts = result.users
                                #save_contacts(client, contacts, contacts_file_name, userinfo, userid)
-                               get_and_save_contacts(phone)
+                               get_and_save_contacts(client, phone)
                                
                                
                                print('=ИНФОРМАЦИЯ О КОНТАКТАХ=')
