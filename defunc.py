@@ -653,7 +653,7 @@ def config(api_id, api_hash, selection):
                 #      contacts_file_name = f'{phone}_contacts.xlsx'
                 #      save_contacts(client, contacts, contacts_file_name, userinfo, userid)
                 #      print(f"Конаткты сохранены в файл {phone}_contacts.xlsx")
-                      get_and_save_contacts(client, phone)
+                      get_and_save_contacts(client, phone, contacts, contacts_file_name, userinfo, userid)
 
                       # Получаем информацию о группах
                       delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats = get_type_of_chats(client, selection)
