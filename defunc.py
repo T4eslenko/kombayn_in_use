@@ -121,7 +121,7 @@ def print_suminfo_abou_channel (openchannel_count, closechannel_count, opengroup
     print()
     print(f"Состоит в открытых группах: {opengroup_count-1}")
     print(f"Состоит в закрытых группх: {closegroup_count-1}")
-    print(f"Удаленные группы: {closegroupdel_count}")
+    print(f"Удаленные группы: {closegroupdel_count-1}")
     print(f"Имеет права владельца или админа в {owner_group} группах, из них {owner_closegroup} - в закрытых")
     print("------------------------------------------------")
 
