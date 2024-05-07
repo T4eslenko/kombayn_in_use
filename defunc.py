@@ -502,7 +502,7 @@ def config(api_id, api_hash, selection):
                       closehannel_count = 0
                       opengroup_count = 0
                       closegroup_count = 0
-                      chatdeleted_count = 0
+                      closegroupdel_count = 0
                 
                       print("Аккаунт успешно добавлен. Вот сводная информация:")
                       userid, userinfo, firstname, lastname, username = get_user_info(client, phone)
@@ -574,7 +574,7 @@ def config(api_id, api_hash, selection):
                               owner_group += 1
                               owner_closegroup += 1
                           if closechat.participants_count == 0:
-                              chatdeleted_count += 1 
+                              closegroupdel_count += 1 
                       
                       openchannel_count = openchannel_count-1
                       closehannel_count = closehannel_count-1
@@ -586,7 +586,7 @@ def config(api_id, api_hash, selection):
                       print(f"Имеет права владельца или админа в {owner_channel} каналах, из них в закрытых: {owner_closechannel}")
                       print()
                       print(f"Состоит в открытых группах: {opengroup_count}")
-                      print(f"Состоит в закрытых группх: {closegroup_count}, из них удаленные - {chatdeleted_count}")
+                      print(f"Состоит в закрытых группх: {closegroup_count}, из них удаленные - {closegroupdel_count}")
                       print(f"Имеет права владельца или админа в {owner_group} группах, из них в закрытых: {owner_closegroup}")
                       print("------------------------------------------------")
                       print()
