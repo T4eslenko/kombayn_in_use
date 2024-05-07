@@ -104,7 +104,7 @@ def print_suminfo_abou_channel (openchannel_count, closechannel_count, opengroup
     print(f"Имеет права владельца или админа в {owner_group} группах, из них {owner_closegroup} - в закрытых")
     print("------------------------------------------------")
     print()
-    input("Для продолжение нажмите любую клавишу, информация будет автоматически сохранена в файл Excel  ")
+    input("Для продолжение нажмите любую клавишу  ")
 
 
 
