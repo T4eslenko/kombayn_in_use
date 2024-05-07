@@ -174,6 +174,7 @@ if __name__ == "__main__":
                                  all_info, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup = make_list_of_channels(delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats)        
                                  
                                  # Выводим информацию о группах
+                                 print_pages(all_info, 25)
                                  print_suminfo_abou_channel (openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup)
                       
                                  g_index_str = str('get')
