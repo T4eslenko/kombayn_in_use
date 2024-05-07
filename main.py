@@ -140,25 +140,7 @@ if __name__ == "__main__":
        
        # 5 Выгрузить инфу об аккаунте
         elif selection == '5':
-           #channelandgroups(api_id, api_hash, print_pages)
-             def write_data(sheet, data):
-                sheet.append(["Название", "Количество участников", "Владелец", "Администратор", "ID", "Ссылка"])
-                for item in data:
-                    owner = " (Владелец)" if item.creator else ""
-                    admin = " (Администратор)" if item.admin_rights is not None else ""
-                    usernameadd = f"@{item.username}" if hasattr(item, 'username') and item.username is not None else ""
-                    sheet.append([item.title, item.participants_count, owner, admin, item.id, usernameadd])
-
-             def write_data_del(sheet, data):
-                sheet.append(["Название", "Владелец", "Администратор", "ID"])
-                for item in data:
-                    owner_value = item['creator']
-                    admin_value = item['admin_rights']
-                    id_value = item['ID']
-                    title_value = item['title']
-                    owner = " (Владелец)" if owner_value else ""
-                    admin = " (Администратор)" if admin_value is not None else ""
-                    sheet.append([title_value, owner, admin, id_value])
+             
                    
              os.system('cls||clear')
              chats = []
