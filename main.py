@@ -191,7 +191,7 @@ if __name__ == "__main__":
                                  print('-----------------------------')
                                  print()
                                  
-                                 all_info, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count = type_of_channel(delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats)        
+                                 all_info, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_group, owner_closegroup = type_of_channel(delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats)        
                                  
                                  openchannel_count = openchannel_count-1
                                  closechannel_count = closechannel_count-1
