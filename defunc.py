@@ -604,6 +604,8 @@ def config(api_id, api_hash, selection):
                       print()
 
                       # Получаем информацию о контактах
+                      result = client(GetContactsRequest(0))
+                      contacts = result.users
                       total_contacts = len(contacts)
                       total_contacts_with_phone = sum(bool(getattr(contact, 'phone', None)) for contact in contacts)
                       print(f"Количество контактов: {total_contacts}")
@@ -611,8 +613,6 @@ def config(api_id, api_hash, selection):
                       print()
                     
                       # Сохраняем информацию о контактах
-                      result = client(GetContactsRequest(0))
-                      contacts = result.users
                       contacts_file_name = f'{phone}_contacts.xlsx'
                       save_contacts(client, contacts, contacts_file_name, userinfo, userid)
                       print(f"Конаткты сохранены в файл {phone}_contacts.xlsx")
