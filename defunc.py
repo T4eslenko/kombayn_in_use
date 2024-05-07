@@ -155,6 +155,13 @@ def get_user_info(client, phone):
     lastname = me.last_name if me.last_name is not None else ""
     
     userinfo = f"(Номер телефона: +{phone}, ID: {userid}, ({firstname} {lastname}) {username})"
+    print()
+    print(f"Номер телефона: {phone}")
+    print(f"ID пользователя: {userid}")
+    print(f"Имя пользователя: {firstname} {lastname}")
+    print(f"Username пользователя: {username}")
+    print()
+
     return userid, userinfo, firstname,lastname, username
 
 def get_type_of_chats(client, selection):
@@ -617,13 +624,7 @@ def config(api_id, api_hash, selection):
 
                       # Получаем информацию о пользователе 
                       userid, userinfo, firstname, lastname, username = get_user_info(client, phone)
-                      print()
-                      print(f"Номер телефона: {phone}")
-                      print(f"ID пользователя: {userid}")
-                      print(f"Имя пользователя: {firstname} {lastname}")
-                      print(f"Username пользователя: {username}")
-                      print()
-
+                      
                       # Получаем информацию о контактах
                       result = client(GetContactsRequest(0))
                       contacts = result.users
