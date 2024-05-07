@@ -247,13 +247,8 @@ def get_and_save_contacts(client, phone, userinfo, userid):
     
     # Сохраняем информацию о контактах
     contacts_file_name = f'{phone}_contacts.xlsx'
-    #save_contacts(client, contacts, contacts_file_name, userinfo, userid)
     print(f"Контакты сохранены в файл {phone}_contacts.xlsx")
-    #return contacts_file_name
 
-#def save_contacts(client, contacts, contacts_file_name, userinfo, userid):
-    #result = client(GetContactsRequest(0))
-    #contacts = result.users
     wb = openpyxl.Workbook()
     sheet = wb.active
     sheet.cell(row=1, column=1, value=userinfo)
@@ -643,18 +638,6 @@ def config(api_id, api_hash, selection):
                       userid, userinfo, firstname, lastname, username = get_user_info(client, phone)
                       
                       # Получаем информацию о контактах
-                #      result = client(GetContactsRequest(0))
-                #      contacts = result.users
-                #      total_contacts = len(contacts)
-                #      total_contacts_with_phone = sum(bool(getattr(contact, 'phone', None)) for contact in contacts)
-                #      print(f"Количество контактов: {total_contacts}")
-                #      print(f"Количество контактов с номерами телефонов: {total_contacts_with_phone}")
-                #      print()
-                    
-                #      # Сохраняем информацию о контактах
-                #      contacts_file_name = f'{phone}_contacts.xlsx'
-                #      save_contacts(client, contacts, contacts_file_name, userinfo, userid)
-                #      print(f"Конаткты сохранены в файл {phone}_contacts.xlsx")
                       get_and_save_contacts(client, phone, userinfo, userid)
 
                       # Получаем информацию о группах
