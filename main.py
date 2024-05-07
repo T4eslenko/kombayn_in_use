@@ -226,8 +226,6 @@ if __name__ == "__main__":
           chats = []
           last_date = None    
           size_chats = 200
-          groups = []
-          group_list = []
           all_info = []
           exit_flag = False
           all_info = []
@@ -275,8 +273,6 @@ if __name__ == "__main__":
                               else:
                                   try:
                                       g_index = int(g_index_str)
-                                      print(g_index)
-                                      input("g_index")
                                       if 0 <= g_index < i:
                                           target_group = groups[int(g_index)]
                                           group_title = target_group.title
