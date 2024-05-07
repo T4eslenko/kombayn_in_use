@@ -98,18 +98,20 @@ if __name__ == "__main__":
                            if 0 <= session_index < len(sessions):
                                client = TelegramClient(sessions[session_index].replace('\n', ''), api_id, api_hash)
                                client.connect()
+                               os.system('cls||clear')
    
                                phone = sessions[session_index].split('.')[0]
+                               session_name = sessions[session_index].replace('.session', '')
+                               #contacts_file_name = f'{session_name}_contacts.xlsx'
+                              
                                userid, userinfo, firstname, lastname, username = get_user_info(client, phone) # Получение информации о пользовател
 
                               
-                               result = client(GetContactsRequest(0))
-                               contacts = result.users
-            
-                               session_name = sessions[session_index].replace('.session', '')
-                               contacts_file_name = f'{session_name}_contacts.xlsx'
-                               save_contacts(client, contacts, contacts_file_name, userinfo, userid)
-                               #os.system('cls||clear')
+                               #result = client(GetContactsRequest(0))
+                               #contacts = result.users
+                               #save_contacts(client, contacts, contacts_file_name, userinfo, userid)
+                               get_and_save_contacts(phone)
+                               
                                
                                print('=ИНФОРМАЦИЯ О КОНТАКТАХ=')
                                print('-----------------------------')
