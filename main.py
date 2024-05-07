@@ -173,7 +173,7 @@ if __name__ == "__main__":
                                  print("=ИНФОРМАЦИЯ О КАНАЛАХ И ЧАТАХ=")
                                  print(f"\033[96mНомер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}\033[0m")
                                  print('-----------------------------')
-                                 i, all_info, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup = make_list_of_channels(delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats)
+                                 groups, i, all_info, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup = make_list_of_channels(delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats)
                                  print_suminfo_abou_channel (openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup)
                                  print()
                                  # Выводим информацию о группах
@@ -262,7 +262,7 @@ if __name__ == "__main__":
                               print(f"\033[96mНомер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}\033[0m")
                               print('-----------------------------')
       
-                              i, all_info, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup = make_list_of_channels(delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats)
+                              groups, i, all_info, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup = make_list_of_channels(delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats)
                               print_pages(all_info, 25)
                               print()
                              
@@ -314,7 +314,6 @@ if __name__ == "__main__":
             chats = []
             last_date = None    
             size_chats = 200
-            groups = []
             exit_flag = False
             all_info = []
 
@@ -348,7 +347,7 @@ if __name__ == "__main__":
                                  print('=ВЫГРУЗКА СООБЩЕНИЙ ЧАТА или КАНАЛА В EXCEL=')
                                  print(f"\033[96mНомер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}\033[0m")
                                  print('-----------------------------')
-                                 i, all_info, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup = make_list_of_channels(delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats)
+                                 groups, i, all_info, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup = make_list_of_channels(delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats)
                                  print_pages(all_info, 25)
                                  print()
                                  g_index_str = str(input("\033[92mВыберите чат для выгрузки всех сообщений из него ('e' - назад): \033[0m"))
