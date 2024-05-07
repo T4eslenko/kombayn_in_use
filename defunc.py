@@ -37,12 +37,12 @@ def type_of_channel(delgroups, chat_message_counts, openchannels, closechannels,
             		 owner_channel += 1
              
              all_info.append("\033[95mЗакрытые КАНАЛЫ:\033[0m")
-             closehannel_count = 1
+             closechannel_count = 1
              for closechannel in closechannels:
             	 owner = " (Владелец)" if closechannel.creator else ""
             	 admin = " (Администратор)" if closechannel.admin_rights is not None else ""
-            	 all_info.append(f"{closehannel_count} - {closechannel.title} \033[93m[{closechannel.participants_count}]\033[0m \033[91m{owner} {admin}\033[0m ID:{closechannel.id}")
-            	 closehannel_count += 1
+            	 all_info.append(f"{closechannel_count} - {closechannel.title} \033[93m[{closechannel.participants_count}]\033[0m \033[91m{owner} {admin}\033[0m ID:{closechannel.id}")
+            	 closechannel_count += 1
             	 if owner !="" or admin != "":
             		 owner_channel += 1
             		 owner_closechannel += 1
@@ -583,7 +583,7 @@ def config(api_id, api_hash, selection):
                       owner_closegroup = 0
                       owner_closechannel = 0
                       openchannel_count = 0
-                      closehannel_count = 0
+                      closechannel_count = 0
                       opengroup_count = 0
                       closegroup_count = 0
                       closegroupdel_count = 0
@@ -629,12 +629,12 @@ def config(api_id, api_hash, selection):
                           if owner !="" or admin != "":
                               owner_channel += 1
                       
-                      closehannel_count = 1
+                      closechannel_count = 1
                       for closechannel in closechannels:
                           owner = " (Владелец)" if closechannel.creator else ""
                           admin = " (Администратор)" if closechannel.admin_rights is not None else ""
-                          all_info.append(f"{closehannel_count} - {closechannel.title} \033[93m[{closechannel.participants_count}]\033[0m \033[91m{owner} {admin}\033[0m ID:{closechannel.id}")
-                          closehannel_count += 1
+                          all_info.append(f"{closechannel_count} - {closechannel.title} \033[93m[{closechannel.participants_count}]\033[0m \033[91m{owner} {admin}\033[0m ID:{closechannel.id}")
+                          closechannel_count += 1
                           if owner !="" or admin != "":
                               owner_channel += 1
                               owner_closechannel += 1
@@ -661,12 +661,12 @@ def config(api_id, api_hash, selection):
                               closegroupdel_count += 1 
                       
                       openchannel_count = openchannel_count-1
-                      closehannel_count = closehannel_count-1
+                      closechannel_count = closechannel_count-1
                       opengroup_count =opengroup_count-1
                       closegroup_count =closegroup_count-1
                   
                       print(f"Подписан на открытые каналы: {openchannel_count}")
-                      print(f"Подписан на закрытые каналы: {closehannel_count}")
+                      print(f"Подписан на закрытые каналы: {closechannel_count}")
                       print(f"Имеет права владельца или админа в {owner_channel} каналах, из них в закрытых: {owner_closechannel}")
                       print()
                       print(f"Состоит в открытых группах: {opengroup_count}")
