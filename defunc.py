@@ -71,9 +71,9 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
 
     all_info.append("\033[95mУдаленные ГРУППЫ:\033[0m")
     closegroupdel_count = 1
-    print(delgroups)
-    input("delgroups")
     for delgroup in delgroups:
+        print(delgroup)
+        input("delgroup")
         owner_value = delgroup['creator']
         admin_value = delgroup['admin_rights']
         id_value = delgroup['ID']
