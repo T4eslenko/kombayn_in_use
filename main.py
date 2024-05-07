@@ -191,10 +191,10 @@ if __name__ == "__main__":
                                  print('-----------------------------')
                                  print()
                                  
-                                 all_info, openchannel_count, closehannel_count, opengroup_count, closegroup_count, closegroupdel_count = type_of_channel(delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats)        
+                                 all_info, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count = type_of_channel(delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats)        
                                  
                                  openchannel_count = openchannel_count-1
-                                 closehannel_count = closehannel_count-1
+                                 closechannel_count = closechannel_count-1
                                  opengroup_count = opengroup_count-1
                                  closegroupdel_count = closegroupdel_count-1
                                  closegroup_count = closegroup_count-1
@@ -205,7 +205,7 @@ if __name__ == "__main__":
                                  print(f"Открытые каналы: {openchannel_count}")
                                  print(f"Открытые группы: {opengroup_count}")
                                  print()
-                                 print(f"\033[91mЗакрытые каналы: {closehannel_count}\033[0m")
+                                 print(f"\033[91mЗакрытые каналы: {closechannel_count}\033[0m")
                                  print(f"\033[91mЗакрытые группы: {closegroup_count}\033[0m")
                                  print(f"\033[91mУдаленные группы: {closegroupdel_count}\033[0m")
                                  print("---------------------------------------")
@@ -232,7 +232,7 @@ if __name__ == "__main__":
                                              ws.append([f"Номер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}"])
                                              ws.append([f"Открытые каналы: {openchannel_count}"])
                                              ws.append([f"Открытые группы: {opengroup_count}"])
-                                             ws.append([f"Закрытые каналы: {closehannel_count}"])
+                                             ws.append([f"Закрытые каналы: {closechannel_count}"])
                                              ws.append([f"Закрытые группы: {closegroup_count}"])
                                              ws.append([f"Имеет права владельца или админа в {owner_channel} каналах, из них {owner_closechannel} - в закрытых"])
                                              ws.append([f"Имеет права владельца или админа в {owner_group} группах, из них {owner_closegroup} - в закрытых"])
