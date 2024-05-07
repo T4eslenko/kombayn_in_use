@@ -58,7 +58,7 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
     for openchannel in openchannels:
         owner = " (Владелец)" if openchannel.creator else ""
         admin = " (Администратор)" if openchannel.admin_rights is not None else ""
-        messages_count = f"( / [{chat_message_counts.get(openchannel.id, 0)}])" if chat_message_counts else ""
+        messages_count = f" / [{chat_message_counts.get(openchannel.id, 0)}]" if chat_message_counts else ""
         all_info.append(f"{i} - {openchannel.title} \033[93m[{openchannel.participants_count}]{messages_count}\033[0m\033[91m {owner} {admin}\033[0m ID:{openchannel.id} \033[94m@{openchannel.username}\033[0m")
         openchannel_count += 1
         groups.append(openchannel)
@@ -71,7 +71,7 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
     for closechannel in closechannels:
         owner = " (Владелец)" if closechannel.creator else ""
         admin = " (Администратор)" if closechannel.admin_rights is not None else ""
-        messages_count = f"( / [{chat_message_counts.get(closechannel.id, 0)}])" if chat_message_counts else ""
+        messages_count = f" / [{chat_message_counts.get(closechannel.id, 0)}]" if chat_message_counts else ""
         all_info.append(f"{i} - {closechannel.title} \033[93m[{closechannel.participants_count}]{messages_count}\033[0m \033[91m{owner} {admin}\033[0m ID:{closechannel.id}")
         closechannel_count += 1
         groups.append(closechannel)
@@ -85,7 +85,7 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
     for openchat in openchats:
         owner = " (Владелец)" if openchat.creator else ""
         admin = " (Администратор)" if openchat.admin_rights is not None else ""
-        messages_count = f"( / [{chat_message_counts.get(openchat.id, 0)}])" if chat_message_counts else ""
+        messages_count = f" / [{chat_message_counts.get(openchat.id, 0)}]" if chat_message_counts else ""
         all_info.append(f"{i} - {openchat.title} \033[93m[{openchat.participants_count}]{messages_count}\033[0m\033[91m {owner} {admin}\033[0m ID:{openchat.id} \033[94m@{openchat.username}\033[0m")
         opengroup_count += 1
         groups.append(openchat)
@@ -98,7 +98,7 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
     for closechat in closechats:
         owner = " (Владелец)" if closechat.creator else ""
         admin = " (Администратор)" if closechat.admin_rights is not None else ""
-        messages_count = f"( / [{chat_message_counts.get(closechat.id, 0)}])" if chat_message_counts else ""
+        messages_count = f" / [{chat_message_counts.get(closechat.id, 0)}]" if chat_message_counts else ""
         all_info.append(f"{i} - {closechat.title} \033[93m[{closechat.participants_count}]{messages_count}\033[0m \033[91m{owner} {admin}\033[0m ID:{closechat.id}")
         closegroup_count += 1
         groups.append(closechat)
