@@ -177,8 +177,6 @@ if __name__ == "__main__":
                                  print_pages(all_info, 25)
                                  print('-----------------------------')
                                  print()
-                                 print(all_info)
-                                 input("all_info")
                                  g_index_str = str('get')
          
                                  if g_index_str.lower() == 'e':
@@ -210,6 +208,7 @@ if __name__ == "__main__":
                                              write_data(ws_closed_groups, closechats)
                                              write_data_del(ws_closed_groups_del, delgroups)
                                              wb.save(f"{phone}_about.xlsx")
+                                             input("all_info")
                                              os.system('cls||clear')
                                              print('Инофрмация о чатах  добавлена в файл, мой командир')
                                              time.sleep(3)
