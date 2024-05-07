@@ -338,7 +338,7 @@ if __name__ == "__main__":
                             delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats = get_type_of_chats(client, selection)  # Получение информации о чатах и каналах
 
                             while True:
-                                 i = 0
+                                 os.system('cls||clear')
                                  print('-----------------------------')
                                  print('=ВЫГРУЗКА СООБЩЕНИЙ ЧАТА или КАНАЛА В EXCEL=')
                                  print(f"\033[96mНомер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}\033[0m")
