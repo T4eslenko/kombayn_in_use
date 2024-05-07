@@ -234,7 +234,7 @@ def get_type_of_chats(client, selection):
 
     return delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats
 
-def get_and_save_contacts(phone):
+def get_and_save_contacts(client, phone):
     result = client(GetContactsRequest(0))
     contacts = result.users
     total_contacts = len(contacts)
@@ -653,7 +653,7 @@ def config(api_id, api_hash, selection):
                 #      contacts_file_name = f'{phone}_contacts.xlsx'
                 #      save_contacts(client, contacts, contacts_file_name, userinfo, userid)
                 #      print(f"Конаткты сохранены в файл {phone}_contacts.xlsx")
-                      get_and_save_contacts(phone)
+                      get_and_save_contacts(client, phone)
 
                       # Получаем информацию о группах
                       delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats = get_type_of_chats(client, selection)
