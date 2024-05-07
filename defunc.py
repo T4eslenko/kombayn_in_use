@@ -239,8 +239,10 @@ def get_and_save_contacts(client, phone, userinfo, userid):
     contacts = result.users
     total_contacts = len(contacts)
     total_contacts_with_phone = sum(bool(getattr(contact, 'phone', None)) for contact in contacts)
+    total_mutual_contacts = sum(bool(getattr(contact, 'mutual_contact', None)) for contact in contacts)
     print(f"Количество контактов: {total_contacts}")
     print(f"Количество контактов с номерами телефонов: {total_contacts_with_phone}")
+    print(f"Количество взаимных контактов: {total_mutual_contacts}")
     print()
     
     # Сохраняем информацию о контактах
