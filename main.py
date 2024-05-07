@@ -147,6 +147,7 @@ if __name__ == "__main__":
                      break
                  else:
                      try:
+                         os.system('cls||clear')
                          session_index = int(user_input)
                          if 0 <= i < len(sessions):
                              client = TelegramClient(sessions[session_index].replace('\n', ''), api_id, api_hash)
@@ -175,6 +176,8 @@ if __name__ == "__main__":
                                  
                                  # Выводим информацию о группах
                                  print_pages(all_info, 25)
+                                 print('-----------------------------')
+                                 print()
                                  print_suminfo_abou_channel (openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup)
                       
                                  g_index_str = str('get')
