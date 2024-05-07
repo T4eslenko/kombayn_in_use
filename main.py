@@ -109,7 +109,7 @@ if __name__ == "__main__":
                                session_name = sessions[session_index].replace('.session', '')
                                contacts_file_name = f'{session_name}_contacts.xlsx'
                                save_contacts(client, contacts, contacts_file_name, userinfo, userid)
-                               os.system('cls||clear')
+                               #os.system('cls||clear')
                                
                                print('=ИНФОРМАЦИЯ О КОНТАКТАХ=')
                                print('-----------------------------')
