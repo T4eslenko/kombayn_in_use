@@ -19,6 +19,7 @@ from datetime import datetime
 from typing import Optional
 import re
 
+#Запись информации о группах в файл
 def save_about_channels(phone, userid, firstname, lastname, username, openchannel_count, opengroup_count, closechannel_count, closegroup_count, owner_channel, owner_closechannel, owner_group, owner_closegroup, openchannels, closechannels, openchats, closechats, delgroups, closegroupdel_count):
     wb = openpyxl.Workbook()
     ws = wb.active
@@ -42,6 +43,26 @@ def save_about_channels(phone, userid, firstname, lastname, username, openchanne
     write_data(ws_closed_groups, closechats)
     write_data_del(ws_closed_groups_del, delgroups)
     wb.save(f"{phone}_about.xlsx")
+
+def write_data(sheet, data):
+    sheet.append(["Название", "Количество участников", "Владелец", "Администратор", "ID", "Ссылка"])
+    for item in data:
+      owner = " (Владелец)" if item.creator else ""
+      admin = " (Администратор)" if item.admin_rights is not None else ""
+      usernameadd = f"@{item.username}" if hasattr(item, 'username') and item.username is not None else ""
+      sheet.append([item.title, item.participants_count, owner, admin, item.id, usernameadd])
+
+def write_data_del(sheet, data):
+    sheet.append(["Название", "Владелец", "Администратор", "ID"])
+    for item in data:
+      owner_value = item['creator']
+      admin_value = item['admin_rights']
+      id_value = item['ID']
+      title_value = item['title']
+      owner = " (Владелец)" if owner_value else ""
+      admin = " (Администратор)" if admin_value is not None else ""
+      sheet.append([title_value, owner, admin, id_value])
+      
 
 def make_list_of_channels(delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats):
     """Функция для формирования списков групп и каналов"""
@@ -142,26 +163,7 @@ def print_suminfo_abou_channel (openchannel_count, closechannel_count, opengroup
 
 
 
-#Запись информации о группах в файл
-def write_data(sheet, data):
-    sheet.append(["Название", "Количество участников", "Владелец", "Администратор", "ID", "Ссылка"])
-    for item in data:
-      owner = " (Владелец)" if item.creator else ""
-      admin = " (Администратор)" if item.admin_rights is not None else ""
-      usernameadd = f"@{item.username}" if hasattr(item, 'username') and item.username is not None else ""
-      sheet.append([item.title, item.participants_count, owner, admin, item.id, usernameadd])
 
-def write_data_del(sheet, data):
-    sheet.append(["Название", "Владелец", "Администратор", "ID"])
-    for item in data:
-      owner_value = item['creator']
-      admin_value = item['admin_rights']
-      id_value = item['ID']
-      title_value = item['title']
-      owner = " (Владелец)" if owner_value else ""
-      admin = " (Администратор)" if admin_value is not None else ""
-      sheet.append([title_value, owner, admin, id_value])
-      
 #вывод строк постранично
 def print_pages(items, items_per_page):
     num_items = len(items)
