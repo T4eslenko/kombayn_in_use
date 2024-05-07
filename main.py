@@ -193,31 +193,10 @@ if __name__ == "__main__":
                                  
                                  all_info, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup = make_list_of_channels(delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats)        
                                  
-                                 openchannel_count = openchannel_count-1
-                                 closechannel_count = closechannel_count-1
-                                 opengroup_count = opengroup_count-1
-                                 closegroupdel_count = closegroupdel_count-1
-                                 closegroup_count = closegroup_count-1
-                                 print_pages(all_info, 25)
-                                 print()
-                                 
-                                 print("---------------------------------------")
-                                 print(f"Открытые каналы: {openchannel_count}")
-                                 print(f"Открытые группы: {opengroup_count}")
-                                 print()
-                                 print(f"\033[91mЗакрытые каналы: {closechannel_count}\033[0m")
-                                 print(f"\033[91mЗакрытые группы: {closegroup_count}\033[0m")
-                                 print(f"\033[91mУдаленные группы: {closegroupdel_count}\033[0m")
-                                 print("---------------------------------------")
-                                 print()
-                                 print(f"\033[96mИмеет права владельца или админа в {owner_channel} каналах, из них {owner_closechannel} - в закрытых\033[0m")
-                                 print(f"\033[96mИмеет права владельца или админа в {owner_group} группах, из них {owner_closegroup} - в закрытых\033[0m")
-                                 print()
-                                 
-               				  	   #g_index_str = str(input("Для выгрузки информаци в файл Excel, введите 'get', для возврата - введеите 'e': "))
+                                 # Выводим информацию о группах
+                                 print_suminfo_abou_channel (openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup)
+                      
                                  g_index_str = str('get')
-                                 print()
-                                 input("Для продолжение нажмите любую клавишу, информация о группах будет автоматически сохранена в файл Excel  ")
          
                                  if g_index_str.lower() == 'e':
                                      client.disconnect()
