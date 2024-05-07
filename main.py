@@ -170,7 +170,6 @@ if __name__ == "__main__":
              closehannel_count = 0
              opengroup_count = 0
              closegroup_count = 0
-             chatdeleted_count = 0
              owner_channel = 0
              owner_group = 0
              owner_closegroup = 0
@@ -273,7 +272,7 @@ if __name__ == "__main__":
                                      if owner !="" or admin != "":
                                          owner_group += 1
                                          owner_closegroup += 1
-                                         chatdeleted_count += 1 
+                                         
                                  
                                  openchannel_count = openchannel_count-1
                                  closehannel_count = closehannel_count-1
