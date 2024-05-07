@@ -166,10 +166,6 @@ if __name__ == "__main__":
              size_chats = 500
              groups = []
              exit_flag = False
-             openchannel_count = 0
-             closehannel_count = 0
-             opengroup_count = 0
-             closegroup_count = 0
              owner_channel = 0
              owner_group = 0
              owner_closegroup = 0
