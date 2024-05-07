@@ -99,32 +99,13 @@ if __name__ == "__main__":
                                client = TelegramClient(sessions[session_index].replace('\n', ''), api_id, api_hash)
                                client.connect()
                                os.system('cls||clear')
-   
                                phone = sessions[session_index].split('.')[0]
                                session_name = sessions[session_index].replace('.session', '')
-                               #contacts_file_name = f'{session_name}_contacts.xlsx'
-                              
-                               userid, userinfo, firstname, lastname, username = get_user_info(client, phone) # Получение информации о пользовател
 
-                              
-                               #result = client(GetContactsRequest(0))
-                               #contacts = result.users
-                               #save_contacts(client, contacts, contacts_file_name, userinfo, userid)
-                               get_and_save_contacts(client, phone, userinfo, userid)
-                               
-                               
+                               userid, userinfo, firstname, lastname, username = get_user_info(client, phone) # Получение информации о пользователe
                                print('=ИНФОРМАЦИЯ О КОНТАКТАХ=')
                                print('-----------------------------')
-                               print()
-                               
-                               #total_contacts = len(contacts)
-                               #total_mutual_contacts = sum(bool(getattr(contact, 'mutual_contact', None)) for contact in contacts)
-                               #total_contacts_with_phone = sum(bool(getattr(contact, 'phone', None)) for contact in contacts)
-                               #print(f"\033[96mОбщее количество контактов:\033[0m \033[91m{total_contacts}\033[0m")
-                               #print(f"\033[96mКоличество контактов с номерами телефонов:\033[0m \033[91m{total_contacts_with_phone}\033[0m")
-                               #print(f"\033[96mКоличество взаимных контактов:\033[0m \033[91m{total_mutual_contacts}\033[0m")
-                               #print()
-                               print('\033[92mСписок контактов выгружен в excel, мой командир\033[0m')
+                               get_and_save_contacts(client, phone, userinfo, userid)
                                print()
                                input("\033[93mНажмите любую клавишу для продолжения... \033[0m")             
                                client.disconnect()
@@ -178,13 +159,10 @@ if __name__ == "__main__":
                             ## input("нажми")
                             # break
                              
-                             # Получение информации о пользователе
-                             userid, userinfo, firstname, lastname, username = get_user_info(client, phone)
-
-                             # Получение информации о чатах и каналах
-                             delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats = get_type_of_chats(client, selection)
+                             
+                             userid, userinfo, firstname, lastname, username = get_user_info(client, phone) # Получение информации о пользователе
+                             delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats = get_type_of_chats(client, selection)  # Получение информации о чатах и каналах
                             
-                 
                              while True:
                                  os.system('cls||clear')
                                  print('-----------------------------')
@@ -287,12 +265,9 @@ if __name__ == "__main__":
                           client = TelegramClient(sessions[session_index].replace('\n', ''), api_id, api_hash)
                           client.connect()
                           phone = sessions[session_index].split('.')[0]
-      
-                          # Получение информации о пользователе
-                          userid, userinfo, firstname, lastname, username = get_user_info(client, phone)
-                         
-                         # Получение информации о чатах и каналах
-                          delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats = get_type_of_chats(client, selection)
+    
+                          userid, userinfo, firstname, lastname, username = get_user_info(client, phone) # Получение информации о пользователе
+                          delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats = get_type_of_chats(client, selection)  # Получение информации о чатах и каналах
                          
                           while True:
                               os.system('cls||clear')
