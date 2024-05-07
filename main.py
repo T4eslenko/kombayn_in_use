@@ -167,6 +167,7 @@ if __name__ == "__main__":
                              delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats = get_type_of_chats(client, selection)  # Получение информации о чатах и каналах
                             
                              while True:
+                                 
                                  os.system('cls||clear')
                                  print('-----------------------------')
                                  print("=ИНФОРМАЦИЯ О КАНАЛАХ И ЧАТАХ=")
