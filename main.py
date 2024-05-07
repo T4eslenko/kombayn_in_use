@@ -189,7 +189,7 @@ if __name__ == "__main__":
                                      try:
                                          if g_index_str == "get":
 
-                                             save_about_channels(phone, userid, firstname, lastname, username, openchannel_count, opengroup_count, closechannel_count, closegroup_count, owner_channel, owner_closechannel, owner_group, owner_closegroup)):
+                                             save_about_channels(phone, userid, firstname, lastname, username, openchannel_count, opengroup_count, closechannel_count, closegroup_count, owner_channel, owner_closechannel, owner_group, owner_closegroup):
 
                                              print()
                                              input("Для продолжение нажмите любую клавишу  ")
