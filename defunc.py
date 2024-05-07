@@ -27,61 +27,61 @@ def type_of_channel(delgroups, chat_message_counts, openchannels, closechannels,
              all_info = []
 
              all_info.append("\033[95mОткрытые КАНАЛЫ:\033[0m")
-                                 openchannel_count = 1
-                                 for openchannel in openchannels:
-                                     owner = " (Владелец)" if openchannel.creator else ""
-                                     admin = " (Администратор)" if openchannel.admin_rights is not None else ""
-                                     all_info.append(f"{openchannel_count} - {openchannel.title} \033[93m[{openchannel.participants_count}]\033[0m\033[91m {owner} {admin}\033[0m ID:{openchannel.id} \033[94m@{openchannel.username}\033[0m")
-                                     openchannel_count += 1
-                                     if owner !="" or admin != "":
-                                         owner_channel += 1
-                                 
-                                 all_info.append("\033[95mЗакрытые КАНАЛЫ:\033[0m")
-                                 closehannel_count = 1
-                                 for closechannel in closechannels:
-                                     owner = " (Владелец)" if closechannel.creator else ""
-                                     admin = " (Администратор)" if closechannel.admin_rights is not None else ""
-                                     all_info.append(f"{closehannel_count} - {closechannel.title} \033[93m[{closechannel.participants_count}]\033[0m \033[91m{owner} {admin}\033[0m ID:{closechannel.id}")
-                                     closehannel_count += 1
-                                     if owner !="" or admin != "":
-                                         owner_channel += 1
-                                         owner_closechannel += 1
-                                 
-                                 all_info.append("\033[95mОткрытые ГРУППЫ:\033[0m")
-                                 opengroup_count = 1
-                                 for openchat in openchats:
-                                     owner = " (Владелец)" if openchat.creator else ""
-                                     admin = " (Администратор)" if openchat.admin_rights is not None else ""
-                                     all_info.append(f"{opengroup_count} - {openchat.title} \033[93m[{openchat.participants_count}]\033[0m\033[91m {owner} {admin}\033[0m ID:{openchat.id} \033[94m@{openchat.username}\033[0m")
-                                     opengroup_count += 1
-                                     if owner !="" or admin != "":
-                                         owner_group += 1
-
-                                 all_info.append("\033[95mЗакрытые ГРУППЫ:\033[0m")
-                                 closegroup_count = 1
-                                 for closechat in closechats:
-                                     owner = " (Владелец)" if closechat.creator else ""
-                                     admin = " (Администратор)" if closechat.admin_rights is not None else ""
-                                     all_info.append(f"{closegroup_count} - {closechat.title} \033[93m[{closechat.participants_count}]\033[0m \033[91m{owner} {admin}\033[0m ID:{closechat.id}")
-                                     closegroup_count += 1
-                                     if owner !="" or admin != "":
-                                         owner_group += 1
-                                         owner_closegroup += 1
-                        
-                                 all_info.append("\033[95mУдаленные ГРУППЫ:\033[0m")
-                                 closegroupdel_count = 1
-                                 for delgroup in delgroups:
-                                     owner_value = delgroup['creator']
-                                     admin_value = delgroup['admin_rights']
-                                     id_value = delgroup['ID']
-                                     title_value = delgroup['title']
-                                     owner = " (Владелец)" if owner_value else ""
-                                     admin = " (Администратор)" if admin_value is not None else ""
-                                     all_info.append(f"{title_value} \033[91m{owner} {admin}\033[0m ID:{id_value}")
-                                     closegroupdel_count += 1
-                                     if owner !="" or admin != "":
-                                         owner_group += 1
-                                         owner_closegroup += 1
+             openchannel_count = 1
+             for openchannel in openchannels:
+            	 owner = " (Владелец)" if openchannel.creator else ""
+            	 admin = " (Администратор)" if openchannel.admin_rights is not None else ""
+            	 all_info.append(f"{openchannel_count} - {openchannel.title} \033[93m[{openchannel.participants_count}]\033[0m\033[91m {owner} {admin}\033[0m ID:{openchannel.id} \033[94m@{openchannel.username}\033[0m")
+            	 openchannel_count += 1
+            	 if owner !="" or admin != "":
+            		 owner_channel += 1
+             
+             all_info.append("\033[95mЗакрытые КАНАЛЫ:\033[0m")
+             closehannel_count = 1
+             for closechannel in closechannels:
+            	 owner = " (Владелец)" if closechannel.creator else ""
+            	 admin = " (Администратор)" if closechannel.admin_rights is not None else ""
+            	 all_info.append(f"{closehannel_count} - {closechannel.title} \033[93m[{closechannel.participants_count}]\033[0m \033[91m{owner} {admin}\033[0m ID:{closechannel.id}")
+            	 closehannel_count += 1
+            	 if owner !="" or admin != "":
+            		 owner_channel += 1
+            		 owner_closechannel += 1
+             
+             all_info.append("\033[95mОткрытые ГРУППЫ:\033[0m")
+             opengroup_count = 1
+             for openchat in openchats:
+            	 owner = " (Владелец)" if openchat.creator else ""
+            	 admin = " (Администратор)" if openchat.admin_rights is not None else ""
+            	 all_info.append(f"{opengroup_count} - {openchat.title} \033[93m[{openchat.participants_count}]\033[0m\033[91m {owner} {admin}\033[0m ID:{openchat.id} \033[94m@{openchat.username}\033[0m")
+            	 opengroup_count += 1
+            	 if owner !="" or admin != "":
+            		 owner_group += 1
+            
+             all_info.append("\033[95mЗакрытые ГРУППЫ:\033[0m")
+             closegroup_count = 1
+             for closechat in closechats:
+            	 owner = " (Владелец)" if closechat.creator else ""
+            	 admin = " (Администратор)" if closechat.admin_rights is not None else ""
+            	 all_info.append(f"{closegroup_count} - {closechat.title} \033[93m[{closechat.participants_count}]\033[0m \033[91m{owner} {admin}\033[0m ID:{closechat.id}")
+            	 closegroup_count += 1
+            	 if owner !="" or admin != "":
+            		 owner_group += 1
+            		 owner_closegroup += 1
+            
+             all_info.append("\033[95mУдаленные ГРУППЫ:\033[0m")
+             closegroupdel_count = 1
+             for delgroup in delgroups:
+            	 owner_value = delgroup['creator']
+            	 admin_value = delgroup['admin_rights']
+            	 id_value = delgroup['ID']
+            	 title_value = delgroup['title']
+            	 owner = " (Владелец)" if owner_value else ""
+            	 admin = " (Администратор)" if admin_value is not None else ""
+            	 all_info.append(f"{title_value} \033[91m{owner} {admin}\033[0m ID:{id_value}")
+            	 closegroupdel_count += 1
+            	 if owner !="" or admin != "":
+            		 owner_group += 1
+            		 owner_closegroup += 1                    
 
 #Запись информации о группах в файл
 def write_data(sheet, data):
