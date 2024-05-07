@@ -234,7 +234,7 @@ def get_type_of_chats(client, selection):
 
     return delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats
 
-def get_and_save_contacts(client, phone):
+def get_and_save_contacts(client, phone, contacts, contacts_file_name, userinfo, userid):
     result = client(GetContactsRequest(0))
     contacts = result.users
     total_contacts = len(contacts)
