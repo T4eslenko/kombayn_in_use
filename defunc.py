@@ -87,7 +87,7 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
     return all_info, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup
 
 
-def print_suminfo_abou_channel (openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup)
+def print_suminfo_abou_channel (openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup):
     openchannel_count = openchannel_count - 1
     closechannel_count = closechannel_count - 1
     opengroup_count = opengroup_count - 1
