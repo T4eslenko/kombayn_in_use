@@ -112,18 +112,15 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
 
 
 def print_suminfo_abou_channel (openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup):
-    openchannel_count = openchannel_count - 1
-    closechannel_count = closechannel_count - 1
-    opengroup_count = opengroup_count - 1
-    closegroup_count = closegroup_count - 1
+
     
     # Выводим информацию о группах
-    print(f"Подписан на открытые каналы: {openchannel_count}")
-    print(f"Подписан на закрытые каналы: {closechannel_count}")
+    print(f"Подписан на открытые каналы: {openchannel_count-1}")
+    print(f"Подписан на закрытые каналы: {closechannel_count-1}")
     print(f"Имеет права владельца или админа в {owner_channel} каналах, из них в закрытых: {owner_closechannel}")
     print()
-    print(f"Состоит в открытых группах: {opengroup_count}")
-    print(f"Состоит в закрытых группх: {closegroup_count}")
+    print(f"Состоит в открытых группах: {opengroup_count-1}")
+    print(f"Состоит в закрытых группх: {closegroup_count-1}")
     print(f"Удаленные группы: {closegroupdel_count}")
     print(f"Имеет права владельца или админа в {owner_group} группах, из них {owner_closegroup} - в закрытых")
     print("------------------------------------------------")
