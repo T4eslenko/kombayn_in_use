@@ -162,13 +162,15 @@ if __name__ == "__main__":
                              
                              
                              userid, userinfo, firstname, lastname, username = get_user_info(client, phone) # Получение информации о пользователе
+                             print()
+                             input("Для продолжение нажмите любую клавишу  ")
                              delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats = get_type_of_chats(client, selection)  # Получение информации о чатах и каналах
                             
                              while True:
-                                 #os.system('cls||clear')
+                                 os.system('cls||clear')
                                  print('-----------------------------')
                                  print("=ИНФОРМАЦИЯ О КАНАЛАХ И ЧАТАХ=")
-                                 #print(f"\033[96mНомер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}\033[0m")
+                                 print(f"\033[96mНомер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}\033[0m")
                                  print('-----------------------------')
                                  all_info, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup = make_list_of_channels(delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats)
                                  print_suminfo_abou_channel (openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup)
@@ -186,29 +188,9 @@ if __name__ == "__main__":
                                  else:
                                      try:
                                          if g_index_str == "get":
-                                             wb = openpyxl.Workbook()
-                                             
-                                             ws = wb.active
-                                             ws.append([f"Номер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}"])
-                                             ws.append([f"Открытые каналы: {openchannel_count}"])
-                                             ws.append([f"Открытые группы: {opengroup_count}"])
-                                             ws.append([f"Закрытые каналы: {closechannel_count}"])
-                                             ws.append([f"Закрытые группы: {closegroup_count}"])
-                                             ws.append([f"Имеет права владельца или админа в {owner_channel} каналах, из них {owner_closechannel} - в закрытых"])
-                                             ws.append([f"Имеет права владельца или админа в {owner_group} группах, из них {owner_closegroup} - в закрытых"])
-         
-                                             ws_open_channels = wb.create_sheet("Открытые Каналы")
-                                             ws_closed_channels = wb.create_sheet("Закрытые Каналы")
-                                             ws_open_groups = wb.create_sheet("Открытые Группы")
-                                             ws_closed_groups = wb.create_sheet("Закрытые Группы")
-                                             ws_closed_groups_del = wb.create_sheet("Удаленные Группы")
-                                             write_data(ws_open_channels, openchannels)
-                                             write_data(ws_closed_channels, closechannels)
-                                             write_data(ws_open_groups, openchats)
-                                             write_data(ws_closed_groups, closechats)
-                                             write_data_del(ws_closed_groups_del, delgroups)
-                                             wb.save(f"{phone}_about.xlsx")
-                                            
+
+                                             save_about_channels(phone, userid, firstname, lastname, username, openchannel_count, opengroup_count, closechannel_count, closegroup_count, owner_channel, owner_closechannel, owner_group, owner_closegroup)):
+
                                              print()
                                              input("Для продолжение нажмите любую клавишу  ")
                                              os.system('cls||clear')
