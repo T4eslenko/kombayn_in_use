@@ -593,82 +593,40 @@ def config(api_id, api_hash, selection):
                       closegroupdel_count = 0
                 
                       print("Аккаунт успешно добавлен. Вот сводная информация:")
-                      userid, userinfo, firstname, lastname, username = get_user_info(client, phone)
-                      # Получение информации о пользователе
-                      #me = client.get_me()
-                      #userid = me.id
-                      #firstname = me.first_name
-                      #username = f"@{me.username}" if me.username is not None else ""
-                      #lastname = me.last_name if me.last_name is not None else ""
-                      #userinfo = f"(Номер телефона: +{phone}, ID: {userid}, ({firstname} {lastname}) {username})"
 
-                      
+                      # Получаем информацию о пользователе 
+                      userid, userinfo, firstname, lastname, username = get_user_info(client, phone)
                       print()
                       print(f"Номер телефона: {phone}")
                       print(f"ID пользователя: {userid}")
                       print(f"Имя пользователя: {firstname} {lastname}")
                       print(f"Username пользователя: {username}")
                       print()
-                     
-                      result = client(GetContactsRequest(0))
-                      contacts = result.users
-                      contacts_file_name = f'{phone}_contacts.xlsx'
-                      save_contacts(client, contacts, contacts_file_name, userinfo, userid)
+
+                      # Получаем информацию о контактах
                       total_contacts = len(contacts)
                       total_contacts_with_phone = sum(bool(getattr(contact, 'phone', None)) for contact in contacts)
                       print(f"Количество контактов: {total_contacts}")
                       print(f"Количество контактов с номерами телефонов: {total_contacts_with_phone}")
                       print()
-                      
-                      
+                    
+                      # Сохраняем информацию о контактах
+                      result = client(GetContactsRequest(0))
+                      contacts = result.users
+                      contacts_file_name = f'{phone}_contacts.xlsx'
+                      save_contacts(client, contacts, contacts_file_name, userinfo, userid)
+                      print(f"Конаткты сохранены в файл {phone}_contacts.xlsx")
+
+                      # Получаем информацию о группах
                       delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats = get_type_of_chats(client, selection)
-                      
-  
-                      openchannel_count = 1
-                      for openchannel in openchannels:
-                          owner = " (Владелец)" if openchannel.creator else ""
-                          admin = " (Администратор)" if openchannel.admin_rights is not None else ""
-                          all_info.append(f"{openchannel_count} - {openchannel.title} \033[93m[{openchannel.participants_count}]\033[0m\033[91m {owner} {admin}\033[0m ID:{openchannel.id} \033[94m@{openchannel.username}\033[0m")
-                          openchannel_count += 1
-                          if owner !="" or admin != "":
-                              owner_channel += 1
-                      
-                      closechannel_count = 1
-                      for closechannel in closechannels:
-                          owner = " (Владелец)" if closechannel.creator else ""
-                          admin = " (Администратор)" if closechannel.admin_rights is not None else ""
-                          all_info.append(f"{closechannel_count} - {closechannel.title} \033[93m[{closechannel.participants_count}]\033[0m \033[91m{owner} {admin}\033[0m ID:{closechannel.id}")
-                          closechannel_count += 1
-                          if owner !="" or admin != "":
-                              owner_channel += 1
-                              owner_closechannel += 1
-                      
-                      opengroup_count = 1
-                      for openchat in openchats:
-                          owner = " (Владелец)" if openchat.creator else ""
-                          admin = " (Администратор)" if openchat.admin_rights is not None else ""
-                          all_info.append(f"{opengroup_count} - {openchat.title} \033[93m[{openchat.participants_count}]\033[0m\033[91m {owner} {admin}\033[0m ID:{openchat.id} \033[94m@{openchat.username}\033[0m")
-                          opengroup_count += 1
-                          if owner !="" or admin != "":
-                              owner_group += 1
-                      
-                      closegroup_count = 1
-                      for closechat in closechats:
-                          owner = " (Владелец)" if closechat.creator else ""
-                          admin = " (Администратор)" if closechat.admin_rights is not None else ""
-                          all_info.append(f"{closegroup_count} - {closechat.title} \033[93m[{closechat.participants_count}]\033[0m \033[91m{owner} {admin}\033[0m ID:{closechat.id}")
-                          closegroup_count += 1
-                          if owner !="" or admin != "":
-                              owner_group += 1
-                              owner_closegroup += 1
-                          if closechat.participants_count == 0:
-                              closegroupdel_count += 1 
+                      all_info, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup = make_list_of_channels(delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats)
                       
                       openchannel_count = openchannel_count-1
                       closechannel_count = closechannel_count-1
                       opengroup_count =opengroup_count-1
                       closegroup_count =closegroup_count-1
-                  
+
+                      # Выводим информацию о группах
                       print(f"Подписан на открытые каналы: {openchannel_count}")
                       print(f"Подписан на закрытые каналы: {closechannel_count}")
                       print(f"Имеет права владельца или админа в {owner_channel} каналах, из них в закрытых: {owner_closechannel}")
