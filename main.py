@@ -208,7 +208,9 @@ if __name__ == "__main__":
                                              write_data(ws_closed_groups, closechats)
                                              write_data_del(ws_closed_groups_del, delgroups)
                                              wb.save(f"{phone}_about.xlsx")
-                                             input("all_info")
+                                            
+                                             print()
+                                             input("Для продолжение нажмите любую клавишу  ")
                                              os.system('cls||clear')
                                              print('Инофрмация о чатах  добавлена в файл, мой командир')
                                              time.sleep(3)
@@ -372,11 +374,9 @@ if __name__ == "__main__":
                             client.connect()
                             phone = sessions[session_index].split('.')[0]
                            
-                            # Получение информации о пользователе
-                            userid, userinfo, firstname, lastname, username = get_user_info(client, phone)
-
-                            # Получение информации о чатах и каналах
-                            delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats = get_type_of_chats(client, selection)
+                            
+                            userid, userinfo, firstname, lastname, username = get_user_info(client, phone) # Получение информации о пользователе
+                            delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats = get_type_of_chats(client, selection)  # Получение информации о чатах и каналах
 
                             while True:
                                  i = 0
@@ -384,13 +384,8 @@ if __name__ == "__main__":
                                  print('=ВЫГРУЗКА СООБЩЕНИЙ ЧАТА или КАНАЛА В EXCEL=')
                                  print(f"\033[96mНомер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}\033[0m")
                                  print('-----------------------------')
-
                                  all_info, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup = make_list_of_channels(delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats)
-
-                                 
                                  print_pages(all_info, 25)
-
-                               
                                  print()
                                  g_index_str = str(input("\033[92mВыберите чат для выгрузки всех сообщений из него ('e' - назад): \033[0m"))
                        
