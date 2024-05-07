@@ -251,7 +251,8 @@ if __name__ == "__main__":
     
                           userid, userinfo, firstname, lastname, username = get_user_info(client, phone) # Получение информации о пользователе
                           delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats = get_type_of_chats(client, selection)  # Получение информации о чатах и каналах
-                         
+                          print()
+                          input("Для продолжение нажмите любую клавишу  ")
                           while True:
                               os.system('cls||clear')
                               i = 0
@@ -336,7 +337,8 @@ if __name__ == "__main__":
                             
                             userid, userinfo, firstname, lastname, username = get_user_info(client, phone) # Получение информации о пользователе
                             delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats = get_type_of_chats(client, selection)  # Получение информации о чатах и каналах
-
+                            print()
+                            input("Для продолжение нажмите любую клавишу  ")
                             while True:
                                  os.system('cls||clear')
                                  print('-----------------------------')
