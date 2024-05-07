@@ -19,24 +19,26 @@ from datetime import datetime
 from typing import Optional
 import re
 
+#Запись информации о группах в файл
 def write_data(sheet, data):
-                sheet.append(["Название", "Количество участников", "Владелец", "Администратор", "ID", "Ссылка"])
-                for item in data:
-                    owner = " (Владелец)" if item.creator else ""
-                    admin = " (Администратор)" if item.admin_rights is not None else ""
-                    usernameadd = f"@{item.username}" if hasattr(item, 'username') and item.username is not None else ""
-                    sheet.append([item.title, item.participants_count, owner, admin, item.id, usernameadd])
+    sheet.append(["Название", "Количество участников", "Владелец", "Администратор", "ID", "Ссылка"])
+    for item in data:
+      owner = " (Владелец)" if item.creator else ""
+      admin = " (Администратор)" if item.admin_rights is not None else ""
+      usernameadd = f"@{item.username}" if hasattr(item, 'username') and item.username is not None else ""
+      sheet.append([item.title, item.participants_count, owner, admin, item.id, usernameadd])
 
 def write_data_del(sheet, data):
-                sheet.append(["Название", "Владелец", "Администратор", "ID"])
-                for item in data:
-                    owner_value = item['creator']
-                    admin_value = item['admin_rights']
-                    id_value = item['ID']
-                    title_value = item['title']
-                    owner = " (Владелец)" if owner_value else ""
-                    admin = " (Администратор)" if admin_value is not None else ""
-                    sheet.append([title_value, owner, admin, id_value])
+    sheet.append(["Название", "Владелец", "Администратор", "ID"])
+    for item in data:
+      owner_value = item['creator']
+      admin_value = item['admin_rights']
+      id_value = item['ID']
+      title_value = item['title']
+      owner = " (Владелец)" if owner_value else ""
+      admin = " (Администратор)" if admin_value is not None else ""
+      sheet.append([title_value, owner, admin, id_value])
+      
 #вывод строк постранично
 def print_pages(items, items_per_page):
     num_items = len(items)
@@ -473,10 +475,10 @@ def config(api_id, api_hash, selection):
 # Просмотреть подключенные аккаунты
         elif key == '6':
             os.system('cls||clear')
-            #if options[0] == "NONEID\n" or options[1] == "NONEHASH":
-            #    print("Проверьте api_id и api_hash")
-            #    time.sleep(2)
-            #    continue
+            if options[0] == "NONEID\n" or options[1] == "NONEHASH":
+                print("Проверьте api_id и api_hash")
+                time.sleep(2)
+                continue
 
             print("Подключенные аккаунты:\n")
             for i in sessions:
