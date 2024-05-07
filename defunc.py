@@ -159,7 +159,6 @@ def get_user_info(client, phone):
     print(f"ID пользователя: {userid}")
     print(f"Имя пользователя: {firstname} {lastname}")
     print(f"Username пользователя: {username}")
-    print()
 
     return userid, userinfo, firstname,lastname, username
 
