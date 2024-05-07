@@ -19,7 +19,7 @@ from datetime import datetime
 from typing import Optional
 import re
 
-def save_about_channels(phone, userid, firstname, lastname, username, openchannel_count, opengroup_count, closechannel_count, closegroup_count, owner_channel, owner_closechannel, owner_group, owner_closegroup, openchannels, closechannels, openchats, closechats, delgroups):
+def save_about_channels(phone, userid, firstname, lastname, username, openchannel_count, opengroup_count, closechannel_count, closegroup_count, owner_channel, owner_closechannel, owner_group, owner_closegroup, openchannels, closechannels, openchats, closechats, delgroups, closegroupdel_count):
     wb = openpyxl.Workbook()
     ws = wb.active
     ws.append([f"Номер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}"])
@@ -27,14 +27,15 @@ def save_about_channels(phone, userid, firstname, lastname, username, openchanne
     ws.append([f"Открытые группы: {opengroup_count}"])
     ws.append([f"Закрытые каналы: {closechannel_count}"])
     ws.append([f"Закрытые группы: {closegroup_count}"])
+    ws.append([f"Удаленные группы: {closegroupdel_count}"])
     ws.append([f"Имеет права владельца или админа в {owner_channel} каналах, из них {owner_closechannel} - в закрытых"])
     ws.append([f"Имеет права владельца или админа в {owner_group} группах, из них {owner_closegroup} - в закрытых"])
     
-    ws_open_channels = wb.create_sheet("Открытые Каналы")
-    ws_closed_channels = wb.create_sheet("Закрытые Каналы")
-    ws_open_groups = wb.create_sheet("Открытые Группы")
-    ws_closed_groups = wb.create_sheet("Закрытые Группы")
-    ws_closed_groups_del = wb.create_sheet("Удаленные Группы")
+    ws_open_channels = wb.create_sheet("Открытые каналы")
+    ws_closed_channels = wb.create_sheet("Закрытые каналы")
+    ws_open_groups = wb.create_sheet("Открытые группы")
+    ws_closed_groups = wb.create_sheet("Закрытые группы")
+    ws_closed_groups_del = wb.create_sheet("Удаленные группы")
     write_data(ws_open_channels, openchannels)
     write_data(ws_closed_channels, closechannels)
     write_data(ws_open_groups, openchats)
@@ -669,9 +670,10 @@ def config(api_id, api_hash, selection):
                       # Выводим информацию о группах
                       print_suminfo_abou_channel (openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup)
                       print()
+                      def save_about_channels(phone, userid, firstname, lastname, username, openchannel_count, opengroup_count, closechannel_count, closegroup_count, owner_channel, owner_closechannel, owner_group, owner_closegroup, openchannels, closechannels, openchats, closechats, delgroups, closegroupdel_count)
                       input("Для продолжение нажмите любую клавишу  ")
                       os.system('cls||clear')
-                      print("Информация сохранена в файл")
+                      print("Информация о контактах, каналах и группах сохранена в файл Excel")
                       client.disconnect()
                       time.sleep(2)
                       exit_flag = True
