@@ -19,6 +19,29 @@ from datetime import datetime
 from typing import Optional
 import re
 
+def save_about_channels(phone, userid, firstname, lastname, username, openchannel_count, opengroup_count, closechannel_count, closegroup_count, owner_channel, owner_closechannel, owner_group, owner_closegroup)):
+    wb = openpyxl.Workbook()
+    ws = wb.active
+    ws.append([f"Номер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}"])
+    ws.append([f"Открытые каналы: {openchannel_count}"])
+    ws.append([f"Открытые группы: {opengroup_count}"])
+    ws.append([f"Закрытые каналы: {closechannel_count}"])
+    ws.append([f"Закрытые группы: {closegroup_count}"])
+    ws.append([f"Имеет права владельца или админа в {owner_channel} каналах, из них {owner_closechannel} - в закрытых"])
+    ws.append([f"Имеет права владельца или админа в {owner_group} группах, из них {owner_closegroup} - в закрытых"])
+    
+    ws_open_channels = wb.create_sheet("Открытые Каналы")
+    ws_closed_channels = wb.create_sheet("Закрытые Каналы")
+    ws_open_groups = wb.create_sheet("Открытые Группы")
+    ws_closed_groups = wb.create_sheet("Закрытые Группы")
+    ws_closed_groups_del = wb.create_sheet("Удаленные Группы")
+    write_data(ws_open_channels, openchannels)
+    write_data(ws_closed_channels, closechannels)
+    write_data(ws_open_groups, openchats)
+    write_data(ws_closed_groups, closechats)
+    write_data_del(ws_closed_groups_del, delgroups)
+    wb.save(f"{phone}_about.xlsx")
+
 def make_list_of_channels(delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats):
     """Функция для формирования списков групп и каналов"""
     owner_channel = 0
