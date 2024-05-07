@@ -82,7 +82,7 @@ def type_of_channel(delgroups, chat_message_counts, openchannels, closechannels,
             	 if owner !="" or admin != "":
             		 owner_group += 1
             		 owner_closegroup += 1                    
-             return all_info, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_group, owner_closegroup
+             return all_info, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup
 #Запись информации о группах в файл
 def write_data(sheet, data):
     sheet.append(["Название", "Количество участников", "Владелец", "Администратор", "ID", "Ссылка"])
