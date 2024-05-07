@@ -207,16 +207,18 @@ def get_type_of_chats(client, selection):
                 chat_message_counts[chat.entity.id] = count_messages
 
             # Определяем открытый канал
-            if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast') and chat.entity.participants_count is not None:
-                if chat.entity.broadcast and chat.entity.username:
-                    openchannels.append(chat.entity)
-                    all_chats_ids.append(chat.entity.id)
+            if selection != '6': # Не выгружаем участников канала
+                if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast') and chat.entity.participants_count is not None:
+                    if chat.entity.broadcast and chat.entity.username:
+                        openchannels.append(chat.entity)
+                        all_chats_ids.append(chat.entity.id)
 
             # Определяем закрытый канал
-            if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast'):
-                if chat.entity.broadcast and chat.entity.username is None and chat.entity.title != 'Unsupported Chat':
-                    closechannels.append(chat.entity)
-                    all_chats_ids.append(chat.entity.id)
+            if selection != '6': # Не выгружаем участников канала
+                if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast'):
+                    if chat.entity.broadcast and chat.entity.username is None and chat.entity.title != 'Unsupported Chat':
+                        closechannels.append(chat.entity)
+                        all_chats_ids.append(chat.entity.id)
 
             # Определяем открытый чат
             if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast'):
@@ -233,7 +235,7 @@ def get_type_of_chats(client, selection):
                closechats.append(chat.entity)
                all_chats_ids.append(chat.entity.id)
                 
-            if selection == '5': #Добавляем нулевые чаты для общей информации
+            if selection == '5': #Добавляем нулевые чаты только для общей информации
                 if isinstance(chat.entity, Chat) and hasattr(chat.entity, 'participants_count') and chat.entity.participants_count == 0:
                    if chat.entity.migrated_to is not None and isinstance(chat.entity.migrated_to, InputChannel):
                       deactivated_chats_all = {
