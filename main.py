@@ -149,7 +149,7 @@ if __name__ == "__main__":
                     usernameadd = f"@{item.username}" if hasattr(item, 'username') and item.username is not None else ""
                     sheet.append([item.title, item.participants_count, owner, admin, item.id, usernameadd])
 
-            # def write_data_del(sheet, data):
+             def write_data_del(sheet, data):
                 sheet.append(["Название", "Владелец", "Администратор", "ID"])
                 for item in data:
                     owner_value = item['creator']
@@ -328,7 +328,7 @@ if __name__ == "__main__":
                                              write_data(ws_closed_channels, closechannels)
                                              write_data(ws_open_groups, openchats)
                                              write_data(ws_closed_groups, closechats)
-                                             write_data(ws_closed_groups_del, delgroups)
+                                             write_data_del(ws_closed_groups_del, delgroups)
                                              wb.save(f"{phone}_about.xlsx")
                                              os.system('cls||clear')
                                              print('Ссылки на чаты добавлены в файл, мой командир')
