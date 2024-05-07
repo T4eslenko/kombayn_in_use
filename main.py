@@ -229,8 +229,6 @@ if __name__ == "__main__":
           group_list = []
           all_info = []
           exit_flag = False
-          openchat_list = []
-          closechat_list = []
           all_info = []
       
           while not exit_flag:
@@ -263,25 +261,10 @@ if __name__ == "__main__":
                               print(f"\033[96mНомер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}\033[0m")
                               print('-----------------------------')
       
-      
-                              all_info.append("\033[95mОткрытые ГРУППЫ:\033[0m")
-                              for openchat in openchats:
-                                  owner = " (Владелец)" if openchat.creator else ""
-                                  admin = " (Администратор)" if openchat.admin_rights is not None else ""
-                                  all_info.append(f"{i} - {openchat.title} \033[93m[{openchat.participants_count}]\033[0m\033[91m {owner} {admin}\033[0m ID:{openchat.id} \033[94m@{openchat.username}\033[0m")
-                                  i += 1
-                                  groups.append(openchat)
-      
-                              all_info.append("\033[95mЗакрытые ГРУППЫ:\033[0m")
-                              for closechat in closechats:
-                                  owner = " (Владелец)" if closechat.creator else ""
-                                  admin = " (Администратор)" if closechat.admin_rights is not None else ""
-                                  all_info.append(f"{i} - {closechat.title} \033[93m[{closechat.participants_count}]\033[0m\033[91m {owner} {admin}\033[0m ID:{closechat.id}")
-                                  i += 1
-                                  groups.append(closechat)
-                              
+                              all_info, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup = make_list_of_channels(delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats)
                               print_pages(all_info, 25)
                               print()
+                             
                               g_index_str = str(input("\033[92mВыберите чат для получения списка его участников ('e' - назад): \033[0m"))
                       
                               if g_index_str.lower() == 'e':
@@ -330,10 +313,6 @@ if __name__ == "__main__":
             size_chats = 200
             groups = []
             exit_flag = False
-            openchannel_list = []
-            closechannel_list = []
-            openchat_list = []
-            closechat_list = []
             all_info = []
 
             while not exit_flag:
