@@ -249,7 +249,7 @@ if __name__ == "__main__":
                                              write_data_del(ws_closed_groups_del, delgroups)
                                              wb.save(f"{phone}_about.xlsx")
                                              os.system('cls||clear')
-                                             print('Ссылки на чаты добавлены в файл, мой командир')
+                                             print('Инофрмация о чатах  добавлена в файл, мой командир')
                                              time.sleep(3)
                                              exit_flag = True
                                              client.disconnect()
