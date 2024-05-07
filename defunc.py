@@ -71,6 +71,8 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
 
     all_info.append("\033[95mУдаленные ГРУППЫ:\033[0m")
     closegroupdel_count = 1
+    print(delgroups)
+    input("delgroups")
     for delgroup in delgroups:
         owner_value = delgroup['creator']
         admin_value = delgroup['admin_rights']
@@ -231,8 +233,7 @@ def get_type_of_chats(client, selection):
                  ID_migrated_values = current_deleted_chat['ID_migrated']
                  if ID_migrated_values not in all_chats_ids:
                       delgroups.append(current_deleted_chat)
-    print(delgroups)
-    input("delgroups")
+
     return delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats
 
 def get_and_save_contacts(client, phone, userinfo, userid):
