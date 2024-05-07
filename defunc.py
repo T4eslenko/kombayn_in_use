@@ -20,7 +20,7 @@ from typing import Optional
 import re
 
 def make_list_of_channels(delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats):
-  """Функция для формирования списков групп и каналов"""
+    """Функция для формирования списков групп и каналов"""
     owner_channel = 0
     owner_group = 0
     owner_closegroup = 0
