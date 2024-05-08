@@ -150,12 +150,12 @@ if __name__ == "__main__":
               sessions = []
               header = '''
    -----------------------------
-   =ВЫГРУЗКА ИНФОРМАЦИИ о КАНАЛАХ и ГРУППАХ в EXCEL=
+   =ВЫГРУЗКА УЧАСТНИКОВ ГРУП в EXCEL=
    -----------------------------
               '''
               result = choice_akk(api_id, api_hash, header)
               if result is None:
-                  continue
+                  break
               client, phone, session_index = result
               userid, userinfo, firstname, lastname, username = get_user_info(client, phone) # Получение информации о пользователe
               print()
