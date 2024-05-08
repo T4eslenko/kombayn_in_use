@@ -137,8 +137,8 @@ if __name__ == "__main__":
                os.system('cls||clear')
                print('Инофрмация о чатах  добавлена в файл, мой командир')
                time.sleep(3)
-               exit_flag = True
                client.disconnect()
+               break
            
         # 6 Выгрузить участников групп в excel
         elif selection == '6':
