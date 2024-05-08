@@ -31,7 +31,7 @@ def choice_akk(api_id, api_hash):
         print()
         user_input = input("\033[92mДля продолжения выберите существующий аккаунт ('e' - назад): \033[0m")
         if user_input.lower() == 'e':
-            return client, phone, session_index, user_input
+            break
         else:
             try:
                 session_index = int(user_input)
@@ -39,7 +39,7 @@ def choice_akk(api_id, api_hash):
                     client = TelegramClient(sessions[session_index].replace('\n', ''), api_id, api_hash)
                     client.connect()
                     phone = sessions[session_index].split('.')[0]
-                    return client, phone, session_index, user_input
+                    return client, phone, session_index
                 else:
                     print("Пожалуйста, выберите существующий аккаунт в диапазоне от 0 до", len(sessions)-1)
                     time.sleep(2)
