@@ -83,7 +83,7 @@ if __name__ == "__main__":
            print('-----------------------------')
            print()
            client, phone, session_index = choice_akk(api_id, api_hash)
-           if user_input.lower() == 'e': break
+           if user_input and user_input.lower() == 'e': break
            userid, userinfo, firstname, lastname, username = get_user_info(client, phone) # Получение информации о пользователe
            print('=ИНФОРМАЦИЯ О КОНТАКТАХ=')
            print('-----------------------------')
