@@ -82,8 +82,8 @@ if __name__ == "__main__":
            print('=ВЫГРУЗКА КОНТАКТОВ В EXCEL=')
            print('-----------------------------')
            print()
-           client, phone, session_index, user_input = choice_akk(api_id, api_hash)
-           if user_input.lower() == 'e': break
+           client, phone, session_index = choice_akk(api_id, api_hash)
+           if 'user_input' in locals() and user_input.lower() == 'e':
            userid, userinfo, firstname, lastname, username = get_user_info(client, phone) # Получение информации о пользователe
            print('=ИНФОРМАЦИЯ О КОНТАКТАХ=')
            print('-----------------------------')
