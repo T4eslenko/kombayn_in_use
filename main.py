@@ -42,6 +42,7 @@ if __name__ == "__main__":
         
         api_id = int(options[0].replace('\n', ''))
         api_hash = str(options[1].replace('\n', ''))
+        user_input = 'e'
         if options[2] == 'True\n':
             user_id = True
         else:
@@ -77,12 +78,11 @@ if __name__ == "__main__":
         if selection == '4':
            os.system('cls||clear')
            sessions = []
-           os.system('cls||clear')
            print('-----------------------------')
            print('=ВЫГРУЗКА КОНТАКТОВ В EXCEL=')
            print('-----------------------------')
            print()
-           client, phone, session_index, user_input = choice_akk(api_id, api_hash)
+           client, phone, session_index = choice_akk(api_id, api_hash)
            if user_input.lower() == 'e':
               userid, userinfo, firstname, lastname, username = get_user_info(client, phone) # Получение информации о пользователe
               print('=ИНФОРМАЦИЯ О КОНТАКТАХ=')
