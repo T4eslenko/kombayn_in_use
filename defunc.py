@@ -225,6 +225,7 @@ def get_user_info(client, phone):
     lastname = me.last_name if me.last_name is not None else ""
     
     userinfo = f"(Номер телефона: +{phone}, ID: {userid}, ({firstname} {lastname}) {username})"
+    print("Информация о пользователе:") 
     print()
     print(f"Номер телефона: {phone}")
     print(f"ID пользователя: {userid}")
