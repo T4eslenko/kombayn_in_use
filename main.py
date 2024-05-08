@@ -111,6 +111,8 @@ if __name__ == "__main__":
            client, phone, session_index = result
            userid, userinfo, firstname, lastname, username = get_user_info(client, phone) # Получение информации о пользователe
            print()
+           print_suminfo_abou_channel (openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup)
+           print()
            input("\033[93mНажмите любую клавишу для продолжения... \033[0m")
            print()
            print('-----------------------------')
@@ -155,6 +157,8 @@ if __name__ == "__main__":
                   break
               client, phone, session_index = result
               userid, userinfo, firstname, lastname, username = get_user_info(client, phone) # Получение информации о пользователe
+              print()
+              print_suminfo_abou_channel (openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup)
               print()
               input("\033[93mНажмите любую клавишу для продолжения... \033[0m")
               print()
@@ -221,6 +225,8 @@ if __name__ == "__main__":
                   break
               client, phone, session_index = result
               userid, userinfo, firstname, lastname, username = get_user_info(client, phone) # Получение информации о пользователe
+              print()
+              print_suminfo_abou_channel (openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup)
               print()
               input("\033[93mНажмите любую клавишу для продолжения... \033[0m")
               print()
