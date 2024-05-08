@@ -82,19 +82,17 @@ if __name__ == "__main__":
            print('-----------------------------')
            print()
            client, phone, session_index = choice_akk(api_id, api_hash) if choice_akk(api_id, api_hash) is not None else (None, None, None)
-           if session_index is None:
-              continue 
-           else: 
-              print(e)
-              input('e')
+           if session_index is None:continue
+           print(e)
+           input('e')
               
-              userid, userinfo, firstname, lastname, username = get_user_info(client, phone) # Получение информации о пользователe
-              print('=ИНФОРМАЦИЯ О КОНТАКТАХ=')
-              print('-----------------------------')
-              get_and_save_contacts(client, phone, userinfo, userid)
-              print()
-              input("\033[93mНажмите любую клавишу для продолжения... \033[0m")             
-              client.disconnect()
+           userid, userinfo, firstname, lastname, username = get_user_info(client, phone) # Получение информации о пользователe
+           print('=ИНФОРМАЦИЯ О КОНТАКТАХ=')
+           print('-----------------------------')
+           get_and_save_contacts(client, phone, userinfo, userid)
+           print()
+           input("\033[93mНажмите любую клавишу для продолжения... \033[0m")             
+           client.disconnect()
 
            
 
