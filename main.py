@@ -75,48 +75,22 @@ if __name__ == "__main__":
 
        # 4 Выгрузить список контактов в excel
         if selection == '4':
-               os.system('cls||clear')
-               sessions = []
-               for file in os.listdir('.'):
-                   if file.endswith('.session'):
-                           sessions.append(file)
-               while True:
-                   os.system('cls||clear')
-                   print('-----------------------------')
-                   print('=ВЫГРУЗКА КОНТАКТОВ В EXCEL=')
-                   print('-----------------------------')
-                   print()
-                   for i, session in enumerate(sessions):
-                       print(f"[{i}] - {session}")
-                   print()
-                   user_input = input("\033[92mВыберите существующий аккаунт для выгрузки имеющихся у него контактов в формате excel ('e' - назад): \033[0m")
-                   if user_input.lower() == 'e':
-                       break
-                   else:
-                       try:
-                           session_index = int(user_input)
-                           if 0 <= session_index < len(sessions):
-                               client = TelegramClient(sessions[session_index].replace('\n', ''), api_id, api_hash)
-                               client.connect()
-                               os.system('cls||clear')
-                               phone = sessions[session_index].split('.')[0]
+           os.system('cls||clear')
+           sessions = []
+           os.system('cls||clear')
+           print('-----------------------------')
+           print('=ВЫГРУЗКА КОНТАКТОВ В EXCEL=')
+           print('-----------------------------')
+           print()
+           client, phone, session_index = choice_akk()
+           userid, userinfo, firstname, lastname, username = get_user_info(client, phone) # Получение информации о пользователe
+           print('=ИНФОРМАЦИЯ О КОНТАКТАХ=')
+           print('-----------------------------')
+           get_and_save_contacts(client, phone, userinfo, userid)
+           print()
+           input("\033[93mНажмите любую клавишу для продолжения... \033[0m")             
+           client.disconnect()
 
-                               userid, userinfo, firstname, lastname, username = get_user_info(client, phone) # Получение информации о пользователe
-                               print('=ИНФОРМАЦИЯ О КОНТАКТАХ=')
-                               print('-----------------------------')
-                               get_and_save_contacts(client, phone, userinfo, userid)
-                               print()
-                               input("\033[93mНажмите любую клавишу для продолжения... \033[0m")             
-                               client.disconnect()
-                               break
-                           else:
-                               print("Пожалуйста, выберите существующий аккаунт в диапазоне от 0 до", len(sessions)-1)
-                               time.sleep(2)
-                               os.system('cls||clear')
-                       except ValueError:
-                           print("Пожалуйста, выберите существующий аккаунт в диапазоне от 0 до", len(sessions)-1)
-                           time.sleep(2)
-                           os.system('cls||clear')
            
 
        
