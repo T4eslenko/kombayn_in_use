@@ -110,7 +110,7 @@ if __name__ == "__main__":
                continue
            os.system('cls||clear')
            client, phone, session_index = result
-           print('-----------------------------`) 
+           print('-----------------------------') 
            userid, userinfo, firstname, lastname, username = get_user_info(client, phone) # Получение информации о пользователe
            print()
            delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats = get_type_of_chats(client, selection)  # Получение информации о чатах и каналах
