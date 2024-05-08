@@ -77,15 +77,17 @@ if __name__ == "__main__":
         if selection == '4':
            os.system('cls||clear')
            sessions = []
-           print('-----------------------------')
-           print('=ВЫГРУЗКА КОНТАКТОВ В EXCEL=')
-           print('-----------------------------')
+           header = '''
+           -----------------------------
+           =ВЫГРУЗКА КОНТАКТОВ В EXCEL=
+           -----------------------------
+           '''
            print()
            result = choice_akk(api_id, api_hash)
            if result is None:
                continue
            client, phone, session_index = result
-           userid, userinfo, firstname, lastname, username = get_user_info(client, phone) # Получение информации о пользователe
+           userid, userinfo, firstname, lastname, username = get_user_info(client, phone, header) # Получение информации о пользователe
            print('=ИНФОРМАЦИЯ О КОНТАКТАХ=')
            print('-----------------------------')
            get_and_save_contacts(client, phone, userinfo, userid)
