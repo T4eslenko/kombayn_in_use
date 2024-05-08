@@ -142,37 +142,30 @@ if __name__ == "__main__":
            
         # 6 Выгрузить участников групп в excel
         elif selection == '6':
-          os.system('cls||clear')
-          chats = []
-          last_date = None    
-          size_chats = 200
-          all_info = []
-          exit_flag = False
-          all_info = []
-      
-          while not exit_flag:
-              os.system('cls||clear')
-              sessions = [file for file in os.listdir('.') if file.endswith('.session')]
-      
-              for i in range(len(sessions)):
-                  print(f"[{i}] - {sessions[i]}")
-              print()
-              
-              user_input = input("\033[92mВыберите существующий аккаунт для выгрузки участников чата в формате excel ('e' - назад): \033[0m")
-              if user_input.lower() == 'e':
-                  break
-              else:
-                  try:
-                      session_index = int(user_input)
-                      if 0 <= session_index < len(sessions):
-                          client = TelegramClient(sessions[session_index].replace('\n', ''), api_id, api_hash)
-                          client.connect()
-                          phone = sessions[session_index].split('.')[0]
-    
-                          userid, userinfo, firstname, lastname, username = get_user_info(client, phone) # Получение информации о пользователе
-                          delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats = get_type_of_chats(client, selection)  # Получение информации о чатах и каналах
-                          print()
-                          input("Для продолжение нажмите любую клавишу  ")
+           last_date = None    
+           size_chats = 200
+           exit_flag = False
+           while not exit_flag:
+           os.system('cls||clear')
+           sessions = []
+           header = '''
+-----------------------------
+=ВЫГРУЗКА ИНФОРМАЦИИ о КАНАЛАХ и ГРУППАХ в EXCEL=
+-----------------------------
+           '''
+           result = choice_akk(api_id, api_hash, header)
+           if result is None:
+               continue
+           client, phone, session_index = result
+           userid, userinfo, firstname, lastname, username = get_user_info(client, phone) # Получение информации о пользователe
+           print()
+           input("\033[93mНажмите любую клавишу для продолжения... \033[0m")
+           print()
+           print('-----------------------------')
+           print('=ИНФОРМАЦИЯ О КАНАЛАХ и ГРУППАХ=')
+           print('-----------------------------')
+
+           delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats = get_type_of_chats(client, selection)  # Получение информации о чатах и каналах
                           while True:
                               os.system('cls||clear')
                               i = 0
@@ -215,14 +208,7 @@ if __name__ == "__main__":
                                       time.sleep(2)
                                       all_info = []
                                       os.system('cls||clear')
-                      else:
-                          print("Пожалуйста, выберите существующий аккаунт в диапазоне от 0 до", len(sessions)-1)
-                          time.sleep(2)
-                          os.system('cls||clear')
-                  except ValueError:
-                      print("Пожалуйста, выберите существующий аккаунт в диапазоне от 0 до", len(sessions)-1)
-                      time.sleep(2)
-                      os.system('cls||clear')
+
 
            
         # 7 Выгрузить сообщения чата или канала в excel
