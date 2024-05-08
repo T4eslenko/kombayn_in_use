@@ -154,6 +154,7 @@ if __name__ == "__main__":
               result = choice_akk(api_id, api_hash, header)
               if result is None:
                   break
+              os.system('cls||clear')
               client, phone, session_index = result
               userid, userinfo, firstname, lastname, username = get_user_info(client, phone) # Получение информации о пользователe
               print()
@@ -219,6 +220,7 @@ if __name__ == "__main__":
               result = choice_akk(api_id, api_hash, header)
               if result is None:
                   break
+              os.system('cls||clear')
               client, phone, session_index = result
               userid, userinfo, firstname, lastname, username = get_user_info(client, phone) # Получение информации о пользователe
               print()
