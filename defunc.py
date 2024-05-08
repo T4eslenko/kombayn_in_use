@@ -20,7 +20,7 @@ from typing import Optional
 import re
 
 # Функция для выбора аккаунта и установки соответствующих переменных
-def choice_akk():
+def choice_akk(api_id, api_hash):
     sessions = []
     for file in os.listdir('.'):
         if file.endswith('.session'):
@@ -31,7 +31,7 @@ def choice_akk():
         print()
         user_input = input("\033[92mДля продолжения выберите существующий аккаунт ('e' - назад): \033[0m")
         if user_input.lower() == 'e':
-            break
+            return user_input
         else:
             try:
                 session_index = int(user_input)
