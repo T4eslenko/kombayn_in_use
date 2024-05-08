@@ -161,7 +161,7 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
             owner_closegroup += 1
 
     
-    delgroups_name = 'Удаленные ГРУППЫ:' if delgroups is not Note else ''
+    delgroups_name = 'Удаленные ГРУППЫ:' if delgroups is not None else ''
     all_info.append("\033[95mХ{delgroups_name}\033[0m")
     closegroupdel_count = 1
     for delgroup in delgroups:
@@ -190,7 +190,7 @@ def print_suminfo_abou_channel (openchannel_count, closechannel_count, opengroup
     print()
     print(f"Состоит в открытых группах: {opengroup_count-1}")
     print(f"Состоит в закрытых группх: {closegroup_count-1}")
-    print(f"Удаленные группы: {closegroupdel_count-1}")
+    print(f"{delgroups_name} {closegroupdel_count - 1}") if closegroupdel_count - 1 != 0 else None
     print(f"Имеет права владельца или админа в {owner_group} группах, из них {owner_closegroup} - в закрытых")
     print("------------------------------------------------")
 
