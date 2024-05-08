@@ -166,48 +166,51 @@ if __name__ == "__main__":
               print('-----------------------------')
    
               delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats = get_type_of_chats(client, selection)  # Получение информации о чатах и каналах
-                          while True:
-                              os.system('cls||clear')
-                              i = 0
-                              print('-----------------------------')
-                              print('=ВЫГРУЗКА УЧАСТНИКОВ ЧАТА В EXCEL=')
-                              print(f"\033[96mНомер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}\033[0m")
-                              print('-----------------------------')
-      
-                              groups, i, all_info, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup = make_list_of_channels(delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats)
-                              print_pages(all_info, 25)
-                              print()
-                             
-                              g_index_str = str(input("\033[92mВыберите чат для получения списка его участников ('e' - назад): \033[0m"))
-                      
-                              if g_index_str.lower() == 'e':
-                                  client.disconnect()
-                                  exit_flag = True
-                                  break
-                              else:
-                                  try:
-                                      g_index = int(g_index_str)
-                                      if 0 <= g_index < i:
-                                          target_group = groups[int(g_index)]
-                                          group_title = target_group.title
-                                          group_id = target_group.id
-                                          parsing_xlsx(client, target_group, user_id, user_name, group_title, group_id, userid, userinfo)
-                                          os.system('cls||clear')
-                                          print('Участники групп выгружены в excel, мой командир')
-                                          client.disconnect()
-                                          time.sleep(3)
-                                          exit_flag = True
-                                          break
-                                      else:
-                                          print("Пожалуйста, выберите группу из списка")
-                                          time.sleep(2)
-                                          all_info = []
-                                          os.system('cls||clear')
-                                  except ValueError:
-                                      print("Пожалуйста, выберите группу из списка")
-                                      time.sleep(2)
-                                      all_info = []
-                                      os.system('cls||clear')
+              import os
+              while True:
+                   os.system('cls||clear')
+                   i = 0
+                   print('-----------------------------')
+                   print('=ВЫГРУЗКА УЧАСТНИКОВ ЧАТА В EXCEL=')
+                   print(f"\033[96mНомер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}\033[0m")
+                   print('-----------------------------')
+               
+                   groups, i, all_info, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup = make_list_of_channels(delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats)
+                   print_pages(all_info, 25)
+                   print()
+                   
+                   g_index_str = str(input("\033[92mВыберите чат для получения списка его участников ('e' - назад): \033[0m"))
+                         
+                   if g_index_str.lower() == 'e':
+                       client.disconnect()
+                       exit_flag = True
+                       break
+                   else:
+                       try:
+                           g_index = int(g_index_str)
+                           if 0 <= g_index < i:
+                               target_group = groups[int(g_index)]
+                               group_title = target_group.title
+                               group_id = target_group.id
+                               parsing_xlsx(client, target_group, user_id, user_name, group_title, group_id, userid, userinfo)
+                               os.system('cls||clear')
+                               print('Участники групп выгружены в excel, мой командир')
+                               client.disconnect()
+                               time.sleep(3)
+                               exit_flag = True
+                               break
+                           else:
+                               print("Пожалуйста, выберите группу из списка")
+                               time.sleep(2)
+                               all_info = []
+                               os.system('cls||clear')
+                       except ValueError:
+                           print("Пожалуйста, выберите группу из списка")
+                           time.sleep(2)
+                           all_info = []
+                           os.system('cls||clear')
+
+                          
 
 
            
