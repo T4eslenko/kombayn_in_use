@@ -87,6 +87,8 @@ if __name__ == "__main__":
                continue
            client, phone, session_index = result
            userid, userinfo, firstname, lastname, username = get_user_info(client, phone) # Получение информации о пользователe
+           print()
+           print('-----------------------------')
            print('=ИНФОРМАЦИЯ О КОНТАКТАХ=')
            print('-----------------------------')
            get_and_save_contacts(client, phone, userinfo, userid)
