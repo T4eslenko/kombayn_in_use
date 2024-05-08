@@ -20,12 +20,13 @@ from typing import Optional
 import re
 
 # Функция для выбора аккаунта и установки соответствующих переменных
-def choice_akk(api_id, api_hash):
+def choice_akk(api_id, api_hash, header):
     sessions = []
     for file in os.listdir('.'):
         if file.endswith('.session'):
             sessions.append(file)
     while True:
+        print(header)
         for i, session in enumerate(sessions):
             print(f"[{i}] - {session}")
         print()
