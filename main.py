@@ -161,12 +161,7 @@ if __name__ == "__main__":
               print()
               input("\033[93mНажмите любую клавишу для продолжения... \033[0m")
               print()
-              print('-----------------------------')
-              print('=ИНФОРМАЦИЯ О КАНАЛАХ и ГРУППАХ=')
-              print('-----------------------------')
-   
               delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats = get_type_of_chats(client, selection)  # Получение информации о чатах и каналах
-              import os
               while True:
                    os.system('cls||clear')
                    i = 0
@@ -217,85 +212,71 @@ if __name__ == "__main__":
         # 7 Выгрузить сообщения чата или канала в excel
         elif selection == '7':
             os.system('cls||clear')
-            chats = []
             last_date = None    
             size_chats = 200
             exit_flag = False
-            all_info = []
-
             while not exit_flag:
-                os.system('cls||clear')
-                print()
-                sessions = [file for file in os.listdir('.') if file.endswith('.session')]
+              os.system('cls||clear')
+              sessions = []
+              header = '''
+   -----------------------------
+   =ВЫГРУЗКА СООБЩЕНИЙ из КАНАЛА или ЧАТА в EXCEL=
+   -----------------------------
+              '''
+              result = choice_akk(api_id, api_hash, header)
+              if result is None:
+                  break
+              client, phone, session_index = result
+              userid, userinfo, firstname, lastname, username = get_user_info(client, phone) # Получение информации о пользователe
+              print()
+              input("\033[93mНажмите любую клавишу для продолжения... \033[0m")
+              print()
+              delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats = get_type_of_chats(client, selection)  # Получение информации о чатах и каналах
+              while True:
+                   os.system('cls||clear')
+                   i = 0
+                   print('-----------------------------')
+                   print('=ВЫГРУЗКА СООБЩЕНИЙ из КАНАЛА или ЧАТА в EXCEL=')
+                   print(f"\033[96mНомер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}\033[0m")
+                   print('-----------------------------')
+               
+                   groups, i, all_info, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup = make_list_of_channels(delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats)
+                   print_pages(all_info, 25)
+                   print()
+                   
+                   g_index_str = str(input("\033[92mВыберите чат для получения списка его участников ('e' - назад): \033[0m"))
+                   if g_index_str.lower() == 'e':
+                      client.disconnect()
+                      exit_flag = True
+                      break
+                   else:
+                      try:
+                          g_index = int(g_index_str)
+                          if 0 <= g_index < i:
+                              target_group = groups[int(g_index)]
+                              group_title = target_group.title
+                              os.system('cls||clear')
+                              print('Может потребоваться значительное количество времени, заварите кофе...')
+                              parsing_messages(client, target_group, user_id, user_name, group_title, userid, userinfo)
+                              os.system('cls||clear')
+                              print('Сообщения чата выгружены в excel, мой командир')
+                              client.disconnect()
+                              time.sleep(3)
+                              exit_flag = True
+                              break
+                          else:
+                              print("Пожалуйста, выберите группу из списка")
+                              time.sleep(2)
+                              all_info = []
+                              os.system('cls||clear')
+                      except ValueError:
+                          print("Пожалуйста, выберите группу из списка")
+                          time.sleep(2)
+                          all_info = []
+                          os.system('cls||clear')
+                                         
+                                
 
-                for i in range(len(sessions)):
-                    print(f"[{i}] - {sessions[i]}")
-                print()
-                
-                user_input = input("\033[92mВыберите существующий аккаунт для выгрузки сообщений из чата в формате excel ('e' - назад): \033[0m")
-                if user_input.lower() == 'e':
-                    break
-                else:
-                    try:
-                        session_index = int(user_input)
-                        if 0 <= session_index < len(sessions):
-                            client = TelegramClient(sessions[session_index].replace('\n', ''), api_id, api_hash)
-                            client.connect()
-                            phone = sessions[session_index].split('.')[0]
-                           
-                            
-                            userid, userinfo, firstname, lastname, username = get_user_info(client, phone) # Получение информации о пользователе
-                            delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats = get_type_of_chats(client, selection)  # Получение информации о чатах и каналах
-                            print()
-                            input("Для продолжение нажмите любую клавишу  ")
-                            while True:
-                                 os.system('cls||clear')
-                                 print('-----------------------------')
-                                 print('=ВЫГРУЗКА СООБЩЕНИЙ ЧАТА или КАНАЛА В EXCEL=')
-                                 print(f"\033[96mНомер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}\033[0m")
-                                 print('-----------------------------')
-                                 groups, i, all_info, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup = make_list_of_channels(delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats)
-                                 print_pages(all_info, 25)
-                                 print()
-                                 g_index_str = str(input("\033[92mВыберите чат для выгрузки всех сообщений из него ('e' - назад): \033[0m"))
-                       
-                                 if g_index_str.lower() == 'e':
-                                    client.disconnect()
-                                    exit_flag = True
-                                    break
-                                 else:
-                                    try:
-                                        g_index = int(g_index_str)
-                                        if 0 <= g_index < i:
-                                            target_group = groups[int(g_index)]
-                                            group_title = target_group.title
-                                            os.system('cls||clear')
-                                            print('Может потребоваться значительное количество времени, заварите кофе...')
-                                            parsing_messages(client, target_group, user_id, user_name, group_title, userid, userinfo)
-                                            os.system('cls||clear')
-                                            print('Сообщения чата выгружены в excel, мой командир')
-                                            client.disconnect()
-                                            time.sleep(3)
-                                            exit_flag = True
-                                            break
-                                        else:
-                                            print("Пожалуйста, выберите группу из списка")
-                                            time.sleep(2)
-                                            all_info = []
-                                            os.system('cls||clear')
-                                    except ValueError:
-                                        print("Пожалуйста, выберите группу из списка")
-                                        time.sleep(2)
-                                        all_info = []
-                                        os.system('cls||clear')
-                        else:
-                            print("Пожалуйста, выберите существующий аккаунт в диапазоне от 0 до", len(sessions)-1)
-                            time.sleep(2)
-                            os.system('cls||clear')
-                    except ValueError:
-                        print("Пожалуйста, выберите существующий аккаунт в диапазоне от 0 до", len(sessions)-1)
-                        time.sleep(2)
-                        os.system('cls||clear')
     
 # 8 Отправка файлов
         elif selection == '8':
