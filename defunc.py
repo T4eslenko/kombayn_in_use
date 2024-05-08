@@ -31,7 +31,7 @@ def choice_akk(api_id, api_hash):
         print()
         user_input = input("\033[92mДля продолжения выберите существующий аккаунт ('e' - назад): \033[0m")
         if user_input.lower() == 'e':
-            return user_input
+            return client, phone, session_index, user_input
         else:
             try:
                 session_index = int(user_input)
