@@ -84,13 +84,13 @@ if __name__ == "__main__":
            print()
            client, phone, session_index = choice_akk(api_id, api_hash)
            if 'user_input' in locals() and user_input.lower() == 'e':
-           userid, userinfo, firstname, lastname, username = get_user_info(client, phone) # Получение информации о пользователe
-           print('=ИНФОРМАЦИЯ О КОНТАКТАХ=')
-           print('-----------------------------')
-           get_and_save_contacts(client, phone, userinfo, userid)
-           print()
-           input("\033[93mНажмите любую клавишу для продолжения... \033[0m")             
-           client.disconnect()
+              userid, userinfo, firstname, lastname, username = get_user_info(client, phone) # Получение информации о пользователe
+              print('=ИНФОРМАЦИЯ О КОНТАКТАХ=')
+              print('-----------------------------')
+              get_and_save_contacts(client, phone, userinfo, userid)
+              print()
+              input("\033[93mНажмите любую клавишу для продолжения... \033[0m")             
+              client.disconnect()
 
            
 
