@@ -82,7 +82,7 @@ if __name__ == "__main__":
            print('-----------------------------')
            print()
            client, phone, session_index = choice_akk(api_id, api_hash) if choice_akk(api_id, api_hash) is not None else (None, None, None)
-           if 'user_input' in globals() and user_input.lower() == 'e':
+           if session_index is None:
               break
            else: 
               print(e)
