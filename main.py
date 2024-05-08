@@ -9,7 +9,7 @@ import os
 import openpyxl
 from telethon.tl.types import InputPhoneContact
 from telethon.tl.functions.contacts import GetContactsRequest
-import asyncio  # Add this import statement at the beginning of your script
+import asyncio  
 import telebot
 from telethon.tl.types import Chat, Channel, InputChannel
 class color:
@@ -83,7 +83,7 @@ if __name__ == "__main__":
            print()
            client, phone, session_index = choice_akk(api_id, api_hash) if choice_akk(api_id, api_hash) is not None else (None, None, None)
            if session_index is None:
-              return
+              break
            else: 
               print(e)
               input('e')
