@@ -19,6 +19,37 @@ from datetime import datetime
 from typing import Optional
 import re
 
+# Функция для выбора аккаунта и установки соответствующих переменных
+def choice_akk():
+    sessions = []
+    for file in os.listdir('.'):
+        if file.endswith('.session'):
+            sessions.append(file)
+    while True:
+        for i, session in enumerate(sessions):
+            print(f"[{i}] - {session}")
+        print()
+        user_input = input("\033[92mДля продолжения выберите существующий аккаунт ('e' - назад): \033[0m")
+        if user_input.lower() == 'e':
+            break
+        else:
+            try:
+                session_index = int(user_input)
+                if 0 <= session_index < len(sessions):
+                    client = TelegramClient(sessions[session_index].replace('\n', ''), api_id, api_hash)
+                    client.connect()
+                    phone = sessions[session_index].split('.')[0]
+                    return client, phone, session_index
+                else:
+                    print("Пожалуйста, выберите существующий аккаунт в диапазоне от 0 до", len(sessions)-1)
+                    time.sleep(2)
+                    os.system('cls||clear')
+            except ValueError:
+                print("Пожалуйста, выберите существующий аккаунт в диапазоне от 0 до", len(sessions)-1)
+                time.sleep(2)
+                os.system('cls||clear')
+
+
 #Запись информации о группах в файл
 def save_about_channels(phone, userid, firstname, lastname, username, openchannel_count, opengroup_count, closechannel_count, closegroup_count, owner_channel, owner_closechannel, owner_group, owner_closegroup, openchannels, closechannels, openchats, closechats, delgroups, closegroupdel_count):
     wb = openpyxl.Workbook()
