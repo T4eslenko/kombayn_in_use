@@ -38,8 +38,6 @@ def choice_akk(api_id, api_hash):
                 if 0 <= session_index < len(sessions):
                     client = TelegramClient(sessions[session_index].replace('\n', ''), api_id, api_hash)
                     client.connect()
-                    print(user_input)
-                    input('user_input')
                     phone = sessions[session_index].split('.')[0]
                     return client, phone, session_index
                 else:
