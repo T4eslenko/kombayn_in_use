@@ -156,6 +156,10 @@ if __name__ == "__main__":
               client, phone, session_index = result
               userid, userinfo, firstname, lastname, username = get_user_info(client, phone) # Получение информации о пользователe
               print()
+              groups, i, all_info, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup = make_list_of_channels(delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats)
+              print_suminfo_abou_channel (openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup)
+              input("\033[93mНажмите любую клавишу для продолжения... \033[0m")
+              print()
               delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats = get_type_of_chats(client, selection)  # Получение информации о чатах и каналах
               while True:
                    os.system('cls||clear')
@@ -164,10 +168,7 @@ if __name__ == "__main__":
                    print('=ВЫГРУЗКА УЧАСТНИКОВ ЧАТА В EXCEL=')
                    print(f"\033[96mНомер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}\033[0m")
                    print('-----------------------------')
-               
                    groups, i, all_info, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup = make_list_of_channels(delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats)
-                   input("\033[93mНажмите любую клавишу для продолжения... \033[0m")
-                   print()
                    print_pages(all_info, 25)
                    print()
                    
