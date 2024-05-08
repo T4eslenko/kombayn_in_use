@@ -83,8 +83,7 @@ if __name__ == "__main__":
            print()
            client, phone, session_index = choice_akk(api_id, api_hash) if choice_akk(api_id, api_hash) is not None else (None, None, None)
            if session_index is None:
-              print(session_index)
-              input('e')
+              return
            else: 
               print(e)
               input('e')
