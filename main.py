@@ -96,9 +96,6 @@ if __name__ == "__main__":
            input("\033[93mНажмите любую клавишу для продолжения... \033[0m")             
            client.disconnect()
 
-           
-
-       
        # 5 Выгрузить инфу об аккаунте
         elif selection == '5':
            os.system('cls||clear')
@@ -187,7 +184,7 @@ if __name__ == "__main__":
                                target_group = groups[int(g_index)]
                                group_title = target_group.title
                                group_id = target_group.id
-                               parsing_xlsx(client, target_group, user_id, user_name, group_title, group_id, userid, userinfo)
+                               get_participants_and_save_xlsx(client, target_group, user_id, user_name, group_title, group_id, userid, userinfo)
                                os.system('cls||clear')
                                print('Участники групп выгружены в excel, мой командир')
                                client.disconnect()
@@ -205,10 +202,6 @@ if __name__ == "__main__":
                            all_info = []
                            os.system('cls||clear')
 
-                          
-
-
-           
         # 7 Выгрузить сообщения чата или канала в excel
         elif selection == '7':
             os.system('cls||clear')
@@ -257,7 +250,7 @@ if __name__ == "__main__":
                               group_title = target_group.title
                               os.system('cls||clear')
                               print('Может потребоваться значительное количество времени, заварите кофе...')
-                              parsing_messages(client, target_group, user_id, user_name, group_title, userid, userinfo)
+                              get_messages_and_save_xcls(client, target_group, user_id, user_name, group_title, userid, userinfo)
                               os.system('cls||clear')
                               print('Сообщения чата выгружены в excel, мой командир')
                               client.disconnect()
