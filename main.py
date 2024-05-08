@@ -85,7 +85,7 @@ if __name__ == "__main__":
            client, phone, session_index = choice_akk(api_id, api_hash) if choice_akk(api_id, api_hash) is not None else (None, None, None)
            if user_input.lower() == 'e':
               break
-              user_input = 100
+              user_input = '100'
            else:
               userid, userinfo, firstname, lastname, username = get_user_info(client, phone) # Получение информации о пользователe
               print('=ИНФОРМАЦИЯ О КОНТАКТАХ=')
