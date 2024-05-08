@@ -87,9 +87,6 @@ if __name__ == "__main__":
            client, phone, session_index = result
            #client, phone, session_index = choice_akk(api_id, api_hash) if choice_akk(api_id, api_hash) is not None else (None, None, None)
            if session_index is None:continue
-           print()
-           input(session_index)
-              
            userid, userinfo, firstname, lastname, username = get_user_info(client, phone) # Получение информации о пользователe
            print('=ИНФОРМАЦИЯ О КОНТАКТАХ=')
            print('-----------------------------')
