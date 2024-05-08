@@ -78,11 +78,10 @@ if __name__ == "__main__":
            os.system('cls||clear')
            sessions = []
            header = '''
-           -----------------------------
-           =ВЫГРУЗКА КОНТАКТОВ В EXCEL=
-           -----------------------------
+-----------------------------
+=ВЫГРУЗКА КОНТАКТОВ В EXCEL=
+-----------------------------
            '''
-           print()
            result = choice_akk(api_id, api_hash, header)
            if result is None:
                continue
