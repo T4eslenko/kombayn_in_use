@@ -113,6 +113,7 @@ if __name__ == "__main__":
                continue
            client, phone, session_index = result
            userid, userinfo, firstname, lastname, username = get_user_info(client, phone) # Получение информации о пользователe
+           print()
            input("\033[93mНажмите любую клавишу для продолжения... \033[0m")
            print()
            print('-----------------------------')
@@ -130,51 +131,14 @@ if __name__ == "__main__":
                print_pages(all_info, 25)
                print('-----------------------------')
                print()
-               g_index_str = str('get')
-               
-               if g_index_str.lower() == 'e':
-                   client.disconnect()
-                   exit_flag = True
-                   break
-               else:
-                   try:
-                       if g_index_str == "get":
-                           save_about_channels(phone, userid, firstname, lastname, username, openchannel_count, opengroup_count, closechannel_count, closegroup_count, owner_channel, owner_closechannel, owner_group, owner_closegroup, openchannels, closechannels, openchats, closechats, delgroups, closegroupdel_count)
-               
-                           print()
-                           input("Для продолжение нажмите любую клавишу  ")
-                           os.system('cls||clear')
-                           print('Инофрмация о чатах  добавлена в файл, мой командир')
-                           time.sleep(3)
-                           exit_flag = True
-                           client.disconnect()
-                           break
-                       else:
-                           print("Пожалуйста, сделайте свой выбор")
-                           time.sleep(2)
-                           all_info = []
-                           os.system('cls||clear')
-                   except ValueError:
-                       print("Пожалуйста, сделайте свой выбор")
-                       time.sleep(2)
-                       all_info = []
-                       os.system('cls||clear')
-
-
-           
-                        
-           client.disconnect()             
-                             
-                             
-                             
-                             
-                            
-                             
-                                 
-                              
-                                 
-
-              
+               save_about_channels(phone, userid, firstname, lastname, username, openchannel_count, opengroup_count, closechannel_count, closegroup_count, owner_channel, owner_closechannel, owner_group, owner_closegroup, openchannels, closechannels, openchats, closechats, delgroups, closegroupdel_count)
+               print()
+               input("Для продолжение нажмите любую клавишу  ")
+               os.system('cls||clear')
+               print('Инофрмация о чатах  добавлена в файл, мой командир')
+               time.sleep(3)
+               exit_flag = True
+               client.disconnect()
            
         # 6 Выгрузить участников групп в excel
         elif selection == '6':
