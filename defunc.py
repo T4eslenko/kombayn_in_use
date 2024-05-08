@@ -39,7 +39,7 @@ def choice_akk(api_id, api_hash):
                     client = TelegramClient(sessions[session_index].replace('\n', ''), api_id, api_hash)
                     client.connect()
                     phone = sessions[session_index].split('.')[0]
-                    return client, phone, session_index
+                    return client, phone, session_index, user_input
                 else:
                     print("Пожалуйста, выберите существующий аккаунт в диапазоне от 0 до", len(sessions)-1)
                     time.sleep(2)
