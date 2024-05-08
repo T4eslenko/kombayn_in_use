@@ -120,13 +120,9 @@ if __name__ == "__main__":
            print('-----------------------------')
            print('=ИНФОРМАЦИЯ О КАНАЛАХ и ГРУППАХ=')
            print('-----------------------------')
-
-           
            while True:
                print(f"\033[96mНомер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}\033[0m")
                print('-----------------------------')
-               input("\033[93mНажмите любую клавишу для продолжения... \033[0m")
-               print()
                # Выводим информацию о группах
                print_pages(all_info, 25)
                print('-----------------------------')
@@ -162,6 +158,7 @@ if __name__ == "__main__":
               input("\033[93mНажмите любую клавишу для продолжения... \033[0m")
               print()
               delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats = get_type_of_chats(client, selection)  # Получение информации о чатах и каналах
+              groups, i, all_info, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup = make_list_of_channels(delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats)
               while True:
                    os.system('cls||clear')
                    i = 0
@@ -169,7 +166,6 @@ if __name__ == "__main__":
                    print('=ВЫГРУЗКА УЧАСТНИКОВ ЧАТА В EXCEL=')
                    print(f"\033[96mНомер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}\033[0m")
                    print('-----------------------------')
-                   groups, i, all_info, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup = make_list_of_channels(delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats)
                    print_pages(all_info, 25)
                    print()
                    
