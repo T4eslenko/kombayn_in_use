@@ -161,7 +161,7 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
             owner_closegroup += 1
 
     
-    delgroups_name = 'Удаленные ГРУППЫ:' if delgroups is not None else ''
+    delgroups_name = 'Удаленные ГРУППЫ:' if delgroups else ''
     print(delgroups)
     input()
     all_info.append(f"\033[95m{delgroups_name}\033[0m")
