@@ -146,26 +146,26 @@ if __name__ == "__main__":
            size_chats = 200
            exit_flag = False
            while not exit_flag:
-           os.system('cls||clear')
-           sessions = []
-           header = '''
------------------------------
-=ВЫГРУЗКА ИНФОРМАЦИИ о КАНАЛАХ и ГРУППАХ в EXCEL=
------------------------------
-           '''
-           result = choice_akk(api_id, api_hash, header)
-           if result is None:
-               continue
-           client, phone, session_index = result
-           userid, userinfo, firstname, lastname, username = get_user_info(client, phone) # Получение информации о пользователe
-           print()
-           input("\033[93mНажмите любую клавишу для продолжения... \033[0m")
-           print()
-           print('-----------------------------')
-           print('=ИНФОРМАЦИЯ О КАНАЛАХ и ГРУППАХ=')
-           print('-----------------------------')
-
-           delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats = get_type_of_chats(client, selection)  # Получение информации о чатах и каналах
+              os.system('cls||clear')
+              sessions = []
+              header = '''
+   -----------------------------
+   =ВЫГРУЗКА ИНФОРМАЦИИ о КАНАЛАХ и ГРУППАХ в EXCEL=
+   -----------------------------
+              '''
+              result = choice_akk(api_id, api_hash, header)
+              if result is None:
+                  continue
+              client, phone, session_index = result
+              userid, userinfo, firstname, lastname, username = get_user_info(client, phone) # Получение информации о пользователe
+              print()
+              input("\033[93mНажмите любую клавишу для продолжения... \033[0m")
+              print()
+              print('-----------------------------')
+              print('=ИНФОРМАЦИЯ О КАНАЛАХ и ГРУППАХ=')
+              print('-----------------------------')
+   
+              delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats = get_type_of_chats(client, selection)  # Получение информации о чатах и каналах
                           while True:
                               os.system('cls||clear')
                               i = 0
