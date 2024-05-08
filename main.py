@@ -101,101 +101,79 @@ if __name__ == "__main__":
        
        # 5 Выгрузить инфу об аккаунте
         elif selection == '5':
-             
-                   
-             os.system('cls||clear')
-             chats = []
-             last_date = None
-             size_chats = 500
-             groups = []
-             exit_flag = False
-             
-         
-         
-             while not exit_flag:
-                 os.system('cls||clear')
-                 sessions = [file for file in os.listdir('.') if file.endswith('.session')]
-         
-                 for i in range(len(sessions)):
-                     print(f"[{i}] - {sessions[i]}")
-                 print()
-         
-                 user_input = input("\033[92mВыберите существующий аккаунт для получения ссылок на подключенные чаты (e - назад): \033[0m")
-                 if user_input.lower() == 'e':
-                     break
-                 else:
-                     try:
-                         os.system('cls||clear')
-                         session_index = int(user_input)
-                         if 0 <= i < len(sessions):
-                             client = TelegramClient(sessions[session_index].replace('\n', ''), api_id, api_hash)
-                             client.connect()
-                             phone = sessions[session_index].split('.')[0]
-                             #qqqs = client.get_dialogs()
-         
-                             ##for qqq in qqqs:
-                              ##  print(qqq)
-                            ## input("нажми")
-                            # break
+           os.system('cls||clear')
+           sessions = []
+           header = '''
+-----------------------------
+=ВЫГРУЗКА ИНФОРМАЦИИ о КАНАЛАХ и ГРУППАХ в EXCEL=
+-----------------------------
+           '''
+           result = choice_akk(api_id, api_hash, header)
+           if result is None:
+               continue
+           client, phone, session_index = result
+           userid, userinfo, firstname, lastname, username = get_user_info(client, phone) # Получение информации о пользователe
+           input("\033[93mНажмите любую клавишу для продолжения... \033[0m")
+           print()
+           print('-----------------------------')
+           print('=ИНФОРМАЦИЯ О КАНАЛАХ и ГРУППАХ=')
+           print('-----------------------------')
+
+           delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats = get_type_of_chats(client, selection)  # Получение информации о чатах и каналах
+           while True:
+               print(f"\033[96mНомер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}\033[0m")
+               print('-----------------------------')
+               groups, i, all_info, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup = make_list_of_channels(delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats)
+               print_suminfo_abou_channel(openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup)
+               print()
+               # Выводим информацию о группах
+               print_pages(all_info, 25)
+               print('-----------------------------')
+               print()
+               g_index_str = str('get')
+               
+               if g_index_str.lower() == 'e':
+                   client.disconnect()
+                   exit_flag = True
+                   break
+               else:
+                   try:
+                       if g_index_str == "get":
+                           save_about_channels(phone, userid, firstname, lastname, username, openchannel_count, opengroup_count, closechannel_count, closegroup_count, owner_channel, owner_closechannel, owner_group, owner_closegroup, openchannels, closechannels, openchats, closechats, delgroups, closegroupdel_count)
+               
+                           print()
+                           input("Для продолжение нажмите любую клавишу  ")
+                           os.system('cls||clear')
+                           print('Инофрмация о чатах  добавлена в файл, мой командир')
+                           time.sleep(3)
+                           exit_flag = True
+                           client.disconnect()
+                           break
+                       else:
+                           print("Пожалуйста, сделайте свой выбор")
+                           time.sleep(2)
+                           all_info = []
+                           os.system('cls||clear')
+                   except ValueError:
+                       print("Пожалуйста, сделайте свой выбор")
+                       time.sleep(2)
+                       all_info = []
+                       os.system('cls||clear')
+
+
+           
+                        
+           client.disconnect()             
                              
                              
-                             userid, userinfo, firstname, lastname, username = get_user_info(client, phone) # Получение информации о пользователе
-                             print()
-                             input("Для продолжение нажмите любую клавишу  ")
-                             delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats = get_type_of_chats(client, selection)  # Получение информации о чатах и каналах
+                             
+                             
                             
-                             while True:
+                             
                                  
-                                 os.system('cls||clear')
-                                 print('-----------------------------')
-                                 print("=ИНФОРМАЦИЯ О КАНАЛАХ И ЧАТАХ=")
-                                 print(f"\033[96mНомер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}\033[0m")
-                                 print('-----------------------------')
-                                 groups, i, all_info, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup = make_list_of_channels(delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats)
-                                 print_suminfo_abou_channel (openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup)
-                                 print()
-                                 # Выводим информацию о группах
-                                 print_pages(all_info, 25)
-                                 print('-----------------------------')
-                                 print()
-                                 g_index_str = str('get')
-         
-                                 if g_index_str.lower() == 'e':
-                                     client.disconnect()
-                                     exit_flag = True
-                                     break
-                                 else:
-                                     try:
-                                         if g_index_str == "get":
+                              
+                                 
 
-                                             save_about_channels(phone, userid, firstname, lastname, username, openchannel_count, opengroup_count, closechannel_count, closegroup_count, owner_channel, owner_closechannel, owner_group, owner_closegroup, openchannels, closechannels, openchats, closechats, delgroups, closegroupdel_count)
-
-                                             print()
-                                             input("Для продолжение нажмите любую клавишу  ")
-                                             os.system('cls||clear')
-                                             print('Инофрмация о чатах  добавлена в файл, мой командир')
-                                             time.sleep(3)
-                                             exit_flag = True
-                                             client.disconnect()
-                                             break
-                                         else:
-                                             print("Пожалуйста, сделайте свой выбор")
-                                             time.sleep(2)
-                                             all_info = []
-                                             os.system('cls||clear')
-                                     except ValueError:
-                                         print("Пожалуйста, сделайте свой выбор")
-                                         time.sleep(2)
-                                         all_info = []
-                                         os.system('cls||clear')
-                         else:
-                             print("Пожалуйста, выберите существующий аккаунт в диапазоне от 0 до", len(sessions) - 1)
-                             time.sleep(2)
-                             os.system('cls||clear')
-                     except ValueError:
-                         print("Пожалуйста, выберите существующий аккаунт в диапазоне от 0 до", len(sessions) - 1)
-                         time.sleep(2)   
-                         os.system('cls||clear')
               
            
         # 6 Выгрузить участников групп в excel
