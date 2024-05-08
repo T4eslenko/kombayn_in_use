@@ -357,7 +357,7 @@ def inviting(client, channel, users):
 
 
 # Выгружаем участников группы
-def parsing_xlsx(client, index: int, id: bool, name: bool, group_title, group_id, userid, userinfo):
+def get_participants_and_save_xlsx(client, index: int, id: bool, name: bool, group_title, group_id, userid, userinfo):
     all_participants = client.get_participants(index)
 
     # Создание нового документа Excel
@@ -437,7 +437,7 @@ def get_message_info(message):
     last_name = message.sender.last_name if isinstance(message.sender, User) else None
     return user_id, username, first_name, last_name, message.date, message.text
 
-def parsing_messages(client, index: int, id_: bool, name: bool, group_title, userid, userinfo):
+def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_title, userid, userinfo):
     wb = Workbook()
     ws = wb.active
     ws.cell(row=1, column=1, value=userinfo)
