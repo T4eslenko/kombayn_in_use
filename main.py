@@ -42,7 +42,6 @@ if __name__ == "__main__":
         
         api_id = int(options[0].replace('\n', ''))
         api_hash = str(options[1].replace('\n', ''))
-        user_input = 'e'
         if options[2] == 'True\n':
             user_id = True
         else:
@@ -83,7 +82,9 @@ if __name__ == "__main__":
            print('-----------------------------')
            print()
            client, phone, session_index = choice_akk(api_id, api_hash) if choice_akk(api_id, api_hash) is not None else (None, None, None)
-           if user_input.lower() != 'e':
+           if 'user_input' in locals() and user_input.lower() == 'e':
+              break
+           else: 
               print(e)
               input('e')
               
