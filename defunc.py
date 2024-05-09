@@ -252,12 +252,13 @@ def get_type_of_chats(client, selection):
     closechannels = []
     openchats = []
     closechats = []
-
     count_messages = 0
     deactivated_chats = []
     all_chats_ids = []
     delgroups = []
     chats = client.get_dialogs()
+    openchannels_id = []
+    closechannels_id =[]
 
     for chat in chats:
       
@@ -274,6 +275,7 @@ def get_type_of_chats(client, selection):
                     if chat.entity.broadcast and chat.entity.username:
                         openchannels.append(chat.entity)
                         all_chats_ids.append(chat.entity.id)
+                        openchannels_id.append(chat.entity.id)
 
             # Определяем закрытый канал
             if selection != '6': # Не выгружаем участников канала
@@ -281,6 +283,7 @@ def get_type_of_chats(client, selection):
                     if chat.entity.broadcast and chat.entity.username is None and chat.entity.title != 'Unsupported Chat':
                         closechannels.append(chat.entity)
                         all_chats_ids.append(chat.entity.id)
+                        closechannels_id.append(chat.entity.id)
 
             # Определяем открытый чат
             if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast'):
@@ -316,7 +319,7 @@ def get_type_of_chats(client, selection):
                  if ID_migrated_values not in all_chats_ids:
                       delgroups.append(current_deleted_chat)
 
-    return delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats
+    return delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats, openchannels_id, closechannels_id
 
 def get_and_save_contacts(client, phone, userinfo, userid):
     result = client(GetContactsRequest(0))
@@ -709,7 +712,7 @@ def config(api_id, api_hash, selection, bot, admin_chat_ids):
                       print('-----------------------------') 
                       userid, userinfo, firstname, lastname, username = get_user_info(client, phone) # Получение информации о пользователe
                       print()
-                      delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats = get_type_of_chats(client, selection)  # Получение информации о чатах и каналах
+                      delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats, openchannels_id, closechannels_id = get_type_of_chats(client, selection)  # Получение информации о чатах и каналах
                       groups, i, all_info, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup = make_list_of_channels(delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats, selection)
                       print()
                       print_suminfo_about_channel(openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup)
