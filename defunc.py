@@ -700,7 +700,6 @@ def config(api_id, api_hash, selection):
                       os.system('cls||clear')            
                       print("Аккаунт успешно добавлен. Вот сводная информация:")
                       os.system('cls||clear')
-                      client, phone, session_index = result
                       print('-----------------------------') 
                       userid, userinfo, firstname, lastname, username = get_user_info(client, phone) # Получение информации о пользователe
                       print()
