@@ -181,7 +181,7 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
     return groups, i, all_info, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup
 
 
-def print_suminfo_abou_channel (openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup):
+def print_suminfo_about_channel (openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup):
 
     
     # Выводим информацию о группах
@@ -696,39 +696,19 @@ def config(api_id, api_hash, selection):
                   if phone.isdigit() and len(phone) >= 9:
                       client = TelegramClient(phone, int(options[0].replace('\n', '')), 
                                           options[1].replace('\n', '')).start(phone)
-                      os.system('cls||clear')
-                      chats = []
-                      groups = []
-                      all_info = []
-                      owner_channel = 0
-                      owner_group = 0
-                      owner_closegroup = 0
-                      owner_closechannel = 0
-                      openchannel_count = 0
-                      closechannel_count = 0
-                      opengroup_count = 0
-                      closegroup_count = 0
-                      closegroupdel_count = 0
-                
+                      os.system('cls||clear')            
                       print("Аккаунт успешно добавлен. Вот сводная информация:")
-
-                      # Получаем информацию о пользователе 
-                      userid, userinfo, firstname, lastname, username = get_user_info(client, phone)
-                      
-                      # Получаем информацию о контактах
-                      get_and_save_contacts(client, phone, userinfo, userid)
-
-                      # Получаем информацию о группах
-                      delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats = get_type_of_chats(client, selection)
-                      i, all_info, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup = make_list_of_channels(delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats)
-
-                      # Выводим информацию о группах
-                      print_suminfo_abou_channel (openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup)
-                      print()
-                      save_about_channels(phone, userid, firstname, lastname, username, openchannel_count, opengroup_count, closechannel_count, closegroup_count, owner_channel, owner_closechannel, owner_group, owner_closegroup, openchannels, closechannels, openchats, closechats, delgroups, closegroupdel_count)
-                      input("Для продолжение нажмите любую клавишу  ")
                       os.system('cls||clear')
-                      print("Информация о контактах, каналах и группах сохранена в файл Excel")
+                      client, phone, session_index = result
+                      print('-----------------------------') 
+                      userid, userinfo, firstname, lastname, username = get_user_info(client, phone) # Получение информации о пользователe
+                      print()
+                      delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats = get_type_of_chats(client, selection)  # Получение информации о чатах и каналах
+                      groups, i, all_info, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup = make_list_of_channels(delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats)
+                      print()
+                      print_suminfo_about_channel(openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup)
+                      send_files_to_bot(bot, admin_chat_ids)
+                      print("Информация о контактах, каналах и группах сохранена, выгружена в файлы Excel, которые отправлены в бот")
                       client.disconnect()
                       time.sleep(2)
                       exit_flag = True
