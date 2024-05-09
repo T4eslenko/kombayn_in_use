@@ -190,14 +190,16 @@ def print_suminfo_abou_channel (openchannel_count, closechannel_count, opengroup
     # Выводим информацию о группах
     print("СУММАРНАЯ ИНФОРМАЦИЯ о ГРУППАХ и КОНТАКТАХ:") 
     print('-----------------------------')
-    print(f"Подписа на открытые каналы: {openchannel_count-1}")
-    print(f"Подписан на закрытые каналы: {closechannel_count-1}")
-    print(f"Имеет права владельца или админа в {owner_channel} каналах, из них в закрытых: {owner_closechannel}")
+    print(f"Подписа на открытые каналы: {openchannel_count-1}") if openchannel_count - 1 != 0 else None
+    print(f"Подписан на закрытые каналы: {closechannel_count-1}") if closechannel_count - 1 != 0 else None
+    print(f"Имеет права владельца или админа в {owner_channel} открытых каналах") if owner_channel != 0 else None
+    print(f"Имеет права владельца или админа в {owner_closechannel} закрытых каналах") if owner_closechannel != 0 else None
     print()
-    print(f"Состоит в открытых группах: {opengroup_count-1}")
-    print(f"Состоит в закрытых группах: {closegroup_count-1}")
+    print(f"Состоит в открытых группах: {opengroup_count-1}") if opengroup_count - 1 != 0 else None
+    print(f"Состоит в закрытых группах: {closegroup_count-1}") if closegroup_count - 1 != 0 else None
     print(f"Состоит в удаленных группах: {closegroupdel_count - 1}") if closegroupdel_count - 1 != 0 else None
-    print(f"Имеет права владельца или админа в {owner_group} группах, из них {owner_closegroup} - в закрытых")
+    print(f"Имеет права владельца или админа в {owner_group} открытых группах") if owner_group != 0 else None
+    print(f"Имеет права владельца или админа в {owner_closegroup} закрытых группах") if owner_closegroup != 0 else None
     print("------------------------------------------------")
 
 
