@@ -206,7 +206,7 @@ if __name__ == "__main__":
                            all_info = []
                            os.system('cls||clear')
 
-        # 7 Выгрузить сообщения чата или канала в excel
+        # 7 Выгрузить сообщения чата и или канала в excel
         elif selection == '7':
             os.system('cls||clear')
             last_date = None    
@@ -259,6 +259,7 @@ if __name__ == "__main__":
                               os.system('cls||clear')
                               print('Может потребоваться значительное количество времени, заварите кофе...')
                               get_messages_and_save_xcls(client, target_group, user_id, user_name, group_title, userid, userinfo)
+                              get_participants_and_save_xlsx(client, target_group, user_id, user_name, group_title, group_id, userid, userinfo)
                               os.system('cls||clear')
                               print('Сообщения чата выгружены в excel, мой командир')
                               client.disconnect()
