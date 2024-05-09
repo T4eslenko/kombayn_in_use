@@ -108,12 +108,9 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
 
     openchannels_name = 'Открытые КАНАЛЫ:' if openchannels else ''
     all_info.append(f"\033[95m{openchannels_name}\033[0m")  
-    openchannel_count = 1
-    if selection == '5':
-        count_row = openchannel_count
-    else:
-        count_row = i
+    openchannel_count = 1  
     for openchannel in openchannels:
+        count_row = openchannel_count if selection == '5' else i
         owner = " (Владелец)" if openchannel.creator else ""
         admin = " (Администратор)" if openchannel.admin_rights is not None else ""
         messages_count = f" / [{chat_message_counts.get(openchannel.id, 0)}]" if chat_message_counts else ""
