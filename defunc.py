@@ -270,20 +270,32 @@ def get_type_of_chats(client, selection):
                 chat_message_counts[chat.entity.id] = count_messages
 
             # Определяем открытый канал
-            if selection != '6': # Не выгружаем участников канала
-                if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast') and chat.entity.participants_count is not None:
-                    if chat.entity.broadcast and chat.entity.username:
-                        openchannels.append(chat.entity)
-                        all_chats_ids.append(chat.entity.id)
-                        openchannels_id.append(chat.entity.id)
+            if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast') and chat.entity.participants_count is not None:
+                if chat.entity.broadcast and chat.entity.username:
+                    if selection = '6':
+                        if chat.entity.admin_rights or chat.entity.creator:
+                            openchannels.append(chat.entity)
+                            all_chats_ids.append(chat.entity.id)
+                            openchannels_id.append(chat.entity.id)
+                    else:
+                        if selection != '6':
+                            openchannels.append(chat.entity)
+                            all_chats_ids.append(chat.entity.id)
+                            openchannels_id.append(chat.entity.id)
 
             # Определяем закрытый канал
-            if selection != '6': # Не выгружаем участников канала
-                if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast'):
-                    if chat.entity.broadcast and chat.entity.username is None and chat.entity.title != 'Unsupported Chat':
-                        closechannels.append(chat.entity)
-                        all_chats_ids.append(chat.entity.id)
-                        closechannels_id.append(chat.entity.id)
+            if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast'):
+                if chat.entity.broadcast and chat.entity.username is None and chat.entity.title != 'Unsupported Chat':
+                    if selection = '6':
+                        if chat.entity.admin_rights or chat.entity.creator:
+                            closechannels.append(chat.entity)
+                            all_chats_ids.append(chat.entity.id)
+                            openchannels_id.append(chat.entity.id)
+                    else:
+                        if selection != '6':
+                            openchannels.append(chat.entity)
+                            all_chats_ids.append(chat.entity.id)
+                            closechannels_id.append(chat.entity.id)
 
             # Определяем открытый чат
             if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast'):
