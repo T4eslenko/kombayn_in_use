@@ -690,7 +690,7 @@ def config(api_id, api_hash, selection):
                   print()
                   phone = input("Введите номер телефона нового аккаунта ('e' - назад): ")
                   if phone.lower() == 'e':
-                      break
+                      return
                   if phone.startswith('+'):
                       phone = phone[1:]  # Удаляем плюс, чтобы оставить только цифры
                   if phone.isdigit() and len(phone) >= 9:
