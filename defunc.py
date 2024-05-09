@@ -106,7 +106,8 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
     groups = []
     i=0
 
-    all_info.append("\033[95mОткрытые КАНАЛЫ:\033[0m")
+    openchannels_name = 'Открытые КАНАЛЫ:' if openchannels else ''
+    all_info.append(f"\033[95m{openchannels_name}\033[0m")  
     openchannel_count = 1
     for openchannel in openchannels:
         owner = " (Владелец)" if openchannel.creator else ""
@@ -119,7 +120,8 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
         if owner != "" or admin != "":
             owner_channel += 1
 
-    all_info.append("\033[95mЗакрытые КАНАЛЫ:\033[0m")
+    closechannels_name = 'Закрытые КАНАЛЫ:' if closechannels else ''
+    all_info.append(f"\033[95m{closechannels_name}\033[0m")  
     closechannel_count = 1
     for closechannel in closechannels:
         owner = " (Владелец)" if closechannel.creator else ""
@@ -133,7 +135,8 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
             owner_channel += 1
             owner_closechannel += 1
 
-    all_info.append("\033[95mОткрытые ГРУППЫ:\033[0m")
+    openchats_name = 'Открытые ГРУППЫ:' if openchats else ''
+    all_info.append(f"\033[95m{openchats_name}\033[0m")
     opengroup_count = 1
     for openchat in openchats:
         owner = " (Владелец)" if openchat.creator else ""
@@ -146,7 +149,8 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
         if owner != "" or admin != "":
             owner_group += 1
 
-    all_info.append("\033[95mЗакрытые ГРУППЫ:\033[0m")
+    closechats_name = 'Закрытые ГРУППЫ:' if closechats else ''
+    all_info.append(f"\033[95m{closechats_name}\033[0m")
     closegroup_count = 1
     for closechat in closechats:
         owner = " (Владелец)" if closechat.creator else ""
