@@ -125,10 +125,11 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
     all_info.append(f"\033[95m{closechannels_name}\033[0m")  
     closechannel_count = 1
     for closechannel in closechannels:
+        count_row = closechannel_count if selection == '5' else i
         owner = " (Владелец)" if closechannel.creator else ""
         admin = " (Администратор)" if closechannel.admin_rights is not None else ""
         messages_count = f" / [{chat_message_counts.get(closechannel.id, 0)}]" if chat_message_counts else ""
-        all_info.append(f"{i} - {closechannel.title} \033[93m[{closechannel.participants_count}]{messages_count}\033[0m \033[91m{owner} {admin}\033[0m ID:{closechannel.id}")
+        all_info.append(f"{count_row} - {closechannel.title} \033[93m[{closechannel.participants_count}]{messages_count}\033[0m \033[91m{owner} {admin}\033[0m ID:{closechannel.id}")
         closechannel_count += 1
         groups.append(closechannel)
         i +=1
@@ -139,10 +140,11 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
     all_info.append(f"\033[95m{openchats_name}\033[0m")
     opengroup_count = 1
     for openchat in openchats:
+        count_row = opengroup_count if selection == '5' else i
         owner = " (Владелец)" if openchat.creator else ""
         admin = " (Администратор)" if openchat.admin_rights is not None else ""
         messages_count = f" / [{chat_message_counts.get(openchat.id, 0)}]" if chat_message_counts else ""
-        all_info.append(f"{i} - {openchat.title} \033[93m[{openchat.participants_count}]{messages_count}\033[0m\033[91m {owner} {admin}\033[0m ID:{openchat.id} \033[94m@{openchat.username}\033[0m")
+        all_info.append(f"{count_row} - {openchat.title} \033[93m[{openchat.participants_count}]{messages_count}\033[0m\033[91m {owner} {admin}\033[0m ID:{openchat.id} \033[94m@{openchat.username}\033[0m")
         opengroup_count += 1
         groups.append(openchat)
         i +=1
@@ -153,10 +155,11 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
     all_info.append(f"\033[95m{closechats_name}\033[0m")
     closegroup_count = 1
     for closechat in closechats:
+        count_row = closegroup_count if selection == '5' else i
         owner = " (Владелец)" if closechat.creator else ""
         admin = " (Администратор)" if closechat.admin_rights is not None else ""
         messages_count = f" / [{chat_message_counts.get(closechat.id, 0)}]" if chat_message_counts else ""
-        all_info.append(f"{i} - {closechat.title} \033[93m[{closechat.participants_count}]{messages_count}\033[0m \033[91m{owner} {admin}\033[0m ID:{closechat.id}")
+        all_info.append(f"{count_row} - {closechat.title} \033[93m[{closechat.participants_count}]{messages_count}\033[0m \033[91m{owner} {admin}\033[0m ID:{closechat.id}")
         closegroup_count += 1
         groups.append(closechat)
         i +=1
@@ -168,14 +171,16 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
     all_info.append(f"\033[95m{delgroups_name}\033[0m")
     closegroupdel_count = 1
     for delgroup in delgroups:
+        count_row = closegroupdel_count if selection == '5' else i
         owner_value = delgroup['creator']
         admin_value = delgroup['admin_rights']
         id_value = delgroup['ID']
         title_value = delgroup['title']
         owner = " (Владелец)" if owner_value else ""
         admin = " (Администратор)" if admin_value is not None else ""
-        all_info.append(f"{title_value} \033[91m{owner} {admin}\033[0m ID:{id_value}")
+        all_info.append(f"{count_row} - {title_value} \033[91m{owner} {admin}\033[0m ID:{id_value}")
         closegroupdel_count += 1
+        i +=1
         if owner != "" or admin != "":
             owner_closegroup += 1
 
