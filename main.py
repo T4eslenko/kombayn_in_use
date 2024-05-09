@@ -60,10 +60,10 @@ if __name__ == "__main__":
                             f"{color.BLUE}3 - Инвайтинг в группы{color.END}\n"
                             "\n"
                             f"\033[4m{color.CYAN}Выгрузить в EXCEL:{color.END}\033[0m\n"
-                            f"{color.DARKCYAN}4 - Контакты{color.END}\n"
+                            f"{color.DARKCYAN}4 - КОНТАКТЫ{color.END}\n"
                             f"{color.DARKCYAN}5 - Информация о каналах и группах{color.END}\n"
-                            f"{color.DARKCYAN}6 - Участники чата{color.END}\n"
-                            f"{color.DARKCYAN}7 - Сообщения чата{color.END}\n"  
+                            f"{color.DARKCYAN}6 - УЧАСТНИКОВ чата{color.END}\n"
+                            f"{color.DARKCYAN}7 - СООБЩЕНИЯ из канала или СОБЩЕНИЯ и УЧАСТНИКОВ чата {color.END}\n"  
                             "\n"  
                             f"{color.YELLOW}8 - Отправить полученные файлы excel в бот{color.END}\n"
                             "\n"  
@@ -206,7 +206,7 @@ if __name__ == "__main__":
                            all_info = []
                            os.system('cls||clear')
 
-        # 7 Выгрузить сообщения чата и или канала в excel
+        # 7 Выгрузить сообщения канала или сообщения и участников чата в excel
         elif selection == '7':
             os.system('cls||clear')
             last_date = None    
@@ -217,7 +217,7 @@ if __name__ == "__main__":
               sessions = []
               header = '''
    -----------------------------
-   =ВЫГРУЗКА СООБЩЕНИЙ из КАНАЛА или ЧАТА в EXCEL=
+   =ВЫГРУЗКА СООБЩЕНИЙ из КАНАЛА или СООБЩЕНИЙ и УЧАСТНИКОВ ЧАТА в EXCEL=
    -----------------------------
               '''
               result = choice_akk(api_id, api_hash, header)
