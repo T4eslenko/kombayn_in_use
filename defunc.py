@@ -96,7 +96,7 @@ def write_data_del(sheet, data):
       sheet.append([title_value, owner, admin, id_value])
       
 
-def make_list_of_channels(delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats):
+def make_list_of_channels(delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats, selection):
     """Функция для формирования списков групп и каналов"""
     owner_channel = 0
     owner_group = 0
@@ -109,11 +109,15 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
     openchannels_name = 'Открытые КАНАЛЫ:' if openchannels else ''
     all_info.append(f"\033[95m{openchannels_name}\033[0m")  
     openchannel_count = 1
+    if selection == '5':
+        count_row = openchannel_count
+    else:
+        count_row = i
     for openchannel in openchannels:
         owner = " (Владелец)" if openchannel.creator else ""
         admin = " (Администратор)" if openchannel.admin_rights is not None else ""
         messages_count = f" / [{chat_message_counts.get(openchannel.id, 0)}]" if chat_message_counts else ""
-        all_info.append(f"{i} - {openchannel.title} \033[93m[{openchannel.participants_count}]{messages_count}\033[0m\033[91m {owner} {admin}\033[0m ID:{openchannel.id} \033[94m@{openchannel.username}\033[0m")
+        all_info.append(f"{count_row} - {openchannel.title} \033[93m[{openchannel.participants_count}]{messages_count}\033[0m\033[91m {owner} {admin}\033[0m ID:{openchannel.id} \033[94m@{openchannel.username}\033[0m")
         openchannel_count += 1
         groups.append(openchannel)
         i +=1
@@ -704,7 +708,7 @@ def config(api_id, api_hash, selection, bot, admin_chat_ids):
                       userid, userinfo, firstname, lastname, username = get_user_info(client, phone) # Получение информации о пользователe
                       print()
                       delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats = get_type_of_chats(client, selection)  # Получение информации о чатах и каналах
-                      groups, i, all_info, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup = make_list_of_channels(delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats)
+                      groups, i, all_info, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup = make_list_of_channels(delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats, selection)
                       print()
                       print_suminfo_about_channel(openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup)
                       get_and_save_contacts(client, phone, userinfo, userid)
