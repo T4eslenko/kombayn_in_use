@@ -156,12 +156,24 @@ if __name__ == "__main__":
                   break
               os.system('cls||clear')
               client, phone, session_index = result
+              print('-----------------------------') 
               userid, userinfo, firstname, lastname, username = get_user_info(client, phone) # Получение информации о пользователe
-              print()
-              input("\033[93mНажмите любую клавишу для продолжения... \033[0m")
               print()
               delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats = get_type_of_chats(client, selection)  # Получение информации о чатах и каналах
               groups, i, all_info, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup = make_list_of_channels(delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats)
+              print()
+              print_suminfo_abou_channel(openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup)
+              input("\033[93mНажмите любую клавишу для продолжения... \033[0m")
+         
+            
+              #os.system('cls||clear')
+              #client, phone, session_index = result
+              #userid, userinfo, firstname, lastname, username = get_user_info(client, phone) # Получение информации о пользователe
+              #print()
+              #input("\033[93mНажмите любую клавишу для продолжения... \033[0m")
+              #print()
+              #delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats = get_type_of_chats(client, selection)  # Получение информации о чатах и каналах
+              #groups, i, all_info, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup = make_list_of_channels(delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats)
               while True:
                    os.system('cls||clear')
                    i = 0
