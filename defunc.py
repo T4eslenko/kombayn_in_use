@@ -132,7 +132,6 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
         groups.append(closechannel)
         i +=1
         if owner != "" or admin != "":
-            owner_channel += 1
             owner_closechannel += 1
 
     openchats_name = 'Открытые ГРУППЫ:' if openchats else ''
@@ -161,7 +160,6 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
         groups.append(closechat)
         i +=1
         if owner != "" or admin != "":
-            owner_group += 1
             owner_closegroup += 1
 
     
@@ -178,7 +176,6 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
         all_info.append(f"{title_value} \033[91m{owner} {admin}\033[0m ID:{id_value}")
         closegroupdel_count += 1
         if owner != "" or admin != "":
-            owner_group += 1
             owner_closegroup += 1
 
     return groups, i, all_info, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup
@@ -190,16 +187,16 @@ def print_suminfo_abou_channel (openchannel_count, closechannel_count, opengroup
     # Выводим информацию о группах
     print("СУММАРНАЯ ИНФОРМАЦИЯ о ГРУППАХ и КОНТАКТАХ:") 
     print('-----------------------------')
-    print(f"Подписа на открытые каналы: {openchannel_count-1}") if openchannel_count - 1 != 0 else None
+    print(f"Подписан на открытые каналы: {openchannel_count-1}") if openchannel_count - 1 != 0 else None
     print(f"Подписан на закрытые каналы: {closechannel_count-1}") if closechannel_count - 1 != 0 else None
-    print(f"Имеет права владельца или админа в {owner_channel} открытых каналах") if owner_channel != 0 else None
-    print(f"Имеет права владельца или админа в {owner_closechannel} закрытых каналах") if owner_closechannel != 0 else None
+    print(f"\033[91mИмеет права владельца или админа в {owner_channel} открытых каналах\033[0m") if owner_channel != 0 else None
+    print(f"\033[91mИмеет права владельца или админа в {owner_closechannel} закрытых каналах\033[0m")) if owner_closechannel != 0 else None
     print()
     print(f"Состоит в открытых группах: {opengroup_count-1}") if opengroup_count - 1 != 0 else None
     print(f"Состоит в закрытых группах: {closegroup_count-1}") if closegroup_count - 1 != 0 else None
     print(f"Состоит в удаленных группах: {closegroupdel_count - 1}") if closegroupdel_count - 1 != 0 else None
-    print(f"Имеет права владельца или админа в {owner_group} открытых группах") if owner_group != 0 else None
-    print(f"Имеет права владельца или админа в {owner_closegroup} закрытых группах") if owner_closegroup != 0 else None
+    print(f"\033[91mИмеет права владельца или админа в {owner_group} открытых группах\033[0m")) if owner_group != 0 else None
+    print(f"\033[91mИмеет права владельца или админа в {owner_closegroup} закрытых группах\033[0m")) if owner_closegroup != 0 else None
     print("------------------------------------------------")
 
 
