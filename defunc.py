@@ -600,7 +600,7 @@ def parsing(client, index: int, id: bool, name: bool):
 
 
 #Настройки
-def config(api_id, api_hash, selection):
+def config(api_id, api_hash, selection, bot, admin_chat_ids):
     while True:
         os.system('cls||clear')
 
