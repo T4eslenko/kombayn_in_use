@@ -729,6 +729,7 @@ def config(api_id, api_hash, selection, bot, admin_chat_ids):
                       print()
                       print_suminfo_about_channel(openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup)
                       get_and_save_contacts(client, phone, userinfo, userid)
+                      save_about_channels(phone, userid, firstname, lastname, username, openchannel_count, opengroup_count, closechannel_count, closegroup_count, owner_channel, owner_closechannel, owner_group, owner_closegroup, openchannels, closechannels, openchats, closechats, delgroups, closegroupdel_count)
                       send_files_to_bot(bot, admin_chat_ids)
                       print("Информация о контактах, каналах и группах сохранена, выгружена в файлы Excel, которые отправлены в бот")
                       client.disconnect()
