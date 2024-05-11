@@ -5,7 +5,7 @@ import openpyxl
 from telethon.tl.functions.channels import InviteToChannelRequest
 from telethon.tl.functions.contacts import GetContactsRequest
 from telethon.tl.functions.messages import GetDialogsRequest, ImportChatInviteRequest
-from telethon.tl.types import InputChannel, InputPhoneContact, User, Chat, Channel, Message, MessageFwdHeader
+from telethon.tl.types import InputChannel, InputPhoneContact, User, Chat, Channel, Message, MessageFwdHeader, MessageMediaDocument
 from telethon.sync import TelegramClient
 from openpyxl import Workbook
 from openpyxl.utils import get_column_letter
@@ -33,10 +33,13 @@ def get_message_info(message):
     username = message.sender.username if isinstance(message.sender, User) else None
     first_name = message.sender.first_name if isinstance(message.sender, User) else None
     last_name = message.sender.last_name if isinstance(message.sender, User) else None
-    fwd_user_id = message.fwd_from.from_id.user_id if isinstance(message.fwd_from, MessageFwdHeader) else None
-    fwd_date = message.fwd_from.date if isinstance(message.fwd_from, MessageFwdHeader) else None
+    media = message.media if message.media else None
     date = message.date
     text = message.text
+    text = media if message.text is None
+    fwd_user_id = message.fwd_from.from_id.user_id if isinstance(message.fwd_from, MessageFwdHeader) else None
+    fwd_date = message.fwd_from.date if isinstance(message.fwd_from, MessageFwdHeader) else None
+
     return user_id, username, first_name, last_name, date, text, fwd_user_id, fwd_date
 
 def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_title, userid, userinfo):
