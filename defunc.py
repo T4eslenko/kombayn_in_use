@@ -510,7 +510,7 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
                 reply_msg_id,
                 remove_timezone(reply_date)
             ])
-            participants_from_messages.add(reply_user_id)
+            #participants_from_messages.add(reply_user_id)
         else:
             row_data.extend([None] * 7)
         ws.append(row_data)
