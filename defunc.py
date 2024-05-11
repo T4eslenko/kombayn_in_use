@@ -42,7 +42,7 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
     ws = wb.active
     ws.cell(row=1, column=1, value=userinfo)
     ws.cell(row=2, column=1, value=group_title)
-    ws.append(['ID объекта', 'Group ID', 'Message ID', 'Date and Time', 'User ID', '@Username', 'First Name', 'Last Name', 'Message', 'Reply to Message', 'Reply to User ID', '@Reply Username', 'Reply First Name', 'Reply Last Name', 'Reply Message ID', 'Reply Date and Time'])
+    ws.append(['ID объекта', 'Group ID', 'Message ID', 'Date and Time', 'User ID', '@Username', 'First Name', 'Last Name', 'Message', 'Reply to Message', 'Reply to User ID', '@Reply Username', 'Reply First Name', 'Reply Last Name', 'Reply Message ID', 'Reply Date and Time', 'fwd_user_id', 'fwd_date'])
     participants_from_messages = set()
     
     for message in client.iter_messages(group_title):
