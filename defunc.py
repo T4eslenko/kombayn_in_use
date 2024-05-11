@@ -276,13 +276,13 @@ def get_type_of_chats(client, selection):
                         if chat.entity.admin_rights or chat.entity.creator:
                             openchannels.append(chat.entity)
                             all_chats_ids.append(chat.entity.id)
-                            openchannels_id.append(chat.entity.id)
+                            admin_id.append(chat.entity.id)
                     else:
                         if selection != '6':
                             openchannels.append(chat.entity)
                             all_chats_ids.append(chat.entity.id)
                             if chat.entity.admin_rights or chat.entity.creator:
-                                openchannels_id.append(chat.entity.id)
+                                admin_id.append(chat.entity.id)
 
             # Определяем закрытый канал
             if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast'):
@@ -291,28 +291,33 @@ def get_type_of_chats(client, selection):
                         if chat.entity.admin_rights or chat.entity.creator:
                             closechannels.append(chat.entity)
                             all_chats_ids.append(chat.entity.id)
-                            openchannels_id.append(chat.entity.id)
+                            admin_id.append(chat.entity.id)
                     else:
                         if selection != '6':
                             openchannels.append(chat.entity)
                             all_chats_ids.append(chat.entity.id)
                             if chat.entity.admin_rights or chat.entity.creator:
-                                closechannels_id.append(chat.entity.id)
+                                admin_id.append(chat.entity.id)
 
             # Определяем открытый чат
             if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast'):
                 if not chat.entity.broadcast and chat.entity.username:
                     openchats.append(chat.entity)
                     all_chats_ids.append(chat.entity.id)
+                    admin_id.append(chat.entity.id)
 
             # Определяем закрытый чат
             if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast'):
                if chat.entity.broadcast == False and chat.entity.username == None:
                   closechats.append(chat.entity)
                   all_chats_ids.append(chat.entity.id)
+                  admin_id.append(chat.entity.id)
+
             if isinstance(chat.entity, Chat) and chat.entity.migrated_to is None:
                closechats.append(chat.entity)
                all_chats_ids.append(chat.entity.id)
+               admin_id.append(chat.entity.id)
+
                 
             if selection == '5': #Добавляем нулевые чаты только для общей информации
                 if isinstance(chat.entity, Chat) and hasattr(chat.entity, 'participants_count') and chat.entity.participants_count == 0:
