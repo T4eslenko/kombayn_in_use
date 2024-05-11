@@ -90,7 +90,7 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
         if isinstance(message.fwd_from, MessageFwdHeader):
             row_data.extend([
                 fwd_user_id,
-                fwd_date
+                remove_timezone(fwd_date)
             ])
         ws.append(row_data)
 
