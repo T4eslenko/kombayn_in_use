@@ -39,7 +39,7 @@ def get_message_info(message):
     fwd_user_id = message.fwd_from.from_id.user_id if isinstance(message.fwd_from, MessageFwdHeader) else None
     fwd_date = message.fwd_from.date if isinstance(message.fwd_from, MessageFwdHeader) else None
 
-    return user_id, username, first_name, last_name, date, text, fwd_user_id, fwd_date, media
+    return user_id, username, first_name, last_name, date, text, media, fwd_user_id, fwd_date
 
 def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_title, userid, userinfo):
     wb = Workbook()
@@ -56,7 +56,7 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
         if not isinstance(message, Message):
             continue
         # Основная информация о сообщении
-        user_id, username, first_name, last_name, date, text, fwd_user_id, fwd_date, media = get_message_info(message)
+        user_id, username, first_name, last_name, date, text, media, fwd_user_id, fwd_date = get_message_info(message)
         if date is None:
             continue
         row_data = [
@@ -76,7 +76,7 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
         # Если сообщение является ответом на другое сообщение
         if isinstance(message.reply_to_msg_id, int):
             reply_msg_id = message.reply_to_msg_id
-            reply_user_id, reply_username, reply_first_name, reply_last_name, reply_date, reply_text, fwd_user_id, fwd_date, media = get_message_info(client.get_messages(group_title, ids=[reply_msg_id])[0])
+            reply_user_id, reply_username, reply_first_name, reply_last_name, reply_date, reply_text, media, fwd_user_id, fwd_date = get_message_info(client.get_messages(group_title, ids=[reply_msg_id])[0])
             if reply_date is None:
                 continue
             row_data.extend([
