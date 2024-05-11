@@ -257,8 +257,7 @@ def get_type_of_chats(client, selection):
     all_chats_ids = []
     delgroups = []
     chats = client.get_dialogs()
-    openchannels_id = []
-    closechannels_id =[]
+    admin_id = [] 
 
     for chat in chats:
       
