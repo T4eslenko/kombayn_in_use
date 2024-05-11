@@ -24,8 +24,7 @@ import re
 from datetime import datetime
 from typing import Optional
 from openpyxl import Workbook
-from telethon.tl.custom import Message
-from telethon.tl.types import User, MessageFwdHeader
+from telethon.tl.types import User, Message, MessageFwdHeader
 
 def remove_timezone(dt: datetime) -> Optional[datetime]:
     # Удаление информации о часовом поясе из объекта datetime
@@ -38,7 +37,14 @@ def remove_timezone(dt: datetime) -> Optional[datetime]:
 def get_message_info(message):
     # Получение информации о сообщении
     if message is None:
-        return None, None, None, None, None, None
+        return None, None, None, None, None, None, None
+    user_id = None
+    username = None
+    first_name = None
+    last_name = None
+    date = None
+    text = None
+    
     if isinstance(message, Message):
         user_id = message.sender_id if isinstance(message.sender, User) else None
         username = message.sender.username if isinstance(message.sender, User) else None
@@ -46,15 +52,9 @@ def get_message_info(message):
         last_name = message.sender.last_name if isinstance(message.sender, User) else None
         date = message.date
         text = message.text
-    elif isinstance(message, MessageFwdHeader):
-        user_id = message.from_id.user_id if hasattr(message.from_id, 'user_id') else None
-        username = None
-        first_name = None
-        last_name = None
-        date = message.date
-        text = None
-    else:
-        return None, None, None, None, None, None
+    elif isinstance(message.fwd_from, MessageFwdHeader):
+        user_id = message.fwd_from.from_id.user_id
+        date = message.fwd_from.date
     return user_id, username, first_name, last_name, date, text
 
 def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_title, userid, userinfo):
@@ -62,7 +62,7 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
     ws = wb.active
     ws.cell(row=1, column=1, value=userinfo)
     ws.cell(row=2, column=1, value=group_title)
-    ws.append(['ID объекта', 'Group ID', 'Message ID', 'Date and Time', 'User ID', '@Username', 'First Name', 'Last Name', 'Message', 'Forwarded Message', 'Forwarded User ID', '@Forward Username', 'Forwarded Date and Time', 'Reply to Message', 'Reply to User ID', '@Reply Username', 'Reply Message ID', 'Reply Date and Time'])
+    ws.append(['ID объекта', 'Group ID', 'Message ID', 'Date and Time', 'User ID', '@Username', 'First Name', 'Last Name', 'Message', 'Reply to Message', 'Reply to User ID', '@Reply Username', 'Reply First Name', 'Reply Last Name', 'Reply Message ID', 'Reply Date and Time', 'Forwarded From User ID'])
     participants_from_messages = set()
     for message in client.iter_messages(group_title):
         print(message)
@@ -75,32 +75,9 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
         if date is None:
             continue
         
-        # Получение информации о пересылаемых сообщениях, если они есть
-        forwarded_message = message.forward
-        if forwarded_message:
-            forwarded_user_id = forwarded_message.sender_id
-            forwarded_username = forwarded_message.sender.username if isinstance(forwarded_message.sender, User) else None
-            forwarded_msg_id = forwarded_message.id
-            forwarded_date = forwarded_message.date
-        else:
-            forwarded_user_id = None
-            forwarded_username = None
-            forwarded_msg_id = None
-            forwarded_date = None
-        
-        # Получение информации о сообщении, на которое данное сообщение является ответом, если оно есть
-        reply_message = message.reply_to
-        if reply_message:
-            reply_user_id, reply_username, reply_first_name, reply_last_name, reply_date, reply_text = get_message_info(reply_message)
-            reply_msg_id = reply_message.id
-        else:
-            reply_user_id = None
-            reply_username = None
-            reply_first_name = None
-            reply_last_name = None
-            reply_date = None
-            reply_text = None
-            reply_msg_id = None
+        forwarded_from_user_id = None
+        if message.forward:
+            forwarded_from_user_id = message.forward.from_id.user_id
         
         row_data = [
             userid,
@@ -112,42 +89,12 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
             first_name,
             last_name,
             text,
-            None,  # Forwarded Message
-            forwarded_user_id,
-            f"@{forwarded_username}" if forwarded_username else None,
-            forwarded_msg_id,
-            remove_timezone(forwarded_date),
-            reply_text,
-            reply_user_id,
-            f"@{reply_username}" if reply_username else None,
-            reply_msg_id,
-            remove_timezone(reply_date)
+            None, None, None, None, None, None, None, None,  # Добавленные пустые столбцы для пересланных сообщений
+            forwarded_from_user_id  # Идентификатор первоначального отправителя для пересланных сообщений
         ]
-        participants_from_messages.add(user_id)
-        
-        # Если сообщение является ответом на другое сообщение
-        if isinstance(message.reply_to_msg_id, int):
-            reply_msg_id = message.reply_to_msg_id
-            reply_message = client.get_messages(group_title, ids=[reply_msg_id])[0]
-            reply_user_id, reply_username, reply_first_name, reply_last_name, reply_date, reply_text = get_message_info(reply_message)
-            if reply_date is None:
-                continue
-            row_data.extend([
-                reply_text,
-                reply_user_id,
-                f"@{reply_username}" if reply_username else None,
-                reply_first_name,
-                reply_last_name,
-                reply_msg_id,
-                remove_timezone(reply_date)
-            ])
-            participants_from_messages.add(reply_user_id)
-        else:
-            row_data.extend([None] * 7)
-        
+        participants_from_messages.add(user_id)  # Проверить, нужно ли добавлять этот ID
+
         ws.append(row_data)
-    #print(participants_from_messages)
-    #input("participants_from_messages")
 
     # Удаляем недопустимые символы из имени файла
     def sanitize_filename(filename):
@@ -161,10 +108,7 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
         filename = f"{clean_group_title}_messages.xlsx"
 
     wb.save(filename)
-
-
-
-
+    
 # Функция для выбора аккаунта и установки соответствующих переменных
 def choice_akk(api_id, api_hash, header):
     sessions = []
