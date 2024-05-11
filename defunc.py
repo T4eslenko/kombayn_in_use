@@ -17,17 +17,6 @@ import re
 
 
 #Выгружаем сообщения 
-def remove_timezone(dt: datetime) -> Optional[datetime]:
-    # Удаление информации о часовом поясе из объекта datetime
-    if dt is None:
-        return None
-    if dt.tzinfo:
-        dt = dt.astimezone().replace(tzinfo=None)
-    return dt
-
-from datetime import datetime
-from typing import Optional
-from openpyxl import Workbook
 
 def remove_timezone(dt: datetime) -> Optional[datetime]:
     # Удаление информации о часовом поясе из объекта datetime
@@ -41,15 +30,15 @@ def get_message_info(message):
     # Получение информации о сообщении
     if message is None:
         return None, None, None, None, None, None, None, None, None
-    user_id = message.sender_id if isinstance(message.sender, User) else None
-    username = message.sender.username if isinstance(message.sender, User) else None
-    first_name = message.sender.first_name if isinstance(message.sender, User) else None
-    last_name = message.sender.last_name if isinstance(message.sender, User) else None
+    user_id = message.sender_id if hasattr(message.sender, 'id') else None
+    username = message.sender.username if hasattr(message.sender, 'username') else None
+    first_name = message.sender.first_name if hasattr(message.sender, 'first_name') else None
+    last_name = message.sender.last_name if hasattr(message.sender, 'last_name') else None
     date = message.date
-    media = message.media if message.media else None
+    media = message.media if isinstance(message.media, MessageMediaDocument) else None
     text = message.text
-    fwd_user_id = message.fwd_from.from_id.user_id if isinstance(message.fwd_from, MessageFwdHeader) else None
-    fwd_date = message.fwd_from.date if isinstance(message.fwd_from, MessageFwdHeader) else None
+    fwd_user_id = message.fwd_from.from_id.user_id if hasattr(message.fwd_from, 'from_id') else None
+    fwd_date = message.fwd_from.date if hasattr(message.fwd_from, 'date') else None
 
     return user_id, username, first_name, last_name, date, text, media, fwd_user_id, fwd_date
 
@@ -65,7 +54,7 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
         print(message)
         input()
         # Проверяем, что message является экземпляром Message
-        if not isinstance(message, Message):
+        if not hasattr(message, 'sender'):
             continue
         # Основная информация о сообщении
         user_id, username, first_name, last_name, date, text, media, fwd_user_id, fwd_date = get_message_info(message)
@@ -81,7 +70,7 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
             first_name,
             last_name,
             text,
-            media
+            media.document.file_name if media else None  # Используем имя файла, если медиа-сообщение - документ
         ]
         participants_from_messages.add(user_id)
 
@@ -110,6 +99,7 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
                 remove_timezone(fwd_date)
             ])
         ws.append(row_data)
+
 
 
 
