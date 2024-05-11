@@ -492,7 +492,7 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
             last_name,
             text
         ]
-       participants_from_messages.add((user_id, username, first_name, last_name))
+        participants_from_messages.add((user_id, username, first_name, last_name))
 
 
         # Если сообщение является ответом на другое сообщение
