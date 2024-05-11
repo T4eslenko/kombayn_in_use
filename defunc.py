@@ -337,7 +337,7 @@ def get_type_of_chats(client, selection):
                  if ID_migrated_values not in all_chats_ids:
                       delgroups.append(current_deleted_chat)
 
-    return delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats, openchannels_id, closechannels_id
+    return delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats, admin_id
 
 def get_and_save_contacts(client, phone, userinfo, userid):
     result = client(GetContactsRequest(0))
