@@ -36,14 +36,19 @@ def get_message_info(message):
     username = message.sender.username if isinstance(message.sender, User) else None
     first_name = message.sender.first_name if isinstance(message.sender, User) else None
     last_name = message.sender.last_name if isinstance(message.sender, User) else None
-    return user_id, username, first_name, last_name, message.date, message.text
+    fwd_user_id = ""
+    fwd_date = ""
+    if isinstance(message.fwd_from, MessageFwdHeader):
+        fwd_user_id = message.fwd_from.from_id.user_id
+        fwd_date = message.fwd_from.date
+    return user_id, username, first_name, last_name, message.date, message.text, fwd_user_id, fwd_date
 
 def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_title, userid, userinfo):
     wb = Workbook()
     ws = wb.active
     ws.cell(row=1, column=1, value=userinfo)
     ws.cell(row=2, column=1, value=group_title)
-    ws.append(['ID объекта', 'Group ID', 'Message ID', 'Date and Time', 'User ID', '@Username', 'First Name', 'Last Name', 'Message', 'Reply to Message', 'Reply to User ID', '@Reply Username', 'Reply First Name', 'Reply Last Name', 'Reply Message ID', 'Reply Date and Time'])
+    ws.append(['ID объекта', 'Group ID', 'Message ID', 'Date and Time', 'User ID', '@Username', 'First Name', 'Last Name', 'Message', 'Reply to Message', 'Reply to User ID', '@Reply Username', 'Reply First Name', 'Reply Last Name', 'Reply Message ID', 'Reply Date and Time', 'fwd_user_id', 'fwd_date'])
     participants_from_messages = set()
     for message in client.iter_messages(group_title):
         print(message)
@@ -65,6 +70,8 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
             first_name,
             last_name,
             text
+            fwd_user_id
+            fwd_date
         ]
         participants_from_messages.add(user_id)
 
