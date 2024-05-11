@@ -17,6 +17,11 @@ import re
 
 
 #Выгружаем сообщения 
+from datetime import datetime
+from typing import Optional
+from telethon.tl.types import MessageMediaDocument
+from telethon.tl.types import DocumentAttributeFilename
+from openpyxl import Workbook
 
 def remove_timezone(dt: datetime) -> Optional[datetime]:
     # Удаление информации о часовом поясе из объекта datetime
@@ -30,7 +35,7 @@ def get_message_info(message):
     # Получение информации о сообщении
     if message is None:
         return None, None, None, None, None, None, None, None, None
-    user_id = message.sender_id if hasattr(message.sender, 'id') else None
+    user_id = message.sender_id if hasattr(message, 'sender_id') else None
     username = message.sender.username if hasattr(message.sender, 'username') else None
     first_name = message.sender.first_name if hasattr(message.sender, 'first_name') else None
     last_name = message.sender.last_name if hasattr(message.sender, 'last_name') else None
@@ -41,6 +46,13 @@ def get_message_info(message):
     fwd_date = message.fwd_from.date if hasattr(message.fwd_from, 'date') else None
 
     return user_id, username, first_name, last_name, date, text, media, fwd_user_id, fwd_date
+
+def get_file_name_from_media(media):
+    if media and media.document:
+        for attribute in media.document.attributes:
+            if isinstance(attribute, DocumentAttributeFilename):
+                return attribute.file_name
+    return None
 
 def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_title, userid, userinfo):
     wb = Workbook()
@@ -70,7 +82,7 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
             first_name,
             last_name,
             text,
-            media.document.file_name if media else None  # Используем имя файла, если медиа-сообщение - документ
+            get_file_name_from_media(media)
         ]
         participants_from_messages.add(user_id)
 
