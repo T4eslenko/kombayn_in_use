@@ -36,7 +36,8 @@ def get_message_info(message):
     media = message.media if message.media else None
     date = message.date
     text = message.text
-    text = media if message.text is None
+    if message.text is '':
+        text = media 
     fwd_user_id = message.fwd_from.from_id.user_id if isinstance(message.fwd_from, MessageFwdHeader) else None
     fwd_date = message.fwd_from.date if isinstance(message.fwd_from, MessageFwdHeader) else None
 
