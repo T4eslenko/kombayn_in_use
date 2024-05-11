@@ -63,8 +63,6 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
     participants_from_messages = set()
     
     for message in client.iter_messages(group_title):
-        print(message)
-        input()
         # Проверяем, что message является экземпляром Message
         if not hasattr(message, 'sender'):
             continue
