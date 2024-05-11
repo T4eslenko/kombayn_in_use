@@ -492,6 +492,12 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
             last_name,
             text
         ]
+        participants_from_messages = [
+            user_id,
+            f"@{username}" if username else None,
+            first_name,
+            last_name
+        ]
 
         # Если сообщение является ответом на другое сообщение
         if isinstance(message.reply_to_msg_id, int):
@@ -508,9 +514,18 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
                 reply_msg_id,
                 remove_timezone(reply_date)
             ])
+            participants_from_messages.append([
+                reply_user_id,
+                f"@{reply_username}" if reply_username else None,
+                reply_first_name,
+                reply_last_name
+            ])
 
         else:
             row_data.extend([None] * 7)
+
+        print(participants_from_messages)
+        input(participants_from_messages)
 
         ws.append(row_data)
 
