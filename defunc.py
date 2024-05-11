@@ -733,7 +733,7 @@ def config(api_id, api_hash, selection, bot, admin_chat_ids):
                       print('-----------------------------') 
                       userid, userinfo, firstname, lastname, username = get_user_info(client, phone) # Получение информации о пользователe
                       print()
-                      delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats, openchannels_id, closechannels_id = get_type_of_chats(client, selection)  # Получение информации о чатах и каналах
+                      delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats, admin_id = get_type_of_chats(client, selection)  # Получение информации о чатах и каналах
                       groups, i, all_info, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup = make_list_of_channels(delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats, selection)
                       print()
                       print_suminfo_about_channel(openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup)
