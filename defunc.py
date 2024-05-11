@@ -525,11 +525,9 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
 
         else:
             row_data.extend([None] * 7)
-
-        print(participants_from_messages)
-        input(participants_from_messages)
-
         ws.append(row_data)
+    print(participants_from_messages)
+    input(participants_from_messages)
 
     # Удаляем недопустимые символы из имени файла
     def sanitize_filename(filename):
