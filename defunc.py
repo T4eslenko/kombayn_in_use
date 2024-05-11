@@ -28,7 +28,7 @@ def remove_timezone(dt: datetime) -> Optional[datetime]:
 def get_message_info(message):
     # Получение информации о сообщении
     if message is None:
-        return None, None, None, None, None, None
+        return None, None, None, None, None, None, None, None, None
     user_id = message.sender_id if isinstance(message.sender, User) else None
     username = message.sender.username if isinstance(message.sender, User) else None
     first_name = message.sender.first_name if isinstance(message.sender, User) else None
@@ -76,7 +76,7 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
         # Если сообщение является ответом на другое сообщение
         if isinstance(message.reply_to_msg_id, int):
             reply_msg_id = message.reply_to_msg_id
-            reply_user_id, reply_username, reply_first_name, reply_last_name, reply_date, reply_text, media, fwd_user_id, fwd_date = get_message_info(client.get_messages(group_title, ids=[reply_msg_id])[0])
+            reply_user_id, reply_username, reply_first_name, reply_last_name, reply_date, reply_text, reply_media, fwd_user_id, fwd_date = get_message_info(client.get_messages(group_title, ids=[reply_msg_id])[0])
             if reply_date is None:
                 continue
             row_data.extend([
