@@ -492,7 +492,7 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
             last_name,
             text
         ]
-        participants_from_messages.add((user_id, username, first_name, last_name))
+        participants_from_messages.add(user_id)
 
 
         # Если сообщение является ответом на другое сообщение
@@ -510,7 +510,7 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
                 reply_msg_id,
                 remove_timezone(reply_date)
             ])
-            participants_from_messages.add((user_id, username, first_name, last_name))
+            participants_from_messages.add(reply_user_id)
         else:
             row_data.extend([None] * 7)
         ws.append(row_data)
