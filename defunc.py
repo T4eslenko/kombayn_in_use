@@ -27,16 +27,13 @@ def remove_timezone(dt: datetime) -> Optional[datetime]:
 def get_message_info(message):
     # Получение информации о сообщении
     if message is None:
-        return None, None, None, None, None, None
+        return None, None, None, None, None, None, None, None
     user_id = message.sender_id if isinstance(message.sender, User) else None
     username = message.sender.username if isinstance(message.sender, User) else None
     first_name = message.sender.first_name if isinstance(message.sender, User) else None
     last_name = message.sender.last_name if isinstance(message.sender, User) else None
-    fwd_user_id = ""
-    fwd_date = ""
-    if isinstance(message.fwd_from, MessageFwdHeader):
-        fwd_user_id = message.fwd_from.from_id.user_id
-        fwd_date = message.fwd_from.date
+    fwd_user_id = message.fwd_from.from_id.user_id if isinstance(message.fwd_from, MessageFwdHeader) else None
+    fwd_date = message.fwd_from.date if isinstance(message.fwd_from, MessageFwdHeader) else None
     return user_id, username, first_name, last_name, message.date, message.text, fwd_user_id, fwd_date
 
 def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_title, userid, userinfo):
@@ -45,7 +42,6 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
     ws.cell(row=1, column=1, value=userinfo)
     ws.cell(row=2, column=1, value=group_title)
     ws.append(['ID объекта', 'Group ID', 'Message ID', 'Date and Time', 'User ID', '@Username', 'First Name', 'Last Name', 'Message', 'Reply to Message', 'Reply to User ID', '@Reply Username', 'Reply First Name', 'Reply Last Name', 'Reply Message ID', 'Reply Date and Time', 'fwd_user_id', 'fwd_date'])
-    participants_from_messages = set()
     for message in client.iter_messages(group_title):
         # Проверяем, что message является экземпляром Message
         if not isinstance(message, Message):
@@ -67,8 +63,6 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
             fwd_user_id,
             fwd_date
         ]
-        participants_from_messages.add(user_id)
-
         # Если сообщение является ответом на другое сообщение
         if isinstance(message.reply_to_msg_id, int):
             reply_msg_id = message.reply_to_msg_id
@@ -84,7 +78,6 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
                 reply_msg_id,
                 remove_timezone(reply_date)
             ])
-            participants_from_messages.add(reply_user_id)
         else:
             row_data.extend([None] * 7)
         ws.append(row_data)
