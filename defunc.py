@@ -111,7 +111,18 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
                 remove_timezone(fwd_date)
             ])
         ws.append(row_data)
+    # Удаляем недопустимые символы из имени файла
+    def sanitize_filename(filename):
+        return re.sub(r'[\\/*?:"<>|]', '', filename)
+    
+    clean_group_title = sanitize_filename(group_title)
 
+    if clean_group_title == group_title:
+        filename = f"{group_title}_messages.xlsx"
+    else:
+        filename = f"{clean_group_title}_messages.xlsx"
+
+    wb.save(filename)
 
 
 
