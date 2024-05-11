@@ -62,7 +62,7 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
     ws = wb.active
     ws.cell(row=1, column=1, value=userinfo)
     ws.cell(row=2, column=1, value=group_title)
-    ws.append(['ID объекта', 'Group ID', 'Message ID', 'Date and Time', 'User ID', '@Username', 'First Name', 'Last Name', 'Message', 'Forwarded Message', 'Forwarded User ID', '@Forward Username', 'Forward Message ID', 'Forwarded Date and Time', 'Reply to Message', 'Reply to User ID', '@Reply Username', 'Reply Message ID', 'Reply Date and Time'])
+    ws.append(['ID объекта', 'Group ID', 'Message ID', 'Date and Time', 'User ID', '@Username', 'First Name', 'Last Name', 'Message', 'Forwarded Message', 'Forwarded User ID', '@Forward Username', 'Forwarded Date and Time', 'Reply to Message', 'Reply to User ID', '@Reply Username', 'Reply Message ID', 'Reply Date and Time'])
     participants_from_messages = set()
     for message in client.iter_messages(group_title):
         print(message)
@@ -78,9 +78,9 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
         # Получение информации о пересылаемых сообщениях, если они есть
         forwarded_message = message.forward
         if forwarded_message:
-            forwarded_user_id = forwarded_message.from_id.user_id
-            forwarded_username = forwarded_message.from_id.username if hasattr(forwarded_message.from_id, 'username') else None
-            forwarded_msg_id = forwarded_message.from_id
+            forwarded_user_id = forwarded_message.sender_id
+            forwarded_username = forwarded_message.sender.username if isinstance(forwarded_message.sender, User) else None
+            forwarded_msg_id = forwarded_message.id
             forwarded_date = forwarded_message.date
         else:
             forwarded_user_id = None
