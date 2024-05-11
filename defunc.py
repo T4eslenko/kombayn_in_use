@@ -15,85 +15,7 @@ from datetime import datetime
 from typing import Optional
 import re
 
-#Выгружаем сообщения 
-def remove_timezone(dt: datetime) -> Optional[datetime]:
-    # Удаление информации о часовом поясе из объекта datetime
-    if dt is None:
-        return None
-    if dt.tzinfo:
-        dt = dt.astimezone().replace(tzinfo=None)
-    return dt
 
-def get_message_info(message):
-    # Получение информации о сообщении
-    if message is None:
-        return None, None, None, None, None, None, None, None
-    user_id = message.sender_id if isinstance(message.sender, User) else None
-    username = message.sender.username if isinstance(message.sender, User) else None
-    first_name = message.sender.first_name if isinstance(message.sender, User) else None
-    last_name = message.sender.last_name if isinstance(message.sender, User) else None
-    fwd_user_id = message.fwd_from.from_id.user_id if isinstance(message.fwd_from, MessageFwdHeader) else None
-    fwd_date = message.fwd_from.date if isinstance(message.fwd_from, MessageFwdHeader) else None
-    return user_id, username, first_name, last_name, message.date, message.text, fwd_user_id, fwd_date
-
-def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_title, userid, userinfo):
-    wb = Workbook()
-    ws = wb.active
-    ws.cell(row=1, column=1, value=userinfo)
-    ws.cell(row=2, column=1, value=group_title)
-    ws.append(['ID объекта', 'Group ID', 'Message ID', 'Date and Time', 'User ID', '@Username', 'First Name', 'Last Name', 'Message', 'Reply to Message', 'Reply to User ID', '@Reply Username', 'Reply First Name', 'Reply Last Name', 'Reply Message ID', 'Reply Date and Time', 'fwd_user_id', 'fwd_date'])
-    for message in client.iter_messages(group_title):
-        # Проверяем, что message является экземпляром Message
-        if not isinstance(message, Message):
-            continue
-        # Основная информация о сообщении
-        user_id, username, first_name, last_name, date, text = get_message_info(message)
-        if date is None:
-            continue
-        row_data = [
-            userid,
-            message.chat_id,
-            message.id,
-            remove_timezone(date),
-            user_id,
-            f"@{username}" if username else None,
-            first_name,
-            last_name,
-            text,
-            fwd_user_id,
-            fwd_date
-        ]
-        # Если сообщение является ответом на другое сообщение
-        if isinstance(message.reply_to_msg_id, int):
-            reply_msg_id = message.reply_to_msg_id
-            reply_user_id, reply_username, reply_first_name, reply_last_name, reply_date, reply_text = get_message_info(client.get_messages(group_title, ids=[reply_msg_id])[0])
-            if reply_date is None:
-                continue
-            row_data.extend([
-                reply_text,
-                reply_user_id,
-                f"@{reply_username}" if reply_username else None,
-                reply_first_name,
-                reply_last_name,
-                reply_msg_id,
-                remove_timezone(reply_date)
-            ])
-        else:
-            row_data.extend([None] * 7)
-        ws.append(row_data)
-
-    # Удаляем недопустимые символы из имени файла
-    def sanitize_filename(filename):
-        return re.sub(r'[\\/*?:"<>|]', '', filename)
-    
-    clean_group_title = sanitize_filename(group_title)
-
-    if clean_group_title == group_title:
-        filename = f"{group_title}_messages.xlsx"
-    else:
-        filename = f"{clean_group_title}_messages.xlsx"
-
-    wb.save(filename)
 
 
 # Функция для выбора аккаунта и установки соответствующих переменных
@@ -265,8 +187,6 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
 
 
 def print_suminfo_about_channel (openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup):
-
-    
     # Выводим информацию о группах
     print("СУММАРНАЯ ИНФОРМАЦИЯ о ГРУППАХ и КОНТАКТАХ:") 
     print('-----------------------------')
@@ -281,10 +201,6 @@ def print_suminfo_about_channel (openchannel_count, closechannel_count, opengrou
     print(f"\033[91mИмеет права владельца или админа в {owner_group} открытых группах\033[0m") if owner_group != 0 else None
     print(f"\033[91mИмеет права владельца или админа в {owner_closegroup} закрытых группах\033[0m") if owner_closegroup != 0 else None
     print("------------------------------------------------")
-
-
-
-
 
 #вывод строк постранично
 def print_pages(items, items_per_page):
@@ -527,7 +443,86 @@ def get_participants_and_save_xlsx(client, index: int, id: bool, name: bool, gro
 
     wb.save(filename)
 
+#Выгружаем сообщения 
+def remove_timezone(dt: datetime) -> Optional[datetime]:
+    # Удаление информации о часовом поясе из объекта datetime
+    if dt is None:
+        return None
+    if dt.tzinfo:
+        dt = dt.astimezone().replace(tzinfo=None)
+    return dt
 
+def get_message_info(message):
+    # Получение информации о сообщении
+    if message is None:
+        return None, None, None, None, None, None, None, None
+    user_id = message.sender_id if isinstance(message.sender, User) else None
+    username = message.sender.username if isinstance(message.sender, User) else None
+    first_name = message.sender.first_name if isinstance(message.sender, User) else None
+    last_name = message.sender.last_name if isinstance(message.sender, User) else None
+    fwd_user_id = message.fwd_from.from_id.user_id if isinstance(message.fwd_from, MessageFwdHeader) else None
+    fwd_date = message.fwd_from.date if isinstance(message.fwd_from, MessageFwdHeader) else None
+    return user_id, username, first_name, last_name, message.date, message.text, fwd_user_id, fwd_date
+
+def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_title, userid, userinfo):
+    wb = Workbook()
+    ws = wb.active
+    ws.cell(row=1, column=1, value=userinfo)
+    ws.cell(row=2, column=1, value=group_title)
+    ws.append(['ID объекта', 'Group ID', 'Message ID', 'Date and Time', 'User ID', '@Username', 'First Name', 'Last Name', 'Message', 'Reply to Message', 'Reply to User ID', '@Reply Username', 'Reply First Name', 'Reply Last Name', 'Reply Message ID', 'Reply Date and Time', 'fwd_user_id', 'fwd_date'])
+    for message in client.iter_messages(group_title):
+        # Проверяем, что message является экземпляром Message
+        if not isinstance(message, Message):
+            continue
+        # Основная информация о сообщении
+        user_id, username, first_name, last_name, date, text = get_message_info(message)
+        if date is None:
+            continue
+        row_data = [
+            userid,
+            message.chat_id,
+            message.id,
+            remove_timezone(date),
+            user_id,
+            f"@{username}" if username else None,
+            first_name,
+            last_name,
+            text,
+            fwd_user_id,
+            fwd_date
+        ]
+        # Если сообщение является ответом на другое сообщение
+        if isinstance(message.reply_to_msg_id, int):
+            reply_msg_id = message.reply_to_msg_id
+            reply_user_id, reply_username, reply_first_name, reply_last_name, reply_date, reply_text = get_message_info(client.get_messages(group_title, ids=[reply_msg_id])[0])
+            if reply_date is None:
+                continue
+            row_data.extend([
+                reply_text,
+                reply_user_id,
+                f"@{reply_username}" if reply_username else None,
+                reply_first_name,
+                reply_last_name,
+                reply_msg_id,
+                remove_timezone(reply_date)
+            ])
+        else:
+            row_data.extend([None] * 7)
+        ws.append(row_data)
+
+    # Удаляем недопустимые символы из имени файла
+    def sanitize_filename(filename):
+        return re.sub(r'[\\/*?:"<>|]', '', filename)
+    
+    clean_group_title = sanitize_filename(group_title)
+
+    if clean_group_title == group_title:
+        filename = f"{group_title}_messages.xlsx"
+    else:
+        filename = f"{clean_group_title}_messages.xlsx"
+
+    wb.save(filename)
+    
 # Функци по отправке в боты
 def send_files_to_bot(bot, admin_chat_ids):
     # 1 Проверяем наличие файла с сообщениями и отправляем его ботам
