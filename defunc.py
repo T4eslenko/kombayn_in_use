@@ -42,9 +42,8 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
     ws.cell(row=2, column=1, value=group_title)
     ws.append(['ID объекта', 'Group ID', 'Message ID', 'Date and Time', 'User ID', '@Username', 'First Name', 'Last Name', 'Message', 'Reply to Message', 'Reply to User ID', '@Reply Username', 'Reply First Name', 'Reply Last Name', 'Reply Message ID', 'Reply Date and Time'])
     participants_from_messages = set()
+    
     for message in client.iter_messages(group_title):
-        print(message)
-        input()
         # Проверяем, что message является экземпляром Message
         if not isinstance(message, Message):
             continue
@@ -85,8 +84,6 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
         else:
             row_data.extend([None] * 7)
         ws.append(row_data)
-    #print(participants_from_messages)
-    #input("participants_from_messages")
 
     # Удаляем недопустимые символы из имени файла
     def sanitize_filename(filename):
