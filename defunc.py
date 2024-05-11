@@ -4,16 +4,12 @@ import time
 import openpyxl
 from telethon.tl.functions.channels import InviteToChannelRequest
 from telethon.tl.functions.contacts import GetContactsRequest
-from telethon.tl.types import Chat, Channel, InputChannel
-from telethon.tl.functions.messages import GetDialogsRequest
-from telethon.tl.types import InputPhoneContact
-from telethon.tl.types import User, Chat, Channel
-from telethon.tl.types import Message
+from telethon.tl.functions.messages import GetDialogsRequest, ImportChatInviteRequest
+from telethon.tl.types import InputChannel, InputPhoneContact, User, Chat, Channel, Message, MessageFwdHeader
 from telethon.sync import TelegramClient
 from openpyxl import Workbook
 from openpyxl.utils import get_column_letter
 from datetime import datetime
-from telethon.tl.functions.messages import ImportChatInviteRequest
 from telethon.errors.rpcerrorlist import PeerFloodError, UserPrivacyRestrictedError
 from datetime import datetime
 from typing import Optional
