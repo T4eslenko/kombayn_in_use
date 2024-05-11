@@ -25,6 +25,18 @@ def remove_timezone(dt: datetime) -> Optional[datetime]:
         dt = dt.astimezone().replace(tzinfo=None)
     return dt
 
+from datetime import datetime
+from typing import Optional
+from openpyxl import Workbook
+
+def remove_timezone(dt: datetime) -> Optional[datetime]:
+    # Удаление информации о часовом поясе из объекта datetime
+    if dt is None:
+        return None
+    if dt.tzinfo:
+        dt = dt.astimezone().replace(tzinfo=None)
+    return dt
+
 def get_message_info(message):
     # Получение информации о сообщении
     if message is None:
@@ -34,8 +46,8 @@ def get_message_info(message):
     first_name = message.sender.first_name if isinstance(message.sender, User) else None
     last_name = message.sender.last_name if isinstance(message.sender, User) else None
     date = message.date
-    text = message.text
     media = message.media if message.media else None
+    text = message.text
     fwd_user_id = message.fwd_from.from_id.user_id if isinstance(message.fwd_from, MessageFwdHeader) else None
     fwd_date = message.fwd_from.date if isinstance(message.fwd_from, MessageFwdHeader) else None
 
@@ -99,18 +111,6 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
             ])
         ws.append(row_data)
 
-    # Удаляем недопустимые символы из имени файла
-    def sanitize_filename(filename):
-        return re.sub(r'[\\/*?:"<>|]', '', filename)
-    
-    clean_group_title = sanitize_filename(group_title)
-
-    if clean_group_title == group_title:
-        filename = f"{group_title}_messages.xlsx"
-    else:
-        filename = f"{clean_group_title}_messages.xlsx"
-
-    wb.save(filename)
 
 
 # Функция для выбора аккаунта и установки соответствующих переменных
