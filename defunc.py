@@ -492,12 +492,13 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
             last_name,
             text
         ]
-        participants_from_messages = [
-            user_id,
-            f"@{username}" if username else None,
-            first_name,
-            last_name
-        ]
+        if user_id:
+            participants_from_messages = [
+                user_id,
+                f"@{username}" if username else None,
+                first_name,
+                last_name
+            ]
 
         # Если сообщение является ответом на другое сообщение
         if isinstance(message.reply_to_msg_id, int):
