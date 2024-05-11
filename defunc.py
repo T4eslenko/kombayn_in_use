@@ -39,11 +39,23 @@ def get_message_info(message):
     # Получение информации о сообщении
     if message is None:
         return None, None, None, None, None, None
-    user_id = message.from_id.user_id if hasattr(message.from_id, 'user_id') else None
-    username = message.from_id.username if hasattr(message.from_id, 'username') else None
-    first_name = message.from_id.first_name if hasattr(message.from_id, 'first_name') else None
-    last_name = message.from_id.last_name if hasattr(message.from_id, 'last_name') else None
-    return user_id, username, first_name, last_name, message.date, message.text
+    if isinstance(message, Message):
+        user_id = message.sender_id if isinstance(message.sender, User) else None
+        username = message.sender.username if isinstance(message.sender, User) else None
+        first_name = message.sender.first_name if isinstance(message.sender, User) else None
+        last_name = message.sender.last_name if isinstance(message.sender, User) else None
+        date = message.date
+        text = message.text
+    elif isinstance(message, MessageFwdHeader):
+        user_id = message.from_id.user_id if hasattr(message.from_id, 'user_id') else None
+        username = None
+        first_name = None
+        last_name = None
+        date = message.date
+        text = None
+    else:
+        return None, None, None, None, None, None
+    return user_id, username, first_name, last_name, date, text
 
 def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_title, userid, userinfo):
     wb = Workbook()
