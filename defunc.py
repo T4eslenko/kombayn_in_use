@@ -69,8 +69,8 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
             f"@{username}" if username else None,
             first_name,
             last_name,
-            text
-            fwd_user_id
+            text,
+            fwd_user_id,
             fwd_date
         ]
         participants_from_messages.add(user_id)
