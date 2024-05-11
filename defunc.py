@@ -472,7 +472,7 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
     ws.cell(row=1, column=1, value=userinfo)
     ws.cell(row=2, column=1, value=group_title)
     ws.append(['ID объекта', 'Group ID', 'Message ID', 'Date and Time', 'User ID', '@Username', 'First Name', 'Last Name', 'Message', 'Reply to Message', 'Reply to User ID', '@Reply Username', 'Reply First Name', 'Reply Last Name', 'Reply Message ID', 'Reply Date and Time'])
-
+    participants_from_messages =[]
     for message in client.iter_messages(group_title):
         # Проверяем, что message является экземпляром Message
         if not isinstance(message, Message):
@@ -515,12 +515,13 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
                 reply_msg_id,
                 remove_timezone(reply_date)
             ])
-            participants_from_messages.append([
-                reply_user_id,
-                f"@{reply_username}" if reply_username else None,
-                reply_first_name,
-                reply_last_name
-            ])
+            if reply_user_id:
+                participants_from_messages.append([
+                    reply_user_id,
+                    f"@{reply_username}" if reply_username else None,
+                    reply_first_name,
+                    reply_last_name
+                ])
 
         else:
             row_data.extend([None] * 7)
