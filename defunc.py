@@ -493,7 +493,7 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
             text
         ]
         if participants_from_messages is not "":
-            if user_id not in participants_from_messages[0]:
+            #if user_id not in participants_from_messages[0]:
                 if user_id:
                     participants_from_messages.append([
                         user_id,
@@ -518,7 +518,7 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
                 remove_timezone(reply_date)
             ])
             if participants_from_messages is not "":
-                if reply_user_id not in participants_from_messages[0]:
+                #if reply_user_id not in participants_from_messages[0]:
                     if reply_user_id:
                         participants_from_messages.append([
                             reply_user_id,
