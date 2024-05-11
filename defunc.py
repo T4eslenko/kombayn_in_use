@@ -68,14 +68,6 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
         ]
         participants_from_messages.add(user_id)
 
-        if isinstance(message.fwd_from, MessageFwdHeader):
-            row_data.extend([
-                fwd_user_id,
-                fwd_date
-            ]
-                
-
-
         # Если сообщение является ответом на другое сообщение
         if isinstance(message.reply_to_msg_id, int):
             reply_msg_id = message.reply_to_msg_id
@@ -94,6 +86,12 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
             participants_from_messages.add(reply_user_id)
         else:
             row_data.extend([None] * 7)
+            
+        if isinstance(message.fwd_from, MessageFwdHeader):
+            row_data.extend([
+                fwd_user_id,
+                fwd_date
+            ])
         ws.append(row_data)
 
     # Удаляем недопустимые символы из имени файла
