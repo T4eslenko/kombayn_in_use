@@ -260,7 +260,7 @@ if __name__ == "__main__":
                               print('Может потребоваться значительное количество времени, заварите кофе...')
                               get_messages_and_save_xcls(client, target_group, user_id, user_name, group_title, userid, userinfo)
                               group_id = target_group.id
-                              if group_id in openchannels_id and group_id in closechannels_id:
+                              if group_id in openchannels_id or group_id in closechannels_id:
                                  get_participants_and_save_xlsx(client, target_group, user_id, user_name, group_title, group_id, userid, userinfo)
                                  os.system('cls||clear')
                                  print('Сообщения чата и его участники выгружены в excel, мой командир')
