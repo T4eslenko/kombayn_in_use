@@ -281,7 +281,8 @@ def get_type_of_chats(client, selection):
                         if selection != '6':
                             openchannels.append(chat.entity)
                             all_chats_ids.append(chat.entity.id)
-                            #openchannels_id.append(chat.entity.id)
+                            if chat.entity.admin_rights or chat.entity.creator:
+                                openchannels_id.append(chat.entity.id)
 
             # Определяем закрытый канал
             if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast'):
@@ -295,7 +296,8 @@ def get_type_of_chats(client, selection):
                         if selection != '6':
                             openchannels.append(chat.entity)
                             all_chats_ids.append(chat.entity.id)
-                            #closechannels_id.append(chat.entity.id)
+                            if chat.entity.admin_rights or chat.entity.creator:
+                                closechannels_id.append(chat.entity.id)
 
             # Определяем открытый чат
             if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast'):
