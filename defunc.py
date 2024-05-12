@@ -61,6 +61,8 @@ def get_file_name_from_media(media):
             for attribute in media.document.attributes:
                 if isinstance(attribute, DocumentAttributeFilename):
                     return attribute.file_name
+        else:
+            return media
     return None
 
 def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_title, userid, userinfo):
