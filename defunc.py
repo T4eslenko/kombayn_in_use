@@ -50,6 +50,9 @@ def get_message_info(message):
             fwd_source_id = fwd_user_id
         else:
             fwd_source_id = fwd_channel_id
+    else:
+        fwd_source_id = ''
+        
 
 
 
