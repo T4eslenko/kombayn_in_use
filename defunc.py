@@ -44,7 +44,6 @@ def get_message_info(message):
     media = message.media if isinstance(message.media, MessageMediaDocument) else None
     text = message.text
     fwd_user_id = message.fwd_from.from_id.user_id if isinstance(message.fwd_from, MessageFwdHeader) and hasattr(message.fwd_from.from_id, 'user_id') else None
-    #fwd_channel_id = message.fwd_from.from_id.channel_id if isinstance(message.fwd_from, MessageFwdHeader) and hasattr(message.fwd_from.from_id, 'channel_id') else None
     fwd_channel_id = message.fwd_from.from_id.channel_id if isinstance(message.fwd_from, MessageFwdHeader) and hasattr(message.fwd_from.from_id, 'channel_id') and isinstance(message.fwd_from.from_id, PeerChannel) else None
 
     fwd_date = message.fwd_from.date if isinstance(message.fwd_from, MessageFwdHeader) and hasattr(message.fwd_from, 'date') else None
@@ -72,8 +71,8 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
     participants_from_messages = set()
     
     for message in client.iter_messages(group_title):
-        print(message)
-        input()
+        #print(message)
+        #input()
         # Проверяем, что message является экземпляром Message
         if not hasattr(message, 'sender'):
             continue
