@@ -32,6 +32,7 @@ def remove_timezone(dt: datetime) -> Optional[datetime]:
     return dt
 
 def get_message_info(message):
+    fwd_source_id =''
     # Получение информации о сообщении
     if message is None:
         return None, None, None, None, None, None, None, None, None
