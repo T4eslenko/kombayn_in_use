@@ -55,7 +55,8 @@ def get_message_info(message):
 
     return user_id, username, first_name, last_name, date, text, media, fwd_source_id, fwd_date
 
-def get_file_name_from_media(media):
+def get_media(media):
+    media = 'media'
     if media:
         if media.document:
             for attribute in media.document.attributes:
@@ -93,7 +94,7 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
             first_name,
             last_name,
             text,
-            get_file_name_from_media(media)
+            get_media(media)
         ]
         participants_from_messages.add(user_id)
 
