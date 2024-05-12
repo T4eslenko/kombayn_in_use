@@ -33,6 +33,7 @@ def remove_timezone(dt: datetime) -> Optional[datetime]:
 
 def get_message_info(message):
     # Получение информации о сообщении
+    fwd_source_id = ''
     if message is None:
         return None, None, None, None, None, None, None, None, None
     user_id = message.sender_id if hasattr(message, 'sender_id') else None
@@ -52,11 +53,6 @@ def get_message_info(message):
             fwd_source_id = fwd_user_id
         else:
             fwd_source_id = fwd_channel_id
-    else:
-        fwd_source_id = ''
-        
-
-
 
     return user_id, username, first_name, last_name, date, text, media, fwd_source_id, fwd_date
 
