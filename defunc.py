@@ -56,6 +56,7 @@ def get_message_info(message):
     return user_id, username, first_name, last_name, date, text, media, fwd_source_id, fwd_date
 
 def get_media(media):
+    mediatype ='media'
     if media:
         if media.document:
             for attribute in media.document.attributes:
