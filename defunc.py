@@ -32,7 +32,6 @@ def remove_timezone(dt: datetime) -> Optional[datetime]:
     return dt
 
 def get_message_info(message):
-    mediatype = 'media'
     fwd_source_id =''
     # Получение информации о сообщении
     if message is None:
@@ -57,7 +56,6 @@ def get_message_info(message):
     return user_id, username, first_name, last_name, date, text, media, fwd_source_id, fwd_date
 
 def get_media(media):
-    mediatype = 'media'
     if media:
         if media.document:
             for attribute in media.document.attributes:
@@ -84,6 +82,7 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
             continue
         # Основная информация о сообщении
         user_id, username, first_name, last_name, date, text, media, fwd_source_id, fwd_date = get_message_info(message)
+        mediatype = get_media(media)
         if date is None:
             continue
         row_data = [
