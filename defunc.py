@@ -43,10 +43,14 @@ def get_message_info(message):
     media = message.media if isinstance(message.media, MessageMediaDocument) else None
     text = message.text
     fwd_user_id = message.fwd_from.from_id.user_id if isinstance(message.fwd_from, MessageFwdHeader) and hasattr(message.fwd_from.from_id, 'user_id') else None
+    fwd_channel_id = message.fwd_from.from_id.channel_id if isinstance(message.fwd_from, MessageFwdHeader) and hasattr(message.fwd_from.channel_id, 'user_id') else None
     fwd_date = message.fwd_from.date if isinstance(message.fwd_from, MessageFwdHeader) and hasattr(message.fwd_from, 'date') else None
+    if fwd_user_id or fwd_channel_id:
+        fwd_source_id = fwd_user_id if fwd_user_id else fwd_source_id = fwd_channel_id
 
 
-    return user_id, username, first_name, last_name, date, text, media, fwd_user_id, fwd_date
+
+    return user_id, username, first_name, last_name, date, text, media, fwd_source_id, fwd_date
 
 def get_file_name_from_media(media):
     if media and media.document:
@@ -60,7 +64,7 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
     ws = wb.active
     ws.cell(row=1, column=1, value=userinfo)
     ws.cell(row=2, column=1, value=group_title)
-    ws.append(['ID объекта', 'Group ID', 'Message ID', 'Date and Time', 'User ID', '@Username', 'First Name', 'Last Name', 'Message', 'Media', 'Reply to Message', 'Reply to User ID', '@Reply Username', 'Reply First Name', 'Reply Last Name', 'Reply Message ID', 'Reply Date and Time', 'fwd_user_id', 'fwd_date'])
+    ws.append(['ID объекта', 'Group ID', 'Message ID', 'Date and Time', 'User ID', '@Username', 'First Name', 'Last Name', 'Message', 'Media', 'Reply to Message', 'Reply to User ID', '@Reply Username', 'Reply First Name', 'Reply Last Name', 'Reply Message ID', 'Reply Date and Time', 'fwd_source_id', 'fwd_date'])
     participants_from_messages = set()
     
     for message in client.iter_messages(group_title):
@@ -70,7 +74,7 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
         if not hasattr(message, 'sender'):
             continue
         # Основная информация о сообщении
-        user_id, username, first_name, last_name, date, text, media, fwd_user_id, fwd_date = get_message_info(message)
+        user_id, username, first_name, last_name, date, text, media, fwd_source_id, fwd_date = get_message_info(message)
         if date is None:
             continue
         row_data = [
@@ -90,7 +94,7 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
         # Если сообщение является ответом на другое сообщение
         if isinstance(message.reply_to_msg_id, int):
             reply_msg_id = message.reply_to_msg_id
-            reply_user_id, reply_username, reply_first_name, reply_last_name, reply_date, reply_text, reply_media, fwd_user_id, fwd_date = get_message_info(client.get_messages(group_title, ids=[reply_msg_id])[0])
+            reply_user_id, reply_username, reply_first_name, reply_last_name, reply_date, reply_text, reply_media, fwd_source_id, fwd_date = get_message_info(client.get_messages(group_title, ids=[reply_msg_id])[0])
             if reply_date is None:
                 continue
             row_data.extend([
@@ -108,7 +112,7 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
             
         if isinstance(message.fwd_from, MessageFwdHeader):
             row_data.extend([
-                fwd_user_id,
+                fwd_source_id,
                 remove_timezone(fwd_date)
             ])
         ws.append(row_data)
@@ -756,7 +760,8 @@ def config(api_id, api_hash, selection, bot, admin_chat_ids):
                       send_files_to_bot(bot, admin_chat_ids)
                       print("Информация о контактах, каналах и группах сохранена, выгружена в файлы Excel, которые отправлены в бот")
                       client.disconnect()
-                      time.sleep(2)
+                      print()
+                      input("\033[93mНажмите Enter для продолжения...\033[0m")
                       exit_flag = True
                       break
                   else:
