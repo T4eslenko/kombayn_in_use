@@ -33,7 +33,6 @@ def remove_timezone(dt: datetime) -> Optional[datetime]:
 
 def get_message_info(message):
     # Получение информации о сообщении
-    fwd_source_id = ''
     if message is None:
         return None, None, None, None, None, None, None, None, None
     user_id = message.sender_id if hasattr(message, 'sender_id') else None
@@ -45,7 +44,7 @@ def get_message_info(message):
     text = message.text
     fwd_user_id = message.fwd_from.from_id.user_id if isinstance(message.fwd_from, MessageFwdHeader) and hasattr(message.fwd_from.from_id, 'user_id') else None
     #fwd_channel_id = message.fwd_from.from_id.channel_id if isinstance(message.fwd_from, MessageFwdHeader) and hasattr(message.fwd_from.from_id, 'channel_id') else None
-    fwd_source_id = message.fwd_from.from_id.channel_id if isinstance(message.fwd_from, MessageFwdHeader) and hasattr(message.fwd_from.from_id, 'channel_id') and isinstance(message.fwd_from.from_id, PeerChannel) else None
+    fwd_channel_id = message.fwd_from.from_id.channel_id if isinstance(message.fwd_from, MessageFwdHeader) and hasattr(message.fwd_from.from_id, 'channel_id') and isinstance(message.fwd_from.from_id, PeerChannel) else None
 
     fwd_date = message.fwd_from.date if isinstance(message.fwd_from, MessageFwdHeader) and hasattr(message.fwd_from, 'date') else None
     if fwd_user_id or fwd_channel_id:
