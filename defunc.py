@@ -56,14 +56,14 @@ def get_message_info(message):
     return user_id, username, first_name, last_name, date, text, media, fwd_source_id, fwd_date
 
 def get_media(media):
-    media = 'media'
+    mediatype = 'media'
     if media:
         if media.document:
             for attribute in media.document.attributes:
                 if isinstance(attribute, DocumentAttributeFilename):
                     return attribute.file_name
         else:
-            return media
+            return mediatype
     return None
 
 def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_title, userid, userinfo):
