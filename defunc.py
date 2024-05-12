@@ -61,7 +61,8 @@ def get_media(media):
         if media.document:
             for attribute in media.document.attributes:
                 if isinstance(attribute, DocumentAttributeFilename):
-                    return attribute.file_name
+                    mediatype = attribute.file_name
+                    return mediatype
         else:
             return mediatype
     return None
@@ -94,7 +95,8 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
             first_name,
             last_name,
             text,
-            get_media(media)
+            #get_media(media)
+            mediatype
         ]
         participants_from_messages.add(user_id)
 
