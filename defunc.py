@@ -46,7 +46,10 @@ def get_message_info(message):
     fwd_channel_id = message.fwd_from.from_id.channel_id if isinstance(message.fwd_from, MessageFwdHeader) and hasattr(message.fwd_from.channel_id, 'user_id') else None
     fwd_date = message.fwd_from.date if isinstance(message.fwd_from, MessageFwdHeader) and hasattr(message.fwd_from, 'date') else None
     if fwd_user_id or fwd_channel_id:
-        fwd_source_id = fwd_user_id if fwd_user_id else fwd_source_id = fwd_channel_id
+        if fwd_user_id:
+            fwd_source_id = fwd_user_id
+        else:
+            fwd_source_id = fwd_channel_id
 
 
 
