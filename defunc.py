@@ -28,6 +28,7 @@ def remove_timezone(dt: datetime) -> Optional[datetime]:
 def get_message_info(message):
     fwd_source_id = ''
     media_type = ''
+    sender_id = 'Admin'
     # Получение информации о сообщении
     if message is None:
         return None, None, None, None, None, None, None, None, None
@@ -109,7 +110,6 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
             first_name,
             last_name,
             text,
-            #get_media(media)
             media_type
         ]
         participants_from_messages.add(sender_id)
