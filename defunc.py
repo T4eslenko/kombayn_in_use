@@ -83,10 +83,10 @@ def get_message_info(message):
     reaction_info = []
     reaction = message.reactions
     if reaction is not None:
-        for user, reacted in reaction.items():
-            reaction_info.append(f"{user}:{reacted}")
+        for reaction in reactions.results:
+            reaction_info += f"{reaction.reaction}:{reaction.count}, "
 
-    return sender_id, username, first_name, last_name, date, text, media_type, fwd_source_id, fwd_date, ", ".join(reaction_info)
+    return sender_id, username, first_name, last_name, date, text, media_type, fwd_source_id, fwd_date, reaction_info.rstrip(", ")
 
 def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_title, userid, userinfo):
     wb = Workbook()
