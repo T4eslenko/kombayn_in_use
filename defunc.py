@@ -82,17 +82,14 @@ def get_message_info(message):
     # Получение информации о реакции
     reaction_info = ""
     reactions = message.reactions
-    if reactions:
-        try:
-            for reaction in reactions.recent_reactions:
-                print(reaction)
-                input()
-                user_id = reaction.peer_id.user_id
-                reaction_emoji = reaction.reaction.emoticon
-                reaction_info += f"Пользователь с ID {user_id} оставил реакцию {reaction_emoji}\n"
-            print(reaction_info)
-        except AttributeError:
-            print("Реакций на сообщение нет.")
+    if reactions and reactions.recent_reactions:
+        for reaction in reactions.recent_reactions:
+            print(reaction)
+            input()
+            user_id = reaction.peer_id.user_id
+            reaction_emoji = reaction.reaction.emoticon
+            reaction_info += f"Пользователь с ID {user_id} оставил реакцию {reaction_emoji}\n"
+        print(reaction_info)
     else:
         print("Реакций на сообщение нет.")
         
