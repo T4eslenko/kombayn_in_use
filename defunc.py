@@ -31,8 +31,7 @@ def get_message_info(message):
     # Получение информации о сообщении
     if message is None:
         return None, None, None, None, None, None, None, None, None, None
-    print(message)
-    input()
+
     sender_id = message.sender_id if hasattr(message, 'sender_id') else None
     username = message.sender.username if hasattr(message.sender, 'username') else None
     first_name = message.sender.first_name if hasattr(message.sender, 'first_name') else None
