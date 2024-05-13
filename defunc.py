@@ -84,8 +84,8 @@ def get_message_info(message):
     reactions = message.reactions
     if reactions:
         for reaction in reactions.results:
-            user_id = reaction.replies.peer_id.user_id
-            reaction_emoji = reaction.replies.reaction.emoticon
+            user_id = reaction.peer_id.user_id
+            reaction_emoji = reaction.reaction.emoticon
             reaction_info += f"Пользователь с ID {user_id} оставил реакцию {reaction_emoji}\n"
     
         print(reaction_info)
