@@ -43,6 +43,8 @@ def get_message_info(message):
     date = message.date
     if message.media:
         mediatype = 'media'
+        print(mediatype)
+        input('mediatype')
     media = message.media if isinstance(message.media, MessageMediaDocument) else None
     text = message.text
     fwd_user_id = message.fwd_from.from_id.user_id if isinstance(message.fwd_from, MessageFwdHeader) and hasattr(message.fwd_from.from_id, 'user_id') else None
