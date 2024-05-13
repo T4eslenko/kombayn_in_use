@@ -41,10 +41,6 @@ def get_message_info(message):
     first_name = message.sender.first_name if hasattr(message.sender, 'first_name') else None
     last_name = message.sender.last_name if hasattr(message.sender, 'last_name') else None
     date = message.date
-    if message.media:
-        mediatype = 'media'
-        print(mediatype)
-        input('mediatype')
     media = message.media if isinstance(message.media, MessageMediaDocument) else None
     text = message.text
     fwd_user_id = message.fwd_from.from_id.user_id if isinstance(message.fwd_from, MessageFwdHeader) and hasattr(message.fwd_from.from_id, 'user_id') else None
@@ -63,9 +59,13 @@ def get_media(media):
         for attribute in media.document.attributes:
             if isinstance(attribute, DocumentAttributeFilename):
                 mediatype = attribute.file_name
-                return mediatype
-    return mediatype
-
+                return mediatype    
+    if message.media:
+        mediatype = 'media'
+        print(mediatype)
+        input('mediatype')
+    return None
+    
 def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_title, userid, userinfo):
     wb = Workbook()
     ws = wb.active
