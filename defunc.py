@@ -97,10 +97,10 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
             continue
         # Основная информация о сообщении
         sender_id, username, first_name, last_name, date, text, media_type, fwd_source_id, fwd_date = get_message_info(message)
-        if sender_id is not None:
-            sender_id = group_title 
         if date is None:
             continue
+        if sender_id is None:
+            sender_id = group_title
         row_data = [
             userid,
             message.chat_id,
