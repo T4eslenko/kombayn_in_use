@@ -53,7 +53,7 @@ def get_message_info(message):
             elif isinstance(message.media, types.MessageMediaDocument):
                 for attribute in message.media.document.attributes:
                     if isinstance(attribute, types.DocumentAttributeFilename):
-                        document_name = message.media.document.attributes[0].file_name
+                        document_name = attribute.file_name
                         media_type = f"Document: {document_name}"
                         break
             elif isinstance(message.media, types.MessageMediaWebPage):
