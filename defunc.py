@@ -85,6 +85,8 @@ def get_message_info(message):
     if reaction is not None:
         for reaction in reactions.results:
             reaction_info += f"{reaction.reaction}:{reaction.count}, "
+    reaction_info = reaction_info.rstrip(", ")
+            
 
     return sender_id, username, first_name, last_name, date, text, media_type, fwd_source_id, fwd_date, reaction_info.rstrip(", ")
 
