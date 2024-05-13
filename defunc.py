@@ -82,15 +82,19 @@ def get_message_info(message):
     # Получение информации о реакции
     reaction_info = ""
     reactions = message.reactions
-    if reactions and hasattr(reactions, 'recent_reactions'):
-            for reaction in message.reactions.recent_reactions:
+    if reactions:
+        try:
+            for reaction in reactions.recent_reactions:
                 print(reaction)
-                input("reaction")
+                input()
                 user_id = reaction.peer_id.user_id
                 reaction_emoji = reaction.reaction.emoticon
                 reaction_info += f"Пользователь с ID {user_id} оставил реакцию {reaction_emoji}\n"
-        
             print(reaction_info)
+        except AttributeError:
+            print("Реакций на сообщение нет.")
+    else:
+        print("Реакций на сообщение нет.")
         
     return sender_id, username, first_name, last_name, date, text, media_type, fwd_source_id, fwd_date, reaction_info
 
