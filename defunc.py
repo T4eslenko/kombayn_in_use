@@ -41,11 +41,12 @@ def get_message_info(message):
     first_name = message.sender.first_name if hasattr(message.sender, 'first_name') else None
     last_name = message.sender.last_name if hasattr(message.sender, 'last_name') else None
     date = message.date
+    if message.media:
+        mediatype = 'media'
     media = message.media if isinstance(message.media, MessageMediaDocument) else None
     text = message.text
     fwd_user_id = message.fwd_from.from_id.user_id if isinstance(message.fwd_from, MessageFwdHeader) and hasattr(message.fwd_from.from_id, 'user_id') else None
     fwd_channel_id = message.fwd_from.from_id.channel_id if isinstance(message.fwd_from, MessageFwdHeader) and hasattr(message.fwd_from.from_id, 'channel_id') and isinstance(message.fwd_from.from_id, PeerChannel) else None
-
     fwd_date = message.fwd_from.date if isinstance(message.fwd_from, MessageFwdHeader) and hasattr(message.fwd_from, 'date') else None
     if fwd_user_id or fwd_channel_id:
         if fwd_user_id:
@@ -56,15 +57,11 @@ def get_message_info(message):
     return user_id, username, first_name, last_name, date, text, media, fwd_source_id, fwd_date
 
 def get_media(media):
-    mediatype ='media'
-    if media:
-        if media.document:
-            for attribute in media.document.attributes:
-                if isinstance(attribute, DocumentAttributeFilename):
-                    mediatype = attribute.file_name
-                    return mediatype
-        #else:
-            #return mediatype
+    if media and media.document:
+        for attribute in media.document.attributes:
+            if isinstance(attribute, DocumentAttributeFilename):
+                mediatype = attribute.file_name
+                return mediatype
     return None
 
 def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_title, userid, userinfo):
@@ -76,8 +73,6 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
     participants_from_messages = set()
     
     for message in client.iter_messages(group_title):
-        #print(message)
-        #input()
         # Проверяем, что message является экземпляром Message
         if not hasattr(message, 'sender'):
             continue
