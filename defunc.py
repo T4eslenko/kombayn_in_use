@@ -31,7 +31,8 @@ def get_message_info(message):
     # Получение информации о сообщении
     if message is None:
         return None, None, None, None, None, None, None, None, None
-    sender_id = message.sender_id if hasattr(message, 'sender_id') else 'Admin'
+    #sender_id = message.sender_id if hasattr(message, 'sender_id') else None
+    sender_id = message.sender_id if hasattr(message, 'sender_id') else getattr(message.to_id, 'channel_id', None)
     username = message.sender.username if hasattr(message.sender, 'username') else None
     first_name = message.sender.first_name if hasattr(message.sender, 'first_name') else None
     last_name = message.sender.last_name if hasattr(message.sender, 'last_name') else None
