@@ -26,7 +26,8 @@ def remove_timezone(dt: datetime) -> Optional[datetime]:
     return dt
 
 def get_message_info(message):
-    fwd_source_id =''
+    fwd_source_id = ''
+    media_type = ''
     # Получение информации о сообщении
     if message is None:
         return None, None, None, None, None, None, None, None, None
@@ -45,9 +46,7 @@ def get_message_info(message):
             fwd_source_id = f"(From user: {fwd_user_id})"
         else:
             fwd_source_id = f"(From channel: {fwd_channel_id})"
-
-    return user_id, username, first_name, last_name, date, text, media, fwd_source_id, fwd_date
-    media_type = ''
+            
     if message.media is not None:
             if isinstance(message.media, types.MessageMediaPhoto):
                 media_type = 'Photo'
@@ -73,7 +72,7 @@ def get_message_info(message):
                 media_type = 'PhotoExternal'
             else:
                 media_type = 'Unknown'    
-
+    return user_id, username, first_name, last_name, date, text, media_type, fwd_source_id, fwd_date
 
 #def get_media(media):
  #   if media and media.document:
