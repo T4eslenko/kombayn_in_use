@@ -60,7 +60,7 @@ def get_media(media):
             if isinstance(attribute, DocumentAttributeFilename):
                 mediatype = attribute.file_name
                 return mediatype    
-    if message.media:
+    if Message.media:
         mediatype = 'media'
         print(mediatype)
         input('mediatype')
