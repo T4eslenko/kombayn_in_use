@@ -147,6 +147,8 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
                 fwd_source_id,
                 remove_timezone(fwd_date)
             ])
+        else:
+            row_data.extend([None] * 2)
         row_data.append(reaction_info)
         ws.append(row_data)
     
