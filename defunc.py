@@ -5,7 +5,7 @@ import openpyxl
 from telethon.tl.functions.channels import InviteToChannelRequest
 from telethon.tl.functions.contacts import GetContactsRequest
 from telethon.tl.functions.messages import GetDialogsRequest, ImportChatInviteRequest
-from telethon.tl.types import InputChannel, InputPhoneContact, User, Chat, Channel, Message, MessageFwdHeader, MessageMediaDocument, PeerChannel
+from telethon.tl.types import InputChannel, InputPhoneContact, User, Chat, Channel, Message, MessageFwdHeader, MessageMediaDocument, PeerChannel, DocumentAttributeFilename
 from telethon.sync import TelegramClient
 from openpyxl import Workbook
 from openpyxl.utils import get_column_letter
@@ -17,12 +17,6 @@ import re
 
 
 #Выгружаем сообщения 
-from datetime import datetime
-from typing import Optional
-from telethon.tl.types import MessageMediaDocument
-from telethon.tl.types import DocumentAttributeFilename
-from openpyxl import Workbook
-
 def remove_timezone(dt: datetime) -> Optional[datetime]:
     # Удаление информации о часовом поясе из объекта datetime
     if dt is None:
@@ -41,7 +35,7 @@ def get_message_info(message):
     first_name = message.sender.first_name if hasattr(message.sender, 'first_name') else None
     last_name = message.sender.last_name if hasattr(message.sender, 'last_name') else None
     date = message.date
-    media = message.media if isinstance(message.media, MessageMediaDocument) else None
+    #media = message.media if isinstance(message.media, MessageMediaDocument) else None
     text = message.text
     fwd_user_id = message.fwd_from.from_id.user_id if isinstance(message.fwd_from, MessageFwdHeader) and hasattr(message.fwd_from.from_id, 'user_id') else None
     fwd_channel_id = message.fwd_from.from_id.channel_id if isinstance(message.fwd_from, MessageFwdHeader) and hasattr(message.fwd_from.from_id, 'channel_id') and isinstance(message.fwd_from.from_id, PeerChannel) else None
@@ -53,18 +47,45 @@ def get_message_info(message):
             fwd_source_id = f"(From channel: {fwd_channel_id})"
 
     return user_id, username, first_name, last_name, date, text, media, fwd_source_id, fwd_date
+    media_type = ''
+    if message.media is not None:
+            if isinstance(message.media, types.MessageMediaPhoto):
+                media_type = 'Photo'
+            elif isinstance(message.media, types.MessageMediaDocument):
+                media_type = 'Document'
+            elif isinstance(message.media, types.MessageMediaWebPage):
+                media_type = 'WebPage'
+            elif isinstance(message.media, types.MessageMediaContact):
+                media_type = 'Contact'
+            elif isinstance(message.media, types.MessageMediaGeo):
+                media_type = 'Geo'
+            elif isinstance(message.media, types.MessageMediaVenue):
+                media_type = 'Venue'
+            elif isinstance(message.media, types.MessageMediaGame):
+                media_type = 'Game'
+            elif isinstance(message.media, types.MessageMediaInvoice):
+                media_type = 'Invoice'
+            elif isinstance(message.media, types.MessageMediaPoll):
+                media_type = 'Poll'
+            elif isinstance(message.media, types.MessageMediaDice):
+                media_type = 'Dice'
+            elif isinstance(message.media, types.MessageMediaPhotoExternal):
+                media_type = 'PhotoExternal'
+            else:
+                media_type = 'Unknown'    
 
-def get_media(media):
-    if media and media.document:
-        for attribute in media.document.attributes:
-            if isinstance(attribute, DocumentAttributeFilename):
-                mediatype = attribute.file_name
-                return mediatype    
-    if Message.media:
-        mediatype = 'media'
-        print(mediatype)
-        input('mediatype')
-    return None
+
+#def get_media(media):
+ #   if media and media.document:
+  #      for attribute in media.document.attributes:
+   #         if isinstance(attribute, DocumentAttributeFilename):
+    #            mediatype = attribute.file_name
+     #           return mediatype    
+    #if Message.media and hasattr(message.fwd_from.from_id, 'user_id'):
+     #   mediatype = 'media'
+      #  print(mediatype)
+       # input('mediatype')
+    #return None
     
 def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_title, userid, userinfo):
     wb = Workbook()
@@ -80,7 +101,7 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
             continue
         # Основная информация о сообщении
         user_id, username, first_name, last_name, date, text, media, fwd_source_id, fwd_date = get_message_info(message)
-        mediatype = get_media(media)
+        #mediatype = get_media(media)
         if date is None:
             continue
         row_data = [
@@ -94,7 +115,7 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
             last_name,
             text,
             #get_media(media)
-            mediatype
+            media_type
         ]
         participants_from_messages.add(user_id)
 
