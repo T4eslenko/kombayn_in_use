@@ -436,12 +436,12 @@ def get_type_of_chats(client, selection):
                             closechannels.append(chat.entity)
                             all_chats_ids.append(chat.entity.id)
                             admin_id.append(chat.entity.id)
-                    else:
-                        if selection != '6':
-                            openchannels.append(chat.entity)
-                            all_chats_ids.append(chat.entity.id)
-                            if chat.entity.admin_rights or chat.entity.creator:
-                                admin_id.append(chat.entity.id)
+                    
+                    if selection != '6':
+                        closechannels.append(chat.entity)
+                        all_chats_ids.append(chat.entity.id)
+                        if chat.entity.admin_rights or chat.entity.creator:
+                            admin_id.append(chat.entity.id)
 
             # Определяем открытый чат
             if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast'):
