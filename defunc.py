@@ -6,7 +6,7 @@ from telethon.tl.functions.channels import InviteToChannelRequest
 from telethon.tl.functions.contacts import GetContactsRequest
 from telethon.tl.functions.messages import GetDialogsRequest, ImportChatInviteRequest
 from telethon.tl.types import InputChannel, InputPhoneContact, User, Chat, Channel, Message, MessageFwdHeader, MessageMediaDocument, PeerChannel, DocumentAttributeFilename
-from telethon.sync import TelegramClient
+from telethon.sync import TelegramClient, types
 from openpyxl import Workbook
 from openpyxl.utils import get_column_letter
 from datetime import datetime
