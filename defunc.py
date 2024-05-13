@@ -28,17 +28,10 @@ def remove_timezone(dt: datetime) -> Optional[datetime]:
 def get_message_info(message):
     fwd_source_id = ''
     media_type = ''
-    sender_id = 'Admin'
     # Получение информации о сообщении
     if message is None:
         return None, None, None, None, None, None, None, None, None
-    #sender_id = message.sender_id if hasattr(message, 'sender_id') else None
-    if hasattr(message, 'sender_id'):
-        sender_id = message.sender_id
-    #elif hasattr(message, 'to_id') and hasattr(message.to_id, 'channel_id'):
-        #sender_id = message.to_id.channel_id
-    #else:
-       # sender_id = 'Admin'
+    sender_id = message.sender_id if hasattr(message, 'sender_id') else None
     username = message.sender.username if hasattr(message.sender, 'username') else None
     first_name = message.sender.first_name if hasattr(message.sender, 'first_name') else None
     last_name = message.sender.last_name if hasattr(message.sender, 'last_name') else None
