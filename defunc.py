@@ -78,13 +78,16 @@ def get_message_info(message):
             media_type = 'PhotoExternal'
         else:
             media_type = 'Unknown'
-            
-   # Получение информации о реакции
+
+    # Получение информации о реакции
     reaction_info = []
     reactions = message.reactions
     if reactions:
         for reaction in reactions.results:
-            reaction_info.append(f"{reaction.reaction}:{reaction.count}")
+            reacted_users = []
+            for user_reaction in reaction.recent_reactions:
+                reacted_users.append(str(user_reaction.peer_id.user_id))
+            reaction_info.append(f"{reaction.reaction}:{reaction.count} ({', '.join(reacted_users)})")
     # Преобразование списка в строку
     reaction_info = ", ".join(reaction_info)
 
