@@ -83,7 +83,7 @@ def get_message_info(message):
     reaction_info = ""
     reactions = message.reactions
     if reactions:
-        for reaction in reactions.results:
+        for reaction in message.reactions.results:
             user_id = reaction.peer_id.user_id
             reaction_emoji = reaction.reaction.emoticon
             reaction_info += f"Пользователь с ID {user_id} оставил реакцию {reaction_emoji}\n"
@@ -91,7 +91,6 @@ def get_message_info(message):
         print(reaction_info)
     else:
         print("Реакций на сообщение нет.")
-    input()
     return sender_id, username, first_name, last_name, date, text, media_type, fwd_source_id, fwd_date, reaction_info
 
 def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_title, userid, userinfo):
