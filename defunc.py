@@ -35,10 +35,10 @@ def get_message_info(message):
     #sender_id = message.sender_id if hasattr(message, 'sender_id') else None
     if hasattr(message, 'sender_id'):
         sender_id = message.sender_id
-    elif hasattr(message, 'to_id') and hasattr(message.to_id, 'channel_id'):
-        sender_id = message.to_id.channel_id
-    else:
-        sender_id = 'Admin'
+    #elif hasattr(message, 'to_id') and hasattr(message.to_id, 'channel_id'):
+        #sender_id = message.to_id.channel_id
+    #else:
+       # sender_id = 'Admin'
     username = message.sender.username if hasattr(message.sender, 'username') else None
     first_name = message.sender.first_name if hasattr(message.sender, 'first_name') else None
     last_name = message.sender.last_name if hasattr(message.sender, 'last_name') else None
