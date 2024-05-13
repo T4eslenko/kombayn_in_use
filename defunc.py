@@ -64,7 +64,7 @@ def get_media(media):
             if isinstance(attribute, DocumentAttributeFilename):
                 mediatype = attribute.file_name
                 return mediatype
-    return None
+    return mediatype
 
 def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_title, userid, userinfo):
     wb = Workbook()
