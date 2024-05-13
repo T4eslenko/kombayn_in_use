@@ -31,12 +31,11 @@ def get_message_info(message):
     # Получение информации о сообщении
     if message is None:
         return None, None, None, None, None, None, None, None, None
-    user_id = message.sender_id if hasattr(message, 'sender_id') else None
+    sender_id = message.sender_id if hasattr(message, 'sender_id') else None
     username = message.sender.username if hasattr(message.sender, 'username') else None
     first_name = message.sender.first_name if hasattr(message.sender, 'first_name') else None
     last_name = message.sender.last_name if hasattr(message.sender, 'last_name') else None
     date = message.date
-    #media = message.media if isinstance(message.media, MessageMediaDocument) else None
     text = message.text
     fwd_user_id = message.fwd_from.from_id.user_id if isinstance(message.fwd_from, MessageFwdHeader) and hasattr(message.fwd_from.from_id, 'user_id') else None
     fwd_channel_id = message.fwd_from.from_id.channel_id if isinstance(message.fwd_from, MessageFwdHeader) and hasattr(message.fwd_from.from_id, 'channel_id') and isinstance(message.fwd_from.from_id, PeerChannel) else None
@@ -54,7 +53,7 @@ def get_message_info(message):
                 for attribute in message.media.document.attributes:
                     if isinstance(attribute, types.DocumentAttributeFilename):
                         document_name = attribute.file_name
-                        media_type = f"Document: {document_name}"
+                        media_type = f"File: {document_name}"
                         break
             elif isinstance(message.media, types.MessageMediaWebPage):
                 media_type = 'WebPage'
@@ -76,20 +75,8 @@ def get_message_info(message):
                 media_type = 'PhotoExternal'
             else:
                 media_type = 'Unknown'    
-    return user_id, username, first_name, last_name, date, text, media_type, fwd_source_id, fwd_date
+    return sender_id, username, first_name, last_name, date, text, media_type, fwd_source_id, fwd_date
 
-#def get_media(media):
- #   if media and media.document:
-  #      for attribute in media.document.attributes:
-   #         if isinstance(attribute, DocumentAttributeFilename):
-    #            mediatype = attribute.file_name
-     #           return mediatype    
-    #if Message.media and hasattr(message.fwd_from.from_id, 'user_id'):
-     #   mediatype = 'media'
-      #  print(mediatype)
-       # input('mediatype')
-    #return None
-    
 def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_title, userid, userinfo):
     wb = Workbook()
     ws = wb.active
@@ -103,8 +90,7 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
         if not hasattr(message, 'sender'):
             continue
         # Основная информация о сообщении
-        user_id, username, first_name, last_name, date, text, media_type, fwd_source_id, fwd_date = get_message_info(message)
-        #mediatype = get_media(media)
+        sender_id, username, first_name, last_name, date, text, media_type, fwd_source_id, fwd_date = get_message_info(message)
         if date is None:
             continue
         row_data = [
@@ -112,7 +98,7 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
             message.chat_id,
             message.id,
             remove_timezone(date),
-            user_id,
+            sender_id,
             f"@{username}" if username else None,
             first_name,
             last_name,
@@ -120,24 +106,24 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
             #get_media(media)
             media_type
         ]
-        participants_from_messages.add(user_id)
+        participants_from_messages.add(sender_id)
 
         # Если сообщение является ответом на другое сообщение
         if isinstance(message.reply_to_msg_id, int):
             reply_msg_id = message.reply_to_msg_id
-            reply_user_id, reply_username, reply_first_name, reply_last_name, reply_date, reply_text, reply_media_type, fwd_source_id, fwd_date = get_message_info(client.get_messages(group_title, ids=[reply_msg_id])[0])
+            reply_sender_id, reply_username, reply_first_name, reply_last_name, reply_date, reply_text, reply_media_type, fwd_source_id, fwd_date = get_message_info(client.get_messages(group_title, ids=[reply_msg_id])[0])
             if reply_date is None:
                 continue
             row_data.extend([
                 reply_text,
-                reply_user_id,
+                reply_sender_id,
                 f"@{reply_username}" if reply_username else None,
                 reply_first_name,
                 reply_last_name,
                 reply_msg_id,
                 remove_timezone(reply_date)
             ])
-            participants_from_messages.add(reply_user_id)
+            participants_from_messages.add(reply_sender_id)
         else:
             row_data.extend([None] * 7)
             
