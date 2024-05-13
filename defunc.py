@@ -84,8 +84,7 @@ def get_message_info(message):
     reactions = message.reactions
     if reactions:
         for reaction in reactions.results:
-            for user_reaction in reaction.recent_reactions:
-                reaction_info.append(f"{user_reaction.peer_id.user_id}:{reaction.reaction}")
+            reaction_info.extend([f"{user_reaction.peer_id.user_id}:{reaction.reaction}" for user_reaction in reaction.recent_reactions])
     # Преобразование списка в строку
     reaction_info = ", ".join(reaction_info)
 
