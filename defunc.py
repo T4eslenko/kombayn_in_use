@@ -83,7 +83,7 @@ def get_message_info(message):
     reaction_info = []
     reactions = message.reactions
     if reactions:
-        for reaction in reactions:
+        for reaction in reactions.results:
             reacted_users = []
             for user_reaction in reaction.recent_repliers:
                 reacted_users.append(str(user_reaction.peer_id.user_id))
