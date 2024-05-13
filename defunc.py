@@ -80,9 +80,9 @@ def get_message_info(message):
             media_type = 'Unknown'
 
     # Получение информации о реакции
+    reaction_info = ""
     reactions = message.reactions
     if reactions:
-        reaction_info = ""
         for reaction in reactions.results:
             user_id = reaction.replies.peer_id.user_id
             reaction_emoji = reaction.replies.reaction.emoticon
