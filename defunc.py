@@ -51,8 +51,11 @@ def get_message_info(message):
             if isinstance(message.media, types.MessageMediaPhoto):
                 media_type = 'Photo'
             elif isinstance(message.media, types.MessageMediaDocument):
-                document_name = message.media.document.attributes[0].file_name
-                media_type = f"Document: {document_name}"
+                for attribute in message.media.document.attributes:
+                    if isinstance(attribute, types.DocumentAttributeFilename):
+                        document_name = message.media.document.attributes[0].file_name
+                        media_type = f"Document: {document_name}"
+                        break
             elif isinstance(message.media, types.MessageMediaWebPage):
                 media_type = 'WebPage'
             elif isinstance(message.media, types.MessageMediaContact):
