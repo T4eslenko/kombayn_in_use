@@ -80,10 +80,10 @@ def get_message_info(message):
             media_type = 'Unknown'
 
     # Получение информации о реакции
-    reaction = message.reactions
     reaction_info = []
+    reaction = message.reactions
     if reaction is not None:
-        for user, reacted in reaction.users.items():
+        for user, reacted in reaction.items():
             reaction_info.append(f"{user}:{reacted}")
 
     return sender_id, username, first_name, last_name, date, text, media_type, fwd_source_id, fwd_date, ", ".join(reaction_info)
