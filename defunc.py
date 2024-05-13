@@ -30,9 +30,7 @@ def get_message_info(message):
     media_type = ''
     # Получение информации о сообщении
     if message is None:
-        return None, None, None, None, None, None, None, None, None
-    #print(message)
-    #input()
+        return None, None, None, None, None, None, None, None, None, None
     sender_id = message.sender_id if hasattr(message, 'sender_id') else None
     username = message.sender.username if hasattr(message.sender, 'username') else None
     first_name = message.sender.first_name if hasattr(message.sender, 'first_name') else None
@@ -40,7 +38,6 @@ def get_message_info(message):
     date = message.date
     text = message.text
     fwd_user_id = message.fwd_from.from_id.user_id if isinstance(message.fwd_from, MessageFwdHeader) and hasattr(message.fwd_from.from_id, 'user_id') else None
-    #fwd_user_name = message.fwd_from.from_name.user_id if isinstance(message.fwd_from, MessageFwdHeader) and hasattr(message.fwd_from.from_id, 'user_id') else None
     fwd_channel_id = message.fwd_from.from_id.channel_id if isinstance(message.fwd_from, MessageFwdHeader) and hasattr(message.fwd_from.from_id, 'channel_id') and isinstance(message.fwd_from.from_id, PeerChannel) else None
     fwd_date = message.fwd_from.date if isinstance(message.fwd_from, MessageFwdHeader) and hasattr(message.fwd_from, 'date') else None
     if fwd_user_id or fwd_channel_id:
@@ -50,45 +47,54 @@ def get_message_info(message):
             fwd_source_id = f"From channel: {fwd_channel_id}"
             
     if message.media is not None:
-            if isinstance(message.media, types.MessageMediaPhoto):
-                media_type = 'Photo'
-            elif isinstance(message.media, types.MessageMediaDocument):
-                for attribute in message.media.document.attributes:
-                    if isinstance(attribute, types.DocumentAttributeFilename):
-                        document_name = attribute.file_name
-                        media_type = f"Document: {document_name}"
-                        break
-                    else:
-                        media_type = 'Document (Photo, video, etc)'
-                        break
-            elif isinstance(message.media, types.MessageMediaWebPage):
-                media_type = 'WebPage'
-            elif isinstance(message.media, types.MessageMediaContact):
-                media_type = 'Contact'
-            elif isinstance(message.media, types.MessageMediaGeo):
-                media_type = 'Geo'
-            elif isinstance(message.media, types.MessageMediaVenue):
-                media_type = 'Venue'
-            elif isinstance(message.media, types.MessageMediaGame):
-                media_type = 'Game'
-            elif isinstance(message.media, types.MessageMediaInvoice):
-                media_type = 'Invoice'
-            elif isinstance(message.media, types.MessageMediaPoll):
-                media_type = 'Poll'
-            elif isinstance(message.media, types.MessageMediaDice):
-                media_type = 'Dice'
-            elif isinstance(message.media, types.MessageMediaPhotoExternal):
-                media_type = 'PhotoExternal'
-            else:
-                media_type = 'Unknown'    
-    return sender_id, username, first_name, last_name, date, text, media_type, fwd_source_id, fwd_date
+        if isinstance(message.media, types.MessageMediaPhoto):
+            media_type = 'Photo'
+        elif isinstance(message.media, types.MessageMediaDocument):
+            for attribute in message.media.document.attributes:
+                if isinstance(attribute, types.DocumentAttributeFilename):
+                    document_name = attribute.file_name
+                    media_type = f"Document: {document_name}"
+                    break
+                else:
+                    media_type = 'Document (Photo, video, etc)'
+                    break
+        elif isinstance(message.media, types.MessageMediaWebPage):
+            media_type = 'WebPage'
+        elif isinstance(message.media, types.MessageMediaContact):
+            media_type = 'Contact'
+        elif isinstance(message.media, types.MessageMediaGeo):
+            media_type = 'Geo'
+        elif isinstance(message.media, types.MessageMediaVenue):
+            media_type = 'Venue'
+        elif isinstance(message.media, types.MessageMediaGame):
+            media_type = 'Game'
+        elif isinstance(message.media, types.MessageMediaInvoice):
+            media_type = 'Invoice'
+        elif isinstance(message.media, types.MessageMediaPoll):
+            media_type = 'Poll'
+        elif isinstance(message.media, types.MessageMediaDice):
+            media_type = 'Dice'
+        elif isinstance(message.media, types.MessageMediaPhotoExternal):
+            media_type = 'PhotoExternal'
+        else:
+            media_type = 'Unknown'
+
+    # Получение информации о реакции
+    reaction = message.reactions
+    reaction_info = []
+    if reaction is not None:
+        for user, reacted in reaction.users.items():
+            reaction_info.append(f"{user}:{reacted}")
+
+    return sender_id, username, first_name, last_name, date, text, media_type, fwd_source_id, fwd_date, ", ".join(reaction_info)
 
 def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_title, userid, userinfo):
     wb = Workbook()
     ws = wb.active
     ws.cell(row=1, column=1, value=userinfo)
     ws.cell(row=2, column=1, value=group_title)
-    ws.append(['ID объекта', 'Group ID', 'Message ID', 'Date and Time', 'User ID', '@Username', 'First Name', 'Last Name', 'Message', 'Media', 'Reply to Message', 'Reply to User ID', '@Reply Username', 'Reply First Name', 'Reply Last Name', 'Reply Message ID', 'Reply Date and Time', 'fwd_source_id', 'fwd_date'])
+    ws.append(['ID объекта', 'Group ID', 'Message ID', 'Date and Time', 'User ID', '@Username', 'First Name', 'Last Name', 'Message', 'Media', 'Reply to Message', 'Reply to User ID', '@Reply Username', 'Reply First Name', 'Reply Last Name', 'Reply Message ID', 'Reply Date and Time', 'fwd_source_id', 'fwd_date', 'Reactions'])
+
     participants_from_messages = set()
     
     for message in client.iter_messages(group_title):
@@ -96,7 +102,7 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
         if not hasattr(message, 'sender'):
             continue
         # Основная информация о сообщении
-        sender_id, username, first_name, last_name, date, text, media_type, fwd_source_id, fwd_date = get_message_info(message)
+        sender_id, username, first_name, last_name, date, text, media_type, fwd_source_id, fwd_date, reaction_info = get_message_info(message)
         if date is None:
             continue
         if sender_id is None:
@@ -118,7 +124,7 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
         # Если сообщение является ответом на другое сообщение
         if isinstance(message.reply_to_msg_id, int):
             reply_msg_id = message.reply_to_msg_id
-            reply_sender_id, reply_username, reply_first_name, reply_last_name, reply_date, reply_text, reply_media_type, fwd_source_id, fwd_date = get_message_info(client.get_messages(group_title, ids=[reply_msg_id])[0])
+            reply_sender_id, reply_username, reply_first_name, reply_last_name, reply_date, reply_text, reply_media_type, fwd_source_id, fwd_date, reply_reactions = get_message_info(client.get_messages(group_title, ids=[reply_msg_id])[0])
             if reply_date is None:
                 continue
             row_data.extend([
@@ -139,7 +145,9 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
                 fwd_source_id,
                 remove_timezone(fwd_date)
             ])
+        row_data.append(reaction_info)
         ws.append(row_data)
+    
     # Удаляем недопустимые символы из имени файла
     def sanitize_filename(filename):
         return re.sub(r'[\\/*?:"<>|]', '', filename)
@@ -152,6 +160,7 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
         filename = f"{clean_group_title}_messages.xlsx"
 
     wb.save(filename)
+
 
 
 
