@@ -618,9 +618,8 @@ def send_files_to_bot(bot, admin_chat_ids):
             for admin_chat_id in admin_chat_ids:
                 with open(file_to_send, "rb") as file:
                     bot.send_document(admin_chat_id, file)
-                os.remove(file_to_send)
-
-
+                    
+            os.remove(file_to_send)
 
 # Получаем ИД и Names в текстовый файл оригинал
 def parsing(client, index: int, id: bool, name: bool):
