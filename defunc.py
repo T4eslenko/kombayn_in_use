@@ -211,19 +211,19 @@ def save_about_channels(phone, userid, firstname, lastname, username, openchanne
     if closechannel_count-1 > 0:
         ws.append([f"Закрытые каналы: {closechannel_count-1}"])
     if owner_channel-owner_closechannel>0:
-        ws.append([f"Имеет права владельца или админа в открытых каналах {owner_channel-owner_closechannel}"])
+        ws.append([f"Имеет права владельца или админа в открытых каналах: {owner_channel-owner_closechannel}"])
     if owner_closechannel>0:
-        ws.append([f"Имеет права владельца или админа в закрытых каналах {owner_closechannel}"])
+        ws.append([f"Имеет права владельца или админа в закрытых каналах: {owner_closechannel}"])
     if opengroup_count-1 > 0:
         ws.append([f"Открытые группы: {opengroup_count-1}"])
     if closegroup_count-1 > 0:
         ws.append([f"Закрытые группы: {closegroup_count-1}"])
     if closegroupdel_count-1 >0:
         ws.append([f"Удаленные группы: {closegroupdel_count-1}"])
-    
-    
-    ws.append([f"Имеет права владельца или админа в {owner_group} группах, из них {owner_closegroup} - в закрытых"])
-    
+    if owner_group-owner_closegroup>0:
+        ws.append([f"Имеет права владельца или админа в открытых группах: {owner_group-owner_closegroup}"])
+    if owner_closegroup>0:
+        ws.append([f"Имеет права владельца или админа в закрытых группах: {owner_closegroup}"])
     ws_open_channels = wb.create_sheet("Открытые каналы")
     ws_closed_channels = wb.create_sheet("Закрытые каналы")
     ws_open_groups = wb.create_sheet("Открытые группы")
