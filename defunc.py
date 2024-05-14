@@ -204,28 +204,30 @@ def choice_akk(api_id, api_hash, header):
 #Запись информации о группах в файл
 def save_about_channels(phone, userid, firstname, lastname, username, openchannel_count, opengroup_count, closechannel_count, closegroup_count, owner_channel, owner_closechannel, owner_group, owner_closegroup, openchannels, closechannels, openchats, closechats, delgroups, closegroupdel_count):
     wb = openpyxl.Workbook()
-    ws = wb.active
-    ws.append([f"Номер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}"])
+    ws_summury = wb.create_sheet("Сводная информация")
+    ws_summury.append([f"Номер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}"])
     if openchannel_count-1 > 0:
-        ws.append([f"Открытые каналы: {openchannel_count-1}"])
+        ws_summury.append([f"Открытые каналы: {openchannel_count-1}"])
+        ws_open_channels = wb.create_sheet("Открытые каналы")
     if closechannel_count-1 > 0:
-        ws.append([f"Закрытые каналы: {closechannel_count-1}"])
+        ws_summury.append([f"Закрытые каналы: {closechannel_count-1}"])
+        ws_closed_channels = wb.create_sheet("Закрытые каналы")
     if owner_channel-owner_closechannel>0:
-        ws.append([f"Имеет права владельца или админа в открытых каналах: {owner_channel-owner_closechannel}"])
+        ws_summury.append([f"Имеет права владельца или админа в открытых каналах: {owner_channel-owner_closechannel}"])
     if owner_closechannel>0:
-        ws.append([f"Имеет права владельца или админа в закрытых каналах: {owner_closechannel}"])
+        ws_summury.append([f"Имеет права владельца или админа в закрытых каналах: {owner_closechannel}"])
     if opengroup_count-1 > 0:
-        ws.append([f"Открытые группы: {opengroup_count-1}"])
+        ws_summury.append([f"Открытые группы: {opengroup_count-1}"])
     if closegroup_count-1 > 0:
-        ws.append([f"Закрытые группы: {closegroup_count-1}"])
+        ws_summury.append([f"Закрытые группы: {closegroup_count-1}"])
     if closegroupdel_count-1 >0:
-        ws.append([f"Удаленные группы: {closegroupdel_count-1}"])
+        ws_summury.append([f"Удаленные группы: {closegroupdel_count-1}"])
     if owner_group-owner_closegroup>0:
-        ws.append([f"Имеет права владельца или админа в открытых группах: {owner_group-owner_closegroup}"])
+        ws_summury.append([f"Имеет права владельца или админа в открытых группах: {owner_group-owner_closegroup}"])
     if owner_closegroup>0:
-        ws.append([f"Имеет права владельца или админа в закрытых группах: {owner_closegroup}"])
-    ws_open_channels = wb.create_sheet("Открытые каналы")
-    ws_closed_channels = wb.create_sheet("Закрытые каналы")
+        ws_summury.append([f"Имеет права владельца или админа в закрытых группах: {owner_closegroup}"])
+    
+    
     ws_open_groups = wb.create_sheet("Открытые группы")
     ws_closed_groups = wb.create_sheet("Закрытые группы")
     ws_closed_groups_del = wb.create_sheet("Удаленные группы")
