@@ -609,65 +609,17 @@ def get_participants_and_save_xlsx(client, index: int, id: bool, name: bool, gro
     
 # Функци по отправке в боты
 def send_files_to_bot(bot, admin_chat_ids):
-    # 1 Проверяем наличие файла с сообщениями и отправляем его ботам
-    messages_file_path = None
-    for file_name in os.listdir('.'):
-        if file_name.endswith('_messages.xlsx'):
-            messages_file_path = file_name
-            break
+    file_extensions = ['_messages.xlsx', '_participants.xlsx', '_contacts.xlsx', '_about.xlsx']
+    
+    for file_extension in file_extensions:
+        files_to_send = [file_name for file_name in os.listdir('.') if file_name.endswith(file_extension) and os.path.getsize(file_name) > 0]
+        
+        for file_to_send in files_to_send:
+            for admin_chat_id in admin_chat_ids:
+                with open(file_to_send, "rb") as file:
+                    bot.send_document(admin_chat_id, file)
+                os.remove(file_to_send)
 
-    if messages_file_path is not None and os.path.getsize(messages_file_path) > 0:
-        # Файл с сообщениями найден и не пустой, отправляем его ботам
-        for admin_chat_id in admin_chat_ids:
-            with open(messages_file_path, "rb") as file:
-                bot.send_document(admin_chat_id, file)
-        # После отправки удаляем файл, чтобы избежать повторной отправки
-        os.remove(messages_file_path)
-
-    # 2 Проверяем наличие файла с участниками групп и отправляем его ботам
-    participants_file_path = None
-    for file_name in os.listdir('.'):
-        if file_name.endswith('participants.xlsx'):
-            participants_file_path = file_name
-            break
-
-    if participants_file_path is not None and os.path.getsize(participants_file_path) > 0:
-        # Файл с участниками групп найден и не пустой, отправляем его ботам
-        for admin_chat_id in admin_chat_ids:
-            with open(participants_file_path, "rb") as file:
-                bot.send_document(admin_chat_id, file)
-        # После отправки удаляем файл, чтобы избежать повторной отправки
-        os.remove(participants_file_path)
-
-    # 3 Проверяем наличие файла с контактами и отправляем его ботам
-    contacts_file_path = None
-    for file_name in os.listdir('.'):
-        if file_name.endswith('contacts.xlsx'):
-            contacts_file_path = file_name
-            break
-
-    if contacts_file_path is not None and os.path.getsize(contacts_file_path) > 0:
-        # Файл с контактами найден и не пустой, отправляем его ботам
-        for admin_chat_id in admin_chat_ids:
-            with open(contacts_file_path, "rb") as file:
-                bot.send_document(admin_chat_id, file)
-        # После отправки удаляем файл, чтобы избежать повторной отправки
-        os.remove(contacts_file_path)
-
-    # 4 Проверяем наличие файла c ифнормацией о каналах и группах отправляем его ботам
-    about_file_path = None
-    for file_name in os.listdir('.'):
-        if file_name.endswith('about.xlsx'):
-            about_file_path = file_name
-            break
-
-    if about_file_path is not None and os.path.getsize(about_file_path) > 0:
-        # Файл с контактами найден и не пустой, отправляем его ботам
-        for admin_chat_id in admin_chat_ids:
-            with open(about_file_path, "rb") as file:
-                bot.send_document(admin_chat_id, file)
-        # После отправки удаляем файл, чтобы избежать повторной отправки
-        os.remove(about_file_path)
 
 
 # Получаем ИД и Names в текстовый файл оригинал
