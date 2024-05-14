@@ -204,6 +204,7 @@ def choice_akk(api_id, api_hash, header):
 #Запись информации о группах в файл
 def save_about_channels(phone, userid, firstname, lastname, username, openchannel_count, opengroup_count, closechannel_count, closegroup_count, owner_channel, owner_closechannel, owner_group, owner_closegroup, openchannels, closechannels, openchats, closechats, delgroups, closegroupdel_count):
     wb = openpyxl.Workbook()
+    wb.remove(wb.active)
     ws_summury = wb.create_sheet("Сводная информация")
     ws_summury.append([f"Номер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}"])
     if openchannel_count-1 > 0:
