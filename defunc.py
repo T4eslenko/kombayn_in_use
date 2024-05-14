@@ -209,33 +209,32 @@ def save_about_channels(phone, userid, firstname, lastname, username, openchanne
     if openchannel_count-1 > 0:
         ws_summury.append([f"Открытые каналы: {openchannel_count-1}"])
         ws_open_channels = wb.create_sheet("Открытые каналы")
+        write_data(ws_open_channels, openchannels)
     if closechannel_count-1 > 0:
         ws_summury.append([f"Закрытые каналы: {closechannel_count-1}"])
         ws_closed_channels = wb.create_sheet("Закрытые каналы")
+        write_data(ws_closed_channels, closechannels)
     if owner_channel-owner_closechannel>0:
         ws_summury.append([f"Имеет права владельца или админа в открытых каналах: {owner_channel-owner_closechannel}"])
     if owner_closechannel>0:
         ws_summury.append([f"Имеет права владельца или админа в закрытых каналах: {owner_closechannel}"])
     if opengroup_count-1 > 0:
         ws_summury.append([f"Открытые группы: {opengroup_count-1}"])
+        ws_open_groups = wb.create_sheet("Открытые группы")
+        write_data(ws_open_groups, openchats)
     if closegroup_count-1 > 0:
         ws_summury.append([f"Закрытые группы: {closegroup_count-1}"])
+        ws_closed_groups = wb.create_sheet("Закрытые группы")
+        write_data(ws_closed_groups, closechats)
     if closegroupdel_count-1 >0:
         ws_summury.append([f"Удаленные группы: {closegroupdel_count-1}"])
+        ws_closed_groups_del = wb.create_sheet("Удаленные группы")
+        write_data_del(ws_closed_groups_del, delgroups)
     if owner_group-owner_closegroup>0:
         ws_summury.append([f"Имеет права владельца или админа в открытых группах: {owner_group-owner_closegroup}"])
     if owner_closegroup>0:
         ws_summury.append([f"Имеет права владельца или админа в закрытых группах: {owner_closegroup}"])
     
-    
-    ws_open_groups = wb.create_sheet("Открытые группы")
-    ws_closed_groups = wb.create_sheet("Закрытые группы")
-    ws_closed_groups_del = wb.create_sheet("Удаленные группы")
-    write_data(ws_open_channels, openchannels)
-    write_data(ws_closed_channels, closechannels)
-    write_data(ws_open_groups, openchats)
-    write_data(ws_closed_groups, closechats)
-    write_data_del(ws_closed_groups_del, delgroups)
     wb.save(f"{phone}_about.xlsx")
 
 def write_data(sheet, data):
