@@ -206,11 +206,17 @@ def save_about_channels(phone, userid, firstname, lastname, username, openchanne
     wb = openpyxl.Workbook()
     ws = wb.active
     ws.append([f"Номер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}"])
-    ws.append([f"Открытые каналы: {openchannel_count-1}"])
-    ws.append([f"Открытые группы: {opengroup_count-1}"])
-    ws.append([f"Закрытые каналы: {closechannel_count-1}"])
-    ws.append([f"Закрытые группы: {closegroup_count-1}"])
-    ws.append([f"Удаленные группы: {closegroupdel_count-1}"])
+    if openchannel_count-1 > 0:
+        ws.append([f"Открытые каналы: {openchannel_count-1}"])
+    if closechannel_count-1 > 0:
+        ws.append([f"Закрытые каналы: {closechannel_count-1}"])
+    if opengroup_count-1 > 0:
+        ws.append([f"Открытые группы: {opengroup_count-1}"])
+    if closegroup_count-1 > 0:
+        ws.append([f"Закрытые группы: {closegroup_count-1}"])
+    if closegroupdel_count-1 >0:
+        ws.append([f"Удаленные группы: {closegroupdel_count-1}"])
+    
     ws.append([f"Имеет права владельца или админа в {owner_channel} каналах, из них {owner_closechannel} - в закрытых"])
     ws.append([f"Имеет права владельца или админа в {owner_group} группах, из них {owner_closegroup} - в закрытых"])
     
