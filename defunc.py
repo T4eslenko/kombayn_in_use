@@ -855,7 +855,7 @@ def getoptions():
     return options
 
 def getsessions():
-    sesions = []
+    sessions = []
     for file in os.listdir('.'):
         if file.endswith('.session'):
             sessions.append(file)
