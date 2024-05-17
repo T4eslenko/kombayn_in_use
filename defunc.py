@@ -648,6 +648,7 @@ def parsing(client, index: int, id: bool, name: bool):
 
 def add_account(api_id, api_hash, selection, bot, admin_chat_ids):
             options = getoptions()
+            sessions = getsessions()
             os.system('cls||clear')
             if options[0] == "NONEID\n" or options[1] == "NONEHASH":
                 print("Проверьте api_id и api_hash")
@@ -723,10 +724,7 @@ def config(api_id, api_hash, selection, bot, admin_chat_ids):
                 continue
                 
         options = getoptions()
-        sessions = []
-        for file in os.listdir('.'):
-            if file.endswith('.session'):
-                sessions.append(file)
+        sessions = getsessions()
 
         prompt_message = (
             f"\033[35m1 - Обновить api_id \033[0m\033[37m[{options[0].rstrip()}]\033[0m\n"
@@ -855,3 +853,10 @@ def getoptions():
     with open('options.txt', 'r') as f:
         options = f.readlines()
     return options
+
+def getsessions():
+    sesions = []
+    for file in os.listdir('.'):
+        if file.endswith('.session'):
+            sessions.append(file)
+    return sessions
