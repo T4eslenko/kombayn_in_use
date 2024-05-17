@@ -61,7 +61,7 @@ if __name__ == "__main__":
                             "\n"
                             f"\033[4m{color.CYAN}Выгрузить в EXCEL:{color.END}\033[0m\n"
                             f"{color.DARKCYAN}4 - КОНТАКТЫ{color.END}\n"
-                            f"{color.DARKCYAN}5 - Информация о каналах и группах{color.END}\n"
+                            f"{color.DARKCYAN}5 - Информацию о КАНАЛАХ и ГРУППАХ{color.END}\n"
                             f"{color.DARKCYAN}6 - УЧАСТНИКОВ чата{color.END}\n"
                             f"{color.DARKCYAN}7 - СООБЩЕНИЯ из канала или СОБЩЕНИЯ и УЧАСТНИКОВ чата {color.END}\n"  
                             "\n"  
@@ -295,6 +295,9 @@ if __name__ == "__main__":
 
         elif selection == '9':
            add_account(api_id, api_hash, selection, bot, admin_chat_ids)
+
+        elif selection == '10':
+           remouve_account(api_id, api_hash, selection, bot, admin_chat_ids)
            
 # Выход
         elif selection == 'e':
