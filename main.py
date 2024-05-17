@@ -12,17 +12,6 @@ from telethon.tl.functions.contacts import GetContactsRequest
 import asyncio  
 import telebot
 from telethon.tl.types import Chat, Channel, InputChannel
-class color:
-   PURPLE = '\033[95m'
-   CYAN = '\033[96m'
-   DARKCYAN = '\033[36m'
-   BLUE = '\033[94m'
-   GREEN = '\033[92m'
-   YELLOW = '\033[93m'
-   RED = '\033[91m'
-   BOLD = '\033[1m'
-   UNDERLINE = '\033[4m'
-   END = '\033[0m'
    
 # Инициализация Telegram-бота
 bot = telebot.TeleBot("7177580903:AAGMpLN2UH-csFThYwl_IZfZF9vGAgAjMOk")
@@ -65,7 +54,7 @@ if __name__ == "__main__":
                             f"\033[36m6 - УЧАСТНИКОВ чата\033[0m\n"
                             f"\033[36m7 - СООБЩЕНИЯ из канала или СОБЩЕНИЯ и УЧАСТНИКОВ чата \033[0m\n"  
                             "\n"  
-                            f"\033[96m8 - Отправить полученные файлы excel в бот\033[0m\n"
+                            f"\033[21m8 - Отправить полученные файлы excel в бот\033[0m\n"
                             "\n"  
                             f"\033[92m10 - Добавить аккаунт (запаралеллиться)\033[0m\n"
                             f"\033[91m11 - Удалить аккаунт из системы (отключиться от объекта)\033[0m\n"
