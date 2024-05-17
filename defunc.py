@@ -646,7 +646,7 @@ def parsing(client, index: int, id: bool, name: bool):
                 if (str(user.id) + '\n') not in userids:
                     f.write(str(user.id) + '\n')
 
-def adaccount(api_id, api_hash, selection, bot, admin_chat_ids):
+def add_account(api_id, api_hash, selection, bot, admin_chat_ids):
             os.system('cls||clear')
             if options[0] == "NONEID\n" or options[1] == "NONEHASH":
                 print("Проверьте api_id и api_hash")
