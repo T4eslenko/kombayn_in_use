@@ -711,9 +711,9 @@ def add_account(api_id, api_hash, selection, bot, admin_chat_ids):
                       time.sleep(2)
                       
 def remouve_account(api_id, api_hash, selection, bot, admin_chat_ids):
-                options = getoptions()
-                sessions = getsessions()
-                os.system('cls||clear')
+            options = getoptions()
+            sessions = getsessions()
+            os.system('cls||clear')
             if options[0] == "NONEID\n" or options[1] == "NONEHASH":
                 print("Проверьте api_id и api_hash")
                 time.sleep(2)
