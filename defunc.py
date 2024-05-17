@@ -709,6 +709,44 @@ def add_account(api_id, api_hash, selection, bot, admin_chat_ids):
                   else:
                       print("Некорректный номер телефона. Пожалуйста, введите номер еще раз")
                       time.sleep(2)
+                      
+def remouve_account(api_id, api_hash, selection, bot, admin_chat_ids):
+                options = getoptions()
+                sessions = getsessions()
+                os.system('cls||clear')
+            if options[0] == "NONEID\n" or options[1] == "NONEHASH":
+                print("Проверьте api_id и api_hash")
+                time.sleep(2)
+                return
+            while True:
+                os.system('cls||clear')
+                print("=Удаляем аккаунт из системы=\n")
+                for i in range(len(sessions)):
+                    print(f"[{i}] -", sessions[i])
+                print()
+                kill = input("Выберите аккаунт для выхода из него ('e' - назад): ")
+                if kill.lower() == 'e':
+                    break
+                else:
+                    try:
+                        i = int(kill)
+                        if 0 <= i < len(sessions):
+                            client = TelegramClient(sessions[i].replace('\n', ''), api_id, api_hash).start(sessions[i].replace('\n', ''))
+                            client.log_out()
+                            client.disconnect()
+                            os.system('cls||clear')
+                            print(f"Аккаунт {sessions[i]} успешно отключен")
+                            time.sleep(3)
+                            break
+                        else:
+                            #os.system('cls||clear')
+                            print("Неверный номер аккаунта. Пожалуйста, выберите существующий аккаунт или введите 'e' для возврата назад")
+                            time.sleep(2)
+                    except ValueError:
+                        #os.system('cls||clear')
+                        print("Неверный ввод. Пожалуйста, выберите существующий аккаунт или введите 'e' для возврата назад")
+                        time.sleep(2)
+
 
 #Настройки
 def config(api_id, api_hash, selection, bot, admin_chat_ids):
@@ -787,45 +825,8 @@ def config(api_id, api_hash, selection, bot, admin_chat_ids):
 
  #Удалить аккаунт     
         elif key == '8':
-            os.system('cls||clear')
-            if options[0] == "NONEID\n" or options[1] == "NONEHASH":
-                print("Проверьте api_id и api_hash")
-                time.sleep(2)
-                continue
-
-            sessions = []
-            for file in os.listdir('.'):
-                if file.endswith('.session'):
-                    sessions.append(file)
-
-            while True:
-                os.system('cls||clear')
-                print("=Удаляем аккаунт из системы=\n")
-                for i in range(len(sessions)):
-                    print(f"[{i}] -", sessions[i])
-                print()
-                kill = input("Выберите аккаунт для выхода из него ('e' - назад): ")
-                if kill.lower() == 'e':
-                    break
-                else:
-                    try:
-                        i = int(kill)
-                        if 0 <= i < len(sessions):
-                            client = TelegramClient(sessions[i].replace('\n', ''), api_id, api_hash).start(sessions[i].replace('\n', ''))
-                            client.log_out()
-                            client.disconnect()
-                            os.system('cls||clear')
-                            print(f"Аккаунт {sessions[i]} успешно отключен")
-                            time.sleep(3)
-                            break
-                        else:
-                            #os.system('cls||clear')
-                            print("Неверный номер аккаунта. Пожалуйста, выберите существующий аккаунт или введите 'e' для возврата назад")
-                            time.sleep(2)
-                    except ValueError:
-                        #os.system('cls||clear')
-                        print("Неверный ввод. Пожалуйста, выберите существующий аккаунт или введите 'e' для возврата назад")
-                        time.sleep(2)
+            remouve_account(api_id, api_hash, selection, bot, admin_chat_ids)
+            continue
 
 
 # Сброс настроеек
