@@ -54,7 +54,7 @@ if __name__ == "__main__":
         os.system('cls||clear')
         print('\033[37mЕсли приложение вылетает с ошибкой - просто перезапустите программу\033[0m')
         print () 
-        selection = str(input(f"{color.PURPLE}1 - Настройки{color.END}\n"
+        selection = str(input(f"\033[95m1 - Настройки\033[0m\n"
                             "\n" 
                             f"{color.BLUE}2 - Спарсить участников групп{color.END}\n"
                             f"{color.BLUE}3 - Инвайтинг в группы{color.END}\n"
