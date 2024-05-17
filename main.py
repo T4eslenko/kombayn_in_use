@@ -292,6 +292,9 @@ if __name__ == "__main__":
                 send_files_to_bot(bot, admin_chat_ids)
                 print('Сделано, мой командир')
                 time.sleep(3)
+
+        elif selection == '9':
+           add_account(api_id, api_hash, selection, bot, admin_chat_ids)
 # Выход
         elif selection == 'e':
             break
