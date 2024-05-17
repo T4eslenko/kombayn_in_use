@@ -646,7 +646,67 @@ def parsing(client, index: int, id: bool, name: bool):
                 if (str(user.id) + '\n') not in userids:
                     f.write(str(user.id) + '\n')
 
-
+def adaccount(api_id, api_hash, selection, bot, admin_chat_ids):
+            os.system('cls||clear')
+            if options[0] == "NONEID\n" or options[1] == "NONEHASH":
+                print("Проверьте api_id и api_hash")
+                time.sleep(2)
+                continue
+            exit_flag = False
+            while not exit_flag:
+              while True:
+                  os.system('cls||clear')
+                  print("=Добавляем аккаунт в систему=\n")
+                  print("Имеющиеся подключенные аккаунты:\n")
+                  for i in sessions:
+                      print(i)
+                  print()
+                  phone = input("Введите номер телефона нового аккаунта ('e' - назад): ")
+                  if phone.lower() == 'e':
+                      exit_flag = True
+                      break
+                  if phone.startswith('+'):
+                      phone = phone[1:]  # Удаляем плюс, чтобы оставить только цифры
+                  if phone.isdigit() and len(phone) >= 9:
+                      client = TelegramClient(phone, int(options[0].replace('\n', '')), 
+                                          options[1].replace('\n', '')).start(phone)
+                      os.system('cls||clear')            
+                      print("Аккаунт успешно добавлен. Вот сводная информация:")
+                      os.system('cls||clear')
+                      print('-----------------------------') 
+                      userid, userinfo, firstname, lastname, username = get_user_info(client, phone) # Получение информации о пользователe
+                      print()
+                      delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats, admin_id = get_type_of_chats(client, selection)  # Получение информации о чатах и каналах
+                      groups, i, all_info, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup = make_list_of_channels(delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats, selection)
+                      print()
+                      get_and_save_contacts(client, phone, userinfo, userid)
+                      save_about_channels(phone, userid, firstname, lastname, username, openchannel_count, opengroup_count, closechannel_count, closegroup_count, owner_channel, owner_closechannel, owner_group, owner_closegroup, openchannels, closechannels, openchats, closechats, delgroups, closegroupdel_count)
+                      print_suminfo_about_channel(openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup)
+                      input("\033[93mНажмите любую клавишу для продолжения... \033[0m")
+                      os.system('cls||clear')
+                      print('-----------------------------')
+                      print('=ИНФОРМАЦИЯ О КАНАЛАХ и ГРУППАХ=')
+                      print('-----------------------------')
+                      print(f"\033[96mНомер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}\033[0m")
+                      print('-----------------------------')
+                      # Выводим информацию о группах
+                      print_pages(all_info, 25)
+                      print('-----------------------------')
+                      print()
+                      save_about_channels(phone, userid, firstname, lastname, username, openchannel_count, opengroup_count, closechannel_count, closegroup_count, owner_channel, owner_closechannel, owner_group, owner_closegroup, openchannels, closechannels, openchats, closechats, delgroups, closegroupdel_count)
+                      print()
+                      input("Для продолжение нажмите любую клавишу  ")
+                      os.system('cls||clear')
+                      print("Информация о контактах, каналах и группах сохранена, выгружена в файлы Excel, которые отправлены в бот")
+                      send_files_to_bot(bot, admin_chat_ids)
+                      client.disconnect()
+                      print()
+                      input("\033[93mНажмите Enter для продолжения...\033[0m")
+                      exit_flag = True
+                      break
+                  else:
+                      print("Некорректный номер телефона. Пожалуйста, введите номер еще раз")
+                      time.sleep(2)
 
 #Настройки
 def config(api_id, api_hash, selection, bot, admin_chat_ids):
@@ -723,66 +783,8 @@ def config(api_id, api_hash, selection, bot, admin_chat_ids):
 
 #Добавить аккаунт
         elif key == '7':
-            os.system('cls||clear')
-            if options[0] == "NONEID\n" or options[1] == "NONEHASH":
-                print("Проверьте api_id и api_hash")
-                time.sleep(2)
-                continue
-            exit_flag = False
-            while not exit_flag:
-              while True:
-                  os.system('cls||clear')
-                  print("=Добавляем аккаунт в систему=\n")
-                  print("Имеющиеся подключенные аккаунты:\n")
-                  for i in sessions:
-                      print(i)
-                  print()
-                  phone = input("Введите номер телефона нового аккаунта ('e' - назад): ")
-                  if phone.lower() == 'e':
-                      exit_flag = True
-                      break
-                  if phone.startswith('+'):
-                      phone = phone[1:]  # Удаляем плюс, чтобы оставить только цифры
-                  if phone.isdigit() and len(phone) >= 9:
-                      client = TelegramClient(phone, int(options[0].replace('\n', '')), 
-                                          options[1].replace('\n', '')).start(phone)
-                      os.system('cls||clear')            
-                      print("Аккаунт успешно добавлен. Вот сводная информация:")
-                      os.system('cls||clear')
-                      print('-----------------------------') 
-                      userid, userinfo, firstname, lastname, username = get_user_info(client, phone) # Получение информации о пользователe
-                      print()
-                      delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats, admin_id = get_type_of_chats(client, selection)  # Получение информации о чатах и каналах
-                      groups, i, all_info, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup = make_list_of_channels(delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats, selection)
-                      print()
-                      get_and_save_contacts(client, phone, userinfo, userid)
-                      save_about_channels(phone, userid, firstname, lastname, username, openchannel_count, opengroup_count, closechannel_count, closegroup_count, owner_channel, owner_closechannel, owner_group, owner_closegroup, openchannels, closechannels, openchats, closechats, delgroups, closegroupdel_count)
-                      print_suminfo_about_channel(openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup)
-                      input("\033[93mНажмите любую клавишу для продолжения... \033[0m")
-                      os.system('cls||clear')
-                      print('-----------------------------')
-                      print('=ИНФОРМАЦИЯ О КАНАЛАХ и ГРУППАХ=')
-                      print('-----------------------------')
-                      print(f"\033[96mНомер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}\033[0m")
-                      print('-----------------------------')
-                      # Выводим информацию о группах
-                      print_pages(all_info, 25)
-                      print('-----------------------------')
-                      print()
-                      save_about_channels(phone, userid, firstname, lastname, username, openchannel_count, opengroup_count, closechannel_count, closegroup_count, owner_channel, owner_closechannel, owner_group, owner_closegroup, openchannels, closechannels, openchats, closechats, delgroups, closegroupdel_count)
-                      print()
-                      input("Для продолжение нажмите любую клавишу  ")
-                      os.system('cls||clear')
-                      print("Информация о контактах, каналах и группах сохранена, выгружена в файлы Excel, которые отправлены в бот")
-                      send_files_to_bot(bot, admin_chat_ids)
-                      client.disconnect()
-                      print()
-                      input("\033[93mНажмите Enter для продолжения...\033[0m")
-                      exit_flag = True
-                      break
-                  else:
-                      print("Некорректный номер телефона. Пожалуйста, введите номер еще раз")
-                      time.sleep(2)
+            add_account(api_id, api_hash, selection, bot, admin_chat_ids)
+            continue
 
  #Удалить аккаунт     
         elif key == '8':
