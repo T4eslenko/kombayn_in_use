@@ -651,7 +651,7 @@ def add_account(api_id, api_hash, selection, bot, admin_chat_ids):
             if options[0] == "NONEID\n" or options[1] == "NONEHASH":
                 print("Проверьте api_id и api_hash")
                 time.sleep(2)
-                break
+                return
             exit_flag = False
             while not exit_flag:
               while True:
