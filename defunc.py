@@ -510,6 +510,7 @@ def get_and_save_contacts(client, phone, userinfo, userid):
 def get_blocked_bot(client):
     blocked_bot_info = []
     blocked_bot_info.append(f"заблокированные БОТЫ:")
+    blocked_bot_info.append(f"-----------------------------")
     count_blocked_bot = 0
     earliest_date = None
     latest_date = None
@@ -518,7 +519,7 @@ def get_blocked_bot(client):
         if peer.peer_id.__class__.__name__ == 'PeerUser':
             user = client.get_entity(peer.peer_id.user_id)
             if user.bot:
-                blocked_bot_info.append(f"\033[36m@{user.username}\033[0m, \033[93m'{user.first_name}'\033[0m, заблокирован:{peer.date.strftime('%d/%m/%Y')}")
+                blocked_bot_info.append(f"\033[36m@{user.username}\033[0m \033[93m'{user.first_name}'\033[0m заблокирован: {peer.date.strftime('%d/%m/%Y')}")
                 if earliest_date is None or peer.date < earliest_date:
                     earliest_date = peer.date
                 if latest_date is None or peer.date > latest_date:
