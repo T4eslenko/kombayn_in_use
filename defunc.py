@@ -505,6 +505,8 @@ def get_and_save_contacts(client, phone, userinfo, userid):
     print(f"Количество контактов с номерами телефонов: {total_contacts_with_phone}")
     print(f"Количество взаимных контактов: {total_mutual_contacts}")
     print()
+    count_blocked_bot, earliest_date, latest_date = get_blocked_bot
+    input()
 
 def get_blocked_bot (client, phone, userinfo, userid):
     count_blocked_bot = 0
