@@ -24,7 +24,7 @@ def remove_ansi_color_codes(text):
     ansi_escape = re.compile(r'(?:\x1B[@-_][0-?]*[ -/]*[@-~])')
     return ansi_escape.sub('', text)
 
-def generate_html_report(phone, userid, firstname, lastname, username, total_contacts, total_contacts_with_phone, total_mutual_contacts, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup, blocked_bot_info, all_info):
+def generate_html_report(phone, userid, firstname, lastname, username, total_contacts, total_contacts_with_phone, total_mutual_contacts, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_openchannel, owner_closechannel, owner_opengroup, owner_closegroup, blocked_bot_info, all_info):
     # Открываем HTML шаблон
     with open('template.html', 'r', encoding='utf-8') as file:
         template = Template(file.read())
@@ -37,8 +37,11 @@ def generate_html_report(phone, userid, firstname, lastname, username, total_con
     all_info_html = ''.join([f"<li>{info}</li>" for info in cleaned_all_info])
 
     # Выполняем арифметические операции заранее
-    owner_open_channel_count = owner_channel - owner_closechannel
-    owner_open_group_count = owner_group - owner_closegroup
+    openchannel_count=openchannel_count-1,
+    closechannel_count=closechannel_count-1,
+    opengroup_count=opengroup_count-1,
+    closegroup_count=closegroup_count-1,
+    closegroupdel_count=closegroupdel_count-1,
 
     # Заполняем шаблон данными
     html_content = template.render(
@@ -55,7 +58,7 @@ def generate_html_report(phone, userid, firstname, lastname, username, total_con
         opengroup_count=opengroup_count,
         closegroup_count=closegroup_count,
         closegroupdel_count=closegroupdel_count,
-        owner_open_channel_count=owner_open_channel_count,
+        owner_openchannel_count=owner_openchannel_count,
         owner_closechannel=owner_closechannel,
         owner_open_group_count=owner_open_group_count,
         owner_closegroup=owner_closegroup,
@@ -253,7 +256,7 @@ def choice_akk(api_id, api_hash, header):
 
 
 #Запись информации о группах в файл
-def save_about_channels(phone, userid, firstname, lastname, username, openchannel_count, opengroup_count, closechannel_count, closegroup_count, owner_channel, owner_closechannel, owner_group, owner_closegroup, openchannels, closechannels, openchats, closechats, delgroups, closegroupdel_count):
+def save_about_channels(phone, userid, firstname, lastname, username, openchannel_count, opengroup_count, closechannel_count, closegroup_count, owner_openchannel, owner_closechannel, owner_opengroup, owner_closegroup, openchannels, closechannels, openchats, closechats, delgroups, closegroupdel_count):
     wb = openpyxl.Workbook()
     wb.remove(wb.active)
     ws_summury = wb.create_sheet("Сводная информация")
@@ -266,8 +269,8 @@ def save_about_channels(phone, userid, firstname, lastname, username, openchanne
         ws_summury.append([f"Закрытые каналы: {closechannel_count-1}"])
         ws_closed_channels = wb.create_sheet("Закрытые каналы")
         write_data(ws_closed_channels, closechannels)
-    if owner_channel-owner_closechannel>0:
-        ws_summury.append([f"Имеет права владельца или админа в открытых каналах: {owner_channel-owner_closechannel}"])
+    if owner_openchannel>0:
+        ws_summury.append([f"Имеет права владельца или админа в открытых каналах: {owner_openchannel}"])
     if owner_closechannel>0:
         ws_summury.append([f"Имеет права владельца или админа в закрытых каналах: {owner_closechannel}"])
     if opengroup_count-1 > 0:
@@ -282,8 +285,8 @@ def save_about_channels(phone, userid, firstname, lastname, username, openchanne
         ws_summury.append([f"Удаленные группы: {closegroupdel_count-1}"])
         ws_closed_groups_del = wb.create_sheet("Удаленные группы")
         write_data_del(ws_closed_groups_del, delgroups)
-    if owner_group-owner_closegroup>0:
-        ws_summury.append([f"Имеет права владельца или админа в открытых группах: {owner_group-owner_closegroup}"])
+    if owner_opengroup>0:
+        ws_summury.append([f"Имеет права владельца или админа в открытых группах: {owner_opengroup}"])
     if owner_closegroup>0:
         ws_summury.append([f"Имеет права владельца или админа в закрытых группах: {owner_closegroup}"])
     
@@ -311,8 +314,8 @@ def write_data_del(sheet, data):
 
 def make_list_of_channels(delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats, selection):
     """Функция для формирования списков групп и каналов"""
-    owner_channel = 0
-    owner_group = 0
+    owner_openchannel = 0
+    owner_opengroup = 0
     owner_closegroup = 0
     owner_closechannel = 0
     all_info = []
@@ -332,7 +335,7 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
         groups.append(openchannel)
         i +=1
         if owner != "" or admin != "":
-            owner_channel += 1
+            owner_openchannel += 1
 
     closechannels_name = 'Закрытые КАНАЛЫ:' if closechannels else ''
     all_info.append(f"\033[95m{closechannels_name}\033[0m")  
@@ -362,7 +365,7 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
         groups.append(openchat)
         i +=1
         if owner != "" or admin != "":
-            owner_group += 1
+            owner_opengroup += 1
 
     closechats_name = 'Закрытые ГРУППЫ:' if closechats else ''
     all_info.append(f"\033[95m{closechats_name}\033[0m")
@@ -397,22 +400,22 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
         if owner != "" or admin != "":
             owner_closegroup += 1
 
-    return groups, i, all_info, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup
+    return groups, i, all_info, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_openchannel, owner_closechannel, owner_opengroup, owner_closegroup
 
 
-def print_suminfo_about_channel (openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup):
+def print_suminfo_about_channel (openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_openchannel, owner_closechannel, owner_opengroup, owner_closegroup):
     # Выводим информацию о группах
     print("СУММАРНАЯ ИНФОРМАЦИЯ о ГРУППАХ и КОНТАКТАХ:") 
     print('-----------------------------')
     print(f"Подписан на открытые каналы: {openchannel_count-1}") if openchannel_count - 1 != 0 else None
     print(f"Подписан на закрытые каналы: {closechannel_count-1}") if closechannel_count - 1 != 0 else None
-    print(f"\033[91mИмеет права владельца или админа в {owner_channel} открытых каналах\033[0m") if owner_channel != 0 else None
+    print(f"\033[91mИмеет права владельца или админа в {owner_openchannel} открытых каналах\033[0m") if owner_openchannel != 0 else None
     print(f"\033[91mИмеет права владельца или админа в {owner_closechannel} закрытых каналах\033[0m") if owner_closechannel != 0 else None
     print()
     print(f"Состоит в открытых группах: {opengroup_count-1}") if opengroup_count - 1 != 0 else None
     print(f"Состоит в закрытых группах: {closegroup_count-1}") if closegroup_count - 1 != 0 else None
     print(f"Состоит в удаленных группах: {closegroupdel_count - 1}") if closegroupdel_count - 1 != 0 else None
-    print(f"\033[91mИмеет права владельца или админа в {owner_group} открытых группах\033[0m") if owner_group != 0 else None
+    print(f"\033[91mИмеет права владельца или админа в {owner_opengroup} открытых группах\033[0m") if owner_opengroup != 0 else None
     print(f"\033[91mИмеет права владельца или админа в {owner_closegroup} закрытых группах\033[0m") if owner_closegroup != 0 else None
     print('-----------------------------')
 
@@ -761,12 +764,12 @@ def add_account(api_id, api_hash, selection, bot, admin_chat_ids):
                       print()
                       count_blocked_bot, earliest_date, latest_date, blocked_bot_info = get_blocked_bot(client)
                       delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats, admin_id = get_type_of_chats(client, selection)  # Получение информации о чатах и каналах
-                      groups, i, all_info, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup = make_list_of_channels(delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats, selection)
+                      groups, i, all_info, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_openchannel, owner_closechannel, owner_opengroup, owner_closegroup = make_list_of_channels(delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats, selection)
                       print()
                       total_contacts, total_contacts_with_phone, total_mutual_contacts = get_and_save_contacts(client, phone, userinfo, userid)
-                      save_about_channels(phone, userid, firstname, lastname, username, openchannel_count, opengroup_count, closechannel_count, closegroup_count, owner_channel, owner_closechannel, owner_group, owner_closegroup, openchannels, closechannels, openchats, closechats, delgroups, closegroupdel_count)
-                      print_suminfo_about_channel(openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup)
-                      generate_html_report(phone, userid, firstname, lastname, username, total_contacts, total_contacts_with_phone, total_mutual_contacts, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup, blocked_bot_info, all_info)
+                      save_about_channels(phone, userid, firstname, lastname, username, openchannel_count, opengroup_count, closechannel_count, closegroup_count, owner_openchannel, owner_closechannel, owner_opengroup, owner_closegroup, openchannels, closechannels, openchats, closechats, delgroups, closegroupdel_count)
+                      print_suminfo_about_channel(openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_openchannel, owner_closechannel, owner_opengroup, owner_closegroup)
+                      generate_html_report(phone, userid, firstname, lastname, username, total_contacts, total_contacts_with_phone, total_mutual_contacts, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_openchannel, owner_closechannel, owner_opengroup, owner_closegroup, blocked_bot_info, all_info)
                       input("\033[93mНажмите Enter для продолжения...\033[0m")
                       os.system('cls||clear')
                       print()
@@ -788,7 +791,7 @@ def add_account(api_id, api_hash, selection, bot, admin_chat_ids):
                       print_pages(all_info, 40)
                       print('-----------------------------')
                       print()
-                      save_about_channels(phone, userid, firstname, lastname, username, openchannel_count, opengroup_count, closechannel_count, closegroup_count, owner_channel, owner_closechannel, owner_group, owner_closegroup, openchannels, closechannels, openchats, closechats, delgroups, closegroupdel_count)
+                      save_about_channels(phone, userid, firstname, lastname, username, openchannel_count, opengroup_count, closechannel_count, closegroup_count, owner_openchannel, owner_closechannel, owner_opengroup, owner_closegroup, openchannels, closechannels, openchats, closechats, delgroups, closegroupdel_count)
                       print()
                       input("\033[93mВывод списка закончен. Нажмите Enter для продолжения...\033[0m")
                       os.system('cls||clear')
