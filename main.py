@@ -305,8 +305,8 @@ if __name__ == "__main__":
            print('-----------------------------')
            print('=ИНФОРМАЦИЯ О ЗАБЛОКИРОВАННЫХ БОТАХ=')
            print('-----------------------------')
-           count_blocked_bot, earliest_date, latest_date = get_blocked_bot(client)
-           print()
+           count_blocked_bot, earliest_date, latest_date, blocked_bot_info = get_blocked_bot(client)
+           print_pages(blocked_bot_info, 25)
            input("\033[93mНажмите любую клавишу для продолжения... \033[0m")             
            client.disconnect()
            
