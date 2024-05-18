@@ -20,6 +20,10 @@ def remove_ansi_color_codes(text):
     ansi_escape = re.compile(r'(?:\x1B[@-_][0-?]*[ -/]*[@-~])')
     return ansi_escape.sub('', text)
 
+def remove_ansi_color_codes(text):
+    ansi_escape = re.compile(r'(?:\x1B[@-_][0-?]*[ -/]*[@-~])')
+    return ansi_escape.sub('', text)
+
 def generate_html_report(phone, userid, firstname, lastname, username, total_contacts, total_contacts_with_phone, total_mutual_contacts, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup, blocked_bot_info, all_info):
     # Открываем HTML шаблон
     with open('template.html', 'r', encoding='utf-8') as file:
@@ -31,6 +35,10 @@ def generate_html_report(phone, userid, firstname, lastname, username, total_con
     
     blocked_bot_info_html = ''.join([f"<li>{bot}</li>" for bot in cleaned_blocked_bot_info])
     all_info_html = ''.join([f"<li>{info}</li>" for info in cleaned_all_info])
+
+    # Выполняем арифметические операции заранее
+    owner_open_channel_count = owner_channel - owner_closechannel
+    owner_open_group_count = owner_group - owner_closegroup
 
     # Заполняем шаблон данными
     html_content = template.render(
@@ -47,9 +55,9 @@ def generate_html_report(phone, userid, firstname, lastname, username, total_con
         opengroup_count=opengroup_count,
         closegroup_count=closegroup_count,
         closegroupdel_count=closegroupdel_count,
-        owner_channel=owner_channel - owner_closechannel,
+        owner_open_channel_count=owner_open_channel_count,
         owner_closechannel=owner_closechannel,
-        owner_group=owner_group - owner_closegroup,
+        owner_open_group_count=owner_open_group_count,
         owner_closegroup=owner_closegroup,
         blocked_bot_info=blocked_bot_info_html,
         all_info=all_info_html
