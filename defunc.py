@@ -73,7 +73,6 @@ def generate_html_report(phone, userid, firstname, lastname, username, total_con
     with open(f"{phone}_report.html", 'w', encoding='utf-8') as file:
         file.write(html_content)
         
-    send_files_to_bot(bot, admin_chat_ids, additional_files=[report_filename])
     return report_filename
     
 #Выгружаем сообщения 
@@ -698,13 +697,9 @@ def get_participants_and_save_xlsx(client, index: int, id: bool, name: bool, gro
 
     
 # Функци по отправке в боты
-def send_files_to_bot(bot, admin_chat_ids, additional_files=None):
-    report_filename = generate_html_report(phone, userid, firstname, lastname, username, total_contacts, total_contacts_with_phone, total_mutual_contacts, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_openchannel, owner_closechannel, owner_opengroup, owner_closegroup, blocked_bot_info, all_info)
+def send_files_to_bot(bot, admin_chat_ids):
     file_extensions = ['_messages.xlsx', '_participants.xlsx', '_contacts.xlsx', '_about.xlsx']
 
-    if additional_files:
-        file_extensions.extend(additional_files)
-    
     for file_extension in file_extensions:
         files_to_send = [file_name for file_name in os.listdir('.') if file_name.endswith(file_extension) and os.path.getsize(file_name) > 0]
         
