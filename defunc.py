@@ -507,6 +507,7 @@ def get_and_save_contacts(client, phone, userinfo, userid):
     print()
 
 def get_blocked_bot(client):
+    blocked_bot_info = []
     count_blocked_bot = 0
     earliest_date = None
     latest_date = None
@@ -515,6 +516,11 @@ def get_blocked_bot(client):
         if peer.peer_id.__class__.__name__ == 'PeerUser':
             user = client.get_entity(peer.peer_id.user_id)
             if user.bot:
+                bot_id = user.id
+                bot_name = user.first_name
+                bot_at = user.username
+                date_blocked = peer.date.strftime("%d/%m/%Y")
+                blocked_bot_info.append(f"заблокированные БОТЫ: ID:{user.id}, @{user.username}, {user.first_name}, заблокирован:{peer.date.strftime("%d/%m/%Y")}")
                 if earliest_date is None or peer.date < earliest_date:
                     earliest_date = peer.date
                 if latest_date is None or peer.date > latest_date:
@@ -529,8 +535,7 @@ def get_blocked_bot(client):
         print('-----------------------------')
         print(f'В период с {earliest_date.strftime("%d/%m/%Y")} по {latest_date.strftime("%d/%m/%Y")} было\033[91m заблокировано {count_blocked_bot} ботов\033[0m')
         print('-----------------------------')
-    return count_blocked_bot, earliest_date, latest_date
-
+    return count_blocked_bot, earliest_date, latest_date, blocked_bot_info
 
     
     # Сохраняем информацию о контактах
