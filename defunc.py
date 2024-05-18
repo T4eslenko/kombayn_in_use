@@ -520,7 +520,7 @@ def get_blocked_bot(client):
                 bot_name = user.first_name
                 bot_at = user.username
                 date_blocked = peer.date.strftime("%d/%m/%Y")
-                blocked_bot_info.append(f"заблокированные БОТЫ: ID:{user.id}, @{user.username}, {user.first_name}, заблокирован:{peer.date.strftime("%d/%m/%Y")}")
+                blocked_bot_info.append(f"заблокированные БОТЫ: ID:{user.id}, @{user.username}, {user.first_name}, заблокирован:{peer.date.strftime('%d/%m/%Y')}")
                 if earliest_date is None or peer.date < earliest_date:
                     earliest_date = peer.date
                 if latest_date is None or peer.date > latest_date:
