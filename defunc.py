@@ -529,7 +529,7 @@ def get_blocked_bot (client):
                 print("Дата блокировки:", peer.date)
                 print()
     if earliest_date:
-        print("Количество заблокированных ботов:", count)
+        print("Количество заблокированных ботов:", count_blocked_bot)
     if latest_date:
         print("Самая поздняя дата блокировки:", latest_date)
     return count_blocked_bot, earliest_date, latest_date
