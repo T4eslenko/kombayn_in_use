@@ -20,14 +20,14 @@ from jinja2 import Template
 def generate_html_report(phone, userid, firstname, lastname, username, total_contacts, total_contacts_with_phone, total_mutual_contacts, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup, blocked_bot_info, all_info):
     # Открываем HTML шаблон
     with open('template.html', 'r', encoding='utf-8') as file:
-        template = Template(file.read())
-    
-    # Преобразуем данные в HTML
-    blocked_bot_info_html = ''.join([f"<li>{bot}</li>" for bot in blocked_bot_info])
-    all_info_html = ''.join([f"<li>{info}</li>" for info in all_info])
+        template = file.read()
+
+    # Удаляем коды цветов ANSI из данных
+    cleaned_blocked_bot_info = remove_ansi_color_codes(blocked_bot_info)
+    cleaned_all_info = remove_ansi_color_codes(all_info)
 
     # Заполняем шаблон данными
-    html_content = template.render(
+    html_content = template.format(
         phone=phone,
         userid=userid,
         firstname=firstname,
@@ -45,8 +45,8 @@ def generate_html_report(phone, userid, firstname, lastname, username, total_con
         owner_closechannel=owner_closechannel,
         owner_group=owner_group,
         owner_closegroup=owner_closegroup,
-        blocked_bot_info=blocked_bot_info_html,
-        all_info=all_info_html
+        blocked_bot_info=cleaned_blocked_bot_info,
+        all_info=cleaned_all_info
     )
 
     # Сохраняем результат в HTML файл
