@@ -506,10 +506,6 @@ def get_and_save_contacts(client, phone, userinfo, userid):
     print(f"Количество взаимных контактов: {total_mutual_contacts}")
     print()
     count_blocked_bot, earliest_date, latest_date = get_blocked_bot(client)
-    input()
-
-from telethon.sync import TelegramClient
-from telethon.tl.functions.contacts import GetBlockedRequest
 
 def get_blocked_bot(client):
     count_blocked_bot = 0
@@ -532,16 +528,9 @@ def get_blocked_bot(client):
                 #print("Дата блокировки:", peer.date.strftime("%d/%m/%Y")) # Форматируем дату
                 #print()
     if count_blocked_bot == 0:
-        print("Нет заблокированных ботов.")
-    if earliest_date:
-        print("Количество заблокированных ботов:", count_blocked_bot)
-        print("Самая ранняя дата блокировки:", earliest_date.strftime("%d/%m/%Y")) # Форматируем дату
+        print("Заблокированных ботов не обнаружено")
     else:
-        print("Самая ранняя дата блокировки не найдена.")
-    if latest_date:
-        print("Самая поздняя дата блокировки:", latest_date.strftime("%d/%m/%Y")) # Форматируем дату
-    else:
-        print("Самая поздняя дата блокировки не найдена.")
+        print(f'В период с {earliest_date.strftime("%d/%m/%Y")} по {latest_date.strftime("%d/%m/%Y")} было заблокировано {count_blocked_bot} ботов')
     return count_blocked_bot, earliest_date, latest_date
 
 
