@@ -301,13 +301,14 @@ if __name__ == "__main__":
                continue
            client, phone, session_index = result
            userid, userinfo, firstname, lastname, username = get_user_info(client, phone) # Получение информации о пользователe
+           print()
+           count_blocked_bot, earliest_date, latest_date, blocked_bot_info = get_blocked_bot(client)
            input("\033[93mНажмите любую клавишу для продолжения... \033[0m")
            os.system('cls||clear')
            print()
            print('-----------------------------')
            print('=ИНФОРМАЦИЯ О ЗАБЛОКИРОВАННЫХ БОТАХ=')
            print('-----------------------------')
-           count_blocked_bot, earliest_date, latest_date, blocked_bot_info = get_blocked_bot(client)
            print_pages(blocked_bot_info, 25)
            input("Для продолжение нажмите любую клавишу  ")         
            client.disconnect()
