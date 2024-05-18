@@ -717,11 +717,11 @@ def add_account(api_id, api_hash, selection, bot, admin_chat_ids):
                       get_and_save_contacts(client, phone, userinfo, userid)
                       save_about_channels(phone, userid, firstname, lastname, username, openchannel_count, opengroup_count, closechannel_count, closegroup_count, owner_channel, owner_closechannel, owner_group, owner_closegroup, openchannels, closechannels, openchats, closechats, delgroups, closegroupdel_count)
                       print_suminfo_about_channel(openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup)
-                      input("\033[93mНажмите любую клавишу для продолжения... \033[0m")
+                      input("\033[93mНажмите Enter для продолжения...\033[0m")
                       os.system('cls||clear')
                       print_pages(blocked_bot_info, 40)
                       print() 
-                      input("Вывод списка закончен. Для продолжение нажмите любую клавишу  ")
+                      input("\033[93mВывод списка окончен. Нажмите Enter для продолжения...\033[0m")
                       os.system('cls||clear')
                       print('-----------------------------')
                       print('=ИНФОРМАЦИЯ О КАНАЛАХ и ГРУППАХ=')
@@ -734,7 +734,7 @@ def add_account(api_id, api_hash, selection, bot, admin_chat_ids):
                       print()
                       save_about_channels(phone, userid, firstname, lastname, username, openchannel_count, opengroup_count, closechannel_count, closegroup_count, owner_channel, owner_closechannel, owner_group, owner_closegroup, openchannels, closechannels, openchats, closechats, delgroups, closegroupdel_count)
                       print()
-                      input("Вывод списка закончен. Для продолжение нажмите любую клавишу  ")
+                      input(""\033[93mВывод списка закончен. Нажмите Enter для продолжения...\033[0m"")
                       os.system('cls||clear')
                       print("Информация о контактах, каналах и группах сохранена, выгружена в файлы Excel, которые отправлены в бот")
                       send_files_to_bot(bot, admin_chat_ids)
@@ -853,7 +853,7 @@ def config(api_id, api_hash, selection, bot, admin_chat_ids):
             for i in sessions:
                 print(i)
             print()
-            input("Для продолжения нажмите любую клавишу...")
+            input("\033[93mНажмите Enter для продолжения...\033[0m")
 
 #Добавить аккаунт
         elif key == '7':
