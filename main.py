@@ -120,7 +120,7 @@ if __name__ == "__main__":
                print(f"\033[96mНомер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}\033[0m")
                print('-----------------------------')
                # Выводим информацию о группах
-               print_pages(all_info, 25)
+               print_pages(all_info, 40)
                print('-----------------------------')
                print()
                save_about_channels(phone, userid, firstname, lastname, username, openchannel_count, opengroup_count, closechannel_count, closegroup_count, owner_channel, owner_closechannel, owner_group, owner_closegroup, openchannels, closechannels, openchats, closechats, delgroups, closegroupdel_count)
@@ -166,7 +166,7 @@ if __name__ == "__main__":
                    print(f"\033[96mНомер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}\033[0m")
                    print('-----------------------------')
                    groups, i, all_info, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup = make_list_of_channels(delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats, selection)
-                   print_pages(all_info, 25)
+                   print_pages(all_info, 40)
                    print()
                    
                    g_index_str = str(input("\033[92mВыберите чат для получения списка его участников ('e' - назад): \033[0m"))
@@ -236,7 +236,7 @@ if __name__ == "__main__":
                    print('-----------------------------')
                
                    groups, i, all_info, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup = make_list_of_channels(delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats, selection)
-                   print_pages(all_info, 25)
+                   print_pages(all_info, 40)
                    print()
                    
                    g_index_str = str(input("\033[92mВыберите чат для получения списка его участников ('e' - назад): \033[0m"))
@@ -296,7 +296,7 @@ if __name__ == "__main__":
            input("\033[93mНажмите любую клавишу для продолжения... \033[0m")
            os.system('cls||clear')
            print()
-           print_pages(blocked_bot_info, 25)
+           print_pages(blocked_bot_info, 40)
            input("Для продолжение нажмите любую клавишу  ")         
            client.disconnect()
     
