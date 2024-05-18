@@ -4,7 +4,6 @@ import time
 import openpyxl
 from telethon.tl.functions.channels import InviteToChannelRequest
 from telethon.tl.functions.contacts import GetContactsRequest
-from telethon.tl.functions.account import GetBlockedUsers
 from telethon.tl.functions.messages import GetDialogsRequest, ImportChatInviteRequest
 from telethon.tl.types import InputChannel, InputPhoneContact, User, Chat, Channel, Message, MessageFwdHeader, MessageMediaDocument, PeerChannel, DocumentAttributeFilename
 from telethon.sync import TelegramClient, types
@@ -15,6 +14,8 @@ from telethon.errors.rpcerrorlist import PeerFloodError, UserPrivacyRestrictedEr
 from datetime import datetime
 from typing import Optional
 import re
+from telethon.tl.functions.account import GetPrivacy
+from telethon.tl.types import InputPrivacyKeyBlockedUsers
 
 
 #Выгружаем сообщения 
