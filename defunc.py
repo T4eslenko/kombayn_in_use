@@ -505,9 +505,17 @@ def get_and_save_contacts(client, phone, userinfo, userid):
     print(f"Количество контактов с номерами телефонов: {total_contacts_with_phone}")
     print(f"Количество взаимных контактов: {total_mutual_contacts}")
     print()
-    results = client(GetBlockedRequest(offset=0, limit=200))
-    #for contact in results:
-    print(results)
+    result_blocked = client(GetBlockedRequest(offset=0, limit=200))
+    print("Заблокированные боты:")
+    for peer in result_blocked.blocked:
+        if peer.peer_id.__class__.__name__ == 'PeerUser':
+            user = client.get_entity(peer.peer_id.user_id)
+            if user.bot:
+                print("ID:", user.id)
+                print("Имя:", user.first_name)
+                print("Юзернейм:", user.username)
+                print("Дата блокировки:", peer.date)
+                print()
     input()
 
 
