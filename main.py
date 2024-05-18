@@ -277,16 +277,6 @@ if __name__ == "__main__":
                           os.system('cls||clear')
                                          
                                 
-
-    
-# 8 Отправка файлов
-        elif selection == '8':
-        # Отправляем файлы боту
-            for admin_chat_id in admin_chat_ids:
-                send_files_to_bot(bot, admin_chat_ids)
-                print('Сделано, мой командир')
-                time.sleep(3)
- 
 # 9 Инф о заблокированных ботах              
         elif selection == '9':
            os.system('cls||clear')
@@ -312,26 +302,28 @@ if __name__ == "__main__":
            print_pages(blocked_bot_info, 25)
            input("Для продолжение нажмите любую клавишу  ")         
            client.disconnect()
-           
+    
+# 8 Отправка файлов
+        elif selection == '8':
+        # Отправляем файлы боту
+            for admin_chat_id in admin_chat_ids:
+                send_files_to_bot(bot, admin_chat_ids)
+                print('Сделано, мой командир')
+                time.sleep(3)
 
-       
         elif selection == '10':
            add_account(api_id, api_hash, selection, bot, admin_chat_ids)
 
         elif selection == '11':
            remouve_account(api_id, api_hash, selection, bot, admin_chat_ids)
-           
-        
-           
+                      
 # Выход
         elif selection == 'e':
             break
 
-
 # 1 Настройки
         elif selection == '1':
             config(api_id, api_hash, selection, bot, admin_chat_ids) 
-
 
 # 2 Парсинг участников чата в txt
         elif selection == '2':
