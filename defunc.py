@@ -16,18 +16,24 @@ from typing import Optional
 import re
 
 from jinja2 import Template
+def remove_ansi_color_codes(text):
+    ansi_escape = re.compile(r'(?:\x1B[@-_][0-?]*[ -/]*[@-~])')
+    return ansi_escape.sub('', text)
 
 def generate_html_report(phone, userid, firstname, lastname, username, total_contacts, total_contacts_with_phone, total_mutual_contacts, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup, blocked_bot_info, all_info):
     # Открываем HTML шаблон
     with open('template.html', 'r', encoding='utf-8') as file:
-        template = file.read()
-
-    # Удаляем коды цветов ANSI из данных
+        template = Template(file.read())
+    
+    # Преобразуем данные в HTML
     cleaned_blocked_bot_info = remove_ansi_color_codes(blocked_bot_info)
     cleaned_all_info = remove_ansi_color_codes(all_info)
+    
+    blocked_bot_info_html = ''.join([f"<li>{bot}</li>" for bot in cleaned_blocked_bot_info.split('\n')])
+    all_info_html = ''.join([f"<li>{info}</li>" for info in cleaned_all_info.split('\n')])
 
     # Заполняем шаблон данными
-    html_content = template.format(
+    html_content = template.render(
         phone=phone,
         userid=userid,
         firstname=firstname,
@@ -36,17 +42,17 @@ def generate_html_report(phone, userid, firstname, lastname, username, total_con
         total_contacts=total_contacts,
         total_contacts_with_phone=total_contacts_with_phone,
         total_mutual_contacts=total_mutual_contacts,
-        openchannel_count=openchannel_count - 1,
-        closechannel_count=closechannel_count - 1,
-        opengroup_count=opengroup_count - 1,
-        closegroup_count=closegroup_count - 1,
-        closegroupdel_count=closegroupdel_count - 1,
-        owner_channel=owner_channel,
+        openchannel_count=openchannel_count,
+        closechannel_count=closechannel_count,
+        opengroup_count=opengroup_count,
+        closegroup_count=closegroup_count,
+        closegroupdel_count=closegroupdel_count,
+        owner_channel=owner_channel - owner_closechannel,
         owner_closechannel=owner_closechannel,
-        owner_group=owner_group,
+        owner_group=owner_group - owner_closegroup,
         owner_closegroup=owner_closegroup,
-        blocked_bot_info=cleaned_blocked_bot_info,
-        all_info=cleaned_all_info
+        blocked_bot_info=blocked_bot_info_html,
+        all_info=all_info_html
     )
 
     # Сохраняем результат в HTML файл
