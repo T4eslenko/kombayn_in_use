@@ -115,7 +115,6 @@ if __name__ == "__main__":
            os.system('cls||clear')
            print('-----------------------------')
            print('=ВЫГРУЗКА ИНФОРМАЦИИ о КАНАЛАХ и ГРУППАХ в EXCEL=')
-           print('-----------------------------')
            while True:
                print(f"\033[96mНомер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}\033[0m")
                print('-----------------------------')
@@ -163,7 +162,6 @@ if __name__ == "__main__":
                    i = 0
                    print('-----------------------------')
                    print('=ВЫГРУЗКА УЧАСТНИКОВ ЧАТА В EXCEL=')
-                   print('-----------------------------')
                    print(f"\033[96mНомер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}\033[0m")
                    print('-----------------------------')
                    groups, i, all_info, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup = make_list_of_channels(delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats, selection)
@@ -234,7 +232,6 @@ if __name__ == "__main__":
                    i = 0
                    print('-----------------------------')
                    print('=ВЫГРУЗКА СООБЩЕНИЙ из КАНАЛА или СООБЩЕНИЙ и УЧАСТНИКОВ ЧАТА в EXCEL=')
-                   print('-----------------------------')
                    print(f"\033[96mНомер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}\033[0m")
                    print('-----------------------------')
                    groups, i, all_info, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup = make_list_of_channels(delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats, selection)
@@ -298,7 +295,12 @@ if __name__ == "__main__":
            input("\033[93mНажмите Enter для продолжения...\033[0m")
            os.system('cls||clear')
            print()
+           print('-----------------------------')
+           print('=ПРОСМОТР ЗАБЛОКИРОВАННЫХ БОТОВ=')
+           print(f"\033[96mНомер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}\033[0m")
+           print('-----------------------------')
            print_pages(blocked_bot_info, 40)
+           print('-----------------------------')
            print()
            input("\033[93mВывод списка закончен. Нажмите Enter для продолжения...\033[0m")         
            client.disconnect()
