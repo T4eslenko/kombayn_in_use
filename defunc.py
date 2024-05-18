@@ -15,6 +15,45 @@ from datetime import datetime
 from typing import Optional
 import re
 
+from jinja2 import Template
+
+def generate_html_report(phone, userid, firstname, lastname, username, total_contacts, total_contacts_with_phone, total_mutual_contacts, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup, blocked_bot_info, all_info):
+    # Открываем HTML шаблон
+    with open('template.html', 'r', encoding='utf-8') as file:
+        template = Template(file.read())
+    
+    # Преобразуем данные в HTML
+    blocked_bot_info_html = ''.join([f"<li>{bot}</li>" for bot in blocked_bot_info])
+    all_info_html = ''.join([f"<li>{info}</li>" for info in all_info])
+
+    # Заполняем шаблон данными
+    html_content = template.render(
+        phone=phone,
+        userid=userid,
+        firstname=firstname,
+        lastname=lastname,
+        username=username,
+        total_contacts=total_contacts,
+        total_contacts_with_phone=total_contacts_with_phone,
+        total_mutual_contacts=total_mutual_contacts,
+        openchannel_count=openchannel_count - 1,
+        closechannel_count=closechannel_count - 1,
+        opengroup_count=opengroup_count - 1,
+        closegroup_count=closegroup_count - 1,
+        closegroupdel_count=closegroupdel_count - 1,
+        owner_channel=owner_channel,
+        owner_closechannel=owner_closechannel,
+        owner_group=owner_group,
+        owner_closegroup=owner_closegroup,
+        blocked_bot_info=blocked_bot_info_html,
+        all_info=all_info_html
+    )
+
+    # Сохраняем результат в HTML файл
+    with open(f"{phone}_report.html", 'w', encoding='utf-8') as file:
+        file.write(html_content)
+
+
 
 #Выгружаем сообщения 
 def remove_timezone(dt: datetime) -> Optional[datetime]:
@@ -714,6 +753,7 @@ def add_account(api_id, api_hash, selection, bot, admin_chat_ids):
                       get_and_save_contacts(client, phone, userinfo, userid)
                       save_about_channels(phone, userid, firstname, lastname, username, openchannel_count, opengroup_count, closechannel_count, closegroup_count, owner_channel, owner_closechannel, owner_group, owner_closegroup, openchannels, closechannels, openchats, closechats, delgroups, closegroupdel_count)
                       print_suminfo_about_channel(openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup)
+                      generate_html_report(phone, userid, firstname, lastname, username, total_contacts, total_contacts_with_phone, total_mutual_contacts, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup, blocked_bot_info, all_info)
                       input("\033[93mНажмите Enter для продолжения...\033[0m")
                       os.system('cls||clear')
                       print()
