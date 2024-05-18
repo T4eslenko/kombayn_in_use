@@ -125,7 +125,7 @@ if __name__ == "__main__":
                print()
                save_about_channels(phone, userid, firstname, lastname, username, openchannel_count, opengroup_count, closechannel_count, closegroup_count, owner_channel, owner_closechannel, owner_group, owner_closegroup, openchannels, closechannels, openchats, closechats, delgroups, closegroupdel_count)
                print()
-               input("Для продолжение нажмите любую клавишу  ")
+               input("Вывод списка закончен. Для продолжение нажмите любую клавишу  ")
                os.system('cls||clear')
                print('Инофрмация о чатах  добавлена в файл, мой командир')
                time.sleep(3)
@@ -297,7 +297,8 @@ if __name__ == "__main__":
            os.system('cls||clear')
            print()
            print_pages(blocked_bot_info, 40)
-           input("Для продолжение нажмите любую клавишу  ")         
+           print()
+           input("Вывод списка закончен. Для продолжение нажмите любую клавишу  ")         
            client.disconnect()
     
 # 8 Отправка файлов
