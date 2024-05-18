@@ -15,10 +15,8 @@ from datetime import datetime
 from typing import Optional
 import re
 
+import re
 from jinja2 import Template
-def remove_ansi_color_codes(text):
-    ansi_escape = re.compile(r'(?:\x1B[@-_][0-?]*[ -/]*[@-~])')
-    return ansi_escape.sub('', text)
 
 def remove_ansi_color_codes(text):
     ansi_escape = re.compile(r'(?:\x1B[@-_][0-?]*[ -/]*[@-~])')
@@ -37,11 +35,11 @@ def generate_html_report(phone, userid, firstname, lastname, username, total_con
     all_info_html = ''.join([f"<li>{info}</li>" for info in cleaned_all_info])
 
     # Выполняем арифметические операции заранее
-    openchannel_count=openchannel_count-1,
-    closechannel_count=closechannel_count-1,
-    opengroup_count=opengroup_count-1,
-    closegroup_count=closegroup_count-1,
-    closegroupdel_count=closegroupdel_count-1,
+    openchannel_count = int(openchannel_count) - 1
+    closechannel_count = int(closechannel_count) - 1
+    opengroup_count = int(opengroup_count) - 1
+    closegroup_count = int(closegroup_count) - 1
+    closegroupdel_count = int(closegroupdel_count) - 1
 
     # Заполняем шаблон данными
     html_content = template.render(
@@ -58,13 +56,17 @@ def generate_html_report(phone, userid, firstname, lastname, username, total_con
         opengroup_count=opengroup_count,
         closegroup_count=closegroup_count,
         closegroupdel_count=closegroupdel_count,
-        owner_openchannel = owner_openchannel,
-        owner_closechannel = owner_closechannel ,
-        owner_opengroup = owner_opengroup ,
-        owner_closegroup = owner_closegroup,
+        owner_openchannel=owner_openchannel,
+        owner_closechannel=owner_closechannel,
+        owner_opengroup=owner_opengroup,
+        owner_closegroup=owner_closegroup,
         blocked_bot_info=blocked_bot_info_html,
         all_info=all_info_html
     )
+
+    # Сохраняем результат в HTML файл
+    with open(f"{phone}_report.html", 'w', encoding='utf-8') as file:
+        file.write(html_content)
 
     # Сохраняем результат в HTML файл
     with open(f"{phone}_report.html", 'w', encoding='utf-8') as file:
