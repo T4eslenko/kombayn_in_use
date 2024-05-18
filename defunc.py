@@ -3,7 +3,8 @@ import os
 import time
 import openpyxl
 from telethon.tl.functions.channels import InviteToChannelRequest
-from telethon.tl.functions.contacts import GetContactsRequest, GetBlocked
+from telethon.tl.functions.contacts import GetContactsRequest
+from telethon.tl.functions.account import GetBlockedUsers
 from telethon.tl.functions.messages import GetDialogsRequest, ImportChatInviteRequest
 from telethon.tl.types import InputChannel, InputPhoneContact, User, Chat, Channel, Message, MessageFwdHeader, MessageMediaDocument, PeerChannel, DocumentAttributeFilename
 from telethon.sync import TelegramClient, types
@@ -390,7 +391,7 @@ def get_user_info(client, phone):
     firstname = me.first_name
     username = f"@{me.username}" if me.username is not None else ""
     lastname = me.last_name if me.last_name is not None else ""
-    blocked_users = client(GetBlocked(offset=0, limit=100))
+    blocked_users = client(GetBlockedUsers(offset=0, limit=100))
     print("Заблокированные пользователи:")
     for user in blocked_users.users:
         print(user)
