@@ -87,7 +87,7 @@ if __name__ == "__main__":
            print('-----------------------------')
            get_and_save_contacts(client, phone, userinfo, userid)
            print()
-           input("\033[93mНажмите любую клавишу для продолжения... \033[0m")             
+           input(""\033[93mНажмите Enter для продолжения...\033[0m"")             
            client.disconnect()
 
        # 5 Выгрузить инфу об аккаунте
@@ -111,7 +111,7 @@ if __name__ == "__main__":
            groups, i, all_info, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup = make_list_of_channels(delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats, selection)
            print()
            print_suminfo_about_channel(openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup)
-           input("\033[93mНажмите любую клавишу для продолжения... \033[0m")
+           input("\033[93mНажмите Enter для продолжения...\033[0m")
            os.system('cls||clear')
            print('-----------------------------')
            print('=ИНФОРМАЦИЯ О КАНАЛАХ и ГРУППАХ=')
@@ -125,7 +125,7 @@ if __name__ == "__main__":
                print()
                save_about_channels(phone, userid, firstname, lastname, username, openchannel_count, opengroup_count, closechannel_count, closegroup_count, owner_channel, owner_closechannel, owner_group, owner_closegroup, openchannels, closechannels, openchats, closechats, delgroups, closegroupdel_count)
                print()
-               input("Вывод списка закончен. Для продолжение нажмите любую клавишу  ")
+               input("\033[93mВывод списка закончен. Нажмите Enter для продолжения...\033[0m")
                os.system('cls||clear')
                print('Инофрмация о чатах  добавлена в файл, мой командир')
                time.sleep(3)
@@ -157,7 +157,7 @@ if __name__ == "__main__":
               groups, i, all_info, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup = make_list_of_channels(delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats, selection)
               print()
               print_suminfo_about_channel(openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup)
-              input("\033[93mНажмите любую клавишу для продолжения... \033[0m")
+              input("\033[93mНажмите Enter для продолжения...\033[0m")
               while True:
                    os.system('cls||clear')
                    i = 0
@@ -226,7 +226,7 @@ if __name__ == "__main__":
               groups, i, all_info, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup = make_list_of_channels(delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats, selection)
               print()
               print_suminfo_about_channel(openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup)
-              input("\033[93mНажмите любую клавишу для продолжения... \033[0m")
+              input("\033[93mНажмите Enter для продолжения...\033[0m")
               while True:
                    os.system('cls||clear')
                    i = 0
@@ -293,12 +293,12 @@ if __name__ == "__main__":
            userid, userinfo, firstname, lastname, username = get_user_info(client, phone) # Получение информации о пользователe
            print()
            count_blocked_bot, earliest_date, latest_date, blocked_bot_info = get_blocked_bot(client)
-           input("\033[93mНажмите любую клавишу для продолжения... \033[0m")
+           input("\033[93mНажмите Enter для продолжения...\033[0m")
            os.system('cls||clear')
            print()
            print_pages(blocked_bot_info, 40)
            print()
-           input("Вывод списка закончен. Для продолжение нажмите любую клавишу  ")         
+           input("\033[93mВывод списка закончен. Нажмите Enter для продолжения...\033[0m")         
            client.disconnect()
     
 # 8 Отправка файлов
