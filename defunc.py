@@ -363,7 +363,7 @@ def print_suminfo_about_channel (openchannel_count, closechannel_count, opengrou
     print(f"Состоит в удаленных группах: {closegroupdel_count - 1}") if closegroupdel_count - 1 != 0 else None
     print(f"\033[91mИмеет права владельца или админа в {owner_group} открытых группах\033[0m") if owner_group != 0 else None
     print(f"\033[91mИмеет права владельца или админа в {owner_closegroup} закрытых группах\033[0m") if owner_closegroup != 0 else None
-    print("------------------------------------------------")
+    print('-----------------------------')
 
 #вывод строк постранично
 def print_pages(items, items_per_page):
@@ -526,13 +526,13 @@ def get_blocked_bot(client):
                 #print("Дата блокировки:", peer.date.strftime("%d/%m/%Y")) # Форматируем дату
                 #print()
     if count_blocked_bot == 0:
-        print("-------------------------------------------")
+        print('-----------------------------')
         print("Заблокированных ботов не обнаружено")
-        print("-------------------------------------------")
+        print('-----------------------------')
     else:
-        print("-------------------------------------------")
+        print('-----------------------------')
         print(f'В период с {earliest_date.strftime("%d/%m/%Y")} по {latest_date.strftime("%d/%m/%Y")} было\033[91m заблокировано {count_blocked_bot} ботов\033[0m')
-        print("-------------------------------------------")
+        print('-----------------------------')
     return count_blocked_bot, earliest_date, latest_date
 
 
@@ -709,13 +709,13 @@ def add_account(api_id, api_hash, selection, bot, admin_chat_ids):
                       print('-----------------------------') 
                       userid, userinfo, firstname, lastname, username = get_user_info(client, phone) # Получение информации о пользователe
                       print()
+                      count_blocked_bot, earliest_date, latest_date = get_blocked_bot(client)
                       delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats, admin_id = get_type_of_chats(client, selection)  # Получение информации о чатах и каналах
                       groups, i, all_info, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup = make_list_of_channels(delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats, selection)
                       print()
                       get_and_save_contacts(client, phone, userinfo, userid)
                       save_about_channels(phone, userid, firstname, lastname, username, openchannel_count, opengroup_count, closechannel_count, closegroup_count, owner_channel, owner_closechannel, owner_group, owner_closegroup, openchannels, closechannels, openchats, closechats, delgroups, closegroupdel_count)
                       print_suminfo_about_channel(openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup)
-                      count_blocked_bot, earliest_date, latest_date = get_blocked_bot(client)
                       input("\033[93mНажмите любую клавишу для продолжения... \033[0m")
                       os.system('cls||clear')
                       print('-----------------------------')
