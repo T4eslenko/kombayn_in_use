@@ -506,7 +506,7 @@ def get_and_save_contacts(client, phone, userinfo, userid):
     print(f"Количество взаимных контактов: {total_mutual_contacts}")
     print()
     blocked_users = []
-    for contact in contacts
+    for contact in contacts:
         blocked_users.append(contact)
     print(blocked_users)
 
