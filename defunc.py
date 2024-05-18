@@ -3,7 +3,7 @@ import os
 import time
 import openpyxl
 from telethon.tl.functions.channels import InviteToChannelRequest
-from telethon.tl.functions.contacts import GetContactsRequest
+from telethon.tl.functions.contacts import GetContactsRequest, GetBlocked
 from telethon.tl.functions.messages import GetDialogsRequest, ImportChatInviteRequest
 from telethon.tl.types import InputChannel, InputPhoneContact, User, Chat, Channel, Message, MessageFwdHeader, MessageMediaDocument, PeerChannel, DocumentAttributeFilename
 from telethon.sync import TelegramClient, types
