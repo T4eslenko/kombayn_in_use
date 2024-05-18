@@ -390,6 +390,11 @@ def get_user_info(client, phone):
     firstname = me.first_name
     username = f"@{me.username}" if me.username is not None else ""
     lastname = me.last_name if me.last_name is not None else ""
+    blocked_users = client(GetBlocked(offset=0, limit=100))
+    print("Заблокированные пользователи:")
+    for user in blocked_users.users:
+        print(user)
+    input()
     
     userinfo = f"(Номер телефона: +{phone}, ID: {userid}, ({firstname} {lastname}) {username})"
     print("Информация о пользователе:") 
