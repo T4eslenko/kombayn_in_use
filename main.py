@@ -83,7 +83,7 @@ if __name__ == "__main__":
            userid, userinfo, firstname, lastname, username = get_user_info(client, phone) # Получение информации о пользователe
            print()
            print('-----------------------------')
-           print('=ИНФОРМАЦИЯ О КОНТАКТАХ=')
+           print('=ВЫГРУЗКА КОНТАКТОВ В EXCEL=')
            print('-----------------------------')
            get_and_save_contacts(client, phone, userinfo, userid)
            print()
@@ -114,7 +114,7 @@ if __name__ == "__main__":
            input("\033[93mНажмите Enter для продолжения...\033[0m")
            os.system('cls||clear')
            print('-----------------------------')
-           print('=ИНФОРМАЦИЯ О КАНАЛАХ и ГРУППАХ=')
+           print('=ВЫГРУЗКА ИНФОРМАЦИИ о КАНАЛАХ и ГРУППАХ в EXCEL=')
            print('-----------------------------')
            while True:
                print(f"\033[96mНомер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}\033[0m")
@@ -163,10 +163,12 @@ if __name__ == "__main__":
                    i = 0
                    print('-----------------------------')
                    print('=ВЫГРУЗКА УЧАСТНИКОВ ЧАТА В EXCEL=')
+                   print('-----------------------------')
                    print(f"\033[96mНомер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}\033[0m")
                    print('-----------------------------')
                    groups, i, all_info, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup = make_list_of_channels(delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats, selection)
                    print_pages(all_info, 40)
+                   print('-----------------------------')
                    print()
                    
                    g_index_str = str(input("\033[92mВыберите чат для получения списка его участников ('e' - назад): \033[0m"))
@@ -232,13 +234,13 @@ if __name__ == "__main__":
                    i = 0
                    print('-----------------------------')
                    print('=ВЫГРУЗКА СООБЩЕНИЙ из КАНАЛА или СООБЩЕНИЙ и УЧАСТНИКОВ ЧАТА в EXCEL=')
+                   print('-----------------------------')
                    print(f"\033[96mНомер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}\033[0m")
                    print('-----------------------------')
-               
                    groups, i, all_info, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup = make_list_of_channels(delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats, selection)
                    print_pages(all_info, 40)
+                   print('-----------------------------')
                    print()
-                   
                    g_index_str = str(input("\033[92mВыберите чат для получения списка его участников ('e' - назад): \033[0m"))
                    if g_index_str.lower() == 'e':
                       client.disconnect()
