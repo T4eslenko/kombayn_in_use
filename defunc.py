@@ -507,8 +507,8 @@ def get_and_save_contacts(client, phone, userinfo, userid):
     print()
     results = client(GetBlockedRequest(offset=0, limit=200))
     #for contact in results:
-        print(results)
-        input()
+    print(results)
+    input()
 
 
     
