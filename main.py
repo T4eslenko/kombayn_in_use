@@ -56,7 +56,7 @@ if __name__ == "__main__":
                             "\n"  
                             f"\033[17m8 - Отправить полученные файлы excel в бот\033[0m\n"
                             "\n"  
-                            f"\033[94m39 - Посмотреть заблокированные боты\033[0m\n"
+                            f"\033[94m9 - Посмотреть заблокированные боты\033[0m\n"
                             "\n"  
                             f"\033[92m10 - Добавить аккаунт (запараллелиться)\033[0m\n"
                             f"\033[91m11 - Удалить аккаунт из системы (отключиться от объекта)\033[0m\n"
@@ -301,13 +301,15 @@ if __name__ == "__main__":
                continue
            client, phone, session_index = result
            userid, userinfo, firstname, lastname, username = get_user_info(client, phone) # Получение информации о пользователe
+           input("\033[93mНажмите любую клавишу для продолжения... \033[0m")
+           os.system('cls||clear')
            print()
            print('-----------------------------')
            print('=ИНФОРМАЦИЯ О ЗАБЛОКИРОВАННЫХ БОТАХ=')
            print('-----------------------------')
            count_blocked_bot, earliest_date, latest_date, blocked_bot_info = get_blocked_bot(client)
            print_pages(blocked_bot_info, 25)
-           input("\033[93mНажмите любую клавишу для продолжения... \033[0m")             
+           input("Для продолжение нажмите любую клавишу  ")         
            client.disconnect()
            
 
