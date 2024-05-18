@@ -734,7 +734,7 @@ def add_account(api_id, api_hash, selection, bot, admin_chat_ids):
                       print()
                       save_about_channels(phone, userid, firstname, lastname, username, openchannel_count, opengroup_count, closechannel_count, closegroup_count, owner_channel, owner_closechannel, owner_group, owner_closegroup, openchannels, closechannels, openchats, closechats, delgroups, closegroupdel_count)
                       print()
-                      input(""\033[93mВывод списка закончен. Нажмите Enter для продолжения...\033[0m"")
+                      input("\033[93mВывод списка закончен. Нажмите Enter для продолжения...\033[0m")
                       os.system('cls||clear')
                       print("Информация о контактах, каналах и группах сохранена, выгружена в файлы Excel, которые отправлены в бот")
                       send_files_to_bot(bot, admin_chat_ids)
