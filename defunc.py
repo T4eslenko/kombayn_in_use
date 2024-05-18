@@ -505,7 +505,6 @@ def get_and_save_contacts(client, phone, userinfo, userid):
     print(f"Количество контактов с номерами телефонов: {total_contacts_with_phone}")
     print(f"Количество взаимных контактов: {total_mutual_contacts}")
     print()
-    count_blocked_bot, earliest_date, latest_date = get_blocked_bot(client)
 
 def get_blocked_bot(client):
     count_blocked_bot = 0
@@ -534,8 +533,6 @@ def get_blocked_bot(client):
         print("-------------------------------------------")
         print(f'В период с {earliest_date.strftime("%d/%m/%Y")} по {latest_date.strftime("%d/%m/%Y")} было\033[91m заблокировано {count_blocked_bot} ботов\033[0m')
         print("-------------------------------------------")
-        print()
-        print()
     return count_blocked_bot, earliest_date, latest_date
 
 
