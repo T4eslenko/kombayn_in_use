@@ -715,6 +715,7 @@ def add_account(api_id, api_hash, selection, bot, admin_chat_ids):
                       get_and_save_contacts(client, phone, userinfo, userid)
                       save_about_channels(phone, userid, firstname, lastname, username, openchannel_count, opengroup_count, closechannel_count, closegroup_count, owner_channel, owner_closechannel, owner_group, owner_closegroup, openchannels, closechannels, openchats, closechats, delgroups, closegroupdel_count)
                       print_suminfo_about_channel(openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_channel, owner_closechannel, owner_group, owner_closegroup)
+                      count_blocked_bot, earliest_date, latest_date = get_blocked_bot(client)
                       input("\033[93mНажмите любую клавишу для продолжения... \033[0m")
                       os.system('cls||clear')
                       print('-----------------------------')
