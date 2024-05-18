@@ -87,7 +87,7 @@ if __name__ == "__main__":
            print('-----------------------------')
            get_and_save_contacts(client, phone, userinfo, userid)
            print()
-           input(""\033[93mНажмите Enter для продолжения...\033[0m"")             
+           input("\033[93mНажмите Enter для продолжения...\033[0m")             
            client.disconnect()
 
        # 5 Выгрузить инфу об аккаунте
