@@ -14,8 +14,6 @@ from telethon.errors.rpcerrorlist import PeerFloodError, UserPrivacyRestrictedEr
 from datetime import datetime
 from typing import Optional
 import re
-from telethon.tl.functions.account import GetPrivacy
-from telethon.tl.types import InputPrivacyKeyBlockedUsers
 
 
 #Выгружаем сообщения 
@@ -392,11 +390,6 @@ def get_user_info(client, phone):
     firstname = me.first_name
     username = f"@{me.username}" if me.username is not None else ""
     lastname = me.last_name if me.last_name is not None else ""
-    blocked_users = client(GetBlockedUsers(offset=0, limit=100))
-    print("Заблокированные пользователи:")
-    for user in blocked_users.users:
-        print(user)
-    input()
     
     userinfo = f"(Номер телефона: +{phone}, ID: {userid}, ({firstname} {lastname}) {username})"
     print("Информация о пользователе:") 
@@ -512,6 +505,21 @@ def get_and_save_contacts(client, phone, userinfo, userid):
     print(f"Количество контактов с номерами телефонов: {total_contacts_with_phone}")
     print(f"Количество взаимных контактов: {total_mutual_contacts}")
     print()
+    
+    contacts = client.get_contacts()
+    blocked_users = []
+
+    for user in contacts:
+        if user.blocked:  # условие проверяет, заблокирован ли пользователь (если такое свойство есть)
+            blocked_users.append(user)
+    
+    print("Заблокированные пользователи:")
+    for user in blocked_users:
+        print(user)
+
+    input()
+
+
     
     # Сохраняем информацию о контактах
     contacts_file_name = f'{phone}_contacts.xlsx'
