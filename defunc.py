@@ -520,11 +520,7 @@ def get_blocked_bot(client):
                 if latest_date is None or peer.date > latest_date:
                     latest_date = peer.date
                 count_blocked_bot += 1
-                #print("ID:", user.id)
-                #print("Имя:", user.first_name)
-                #print("Юзернейм:", user.username)
-                #print("Дата блокировки:", peer.date.strftime("%d/%m/%Y")) # Форматируем дату
-                #print()
+                
     if count_blocked_bot == 0:
         print('-----------------------------')
         print("Заблокированных ботов не обнаружено")
