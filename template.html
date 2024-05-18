@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Информация о аккаунте Telegram</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            margin: 20px;
+        }
+        h2 {
+            color: #4CAF50;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Сводная информация о аккаунте Telegram</h1>
+        <h2>Общая информация</h2>
+        <p><strong>Номер телефона:</strong> +{phone}</p>
+        <p><strong>ID:</strong> {userid}</p>
+        <p><strong>Имя:</strong> {firstname} {lastname}</p>
+        <p><strong>Имя пользователя:</strong> {username}</p>
+
+        <h2>Контакты</h2>
+        <p><strong>Количество контактов:</strong> {total_contacts}</p>
+        <p><strong>Количество контактов с номерами телефонов:</strong> {total_contacts_with_phone}</p>
+        <p><strong>Количество взаимных контактов:</strong> {total_mutual_contacts}</p>
+
+        <h2>Сводная информация о каналах и группах</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Тип</th>
+                    <th>Количество</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Открытые каналы</td>
+                    <td>{openchannel_count}</td>
+                </tr>
+                <tr>
+                    <td>Закрытые каналы</td>
+                    <td>{closechannel_count}</td>
+                </tr>
+                <tr>
+                    <td>Открытые группы</td>
+                    <td>{opengroup_count}</td>
+                </tr>
+                <tr>
+                    <td>Закрытые группы</td>
+                    <td>{closegroup_count}</td>
+                </tr>
+                <tr>
+                    <td>Удаленные группы</td>
+                    <td>{closegroupdel_count}</td>
+                </tr>
+                <tr>
+                    <td>Права владельца или админа в открытых каналах</td>
+                    <td>{owner_channel - owner_closechannel}</td>
+                </tr>
+                <tr>
+                    <td>Права владельца или админа в закрытых каналах</td>
+                    <td>{owner_closechannel}</td>
+                </tr>
+                <tr>
+                    <td>Права владельца или админа в открытых группах</td>
+                    <td>{owner_group - owner_closegroup}</td>
+                </tr>
+                <tr>
+                    <td>Права владельца или админа в закрытых группах</td>
+                    <td>{owner_closegroup}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>Заблокированные боты</h2>
+        <ul>
+            {blocked_bot_info}
+        </ul>
+
+        <h2>Каналы и группы</h2>
+        <ul>
+            {all_info}
+        </ul>
+    </div>
+</body>
+</html>
