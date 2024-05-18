@@ -508,8 +508,7 @@ def get_and_save_contacts(client, phone, userinfo, userid):
     blocked_users = []
     for contact in contacts:
         print(contact)
-
-    input()
+        input()
 
 
     
