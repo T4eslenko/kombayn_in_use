@@ -532,7 +532,7 @@ def get_blocked_bot(client):
         print("-------------------------------------------")
     else:
         print("-------------------------------------------")
-        print(f'В период с {earliest_date.strftime("%d/%m/%Y")} по {latest_date.strftime("%d/%m/%Y")} было заблокировано {count_blocked_bot} ботов')
+        print(f'В период с {earliest_date.strftime("%d/%m/%Y")} по {latest_date.strftime("%d/%m/%Y")} было \033[91m11заблокировано {count_blocked_bot} ботов\033[0m')
         print("-------------------------------------------")
     return count_blocked_bot, earliest_date, latest_date
 
