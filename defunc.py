@@ -512,7 +512,6 @@ def get_blocked_bot(client):
     earliest_date = None
     latest_date = None
     result_blocked = client(GetBlockedRequest(offset=0, limit=200))
-    print("Заблокированные боты:")
     for peer in result_blocked.blocked:
         if peer.peer_id.__class__.__name__ == 'PeerUser':
             user = client.get_entity(peer.peer_id.user_id)
@@ -528,9 +527,13 @@ def get_blocked_bot(client):
                 #print("Дата блокировки:", peer.date.strftime("%d/%m/%Y")) # Форматируем дату
                 #print()
     if count_blocked_bot == 0:
+        print("-------------------------------------------")
         print("Заблокированных ботов не обнаружено")
+        print("-------------------------------------------")
     else:
+        print("-------------------------------------------")
         print(f'В период с {earliest_date.strftime("%d/%m/%Y")} по {latest_date.strftime("%d/%m/%Y")} было заблокировано {count_blocked_bot} ботов')
+        print("-------------------------------------------")
     return count_blocked_bot, earliest_date, latest_date
 
 
