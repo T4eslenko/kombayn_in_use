@@ -506,8 +506,8 @@ def get_and_save_contacts(client, phone, userinfo, userid):
     print(f"Количество взаимных контактов: {total_mutual_contacts}")
     print()
     results = client(GetBlockedRequest(offset=0, limit=200))
-    for contact in results:
-        print(contact)
+    #for contact in results:
+        print(results)
         input()
 
 
