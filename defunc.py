@@ -505,19 +505,32 @@ def get_and_save_contacts(client, phone, userinfo, userid):
     print(f"Количество контактов с номерами телефонов: {total_contacts_with_phone}")
     print(f"Количество взаимных контактов: {total_mutual_contacts}")
     print()
+
+def get_blocked_bot (client, phone, userinfo, userid):
+    count_blocked_bot = 0
+    earliest_date = None
+    latest_date = None
     result_blocked = client(GetBlockedRequest(offset=0, limit=200))
     print("Заблокированные боты:")
     for peer in result_blocked.blocked:
         if peer.peer_id.__class__.__name__ == 'PeerUser':
             user = client.get_entity(peer.peer_id.user_id)
             if user.bot:
+                if earliest_date is None or peer.date < earliest_date:
+                    earliest_date = peer.date
+                if latest_date is None or peer.date > latest_date:
+                    latest_date = peer.date
+                count_blocked_bot += 1
                 print("ID:", user.id)
                 print("Имя:", user.first_name)
                 print("Юзернейм:", user.username)
                 print("Дата блокировки:", peer.date)
                 print()
-    input()
-
+    if earliest_date:
+        print("Количество заблокированных ботов:", count)
+    if latest_date:
+        print("Самая поздняя дата блокировки:", latest_date)
+    return count_blocked_bot, earliest_date, latest_date
 
     
     # Сохраняем информацию о контактах
