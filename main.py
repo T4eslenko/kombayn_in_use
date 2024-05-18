@@ -286,12 +286,39 @@ if __name__ == "__main__":
                 send_files_to_bot(bot, admin_chat_ids)
                 print('Сделано, мой командир')
                 time.sleep(3)
+ 
+# 9 Инф о заблокированных ботах              
+        elif selection == '9':
+           os.system('cls||clear')
+           sessions = []
+           header = '''
+-----------------------------
+=ПРОСМОТР ЗАБЛОКИРОВАННЫХ БОТОВ=
+-----------------------------
+           '''
+           result = choice_akk(api_id, api_hash, header)
+           if result is None:
+               continue
+           client, phone, session_index = result
+           userid, userinfo, firstname, lastname, username = get_user_info(client, phone) # Получение информации о пользователe
+           print()
+           print('-----------------------------')
+           print('=ИНФОРМАЦИЯ О ЗАБЛОКИРОВАННЫХ БОТАХ=')
+           print('-----------------------------')
+           count_blocked_bot, earliest_date, latest_date = get_blocked_bot(client)
+           print()
+           input("\033[93mНажмите любую клавишу для продолжения... \033[0m")             
+           client.disconnect()
+           
 
+       
         elif selection == '10':
            add_account(api_id, api_hash, selection, bot, admin_chat_ids)
 
         elif selection == '11':
            remouve_account(api_id, api_hash, selection, bot, admin_chat_ids)
+           
+        
            
 # Выход
         elif selection == 'e':
