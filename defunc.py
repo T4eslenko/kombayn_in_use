@@ -3,7 +3,7 @@ import os
 import time
 import openpyxl
 from telethon.tl.functions.channels import InviteToChannelRequest
-from telethon.tl.functions.contacts import GetContactsRequest
+from telethon.tl.functions.contacts import GetContactsRequest, GetBlockedRequest
 from telethon.tl.functions.messages import GetDialogsRequest, ImportChatInviteRequest
 from telethon.tl.types import InputChannel, InputPhoneContact, User, Chat, Channel, Message, MessageFwdHeader, MessageMediaDocument, PeerChannel, DocumentAttributeFilename
 from telethon.sync import TelegramClient, types
@@ -505,8 +505,8 @@ def get_and_save_contacts(client, phone, userinfo, userid):
     print(f"Количество контактов с номерами телефонов: {total_contacts_with_phone}")
     print(f"Количество взаимных контактов: {total_mutual_contacts}")
     print()
-    blocked_users = []
-    for contact in client.iter_contacts():
+    results = client(GetBlockedRequest())
+    for contact in results:
         print(contact)
         input()
 
