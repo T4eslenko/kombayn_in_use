@@ -509,7 +509,8 @@ def get_and_save_contacts(client, phone, userinfo, userid):
 # Заблокированные пользователи
 def get_blocked_bot(client):
     blocked_bot_info = []
-    blocked_bot_info.append(f"заблокированные БОТЫ:")
+    blocked_bot_info.append(f"-----------------------------")
+    blocked_bot_info.append(f"ЗАБЛОКИРОВАННЫЕ БОТЫ:")
     blocked_bot_info.append(f"-----------------------------")
     count_blocked_bot = 0
     earliest_date = None
