@@ -58,10 +58,10 @@ def generate_html_report(phone, userid, firstname, lastname, username, total_con
         opengroup_count=opengroup_count,
         closegroup_count=closegroup_count,
         closegroupdel_count=closegroupdel_count,
-        owner_openchannel_count=owner_openchannel_count,
-        owner_closechannel=owner_closechannel,
-        owner_open_group_count=owner_open_group_count,
-        owner_closegroup=owner_closegroup,
+        owner_openchannel = owner_openchannel,
+        owner_closechannel = owner_closechannel ,
+        owner_opengroup = owner_opengroup ,
+        owner_closegroup = owner_closegroup,
         blocked_bot_info=blocked_bot_info_html,
         all_info=all_info_html
     )
