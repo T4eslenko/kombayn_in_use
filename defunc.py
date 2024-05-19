@@ -610,7 +610,7 @@ def get_blocked_bot(client, selection):
         for bot in user_bots:
             i +=1
         print('-----------------------------')
-        print("У пользователя есть боты: {i}")
+        print(f"У пользователя есть боты: {i}")
         print('-----------------------------')
     else:
         print("Действующих ботов не обнаружено")
