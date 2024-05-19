@@ -321,7 +321,13 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
         admin = " (Администратор)" if openchannel.admin_rights is not None else ""
         messages_count = f" / [{chat_message_counts.get(openchannel.id, 0)}]" if chat_message_counts else ""
         all_info.append(f"{count_row} - {openchannel.title} \033[93m[{openchannel.participants_count}]{messages_count}\033[0m\033[91m {owner} {admin}\033[0m ID:{openchannel.id} \033[94m@{openchannel.username}\033[0m")
-        public_channels_html.append(f"{openchannel_count} - {openchannel.title} <span style='color:#8B4513;'>[{openchannel.participants_count}]</span> <span style='color:#FF0000;'>{owner} {admin}</span> ID:{openchannel.id} <span style='color:#0000FF;'>@{openchannel.username}</span>")
+        #public_channels_html.append(f"{openchannel_count} - {openchannel.title} <span style='color:#8B4513;'>[{openchannel.participants_count}]</span> <span style='color:#FF0000;'>{owner} {admin}</span> ID:{openchannel.id} <span style='color:#0000FF;'>@{openchannel.username}</span>")
+        public_channels_html.append(
+            f"{openchannel_count} - {openchannel.title} <span style='color:#8B4513;'>[{openchannel.participants_count}]</span> "
+            f"<span style='color:#FF0000;'>{owner} {admin}</span> ID:{openchannel.id} "
+            f'<a href="https://t.me/{openchannel.username}" style="color:#0000FF;">@{openchannel.username}</a>'
+        )
+
         openchannel_count += 1
         groups.append(openchannel)
         i +=1
