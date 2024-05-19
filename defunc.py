@@ -482,10 +482,10 @@ def get_type_of_chats(client, selection):
     user_bots = []
 
     for chat in chats:
+        
         if isinstance(chat.entity, User) and chat.entity.bot: #Данные о ботах
-            user_bots.append(f"{chat.entity.first_name}, @{chat.message.date}")
-        print(user_bots)
-        input()
+            user_bots.append(f"{chat.entity.first_name}, @{chat.entity.username")
+
         if isinstance(chat.entity, Channel) or isinstance(chat.entity, Chat): # проверяем групповой ли чат
             
             if selection == '7': #выгружаем количество сообщений при функции выгрузить сообщение
@@ -561,7 +561,9 @@ def get_type_of_chats(client, selection):
                  ID_migrated_values = current_deleted_chat['ID_migrated']
                  if ID_migrated_values not in all_chats_ids:
                       delgroups.append(current_deleted_chat)
-
+                     
+    print(user_bots)
+    input()
     return delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats, admin_id
 
 def get_and_save_contacts(client, phone, userinfo, userid):
