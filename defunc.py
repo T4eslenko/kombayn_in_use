@@ -24,7 +24,7 @@ def generate_html_report():
     
     openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_openchannel, owner_closechannel, owner_opengroup, owner_closegroup, public_channels_html, private_channels_html, public_groups_html, private_groups_html, deleted_groups_html = make_list_of_channels(delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats, selection)
 
-    count_blocked_bot, earliest_date, latest_date, blocked_bot_info = get_blocked_bot(client)
+    blocked_bot_info_html = get_blocked_bot(client)
 
     total_contacts, total_contacts_with_phone, total_mutual_contacts = get_and_save_contacts(client, phone, userinfo, userid)
 
@@ -32,11 +32,7 @@ def generate_html_report():
     # Открываем HTML шаблон
     with open('template.html', 'r', encoding='utf-8') as file:
         template = Template(file.read())
-    
-    # Преобразуем данные в HTML
-    cleaned_blocked_bot_info = [remove_ansi_color_codes(bot) for bot in blocked_bot_info]
-    cleaned_all_info = [remove_ansi_color_codes(info) for info in all_info]
-    
+        
     blocked_bot_info_html = ''.join([f"<li>{bot}</li>" for bot in cleaned_blocked_bot_info])
     all_info_html = ''.join([f"<li>{info}</li>" for info in cleaned_all_info])
 
@@ -587,6 +583,7 @@ def get_and_save_contacts(client, phone, userinfo, userid):
 # Заблокированные пользователи
 def get_blocked_bot(client):
     blocked_bot_info = []
+    blocked_bot_info_html = []
     count_blocked_bot = 0
     earliest_date = None
     latest_date = None
@@ -596,6 +593,7 @@ def get_blocked_bot(client):
             user = client.get_entity(peer.peer_id.user_id)
             if user.bot:
                 blocked_bot_info.append(f"\033[36m@{user.username}\033[0m \033[93m'{user.first_name}'\033[0m заблокирован: {peer.date.strftime('%d/%m/%Y')}")
+                blocked_bot_info_html.append(f"<span style='color:#0000FF;'>@{user.username}</span> '<span style='color:#FFFF00;'>{user.first_name}</span>' заблокирован: {peer.date.strftime('%d/%m/%Y')}")
                 if earliest_date is None or peer.date < earliest_date:
                     earliest_date = peer.date
                 if latest_date is None or peer.date > latest_date:
@@ -610,7 +608,7 @@ def get_blocked_bot(client):
         print('-----------------------------')
         print(f'В период с {earliest_date.strftime("%d/%m/%Y")} по {latest_date.strftime("%d/%m/%Y")} было\033[91m заблокировано {count_blocked_bot} ботов\033[0m')
         print('-----------------------------')
-    return count_blocked_bot, earliest_date, latest_date, blocked_bot_info
+    return count_blocked_bot, earliest_date, latest_date, blocked_bot_info, blocked_bot_info_html
 
     
     # Сохраняем информацию о контактах
