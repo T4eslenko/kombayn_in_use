@@ -64,12 +64,20 @@
         <li><b>Количество контактов с указанным телефоном:</b> {{ total_contacts_with_phone }}</li>
         <li><b>Количество общих контактов:</b> {{ total_mutual_contacts }}</li>
     </ul>
-
+    <!-- Действующие боты -->
+    <h2 class="blocked-bots">Действующие боты</h2>
+        <ul>
+        {% for userbot in user_bots_html %}
+            <li>{{ userbot }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
     <!-- Заблокированные боты -->
     <h2 class="blocked-bots">Заблокированные боты</h2>
         <ul>
-        {% for bot in blocked_bot_info_html %}
-            <li>{{ bot }}</li>
+        {% for blockedbot in blocked_bot_info_html %}
+            <li>{{ blockedbot }}</li>
         {% endfor %}
     </ul>
 </body>
