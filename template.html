@@ -55,8 +55,10 @@
 
     <!-- Заблокированные боты -->
     <h2 class="blocked-bots">Заблокированные боты</h2>
-    <ul>
-        {{ blocked_bot_info_html }}
+        <ul>
+        {% for bot in blocked_bot_info_html %}
+            <li>{{ bot }}</li>
+        {% endfor %}
     </ul>
 </body>
 </html>
