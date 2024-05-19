@@ -487,8 +487,10 @@ def get_type_of_chats(client, selection):
         
         if isinstance(chat.entity, User) and chat.entity.bot: #Данные о ботах
             user_bots.append(f"{chat.entity.first_name}, @{chat.entity.username}")
-            user_bots_html.append(f"<span style='color:#8B4513;'>{chat.entity.first_name}</span>, <span style='color:#0000FF;'>@{chat.entity.username}</span>")
-
+            #user_bots_html.append(f"<span style='color:#8B4513;'>{chat.entity.first_name}</span>, <span style='color:#0000FF;'>@{chat.entity.username}</span>")
+            user_bots_html.append(
+                f'<a href="https://t.me/{chat.entity.username}" style="color:#0000FF;"><span style="color:#8B4513;">{chat.entity.first_name}</span>, @{chat.entity.username}</a>'
+            )
 
         if isinstance(chat.entity, Channel) or isinstance(chat.entity, Chat): # проверяем групповой ли чат
             
