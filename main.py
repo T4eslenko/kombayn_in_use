@@ -290,9 +290,7 @@ if __name__ == "__main__":
                continue
            client, phone, session_index = result
            userid, userinfo, firstname, lastname, username = get_user_info(client, phone) # Получение информации о пользователe
-           delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats, admin_id, user_bots, user_bots_html = get_type_of_chats(client, selection) # Получение информации о чатах и ботах
-           print()
-           count_blocked_bot, earliest_date, latest_date, blocked_bot_info = get_blocked_bot(client)[:4]
+           count_blocked_bot, earliest_date, latest_date, blocked_bot_info, blocked_bot_info_html, user_bots, user_bots_html = get_blocked_bot(client)
            input("\033[93mНажмите Enter для продолжения...\033[0m")
            os.system('cls||clear')
            print()
