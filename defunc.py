@@ -606,7 +606,7 @@ def get_blocked_bot(client, selection):
                 count_blocked_bot += 1
     
     if user_bots:
-        i = 1
+        i = 0
         for bot in user_bots:
             i +=1
         print('-----------------------------')
