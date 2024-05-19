@@ -282,7 +282,7 @@ if __name__ == "__main__":
            sessions = []
            header = '''
 -----------------------------
-=ПРОСМОТР БОТОВ=
+=ПРОСМОТР ИНФОРМАЦИИ О БОТАХ=
 -----------------------------
            '''
            result = choice_akk(api_id, api_hash, header)
@@ -300,8 +300,8 @@ if __name__ == "__main__":
            print('-----------------------------')
            print_pages(user_bots, 40)
            print('-----------------------------')
-
-           
+           input("\033[93mНажмите Enter для продолжения...\033[0m")
+           os.system('cls||clear')
            print('-----------------------------')
            print('=ПРОСМОТР ЗАБЛОКИРОВАННЫХ БОТОВ=')
            print(f"\033[96mНомер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}\033[0m")
