@@ -4,6 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Отчет о пользователе</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        li::before {
+            content: "•";
+            color: #007bff;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+        h2.blocked-bots {
+            color: green;
+        }
+    </style>
 </head>
 <body>
     <h1>Отчет о пользователе</h1>
@@ -27,10 +54,13 @@
     </ul>
 
     <!-- Заблокированные боты -->
-    <h2 style="color:green;">Заблокированные боты</h2>
+    <h2 class="blocked-bots">Заблокированные боты</h2>
     <ul>
         {{ blocked_bot_info_html }}
     </ul>
+</body>
+</html>
+
 
     <!-- Суммарная информация о каналах и группах -->
    <table border="1">
