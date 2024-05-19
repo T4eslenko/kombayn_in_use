@@ -480,11 +480,14 @@ def get_type_of_chats(client, selection):
     chats = client.get_dialogs()
     admin_id = [] 
     user_bots = []
+    user_bots_html = []
 
     for chat in chats:
         
         if isinstance(chat.entity, User) and chat.entity.bot: #Данные о ботах
             user_bots.append(f"{chat.entity.first_name}, @{chat.entity.username}")
+            user_bots_html.append(f"<span style='color:#8B4513;'>{chat.entity.first_name}</span>, <span style='color:#0000FF;'>@{chat.entity.username}</span>")
+
 
         if isinstance(chat.entity, Channel) or isinstance(chat.entity, Chat): # проверяем групповой ли чат
             
@@ -562,10 +565,8 @@ def get_type_of_chats(client, selection):
                  if ID_migrated_values not in all_chats_ids:
                       delgroups.append(current_deleted_chat)
 
-    for bot in user_bots:
-        print(bot)
-        input()
-    return delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats, admin_id
+
+    return delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats, admin_id, user_bots, user_bots_html
 
 def get_and_save_contacts(client, phone, userinfo, userid):
     result = client(GetContactsRequest(0))
@@ -788,7 +789,7 @@ def add_account(api_id, api_hash, selection, bot, admin_chat_ids):
                       userid, userinfo, firstname, lastname, username = get_user_info(client, phone) # Получение информации о пользователe
                       print()
                       count_blocked_bot, earliest_date, latest_date, blocked_bot_info, blocked_bot_info_html = get_blocked_bot(client)
-                      delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats, admin_id = get_type_of_chats(client, selection)  # Получение информации о чатах и каналах
+                      delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats, admin_id, user_bots, user_bots_html = get_type_of_chats(client, selection)  # Получение информации о чатах и каналах
                       groups, i, all_info, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_openchannel, owner_closechannel, owner_opengroup, owner_closegroup, public_channels_html, private_channels_html, public_groups_html, private_groups_html, deleted_groups_html = make_list_of_channels(delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats, selection)
                       print()
                       total_contacts, total_contacts_with_phone, total_mutual_contacts = get_and_save_contacts(client, phone, userinfo, userid)
