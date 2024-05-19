@@ -2,85 +2,45 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Отчет о пользователе</title>
 </head>
 <body>
     <h1>Отчет о пользователе</h1>
-
-    <!-- Информация о пользователе -->
-    <h2>Информация о пользователе</h2>
+    <p>Номер телефона: {{ phone }}</p>
+    <p>ID пользователя: {{ userid }}</p>
+    <p>Имя: {{ firstname }} {{ lastname }}</p>
+    <p>Имя пользователя: {{ username }}</p>
+    <p>Общее количество контактов: {{ total_contacts }}</p>
+    <p>Количество контактов с указанным телефоном: {{ total_contacts_with_phone }}</p>
+    <p>Количество общих контактов: {{ total_mutual_contacts }}</p>
+    <p>Количество открытых каналов: {{ openchannel_count }}</p>
+    <p>Количество закрытых каналов: {{ closechannel_count }}</p>
+    <p>Количество открытых групп: {{ opengroup_count }}</p>
+    <p>Количество закрытых групп: {{ closegroup_count }}</p>
+    <p>Количество удаленных групп: {{ closegroupdel_count }}</p>
+    <p>Владелец открытых каналов: {{ owner_openchannel }}</p>
+    <p>Владелец закрытых каналов: {{ owner_closechannel }}</p>
+    <p>Владелец открытых групп: {{ owner_opengroup }}</p>
+    <p>Владелец закрытых групп: {{ owner_closegroup }}</p>
+    <h2>Информация о заблокированных ботах:</h2>
+    {{ blocked_bot_info_html | safe }}
+    <h2>Публичные каналы:</h2>
+    {{ public_channels_html | safe }}
+    <h2>Приватные каналы:</h2>
+    {{ private_channels_html | safe }}
+    <h2>Публичные группы:</h2>
     <ul>
-        <li>Номер телефона: {{ phone }}</li>
-        <li>ID пользователя: {{ userid }}</li>
-        <li>Имя: {{ firstname }}</li>
-        <li>Фамилия: {{ lastname }}</li>
-        <li>Имя пользователя: {{ username }}</li>
+        {{ public_groups_html | safe }}
     </ul>
-
-    <!-- Информация о контактах -->
-    <h2>Информация о контактах</h2>
+    <h2>Приватные группы:</h2>
     <ul>
-        <li>Общее количество контактов: {{ total_contacts }}</li>
-        <li>Количество контактов с указанным телефоном: {{ total_contacts_with_phone }}</li>
-        <li>Количество общих контактов: {{ total_mutual_contacts }}</li>
+        {{ private_groups_html | safe }}
     </ul>
-
-    <!-- Заблокированные боты -->
-    <h2 style="color:green;">Заблокированные боты</h2>
+    <h2>Удаленные группы:</h2>
     <ul>
-        {{ blocked_bot_info_html }}
-    </ul>
-
-    <!-- Суммарная информация о каналах и группах -->
-    <h2 style="color:blue;">Суммарная информация о каналах и группах</h2>
-    <table border="1">
-        <tr>
-            <td style="width: 200px;">Публичные каналы:</td>
-            <td>{{ total_public_channels }}</td>
-        </tr>
-        <tr>
-            <td>Приватные каналы:</td>
-            <td>{{ total_private_channels }}</td>
-        </tr>
-        <tr>
-            <td>Публичные группы:</td>
-            <td>{{ total_public_groups }}</td>
-        </tr>
-        <tr>
-            <td>Приватные группы:</td>
-            <td>{{ total_private_groups }}</td>
-        </tr>
-        <tr>
-            <td>Удаленные группы:</td>
-            <td>{{ total_deleted_groups }}</td>
-        </tr>
-    </table>
-
-    <!-- Конкретные каналы и группы по категориям -->
-    <h3 style="color:green;">Открытые каналы:</h3>
-    <ul>
-        {{ open_channels }}
-    </ul>
-
-    <h3 style="color:green;">Закрытые каналы:</h3>
-    <ul>
-        {{ close_channels }}
-    </ul>
-
-    <h3 style="color:green;">Открытые группы:</h3>
-    <ul>
-        {{ open_groups }}
-    </ul>
-
-    <h3 style="color:green;">Закрытые группы:</h3>
-    <ul>
-        {{ close_groups }}
-    </ul>
-
-    <h3 style="color:green;">Удаленные группы:</h3>
-    <ul>
-        {{ deleted_groups }}
+        {{ deleted_groups_html | safe }}
     </ul>
 </body>
 </html>
