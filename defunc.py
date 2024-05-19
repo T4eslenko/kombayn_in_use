@@ -481,6 +481,8 @@ def get_type_of_chats(client, selection):
     admin_id = [] 
 
     for chat in chats:
+        print(chat)
+        input()
       
         if isinstance(chat.entity, Channel) or isinstance(chat.entity, Chat): # проверяем групповой ли чат
             
