@@ -2,7 +2,6 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Отчет о пользователе</title>
 </head>
@@ -27,20 +26,14 @@
     <h2>Информация о заблокированных ботах:</h2>
     {{ blocked_bot_info_html | safe }}
     <h2>Публичные каналы:</h2>
-    {{ public_channels_html | safe }}
+    <p>{{ public_channels_html | safe }}</p>
     <h2>Приватные каналы:</h2>
-    {{ private_channels_html | safe }}
+    <p>{{ private_channels_html | safe }}</p>
     <h2>Публичные группы:</h2>
-    <ul>
-        {{ public_groups_html | safe }}
-    </ul>
+    <p>{{ public_groups_html | safe }}</p>
     <h2>Приватные группы:</h2>
-    <ul>
-        {{ private_groups_html | safe }}
-    </ul>
+    <p>{{ private_groups_html | safe }}</p>
     <h2>Удаленные группы:</h2>
-    <ul>
-        {{ deleted_groups_html | safe }}
-    </ul>
+    <p>{{ deleted_groups_html | safe }}</p>
 </body>
 </html>
