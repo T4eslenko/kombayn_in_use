@@ -16,28 +16,20 @@ from typing import Optional
 import re
 from jinja2 import Template
 
-def remove_ansi_color_codes(text):
-    ansi_escape = re.compile(r'(?:\x1B[@-_][0-?]*[ -/]*[@-~])')
-    return ansi_escape.sub('', text)
+from jinja2 import Template
 
 def generate_html_report(phone, userid, firstname, lastname, username, total_contacts, total_contacts_with_phone, total_mutual_contacts, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_openchannel, owner_closechannel, owner_opengroup, owner_closegroup, blocked_bot_info, openchannels, closechannels, openchats, closechats, delgroups, chat_message_counts):
     
     # Открываем HTML шаблон
     with open('template.html', 'r', encoding='utf-8') as file:
         template = Template(file.read())
-    
-    # Преобразуем данные в HTML
-    cleaned_openchannels = [remove_ansi_color_codes(channel) for channel in openchannels]
-    cleaned_closechannels = [remove_ansi_color_codes(channel) for channel in closechannels]
-    cleaned_openchats = [remove_ansi_color_codes(chat) for chat in openchats]
-    cleaned_closechats = [remove_ansi_color_codes(chat) for chat in closechats]
-    cleaned_delgroups = [remove_ansi_color_codes(group) for group in delgroups]
-    
-    openchannels_html = ''.join([f"<li>{channel}</li>" for channel in cleaned_openchannels])
-    closechannels_html = ''.join([f"<li>{channel}</li>" for channel in cleaned_closechannels])
-    openchats_html = ''.join([f"<li>{chat}</li>" for chat in cleaned_openchats])
-    closechats_html = ''.join([f"<li>{chat}</li>" for chat in cleaned_closechats])
-    delgroups_html = ''.join([f"<li>{group}</li>" for group in cleaned_delgroups])
+
+    # Преобразуем данные в HTML без очистки ANSI-кодов
+    openchannels_html = ''.join([f"<li>{channel.title}</li>" for channel in openchannels])
+    closechannels_html = ''.join([f"<li>{channel.title}</li>" for channel in closechannels])
+    openchats_html = ''.join([f"<li>{chat.title}</li>" for chat in openchats])
+    closechats_html = ''.join([f"<li>{chat.title}</li>" for chat in closechats])
+    delgroups_html = ''.join([f"<li>{group['title']}</li>" for group in delgroups])
 
     # Заполняем шаблон данными
     html_content = template.render(
@@ -71,6 +63,7 @@ def generate_html_report(phone, userid, firstname, lastname, username, total_con
         file.write(html_content)
 
     return report_filename
+
     
 #Выгружаем сообщения 
 def remove_timezone(dt: datetime) -> Optional[datetime]:
