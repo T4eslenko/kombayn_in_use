@@ -26,14 +26,14 @@
     <h2>Информация о заблокированных ботах:</h2>
     {{ blocked_bot_info_html | safe }}
     <h2>Публичные каналы:</h2>
-    <p>{{ public_channels_html | safe }}</p>
+    {{ public_channels_html | safe | join("<br>") }}
     <h2>Приватные каналы:</h2>
-    <p>{{ private_channels_html | safe }}</p>
+    {{ private_channels_html | safe | join("<br>") }}
     <h2>Публичные группы:</h2>
-    <p>{{ public_groups_html | safe }}</p>
+    {{ public_groups_html | safe | join("<br>") }}
     <h2>Приватные группы:</h2>
-    <p>{{ private_groups_html | safe }}</p>
+    {{ private_groups_html | safe | join("<br>") }}
     <h2>Удаленные группы:</h2>
-    <p>{{ deleted_groups_html | safe }}</p>
+    {{ deleted_groups_html | safe | join("<br>") }}
 </body>
 </html>
