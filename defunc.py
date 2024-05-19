@@ -587,13 +587,13 @@ def get_blocked_bot(client):
     count_blocked_bot = 0
     earliest_date = None
     latest_date = None
+    delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats, admin_id, user_bots, user_bots_html = get_type_of_chats(client, selection)
     result_blocked = client(GetBlockedRequest(offset=0, limit=200))
     for peer in result_blocked.blocked:
         if peer.peer_id.__class__.__name__ == 'PeerUser':
             user = client.get_entity(peer.peer_id.user_id)
             if user.bot:
                 blocked_bot_info.append(f"\033[36m@{user.username}\033[0m \033[93m'{user.first_name}'\033[0m заблокирован: {peer.date.strftime('%d/%m/%Y')}")
-                #blocked_bot_info_html.append(f"<span style='color:#0000FF;'>@{user.username}</span> '<span style='color:#8B4513;'>{user.first_name}</span>' заблокирован: {peer.date.strftime('%d/%m/%Y')}")
                 blocked_bot_info_html.append(
                     f'<a href="https://t.me/{user.username}" style="color:#0000FF;">@{user.username}</a> '
                     f'<span style="color:#8B4513;">{user.first_name}</span> заблокирован: {peer.date.strftime("%d/%m/%Y")}'
@@ -604,7 +604,14 @@ def get_blocked_bot(client):
                 if latest_date is None or peer.date > latest_date:
                     latest_date = peer.date
                 count_blocked_bot += 1
-                
+
+    if user_bots:
+        print('-----------------------------')
+        print("У пользователя есть боты:")
+        print(user_bots)
+        print('-----------------------------')
+    else:
+        print("Действующий ботов не обнаружено")
     if count_blocked_bot == 0:
         print('-----------------------------')
         print("Заблокированных ботов не обнаружено")
@@ -613,7 +620,8 @@ def get_blocked_bot(client):
         print('-----------------------------')
         print(f'В период с {earliest_date.strftime("%d/%m/%Y")} по {latest_date.strftime("%d/%m/%Y")} было\033[91m заблокировано {count_blocked_bot} ботов\033[0m')
         print('-----------------------------')
-    return count_blocked_bot, earliest_date, latest_date, blocked_bot_info, blocked_bot_info_html
+        
+    return count_blocked_bot, earliest_date, latest_date, blocked_bot_info, blocked_bot_info_html, user_bots, user_bots_html
 
     
     # Сохраняем информацию о контактах
@@ -788,7 +796,7 @@ def add_account(api_id, api_hash, selection, bot, admin_chat_ids):
                       print('-----------------------------') 
                       userid, userinfo, firstname, lastname, username = get_user_info(client, phone) # Получение информации о пользователe
                       print()
-                      count_blocked_bot, earliest_date, latest_date, blocked_bot_info, blocked_bot_info_html = get_blocked_bot(client)
+                      count_blocked_bot, earliest_date, latest_date, blocked_bot_info, blocked_bot_info_html, user_bots, user_bots_html = get_blocked_bot(client)
                       delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats, admin_id, user_bots, user_bots_html = get_type_of_chats(client, selection)  # Получение информации о чатах и каналах
                       groups, i, all_info, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_openchannel, owner_closechannel, owner_opengroup, owner_closegroup, public_channels_html, private_channels_html, public_groups_html, private_groups_html, deleted_groups_html = make_list_of_channels(delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats, selection)
                       print()
