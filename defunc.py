@@ -17,32 +17,7 @@ import re
 from jinja2 import Template
 
 def generate_html_report(phone, userid, userinfo, firstname, lastname, username, total_contacts, total_contacts_with_phone, total_mutual_contacts, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_openchannel, owner_closechannel, owner_opengroup, owner_closegroup, public_channels_html, private_channels_html, public_groups_html, private_groups_html, deleted_groups_html, blocked_bot_info_html):
-    print("phone:", phone)
-    print("userid:", userid)
-    print("userinfo:", userinfo)
-    print("firstname:", firstname)
-    print("lastname:", lastname)
-    print("username:", username)
-    print("total_contacts:", total_contacts)
-    print("total_contacts_with_phone:", total_contacts_with_phone)
-    print("total_mutual_contacts:", total_mutual_contacts)
-    print("openchannel_count:", openchannel_count)
-    print("closechannel_count:", closechannel_count)
-    print("opengroup_count:", opengroup_count)
-    print("closegroup_count:", closegroup_count)
-    print("closegroupdel_count:", closegroupdel_count)
-    print("owner_openchannel:", owner_openchannel)
-    print("owner_closechannel:", owner_closechannel)
-    print("owner_opengroup:", owner_opengroup)
-    print("owner_closegroup:", owner_closegroup)
-    print("blocked_bot_info_html:", blocked_bot_info_html)
-    print("public_channels_html:", public_channels_html)
-    print("private_channels_html:", private_channels_html)
-    print("public_groups_html:", public_groups_html)
-    print("private_groups_html:", private_groups_html)
-    print("deleted_groups_html:", deleted_groups_html)
 
-    input()
     # Открываем HTML шаблон
     with open('template.html', 'r', encoding='utf-8') as file:
         template = Template(file.read())
