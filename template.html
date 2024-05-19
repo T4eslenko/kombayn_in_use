@@ -95,14 +95,29 @@
             </tbody>
         </table>
 
-        <h2>Заблокированные боты</h2>
+        <h2>Открытые каналы</h2>
         <ul>
-            {{ blocked_bot_info }}
+            {{ openchannels_html }}
         </ul>
 
-        <h2>Каналы и группы</h2>
+        <h2>Закрытые каналы</h2>
         <ul>
-            {{ all_info }}
+            {{ closechannels_html }}
+        </ul>
+
+        <h2>Открытые группы</h2>
+        <ul>
+            {{ openchats_html }}
+        </ul>
+
+        <h2>Закрытые группы</h2>
+        <ul>
+            {{ closechats_html }}
+        </ul>
+
+        <h2>Удаленные группы</h2>
+        <ul>
+            {{ delgroups_html }}
         </ul>
     </div>
 </body>
