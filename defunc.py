@@ -484,7 +484,7 @@ def get_type_of_chats(client, selection):
     for chat in chats:
         
         if isinstance(chat.entity, User) and chat.entity.bot: #Данные о ботах
-            user_bots.append(f"{chat.entity.first_name}, @{chat.entity.username")
+            user_bots.append(f"{chat.entity.first_name}, @{chat.entity.username}")
 
         if isinstance(chat.entity, Channel) or isinstance(chat.entity, Chat): # проверяем групповой ли чат
             
