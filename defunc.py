@@ -604,14 +604,16 @@ def get_blocked_bot(client, selection):
                 if latest_date is None or peer.date > latest_date:
                     latest_date = peer.date
                 count_blocked_bot += 1
-
+    
     if user_bots:
+        i = 1
+        for bot in user_bots:
+            i +=1
         print('-----------------------------')
-        print("У пользователя есть боты:")
-        print(user_bots)
+        print("У пользователя есть боты: {i}")
         print('-----------------------------')
     else:
-        print("Действующий ботов не обнаружено")
+        print("Действующих ботов не обнаружено")
     if count_blocked_bot == 0:
         print('-----------------------------')
         print("Заблокированных ботов не обнаружено")
