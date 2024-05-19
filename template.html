@@ -26,14 +26,34 @@
     <h2>Информация о заблокированных ботах:</h2>
     {{ blocked_bot_info_html | safe }}
     <h2>Публичные каналы:</h2>
-    {{ public_channels_html | safe | join("<br>") }}
+    <ul>
+        {% for channel in public_channels_html %}
+            <li>{{ channel }}</li>
+        {% endfor %}
+    </ul>
     <h2>Приватные каналы:</h2>
-    {{ private_channels_html | safe | join("<br>") }}
+    <ul>
+        {% for channel in private_channels_html %}
+            <li>{{ channel }}</li>
+        {% endfor %}
+    </ul>
     <h2>Публичные группы:</h2>
-    {{ public_groups_html | safe | join("<br>") }}
+    <ul>
+        {% for group in public_groups_html %}
+            <li>{{ group }}</li>
+        {% endfor %}
+    </ul>
     <h2>Приватные группы:</h2>
-    {{ private_groups_html | safe | join("<br>") }}
+    <ul>
+        {% for group in private_groups_html %}
+            <li>{{ group }}</li>
+        {% endfor %}
+    </ul>
     <h2>Удаленные группы:</h2>
-    {{ deleted_groups_html | safe | join("<br>") }}
+    <ul>
+        {% for group in deleted_groups_html %}
+            <li>{{ group }}</li>
+        {% endfor %}
+    </ul>
 </body>
 </html>
