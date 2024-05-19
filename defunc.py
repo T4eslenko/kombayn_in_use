@@ -321,7 +321,7 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
         admin = " (Администратор)" if openchannel.admin_rights is not None else ""
         messages_count = f" / [{chat_message_counts.get(openchannel.id, 0)}]" if chat_message_counts else ""
         all_info.append(f"{count_row} - {openchannel.title} \033[93m[{openchannel.participants_count}]{messages_count}\033[0m\033[91m {owner} {admin}\033[0m ID:{openchannel.id} \033[94m@{openchannel.username}\033[0m")
-        public_channels_html.append(f"{i} - {openchannel.title} <span style='color:#FFFF00;'>[{openchannel.participants_count}]</span> <span style='color:#FF0000;'>{owner} {admin}</span> ID:{openchannel.id} <span style='color:#0000FF;'>@{openchannel.username}</span>")
+        public_channels_html.append(f"{openchannel_count} - {openchannel.title} <span style='color:#8B4513;'>[{openchannel.participants_count}]</span> <span style='color:#FF0000;'>{owner} {admin}</span> ID:{openchannel.id} <span style='color:#0000FF;'>@{openchannel.username}</span>")
         openchannel_count += 1
         groups.append(openchannel)
         i +=1
@@ -338,7 +338,7 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
         admin = " (Администратор)" if closechannel.admin_rights is not None else ""
         messages_count = f" / [{chat_message_counts.get(closechannel.id, 0)}]" if chat_message_counts else ""
         all_info.append(f"{count_row} - {closechannel.title} \033[93m[{closechannel.participants_count}]{messages_count}\033[0m \033[91m{owner} {admin}\033[0m ID:{closechannel.id}")
-        private_channels_html.append(f"{i} - {closechannel.title} <span style='color:#FFFF00;'>[{closechannel.participants_count}]</span> <span style='color:#FF0000;'>{owner} {admin}</span> ID:{closechannel.id}")
+        private_channels_html.append(f"{closechannel_count} - {closechannel.title} <span style='color:#8B4513;'>[{closechannel.participants_count}]</span> <span style='color:#FF0000;'>{owner} {admin}</span> ID:{closechannel.id}")
         closechannel_count += 1
         groups.append(closechannel)
         i +=1
@@ -355,7 +355,7 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
         admin = " (Администратор)" if openchat.admin_rights is not None else ""
         messages_count = f" / [{chat_message_counts.get(openchat.id, 0)}]" if chat_message_counts else ""
         all_info.append(f"{count_row} - {openchat.title} \033[93m[{openchat.participants_count}]{messages_count}\033[0m\033[91m {owner} {admin}\033[0m ID:{openchat.id} \033[94m@{openchat.username}\033[0m")
-        public_groups_html.append(f"{i} - {openchat.title} <span style='color:#FFFF00;'>[{openchat.participants_count}]</span> <span style='color:#FF0000;'>{owner} {admin}</span> ID:{openchat.id} <span style='color:#0000FF;'>@{openchat.username}</span>\033[0m")
+        public_groups_html.append(f"{opengroup_count} - {openchat.title} <span style='color:#8B4513;'>[{openchat.participants_count}]</span> <span style='color:#FF0000;'>{owner} {admin}</span> ID:{openchat.id} <span style='color:#0000FF;'>@{openchat.username}</span>")
         opengroup_count += 1
         groups.append(openchat)
         i +=1
@@ -372,7 +372,7 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
         admin = " (Администратор)" if closechat.admin_rights is not None else ""
         messages_count = f" / [{chat_message_counts.get(closechat.id, 0)}]" if chat_message_counts else ""
         all_info.append(f"{count_row} - {closechat.title} \033[93m[{closechat.participants_count}]{messages_count}\033[0m \033[91m{owner} {admin}\033[0m ID:{closechat.id}")
-        private_groups_html.append(f"{i} - {closechat.title} <span style='color:#FFFF00;'>[{closechat.participants_count}]</span> <span style='color:#FF0000;'>{owner} {admin}</span> ID:{closechat.id}")
+        private_groups_html.append(f"{closegroup_count} - {closechat.title} <span style='color:#8B4513;'>[{closechat.participants_count}]</span> <span style='color:#FF0000;'>{owner} {admin}</span> ID:{closechat.id}")
         closegroup_count += 1
         groups.append(closechat)
         i +=1
@@ -393,7 +393,7 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
         owner = " (Владелец)" if owner_value else ""
         admin = " (Администратор)" if admin_value is not None else ""
         all_info.append(f"{count_row} - {title_value} \033[91m{owner} {admin}\033[0m ID:{id_value}")
-        deleted_groups_html.append(f"{i} - {title_value} <span style='color:#FF0000;'>{owner} {admin}</span> ID:{id_value}")
+        deleted_groups_html.append(f"{closegroupdel_count} - {title_value} <span style='color:#FF0000;'>{owner} {admin}</span> ID:{id_value}")
         closegroupdel_count += 1
         i +=1
         if owner != "" or admin != "":
@@ -573,7 +573,7 @@ def get_blocked_bot(client):
             user = client.get_entity(peer.peer_id.user_id)
             if user.bot:
                 blocked_bot_info.append(f"\033[36m@{user.username}\033[0m \033[93m'{user.first_name}'\033[0m заблокирован: {peer.date.strftime('%d/%m/%Y')}")
-                blocked_bot_info_html.append(f"<span style='color:#0000FF;'>@{user.username}</span> '<span style='color:#FFFF00;'>{user.first_name}</span>' заблокирован: {peer.date.strftime('%d/%m/%Y')}")
+                blocked_bot_info_html.append(f"<span style='color:#0000FF;'>@{user.username}</span> '<span style='color:#8B4513;'>{user.first_name}</span>' заблокирован: {peer.date.strftime('%d/%m/%Y')}")
                 if earliest_date is None or peer.date < earliest_date:
                     earliest_date = peer.date
                 if latest_date is None or peer.date > latest_date:
