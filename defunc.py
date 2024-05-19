@@ -324,7 +324,7 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
         all_info.append(f"{count_row} - {openchannel.title} \033[93m[{openchannel.participants_count}]{messages_count}\033[0m\033[91m {owner} {admin}\033[0m ID:{openchannel.id} \033[94m@{openchannel.username}\033[0m")
         #public_channels_html.append(f"{openchannel_count} - {openchannel.title} <span style='color:#8B4513;'>[{openchannel.participants_count}]</span> <span style='color:#FF0000;'>{owner} {admin}</span> ID:{openchannel.id} <span style='color:#0000FF;'>@{openchannel.username}</span>")
         public_channels_html.append(
-            f"{openchannel_count} - {openchannel.title} <span style='color:#8B4513;'>[{openchannel.participants_count}]</span> "
+            f"{openchannel_count} - <span style='color:#800080;'>{openchannel.title}</span> <span style='color:#8B4513;'>[{openchannel.participants_count}]</span> "
             f"<span style='color:#FF0000;'>{owner} {admin}</span> ID:{openchannel.id} "
             f'<a href="https://t.me/{openchannel.username}" style="color:#0000FF;">@{openchannel.username}</a>'
         )
@@ -345,7 +345,7 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
         admin = " (Администратор)" if closechannel.admin_rights is not None else ""
         messages_count = f" / [{chat_message_counts.get(closechannel.id, 0)}]" if chat_message_counts else ""
         all_info.append(f"{count_row} - {closechannel.title} \033[93m[{closechannel.participants_count}]{messages_count}\033[0m \033[91m{owner} {admin}\033[0m ID:{closechannel.id}")
-        private_channels_html.append(f"{closechannel_count} - {closechannel.title} <span style='color:#8B4513;'>[{closechannel.participants_count}]</span> <span style='color:#FF0000;'>{owner} {admin}</span> ID:{closechannel.id}")
+        private_channels_html.append(f"{closechannel_count} - <span style='color:#800080;'>{closechannel.title}</span> <span style='color:#8B4513;'>[{closechannel.participants_count}]</span> <span style='color:#FF0000;'>{owner} {admin}</span> ID:{closechannel.id}")
         closechannel_count += 1
         groups.append(closechannel)
         i +=1
@@ -364,7 +364,7 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
         all_info.append(f"{count_row} - {openchat.title} \033[93m[{openchat.participants_count}]{messages_count}\033[0m\033[91m {owner} {admin}\033[0m ID:{openchat.id} \033[94m@{openchat.username}\033[0m")
        # public_groups_html.append(f"{opengroup_count} - {openchat.title} <span style='color:#8B4513;'>[{openchat.participants_count}]</span> <span style='color:#FF0000;'>{owner} {admin}</span> ID:{openchat.id} <span style='color:#0000FF;'>@{openchat.username}</span>")
         public_groups_html.append(
-            f"{opengroup_count} - {openchat.title} <span style='color:#8B4513;'>[{openchat.participants_count}]</span> "
+            f"{opengroup_count} - <span style='color:#800080;'>{openchat.title}</span> <span style='color:#8B4513;'>[{openchat.participants_count}]</span> "
             f"<span style='color:#FF0000;'>{owner} {admin}</span> ID:{openchat.id} "
             f'<a href="https://t.me/{openchat.username}" style="color:#0000FF;">@{openchat.username}</a>'
         )
@@ -385,7 +385,7 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
         admin = " (Администратор)" if closechat.admin_rights is not None else ""
         messages_count = f" / [{chat_message_counts.get(closechat.id, 0)}]" if chat_message_counts else ""
         all_info.append(f"{count_row} - {closechat.title} \033[93m[{closechat.participants_count}]{messages_count}\033[0m \033[91m{owner} {admin}\033[0m ID:{closechat.id}")
-        private_groups_html.append(f"{closegroup_count} - {closechat.title} <span style='color:#8B4513;'>[{closechat.participants_count}]</span> <span style='color:#FF0000;'>{owner} {admin}</span> ID:{closechat.id}")
+        private_groups_html.append(f"{closegroup_count} - <span style='color:#800080;'>{closechat.title}</span> <span style='color:#8B4513;'>[{closechat.participants_count}]</span> <span style='color:#FF0000;'>{owner} {admin}</span> ID:{closechat.id}")
         closegroup_count += 1
         groups.append(closechat)
         i +=1
@@ -406,7 +406,7 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
         owner = " (Владелец)" if owner_value else ""
         admin = " (Администратор)" if admin_value is not None else ""
         all_info.append(f"{count_row} - {title_value} \033[91m{owner} {admin}\033[0m ID:{id_value}")
-        deleted_groups_html.append(f"{closegroupdel_count} - {title_value} <span style='color:#FF0000;'>{owner} {admin}</span> ID:{id_value}")
+        deleted_groups_html.append(f"{closegroupdel_count} - <span style='color:#800080;'>{title_value}</span> <span style='color:#FF0000;'>{owner} {admin}</span> ID:{id_value}")
         closegroupdel_count += 1
         i +=1
         if owner != "" or admin != "":
@@ -483,21 +483,16 @@ def get_type_of_chats(client, selection):
     user_bots = []
     user_bots_html = []
 
-    for chat in chats:
-        
+    for chat in chats:   
         if isinstance(chat.entity, User) and chat.entity.bot: #Данные о ботах
             user_bots.append(f"{chat.entity.first_name}, @{chat.entity.username}")
             #user_bots_html.append(f"<span style='color:#8B4513;'>{chat.entity.first_name}</span>, <span style='color:#0000FF;'>@{chat.entity.username}</span>")
             user_bots_html.append(
                 f'<a href="https://t.me/{chat.entity.username}" style="color:#0000FF;">@{chat.entity.username}</a> '
-                f'<span style="color:#8B4513;">{chat.entity.first_name}</span>'
+                f'<span style="color:#800080;">{chat.entity.first_name}</span>'
             )
 
-
- 
-
-        if isinstance(chat.entity, Channel) or isinstance(chat.entity, Chat): # проверяем групповой ли чат
-            
+        if isinstance(chat.entity, Channel) or isinstance(chat.entity, Chat): # проверяем групповой ли чат        
             if selection == '7': #выгружаем количество сообщений при функции выгрузить сообщение
                 messages = client.get_messages(chat.entity, limit=0)
                 count_messages = messages.total
@@ -603,7 +598,7 @@ def get_blocked_bot(client, selection):
                 blocked_bot_info.append(f"\033[36m@{user.username}\033[0m \033[93m'{user.first_name}'\033[0m заблокирован: {peer.date.strftime('%d/%m/%Y')}")
                 blocked_bot_info_html.append(
                     f'<a href="https://t.me/{user.username}" style="color:#0000FF;">@{user.username}</a> '
-                    f'<span style="color:#8B4513;">{user.first_name}</span> заблокирован: {peer.date.strftime("%d/%m/%Y")}'
+                    f'<span style="color:#800080;">{user.first_name}</span> заблокирован: {peer.date.strftime("%d/%m/%Y")}'
                 )
 
                 if earliest_date is None or peer.date < earliest_date:
