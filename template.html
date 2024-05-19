@@ -8,17 +8,22 @@
     body {
         font-family: Arial, sans-serif;
         margin: 0;
-        padding: 20px;
+        padding: 10px;
         font-size: 15px; /* Changed font size for body */
         line-height: 1; /* Set line height to single spacing */
     }
     h1 {
-        font-size: 26px; /* Changed font size for h1 */
-        color: #007bff; /* Changed color to blue */
+        font-size: 30px; /* Changed font size for h1 */
+        color: #100a90; /* Changed color to blue */
     }
     h2 {
+        font-size: 26px; /* Changed font size for h2 */
+        color: #F248CE; /* Changed color to purple */
+    }
+    }
+    h3 {
         font-size: 20px; /* Changed font size for h2 */
-        color: #800080; /* Changed color to purple */
+        color: #12E012; /* Changed color to зеленый */
     }
     ul {
         list-style-type: none;
@@ -51,11 +56,8 @@
 </style>
 </head>
 <body>
-    <h1>Отчет о пользователе</h1>
-
-    <!-- Информация о пользователе -->
-    <!-- Информация о пользователе -->
-    <h1>Информация о пользователе</h1>
+    <h1>ОТЧЕТ ОБ АККАУНТЕ ТЕЛЕГРАМ</h1>
+    <h2>Информация о пользователе</h2>
     <ul>
         <li><b>Номер телефона:</b> {{ phone }}</li>
         <li><b>ID пользователя:</b> {{ userid }}</li>
@@ -63,17 +65,15 @@
         <li><b>Фамилия:</b> {{ lastname }}</li>
         <li><b>Имя пользователя:</b> {{ username }}</li>
     </ul>
-
-    <!-- Информация о контактах -->
     <h2>Информация о контактах</h2>
     <ul>
         <li><b>Общее количество контактов:</b> {{ total_contacts }}</li>
         <li><b>Количество контактов с указанным телефоном:</b> {{ total_contacts_with_phone }}</li>
         <li><b>Количество общих контактов:</b> {{ total_mutual_contacts }}</li>
     </ul>
-    <!-- Действующие боты -->
-    <h1>Инофрмация о ботах</h1>
-    <h2>Действующие боты</h2>
+    
+    <h2>Инофрмация о ботах</h2>
+    <h3>Действующие боты</h3>
         <ul>
         {% for userbot in user_bots_html %}
             <li>{{ userbot }}</li>
@@ -81,8 +81,7 @@
     </ul>
 </body>
 </html>
-    <!-- Заблокированные боты -->
-    <h2>Заблокированные боты</h2>
+    <h3>Заблокированные боты</h3>
         <ul>
         {% for blockedbot in blocked_bot_info_html %}
             <li>{{ blockedbot }}</li>
@@ -91,8 +90,7 @@
 </body>
 </html>
 
-    <h1>Суммарная информация о каналах и группах</h1>
-    <!-- Суммарная информация о каналах и группах -->
+    <h2>Суммарная информация о каналах и группах</h2>
    <table border="1">
     <tr>
         <th>Тип</th>
@@ -139,35 +137,50 @@
 
 
     <!-- Конкретные каналы и группы по категориям -->
-    <h2>Открытые каналы:</h2>
+{% if public_channels_html %}
+    <h3>Открытые каналы:</h3>
     <ul>
         {% for channel in public_channels_html %}
             <li>{{ channel }}</li>
         {% endfor %}
     </ul>
-    <h2>Закрытые каналы:</h2>
+{% endif %}
+
+{% if private_channels_html %}
+    <h3>Закрытые каналы:</h3>
     <ul>
         {% for channel in private_channels_html %}
             <li>{{ channel }}</li>
         {% endfor %}
     </ul>
+{% endif %}
+
+{% if public_groups_html %}
     <h2>Открытые группы:</h2>
     <ul>
         {% for group in public_groups_html %}
             <li>{{ group }}</li>
         {% endfor %}
     </ul>
-    <h2>Закрытые группы:</h2>
+{% endif %}
+
+{% if private_groups_html %}
+    <h3>Закрытые группы:</h3>
     <ul>
         {% for group in private_groups_html %}
             <li>{{ group }}</li>
         {% endfor %}
     </ul>
-    <h2>Удаленные группы:</h2>
+{% endif %}
+
+{% if deleted_groups_html %}
+    <h3>Удаленные группы:</h3>
     <ul>
         {% for group in deleted_groups_html %}
             <li>{{ group }}</li>
         {% endfor %}
     </ul>
+{% endif %}
+
 </body>
 </html>
