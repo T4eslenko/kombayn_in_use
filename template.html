@@ -60,37 +60,27 @@
     <!-- Конкретные каналы и группы по категориям -->
     <h3 style="color:green;">Открытые каналы:</h3>
     <ul>
-        {% for channel in open_channels %}
-        <li>{{ channel }}</li>
-        {% endfor %}
+        {{ open_channels }}
     </ul>
 
     <h3 style="color:green;">Закрытые каналы:</h3>
     <ul>
-        {% for channel in close_channels %}
-        <li>{{ channel }}</li>
-        {% endfor %}
+        {{ close_channels }}
     </ul>
 
     <h3 style="color:green;">Открытые группы:</h3>
     <ul>
-        {% for group in open_groups %}
-        <li>{{ group }}</li>
-        {% endfor %}
+        {{ open_groups }}
     </ul>
 
     <h3 style="color:green;">Закрытые группы:</h3>
     <ul>
-        {% for group in close_groups %}
-        <li>{{ group }}</li>
-        {% endfor %}
+        {{ close_groups }}
     </ul>
 
     <h3 style="color:green;">Удаленные группы:</h3>
     <ul>
-        {% for group in deleted_groups %}
-        <li>{{ group }}</li>
-        {% endfor %}
+        {{ deleted_groups }}
     </ul>
 </body>
 </html>
