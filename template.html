@@ -47,21 +47,22 @@
     <h1>Отчет о пользователе</h1>
 
     <!-- Информация о пользователе -->
+    <!-- Информация о пользователе -->
     <h2>Информация о пользователе</h2>
     <ul>
-        <li>Номер телефона: {{ phone }}</li>
-        <li>ID пользователя: {{ userid }}</li>
-        <li>Имя: {{ firstname }}</li>
-        <li>Фамилия: {{ lastname }}</li>
-        <li>Имя пользователя: {{ username }}</li>
+        <li><b>Номер телефона:</b> {{ phone }}</li>
+        <li><b>ID пользователя:</b> {{ userid }}</li>
+        <li><b>Имя:</b> {{ firstname }}</li>
+        <li><b>Фамилия:</b> {{ lastname }}</li>
+        <li><b>Имя пользователя:</b> {{ username }}</li>
     </ul>
 
     <!-- Информация о контактах -->
     <h2>Информация о контактах</h2>
     <ul>
-        <li>Общее количество контактов: {{ total_contacts }}</li>
-        <li>Количество контактов с указанным телефоном: {{ total_contacts_with_phone }}</li>
-        <li>Количество общих контактов: {{ total_mutual_contacts }}</li>
+        <li><b>Общее количество контактов:</b> {{ total_contacts }}</li>
+        <li><b>Количество контактов с указанным телефоном:</b> {{ total_contacts_with_phone }}</li>
+        <li><b>Количество общих контактов:</b> {{ total_mutual_contacts }}</li>
     </ul>
 
     <!-- Заблокированные боты -->
@@ -122,25 +123,25 @@
 
 
     <!-- Конкретные каналы и группы по категориям -->
-    <h2>Публичные каналы:</h2>
+    <h2>Открытые каналы:</h2>
     <ul>
         {% for channel in public_channels_html %}
             <li>{{ channel }}</li>
         {% endfor %}
     </ul>
-    <h2>Приватные каналы:</h2>
+    <h2>Закрытые каналы:</h2>
     <ul>
         {% for channel in private_channels_html %}
             <li>{{ channel }}</li>
         {% endfor %}
     </ul>
-    <h2>Публичные группы:</h2>
+    <h2>Открытые группы:</h2>
     <ul>
         {% for group in public_groups_html %}
             <li>{{ group }}</li>
         {% endfor %}
     </ul>
-    <h2>Приватные группы:</h2>
+    <h2>Закрытые группы:</h2>
     <ul>
         {% for group in private_groups_html %}
             <li>{{ group }}</li>
