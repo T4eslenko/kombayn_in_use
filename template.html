@@ -97,27 +97,32 @@
 
         <h2>Открытые каналы</h2>
         <ul>
-            {{ openchannels_html }}
+            {{ openchannels_html|safe }}
         </ul>
 
         <h2>Закрытые каналы</h2>
         <ul>
-            {{ closechannels_html }}
+            {{ closechannels_html|safe }}
         </ul>
 
         <h2>Открытые группы</h2>
         <ul>
-            {{ openchats_html }}
+            {{ openchats_html|safe }}
         </ul>
 
         <h2>Закрытые группы</h2>
         <ul>
-            {{ closechats_html }}
+            {{ closechats_html|safe }}
         </ul>
 
         <h2>Удаленные группы</h2>
         <ul>
-            {{ delgroups_html }}
+            {{ delgroups_html|safe }}
+        </ul>
+
+        <h2>Заблокированные боты</h2>
+        <ul>
+            {{ blocked_bot_info }}
         </ul>
     </div>
 </body>
