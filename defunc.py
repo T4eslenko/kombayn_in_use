@@ -482,18 +482,8 @@ def get_type_of_chats(client, selection):
     user_bots = []
 
     for chat in chats:
-        
-        
-        if isinstance(chat.entity, User) and chat.entity.bot:
-            # Получаем имя, username и дату последнего сообщения
-            name = chat.entity.first_name
-            username = chat.entity.username
-            last_message_date = chat.message.date
-            user_bots.append({
-                'name': name,
-                'username': username,
-                'last_message_date': last_message_date
-            })
+        if isinstance(chat.entity, User) and chat.entity.bot: #Данные о ботах
+            user_bots.append(f"{chat.entity.first_name}, @{chat.message.date}")
         print(user_bots)
         input()
         if isinstance(chat.entity, Channel) or isinstance(chat.entity, Chat): # проверяем групповой ли чат
