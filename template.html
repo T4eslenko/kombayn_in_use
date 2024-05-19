@@ -5,50 +5,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Отчет о пользователе</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-        }
-        h1, h2 {
-            color: #333;
-        }
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        li {
-            margin-bottom: 10px;
-        }
-        li::before {
-            content: " ";
-            color: #007bff;
-            display: inline-block;
-            width: 1em;
-            margin-left: -1em;
-        }
-        h2.blocked-bots {
-            color: green;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        th, td {
-            padding: 10px;
-            border: 1px solid #000;
-        }
-        table tr td:nth-child(2), table tr th:nth-child(2) {
-            text-align: center;
-        }
-    </style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+        font-size: 15px; /* Changed font size for body */
+        line-height: 1; /* Set line height to single spacing */
+    }
+    h1 {
+        font-size: 26px; /* Changed font size for h1 */
+        color: #007bff; /* Changed color to blue */
+    }
+    h2 {
+        font-size: 20px; /* Changed font size for h2 */
+        color: #800080; /* Changed color to purple */
+    }
+    ul {
+        list-style-type: none;
+        padding: 0;
+    }
+    li {
+        margin-bottom: 10px;
+    }
+    li::before {
+        content: " ";
+        color: #007bff;
+        display: inline-block;
+        width: 1em;
+        margin-left: -1em;
+    }
+    h2.blocked-bots {
+        color: green;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    th, td {
+        padding: 10px;
+        border: 1px solid #000;
+    }
+    table tr td:nth-child(2), table tr th:nth-child(2) {
+        text-align: center;
+    }
+</style>
 </head>
 <body>
     <h1>Отчет о пользователе</h1>
 
     <!-- Информация о пользователе -->
     <!-- Информация о пользователе -->
-    <h2>Информация о пользователе</h2>
+    <h1>Информация о пользователе</h1>
     <ul>
         <li><b>Номер телефона:</b> {{ phone }}</li>
         <li><b>ID пользователя:</b> {{ userid }}</li>
@@ -65,7 +72,8 @@
         <li><b>Количество общих контактов:</b> {{ total_mutual_contacts }}</li>
     </ul>
     <!-- Действующие боты -->
-    <h2 class="blocked-bots">Действующие боты</h2>
+    <h1>Инофрмация о ботах</h1>
+    <h2>Действующие боты</h2>
         <ul>
         {% for userbot in user_bots_html %}
             <li>{{ userbot }}</li>
@@ -74,7 +82,7 @@
 </body>
 </html>
     <!-- Заблокированные боты -->
-    <h2 class="blocked-bots">Заблокированные боты</h2>
+    <h2>Заблокированные боты</h2>
         <ul>
         {% for blockedbot in blocked_bot_info_html %}
             <li>{{ blockedbot }}</li>
@@ -83,7 +91,7 @@
 </body>
 </html>
 
-    <h2>Суммарная информация о каналах и группах</h2>
+    <h1>Суммарная информация о каналах и группах</h1>
     <!-- Суммарная информация о каналах и группах -->
    <table border="1">
     <tr>
