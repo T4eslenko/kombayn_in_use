@@ -16,32 +16,16 @@ from typing import Optional
 import re
 from jinja2 import Template
 
-def remove_ansi_color_codes(text):
-    ansi_escape = re.compile(r'(?:\x1B[@-_][0-?]*[ -/]*[@-~])')
-    return ansi_escape.sub('', text)
-
 def generate_html_report():
-    
     openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_openchannel, owner_closechannel, owner_opengroup, owner_closegroup, public_channels_html, private_channels_html, public_groups_html, private_groups_html, deleted_groups_html = make_list_of_channels(delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats, selection)
 
-    blocked_bot_info_html = get_blocked_bot(client)
+    blocked_bot_info_html = ''.join([f"<li>{bot}</li>" for bot in blocked_bot_info])
 
     total_contacts, total_contacts_with_phone, total_mutual_contacts = get_and_save_contacts(client, phone, userinfo, userid)
 
-    
     # Открываем HTML шаблон
     with open('template.html', 'r', encoding='utf-8') as file:
         template = Template(file.read())
-        
-    blocked_bot_info_html = ''.join([f"<li>{bot}</li>" for bot in cleaned_blocked_bot_info])
-    all_info_html = ''.join([f"<li>{info}</li>" for info in cleaned_all_info])
-
-    # Выполняем арифметические операции заранее
-    openchannel_count = int(openchannel_count) - 1
-    closechannel_count = int(closechannel_count) - 1
-    opengroup_count = int(opengroup_count) - 1
-    closegroup_count = int(closegroup_count) - 1
-    closegroupdel_count = int(closegroupdel_count) - 1
 
     # Заполняем шаблон данными
     html_content = template.render(
@@ -53,29 +37,30 @@ def generate_html_report():
         total_contacts=total_contacts,
         total_contacts_with_phone=total_contacts_with_phone,
         total_mutual_contacts=total_mutual_contacts,
-        openchannel_count=openchannel_count,
-        closechannel_count=closechannel_count,
-        opengroup_count=opengroup_count,
-        closegroup_count=closegroup_count,
-        closegroupdel_count=closegroupdel_count,
+        openchannel_count=openchannel_count - 1,
+        closechannel_count=closechannel_count - 1,
+        opengroup_count=opengroup_count - 1,
+        closegroup_count=closegroup_count - 1,
+        closegroupdel_count=closegroupdel_count - 1,
         owner_openchannel=owner_openchannel,
         owner_closechannel=owner_closechannel,
         owner_opengroup=owner_opengroup,
         owner_closegroup=owner_closegroup,
         blocked_bot_info=blocked_bot_info_html,
-        all_info=all_info_html
+        public_channels_html=public_channels_html,
+        private_channels_html=private_channels_html,
+        public_groups_html=public_groups_html,
+        private_groups_html=private_groups_html,
+        deleted_groups_html=deleted_groups_html
     )
 
     # Сохраняем результат в HTML файл
     report_filename = f"{phone}_report.html"
-    with open(f"{phone}_report.html", 'w', encoding='utf-8') as file:
+    with open(report_filename, 'w', encoding='utf-8') as file:
         file.write(html_content)
 
-    # Сохраняем результат в HTML файл
-    with open(f"{phone}_report.html", 'w', encoding='utf-8') as file:
-        file.write(html_content)
-        
     return report_filename
+
 
     
 #Выгружаем сообщения 
