@@ -20,7 +20,15 @@ def remove_ansi_color_codes(text):
     ansi_escape = re.compile(r'(?:\x1B[@-_][0-?]*[ -/]*[@-~])')
     return ansi_escape.sub('', text)
 
-def generate_html_report(phone, userid, firstname, lastname, username, total_contacts, total_contacts_with_phone, total_mutual_contacts, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_openchannel, owner_closechannel, owner_opengroup, owner_closegroup, blocked_bot_info, all_info):
+def generate_html_report():
+    
+    openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_openchannel, owner_closechannel, owner_opengroup, owner_closegroup, public_channels_html, private_channels_html, public_groups_html, private_groups_html, deleted_groups_html = make_list_of_channels(delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats, selection)
+
+    count_blocked_bot, earliest_date, latest_date, blocked_bot_info = get_blocked_bot(client)
+
+    total_contacts, total_contacts_with_phone, total_mutual_contacts = get_and_save_contacts(client, phone, userinfo, userid)
+
+    
     # Открываем HTML шаблон
     with open('template.html', 'r', encoding='utf-8') as file:
         template = Template(file.read())
@@ -326,15 +334,18 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
     groups = []
     i=0
 
+
     openchannels_name = 'Открытые КАНАЛЫ:' if openchannels else ''
     all_info.append(f"\033[95m{openchannels_name}\033[0m")  
     openchannel_count = 1  
+    public_channels_html = []
     for openchannel in openchannels:
         count_row = openchannel_count if selection == '5' else i
         owner = " (Владелец)" if openchannel.creator else ""
         admin = " (Администратор)" if openchannel.admin_rights is not None else ""
         messages_count = f" / [{chat_message_counts.get(openchannel.id, 0)}]" if chat_message_counts else ""
         all_info.append(f"{count_row} - {openchannel.title} \033[93m[{openchannel.participants_count}]{messages_count}\033[0m\033[91m {owner} {admin}\033[0m ID:{openchannel.id} \033[94m@{openchannel.username}\033[0m")
+        public_channels_html.append(f"{i} - {openchannel.title} <span style='color:#FFFF00;'>[{openchannel.participants_count}]</span> <span style='color:#FF0000;'>{owner} {admin}</span> ID:{openchannel.id} <span style='color:#0000FF;'>@{openchannel.username}</span>")
         openchannel_count += 1
         groups.append(openchannel)
         i +=1
@@ -344,12 +355,14 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
     closechannels_name = 'Закрытые КАНАЛЫ:' if closechannels else ''
     all_info.append(f"\033[95m{closechannels_name}\033[0m")  
     closechannel_count = 1
+    private_channels_html = []
     for closechannel in closechannels:
         count_row = closechannel_count if selection == '5' else i
         owner = " (Владелец)" if closechannel.creator else ""
         admin = " (Администратор)" if closechannel.admin_rights is not None else ""
         messages_count = f" / [{chat_message_counts.get(closechannel.id, 0)}]" if chat_message_counts else ""
         all_info.append(f"{count_row} - {closechannel.title} \033[93m[{closechannel.participants_count}]{messages_count}\033[0m \033[91m{owner} {admin}\033[0m ID:{closechannel.id}")
+        private_channels_html.append(f"{i} - {closechannel.title} <span style='color:#FFFF00;'>[{closechannel.participants_count}]</span> <span style='color:#FF0000;'>{owner} {admin}</span> ID:{closechannel.id}")
         closechannel_count += 1
         groups.append(closechannel)
         i +=1
@@ -359,12 +372,14 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
     openchats_name = 'Открытые ГРУППЫ:' if openchats else ''
     all_info.append(f"\033[95m{openchats_name}\033[0m")
     opengroup_count = 1
+    public_groups_html = []
     for openchat in openchats:
         count_row = opengroup_count if selection == '5' else i
         owner = " (Владелец)" if openchat.creator else ""
         admin = " (Администратор)" if openchat.admin_rights is not None else ""
         messages_count = f" / [{chat_message_counts.get(openchat.id, 0)}]" if chat_message_counts else ""
         all_info.append(f"{count_row} - {openchat.title} \033[93m[{openchat.participants_count}]{messages_count}\033[0m\033[91m {owner} {admin}\033[0m ID:{openchat.id} \033[94m@{openchat.username}\033[0m")
+        public_groups_html.append(f"{i} - {openchat.title} <span style='color:#FFFF00;'>[{openchat.participants_count}]</span> <span style='color:#FF0000;'>{owner} {admin}</span> ID:{openchat.id} <span style='color:#0000FF;'>@{openchat.username}</span>\033[0m")
         opengroup_count += 1
         groups.append(openchat)
         i +=1
@@ -374,12 +389,14 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
     closechats_name = 'Закрытые ГРУППЫ:' if closechats else ''
     all_info.append(f"\033[95m{closechats_name}\033[0m")
     closegroup_count = 1
+    private_groups_html = []
     for closechat in closechats:
         count_row = closegroup_count if selection == '5' else i
         owner = " (Владелец)" if closechat.creator else ""
         admin = " (Администратор)" if closechat.admin_rights is not None else ""
         messages_count = f" / [{chat_message_counts.get(closechat.id, 0)}]" if chat_message_counts else ""
         all_info.append(f"{count_row} - {closechat.title} \033[93m[{closechat.participants_count}]{messages_count}\033[0m \033[91m{owner} {admin}\033[0m ID:{closechat.id}")
+        private_groups_html.append(f"{i} - {closechat.title} <span style='color:#FFFF00;'>[{closechat.participants_count}]</span> <span style='color:#FF0000;'>{owner} {admin}</span> ID:{closechat.id}")
         closegroup_count += 1
         groups.append(closechat)
         i +=1
@@ -390,6 +407,7 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
     delgroups_name = 'Удаленные ГРУППЫ:' if delgroups else ''
     all_info.append(f"\033[95m{delgroups_name}\033[0m")
     closegroupdel_count = 1
+    deleted_groups_html = []
     for delgroup in delgroups:
         count_row = closegroupdel_count if selection == '5' else i
         owner_value = delgroup['creator']
@@ -399,12 +417,13 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
         owner = " (Владелец)" if owner_value else ""
         admin = " (Администратор)" if admin_value is not None else ""
         all_info.append(f"{count_row} - {title_value} \033[91m{owner} {admin}\033[0m ID:{id_value}")
+        deleted_groups_html.append(f"{i} - {title_value} <span style='color:#FF0000;'>{owner} {admin}</span> ID:{id_value}")
         closegroupdel_count += 1
         i +=1
         if owner != "" or admin != "":
             owner_closegroup += 1
 
-    return groups, i, all_info, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_openchannel, owner_closechannel, owner_opengroup, owner_closegroup
+    return groups, i, all_info, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_openchannel, owner_closechannel, owner_opengroup, owner_closegroup, public_channels_html, private_channels_html, public_groups_html, private_groups_html, deleted_groups_html
 
 
 def print_suminfo_about_channel (openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_openchannel, owner_closechannel, owner_opengroup, owner_closegroup):
@@ -773,7 +792,7 @@ def add_account(api_id, api_hash, selection, bot, admin_chat_ids):
                       total_contacts, total_contacts_with_phone, total_mutual_contacts = get_and_save_contacts(client, phone, userinfo, userid)
                       save_about_channels(phone, userid, firstname, lastname, username, openchannel_count, opengroup_count, closechannel_count, closegroup_count, owner_openchannel, owner_closechannel, owner_opengroup, owner_closegroup, openchannels, closechannels, openchats, closechats, delgroups, closegroupdel_count)
                       print_suminfo_about_channel(openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_openchannel, owner_closechannel, owner_opengroup, owner_closegroup)
-                      generate_html_report(phone, userid, firstname, lastname, username, total_contacts, total_contacts_with_phone, total_mutual_contacts, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_openchannel, owner_closechannel, owner_opengroup, owner_closegroup, blocked_bot_info, all_info)
+                      generate_html_report()
                       input("\033[93mНажмите Enter для продолжения...\033[0m")
                       os.system('cls||clear')
                       print()
