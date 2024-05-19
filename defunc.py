@@ -16,7 +16,7 @@ from typing import Optional
 import re
 from jinja2 import Template
 
-def generate_html_report():
+def generate_html_report(delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats, selection):
     groups, i, all_info, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_openchannel, owner_closechannel, owner_opengroup, owner_closegroup, public_channels_html, private_channels_html, public_groups_html, private_groups_html, deleted_groups_html=make_list_of_channels(delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats, selection)
 
     count_blocked_bot, earliest_date, latest_date, blocked_bot_info, blocked_bot_info_html=get_blocked_bot(client)
@@ -775,7 +775,7 @@ def add_account(api_id, api_hash, selection, bot, admin_chat_ids):
                       total_contacts, total_contacts_with_phone, total_mutual_contacts = get_and_save_contacts(client, phone, userinfo, userid)
                       save_about_channels(phone, userid, firstname, lastname, username, openchannel_count, opengroup_count, closechannel_count, closegroup_count, owner_openchannel, owner_closechannel, owner_opengroup, owner_closegroup, openchannels, closechannels, openchats, closechats, delgroups, closegroupdel_count)
                       print_suminfo_about_channel(openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_openchannel, owner_closechannel, owner_opengroup, owner_closegroup)
-                      generate_html_report()
+                      generate_html_report(delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats, selection)
                       input("\033[93mНажмите Enter для продолжения...\033[0m")
                       os.system('cls||clear')
                       print()
