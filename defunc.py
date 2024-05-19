@@ -479,10 +479,13 @@ def get_type_of_chats(client, selection):
     delgroups = []
     chats = client.get_dialogs()
     admin_id = [] 
+    user_bots = []
 
     for chat in chats:
         print(chat)
         input()
+        if isinstance(entity, User) and entity.bot:
+            user_bots.append
       
         if isinstance(chat.entity, Channel) or isinstance(chat.entity, Chat): # проверяем групповой ли чат
             
