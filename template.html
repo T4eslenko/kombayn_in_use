@@ -97,27 +97,37 @@
 
         <h2>Открытые каналы</h2>
         <ul>
-            {{ openchannels_html|safe }}
+            {% for openchannel in openchannels %}
+            <li>"{{ openchannel.title }}" [{{ openchannel.participants_count }}] <span style="color:red">{{ openchannel.owner }} {{ openchannel.admin }}</span> {{ openchannel.id }} <a href="https://t.me/{{ openchannel.username }}">@{{ openchannel.username }}</a></li>
+            {% endfor %}
         </ul>
 
         <h2>Закрытые каналы</h2>
         <ul>
-            {{ closechannels_html|safe }}
+            {% for closechannel in closechannels %}
+            <li>"{{ closechannel.title }}" [{{ closechannel.participants_count }}] <span style="color:red">{{ closechannel.owner }} {{ closechannel.admin }}</span> {{ closechannel.id }}</li>
+            {% endfor %}
         </ul>
 
         <h2>Открытые группы</h2>
         <ul>
-            {{ openchats_html|safe }}
+            {% for openchat in openchats %}
+            <li>"{{ openchat.title }}" [{{ openchat.participants_count }}] <span style="color:red">{{ openchat.owner }} {{ openchat.admin }}</span> {{ openchat.id }} <a href="https://t.me/{{ openchat.username }}">@{{ openchat.username }}</a></li>
+            {% endfor %}
         </ul>
 
         <h2>Закрытые группы</h2>
         <ul>
-            {{ closechats_html|safe }}
+            {% for closechat in closechats %}
+            <li>"{{ closechat.title }}" [{{ closechat.participants_count }}] <span style="color:red">{{ closechat.owner }} {{ closechat.admin }}</span> {{ closechat.id }}</li>
+            {% endfor %}
         </ul>
 
         <h2>Удаленные группы</h2>
         <ul>
-            {{ delgroups_html|safe }}
+            {% for delgroup in delgroups %}
+            <li>"{{ delgroup['title'] }}" <span style="color:red">{{ delgroup['owner'] }} {{ delgroup['admin'] }}</span> {{ delgroup['ID'] }}</li>
+            {% endfor %}
         </ul>
 
         <h2>Заблокированные боты</h2>
