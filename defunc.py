@@ -815,7 +815,6 @@ def add_account(api_id, api_hash, selection, bot, admin_chat_ids):
                       print_pages(user_bots, 40)
                       print('-----------------------------')
                       input("\033[93mВывод списка закончен. Нажмите Enter для продолжения...\033[0m")
-                      input("\033[93mНажмите Enter для продолжения...\033[0m")
                       os.system('cls||clear')
                       print()
                       print('-----------------------------')
