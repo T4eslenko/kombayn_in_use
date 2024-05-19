@@ -291,7 +291,7 @@ if __name__ == "__main__":
            client, phone, session_index = result
            userid, userinfo, firstname, lastname, username = get_user_info(client, phone) # Получение информации о пользователe
            print()
-           count_blocked_bot, earliest_date, latest_date, blocked_bot_info = get_blocked_bot(client)
+           count_blocked_bot, earliest_date, latest_date, blocked_bot_info = get_blocked_bot(client)[:4]
            input("\033[93mНажмите Enter для продолжения...\033[0m")
            os.system('cls||clear')
            print()
