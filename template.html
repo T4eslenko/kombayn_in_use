@@ -33,29 +33,49 @@
     </ul>
 
     <!-- Суммарная информация о каналах и группах -->
-    <h2 style="color:blue;">Суммарная информация о каналах и группах</h2>
-    <table border="1">
-        <tr>
-            <td style="width: 200px;">Публичные каналы:</td>
-            <td>{{ total_public_channels }}</td>
-        </tr>
-        <tr>
-            <td>Приватные каналы:</td>
-            <td>{{ total_private_channels }}</td>
-        </tr>
-        <tr>
-            <td>Публичные группы:</td>
-            <td>{{ total_public_groups }}</td>
-        </tr>
-        <tr>
-            <td>Приватные группы:</td>
-            <td>{{ total_private_groups }}</td>
-        </tr>
-        <tr>
-            <td>Удаленные группы:</td>
-            <td>{{ total_deleted_groups }}</td>
-        </tr>
-    </table>
+   <table border="1">
+    <tr>
+        <th>Параметр</th>
+        <th>Значение</th>
+    </tr>
+    <tr>
+        <td>openchannel_count</td>
+        <td>{{ openchannel_count - 1 }}</td>
+    </tr>
+    <tr>
+        <td>closechannel_count</td>
+        <td>{{ closechannel_count - 1 }}</td>
+    </tr>
+    <tr>
+        <td>opengroup_count</td>
+        <td>{{ opengroup_count - 1 }}</td>
+    </tr>
+    <tr>
+        <td>closegroup_count</td>
+        <td>{{ closegroup_count - 1 }}</td>
+    </tr>
+    <tr>
+        <td>closegroupdel_count</td>
+        <td>{{ closegroupdel_count - 1 }}</td>
+    </tr>
+    <tr>
+        <td>owner_openchannel</td>
+        <td>{{ owner_openchannel }}</td>
+    </tr>
+    <tr>
+        <td>owner_closechannel</td>
+        <td>{{ owner_closechannel }}</td>
+    </tr>
+    <tr>
+        <td>owner_opengroup</td>
+        <td>{{ owner_opengroup }}</td>
+    </tr>
+    <tr>
+        <td>owner_closegroup</td>
+        <td>{{ owner_closegroup }}</td>
+    </tr>
+</table>
+
 
     <!-- Конкретные каналы и группы по категориям -->
     <h2>Публичные каналы:</h2>
