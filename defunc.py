@@ -361,7 +361,13 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
         admin = " (Администратор)" if openchat.admin_rights is not None else ""
         messages_count = f" / [{chat_message_counts.get(openchat.id, 0)}]" if chat_message_counts else ""
         all_info.append(f"{count_row} - {openchat.title} \033[93m[{openchat.participants_count}]{messages_count}\033[0m\033[91m {owner} {admin}\033[0m ID:{openchat.id} \033[94m@{openchat.username}\033[0m")
-        public_groups_html.append(f"{opengroup_count} - {openchat.title} <span style='color:#8B4513;'>[{openchat.participants_count}]</span> <span style='color:#FF0000;'>{owner} {admin}</span> ID:{openchat.id} <span style='color:#0000FF;'>@{openchat.username}</span>")
+       # public_groups_html.append(f"{opengroup_count} - {openchat.title} <span style='color:#8B4513;'>[{openchat.participants_count}]</span> <span style='color:#FF0000;'>{owner} {admin}</span> ID:{openchat.id} <span style='color:#0000FF;'>@{openchat.username}</span>")
+        public_groups_html.append(
+            f"{opengroup_count} - {openchat.title} <span style='color:#8B4513;'>[{openchat.participants_count}]</span> "
+            f"<span style='color:#FF0000;'>{owner} {admin}</span> ID:{openchat.id} "
+            f'<a href="https://t.me/{openchat.username}" style="color:#0000FF;">@{openchat.username}</a>'
+        )
+
         opengroup_count += 1
         groups.append(openchat)
         i +=1
@@ -579,7 +585,12 @@ def get_blocked_bot(client):
             user = client.get_entity(peer.peer_id.user_id)
             if user.bot:
                 blocked_bot_info.append(f"\033[36m@{user.username}\033[0m \033[93m'{user.first_name}'\033[0m заблокирован: {peer.date.strftime('%d/%m/%Y')}")
-                blocked_bot_info_html.append(f"<span style='color:#0000FF;'>@{user.username}</span> '<span style='color:#8B4513;'>{user.first_name}</span>' заблокирован: {peer.date.strftime('%d/%m/%Y')}")
+                #blocked_bot_info_html.append(f"<span style='color:#0000FF;'>@{user.username}</span> '<span style='color:#8B4513;'>{user.first_name}</span>' заблокирован: {peer.date.strftime('%d/%m/%Y')}")
+                blocked_bot_info_html.append(
+                    f'<a href="https://t.me/{user.username}" style="color:#0000FF;">@{user.username}</a> '
+                    f'<span style="color:#8B4513;">{user.first_name}</span> заблокирован: {peer.date.strftime("%d/%m/%Y")}'
+                )
+
                 if earliest_date is None or peer.date < earliest_date:
                     earliest_date = peer.date
                 if latest_date is None or peer.date > latest_date:
