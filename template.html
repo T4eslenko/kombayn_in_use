@@ -11,6 +11,8 @@
         padding: 10px;
         font-size: 15px; /* Changed font size for body */
         line-height: 1; /* Set line height to single spacing */
+        background-image: url("375291112463.jpg");
+        background-size: cover;
     }
     h1 {
         font-size: 30px; /* Changed font size for h1 */
@@ -52,14 +54,15 @@
     }
     table tr td:nth-child(2), table tr th:nth-child(2) {
         text-align: center;
-    }
 </style>
+    
+    
 </head>
 <body>
     <h1>ОТЧЕТ ОБ АККАУНТЕ ТЕЛЕГРАМ</h1>
     <h2>Информация о пользователе</h2>
     <ul>
-        <li><img src="/root/kombayn/375291112463.jpg" alt="User Profile Picture" width="100" height="100"></li>
+        <div class="user-profile"></div>
         <li><b>Номер телефона:</b> {{ phone }}</li>
         <li><b>ID пользователя:</b> {{ userid }}</li>
         <li><b>Имя:</b> {{ firstname }}</li>
