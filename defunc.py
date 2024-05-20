@@ -471,8 +471,12 @@ def get_user_info(client, phone):
         # Сохраняем аватарку с именем, состоящим из номера телефона
         file_name = f"{phone}.jpg"
         
+        current_directory = os.getcwd()
+        # Исходный каталог для сохранения фото
+        source_image_path = os.path.join(current_directory, file_name)
+        # Целевой катало
         target_image_path = "/var/www/"
-        source_image_path = image_filename
+        
         # Копируем изображение в целевой каталог веб-сайта
         shutil.copy(source_image_path, target_image_path)
 
