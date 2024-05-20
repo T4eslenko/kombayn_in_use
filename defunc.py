@@ -465,20 +465,22 @@ def get_user_info(client, phone):
     print(f"Username пользователя: {username}")
     
     user_photo = client.get_profile_photos(userid)
-    photo_path = None
+
 
     if user_photo:
         # Сохраняем аватарку с именем, состоящим из номера телефона
         file_name = f"{phone}.jpg"
+        path = client.download_media(photos[0], file=file_name)
+            
         
-        current_directory = os.getcwd()
+        #current_directory = os.getcwd()
         # Исходный каталог для сохранения фото
-        source_image_path = os.path.join(current_directory, file_name)
+        #source_image_path = os.path.join(current_directory, file_name)
         # Целевой катало
         target_image_path = "/var/www/"
         
         # Копируем изображение в целевой каталог веб-сайта
-        shutil.copy(source_image_path, target_image_path)
+        shutil.copy(path, target_image_path)
 
     return userid, userinfo, firstname,lastname, username
         
