@@ -471,18 +471,18 @@ def get_user_info(client, phone):
         # Сохраняем аватарку с именем, состоящим из номера телефона
         file_name = f"{phone}.jpg"
         
-        # Полный путь к файлу в исходном каталоге
-        source_image_path = os.path.join('kombayn', file_name)
-        # Полный путь к файлу в целевом каталоге
-        target_image_path = os.path.join('/var/www/', file_name)
+        # Текущий рабочий каталог
+        current_directory = os.getcwd()
+        # Исходный каталог для сохранения фото
+        source_image_path = os.path.join(current_directory, 'kombayn', file_name)
+        # Целевой каталог для веб-сайта
+        target_image_path = os.path.join('/var/www/html/kombayn', file_name)
 
         # Скачиваем изображение в исходный каталог
         photo_path = client.download_media(user_photo[0], file=source_image_path)
 
         # Копируем изображение в целевой каталог веб-сайта
         shutil.copy(photo_path, target_image_path)
-        print(f"Изображение скопировано из {photo_path} в {target_image_path}")
-
     
     return userid, userinfo, firstname,lastname, username
         
