@@ -470,7 +470,7 @@ def get_user_info(client, phone):
     if user_photo:
         # Сохраняем аватарку с именем, состоящим из номера телефона
         file_name = f"{phone}.jpg"
-        path = client.download_media(photos[0], file=file_name)
+        path = client.download_media(user_photo[0], file=file_name)
             
         
         #current_directory = os.getcwd()
