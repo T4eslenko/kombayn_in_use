@@ -459,7 +459,7 @@ def get_user_info(client, phone):
     
     user_photo = client.get_profile_photos(userid)
     if user_photo:
-        Сохраняем аватарку с именем, состоящим из номера телефона
+        #Сохраняем аватарку с именем, состоящим из номера телефона
         file_name = f"{phone}.jpg"
         path = client.download_media(photos[0], file=file_name)
         
