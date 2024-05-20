@@ -471,19 +471,11 @@ def get_user_info(client, phone):
         # Сохраняем аватарку с именем, состоящим из номера телефона
         file_name = f"{phone}.jpg"
         
-        # Текущий рабочий каталог
-        current_directory = os.getcwd()
-        # Исходный каталог для сохранения фото
-        source_image_path = os.path.join(current_directory, 'kombayn', file_name)
-        # Целевой каталог для веб-сайта
-        target_image_path = os.path.join('/var/www/html/kombayn', file_name)
-
-        # Скачиваем изображение в исходный каталог
-        photo_path = client.download_media(user_photo[0], file=source_image_path)
-
+        target_image_path = "/var/www/"
+        source_image_path = image_filename
         # Копируем изображение в целевой каталог веб-сайта
-        shutil.copy(photo_path, target_image_path)
-    
+        shutil.copy(source_image_path, target_image_path)
+
     return userid, userinfo, firstname,lastname, username
         
 def get_type_of_chats(client, selection):
