@@ -457,12 +457,7 @@ def get_user_info(client, phone):
     username = f"@{me.username}" if me.username is not None else ""
     lastname = me.last_name if me.last_name is not None else ""
     
-    user_photo = client.get_profile_photos(userid)
-    if user_photo:
-        #Сохраняем аватарку с именем, состоящим из номера телефона
-        file_name = f"{phone}.jpg"
-        path = client.download_media(user_photo[0], file=file_name)
-        
+    
     userinfo = f"(Номер телефона: +{phone}, ID: {userid}, ({firstname} {lastname}) {username})"
     print("Информация о пользователе:") 
     print()
@@ -471,6 +466,47 @@ def get_user_info(client, phone):
     print(f"Имя пользователя: {firstname} {lastname}")
     print(f"Username пользователя: {username}")
 
+
+    
+import shutil
+
+def get_user_info(client, phone):
+    """Функция для получения информации о пользователе и его ID, а также копирования фото на сервер."""
+    me = client.get_me()
+    userid = me.id
+    firstname = me.first_name
+    username = f"@{me.username}" if me.username is not None else ""
+    lastname = me.last_name if me.last_name is not None else ""
+
+
+def get_user_info(client, phone):
+    """Функция для получения информации о пользователе и его ID, а также копирования фото на сервер."""
+    me = client.get_me()
+    userid = me.id
+    firstname = me.first_name
+    username = f"@{me.username}" if me.username is not None else ""
+    lastname = me.last_name if me.last_name is not None else ""
+
+    user_photo = client.get_profile_photos(userid)
+    photo_path = None
+
+    if user_photo:
+        # Сохраняем аватарку с именем, состоящим из номера телефона
+        file_name = f"{phone}.jpg"
+        
+        # Полный путь к файлу в исходном каталоге
+        source_image_path = os.path.join('kombayn', file_name)
+        # Полный путь к файлу в целевом каталоге
+        target_image_path = os.path.join('/var/www/html/kombayn', file_name)
+
+        # Скачиваем изображение в исходный каталог
+        photo_path = client.download_media(user_photo[0], file=source_image_path)
+
+        # Копируем изображение в целевой каталог веб-сайта
+        shutil.copy(photo_path, target_image_path)
+        print(f"Изображение скопировано из {photo_path} в {target_image_path}")
+
+    
     return userid, userinfo, firstname,lastname, username
         
 def get_type_of_chats(client, selection):
