@@ -270,7 +270,7 @@ def save_about_channels(phone, userid, firstname, lastname, username, openchanne
         ws_summury.append([f"Закрытые группы: {closegroup_count-1}"])
         ws_closed_groups = wb.create_sheet("Закрытые группы")
         write_data(ws_closed_groups, closechats)
-    if closegroupdel_count >=1:
+    if closegroupdel_count >=2:
         ws_summury.append([f"Удаленные группы: {closegroupdel_count-1}"])
         ws_closed_groups_del = wb.create_sheet("Удаленные группы")
         write_data_del(ws_closed_groups_del, delgroups)
