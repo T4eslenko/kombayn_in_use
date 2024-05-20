@@ -412,6 +412,8 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
         if owner != "" or admin != "":
             owner_closegroup += 1
 
+    print(closegroupdel_count)
+    input("closegroupdel_count")
     return groups, i, all_info, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_openchannel, owner_closechannel, owner_opengroup, owner_closegroup, public_channels_html, private_channels_html, public_groups_html, private_groups_html, deleted_groups_html
 
 
