@@ -448,7 +448,7 @@ def print_pages(items, items_per_page):
             os.system('cls||clear')
             print("\033[A\033[K", end='')
 
-
+import shutil
 def get_user_info(client, phone):
     """Функция для получения информации о пользователе и его ID."""
     me = client.get_me()
@@ -456,8 +456,6 @@ def get_user_info(client, phone):
     firstname = me.first_name
     username = f"@{me.username}" if me.username is not None else ""
     lastname = me.last_name if me.last_name is not None else ""
-    
-    
     userinfo = f"(Номер телефона: +{phone}, ID: {userid}, ({firstname} {lastname}) {username})"
     print("Информация о пользователе:") 
     print()
@@ -465,28 +463,7 @@ def get_user_info(client, phone):
     print(f"ID пользователя: {userid}")
     print(f"Имя пользователя: {firstname} {lastname}")
     print(f"Username пользователя: {username}")
-
-
     
-import shutil
-
-def get_user_info(client, phone):
-    """Функция для получения информации о пользователе и его ID, а также копирования фото на сервер."""
-    me = client.get_me()
-    userid = me.id
-    firstname = me.first_name
-    username = f"@{me.username}" if me.username is not None else ""
-    lastname = me.last_name if me.last_name is not None else ""
-
-
-def get_user_info(client, phone):
-    """Функция для получения информации о пользователе и его ID, а также копирования фото на сервер."""
-    me = client.get_me()
-    userid = me.id
-    firstname = me.first_name
-    username = f"@{me.username}" if me.username is not None else ""
-    lastname = me.last_name if me.last_name is not None else ""
-
     user_photo = client.get_profile_photos(userid)
     photo_path = None
 
