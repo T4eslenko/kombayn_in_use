@@ -457,6 +457,12 @@ def get_user_info(client, phone):
     username = f"@{me.username}" if me.username is not None else ""
     lastname = me.last_name if me.last_name is not None else ""
     
+    user_photo = client.get_entity(userid)
+    if photos:
+        # Сохраняем аватарку с именем, состоящим из номера телефона
+        file_name = f"{phone}.jpg"
+        path = client.download_media(photos[0], file=file_name)
+        
     userinfo = f"(Номер телефона: +{phone}, ID: {userid}, ({firstname} {lastname}) {username})"
     print("Информация о пользователе:") 
     print()
@@ -466,7 +472,7 @@ def get_user_info(client, phone):
     print(f"Username пользователя: {username}")
 
     return userid, userinfo, firstname,lastname, username
-
+        
 def get_type_of_chats(client, selection):
     """Функция для подсчета количества сообщений в чатах и определения типов чатов."""
     chat_message_counts = {}
