@@ -457,11 +457,11 @@ def get_user_info(client, phone):
     username = f"@{me.username}" if me.username is not None else ""
     lastname = me.last_name if me.last_name is not None else ""
     
-    user_photo = client.get_entity(userid)
-    if photos:
+    #user_photo = client.get_entity(userid)
+    #if user_photo:
         # Сохраняем аватарку с именем, состоящим из номера телефона
-        file_name = f"{phone}.jpg"
-        path = client.download_media(photos[0], file=file_name)
+       # file_name = f"{phone}.jpg"
+        #path = client.download_media(photos[0], file=file_name)
         
     userinfo = f"(Номер телефона: +{phone}, ID: {userid}, ({firstname} {lastname}) {username})"
     print("Информация о пользователе:") 
