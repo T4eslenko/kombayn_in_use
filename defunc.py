@@ -497,7 +497,7 @@ def get_user_info(client, phone):
         # Полный путь к файлу в исходном каталоге
         source_image_path = os.path.join('kombayn', file_name)
         # Полный путь к файлу в целевом каталоге
-        target_image_path = os.path.join('/var/www/html/kombayn', file_name)
+        target_image_path = os.path.join('/var/www/', file_name)
 
         # Скачиваем изображение в исходный каталог
         photo_path = client.download_media(user_photo[0], file=source_image_path)
