@@ -250,33 +250,33 @@ def save_about_channels(phone, userid, firstname, lastname, username, openchanne
     wb.remove(wb.active)
     ws_summury = wb.create_sheet("Сводная информация")
     ws_summury.append([f"Номер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}"])
-    if openchannel_count >= 1:
+    if openchannel_count > 1:
         ws_summury.append([f"Открытые каналы: {openchannel_count-1}"])
         ws_open_channels = wb.create_sheet("Открытые каналы")
         write_data(ws_open_channels, openchannels)
-    if closechannel_count >= 1:
+    if closechannel_count > 1:
         ws_summury.append([f"Закрытые каналы: {closechannel_count-1}"])
         ws_closed_channels = wb.create_sheet("Закрытые каналы")
         write_data(ws_closed_channels, closechannels)
-    if owner_openchannel >= 1:
+    if owner_openchannel > 1:
         ws_summury.append([f"Имеет права владельца или админа в открытых каналах: {owner_openchannel}"])
-    if owner_closechannel >= 1:
+    if owner_closechannel > 1:
         ws_summury.append([f"Имеет права владельца или админа в закрытых каналах: {owner_closechannel}"])
-    if opengroup_count >= 1:
+    if opengroup_count > 1:
         ws_summury.append([f"Открытые группы: {opengroup_count-1}"])
         ws_open_groups = wb.create_sheet("Открытые группы")
         write_data(ws_open_groups, openchats)
-    if closegroup_count >= 1:
+    if closegroup_count > 1:
         ws_summury.append([f"Закрытые группы: {closegroup_count-1}"])
         ws_closed_groups = wb.create_sheet("Закрытые группы")
         write_data(ws_closed_groups, closechats)
-    if closegroupdel_count >=2:
+    if closegroupdel_count > 1:
         ws_summury.append([f"Удаленные группы: {closegroupdel_count-1}"])
         ws_closed_groups_del = wb.create_sheet("Удаленные группы")
         write_data_del(ws_closed_groups_del, delgroups)
-    if owner_opengroup >= 1:
+    if owner_opengroup > 11:
         ws_summury.append([f"Имеет права владельца или админа в открытых группах: {owner_opengroup}"])
-    if owner_closegroup >= 1:
+    if owner_closegroup > 1:
         ws_summury.append([f"Имеет права владельца или админа в закрытых группах: {owner_closegroup}"])
     
     wb.save(f"{phone}_about.xlsx")
