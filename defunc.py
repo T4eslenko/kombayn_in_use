@@ -892,7 +892,7 @@ def add_account(api_id, api_hash, selection, bot, admin_chat_ids):
                       selection = '0'
                       os.system('cls||clear')            
                       print("Аккаунт успешно добавлен")
-                      selection_connect = input("Введите "0", чтобы получить отчет максимально быстро (без аватарок), или Enter для продолжения в стандартном режиме")
+                      selection_connect = input('Введите "0", чтобы получить отчет максимально быстро (без аватарок), или Enter для продолжения в стандартном режиме: ')
                       if selection_connect == '0':
                           selection = '0'
                       else:
