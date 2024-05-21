@@ -326,7 +326,7 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
     public_channels_html = []
     image_data_url = ''
     for openchannel in openchannels:
-        if selection == '0'
+        if selection == '0':
             try:
                 photo_bytes = client.download_profile_photo(openchannel, file=BytesIO())
                 if photo_bytes:
@@ -359,7 +359,7 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
     private_channels_html = []
     image_data_url = ''
     for closechannel in closechannels:
-        if selection == '0'
+        if selection == '0':
             try:
                 photo_bytes = client.download_profile_photo(closechannel, file=BytesIO())
                 if photo_bytes:
@@ -390,7 +390,7 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
     public_groups_html = []
     image_data_url = ''
     for openchat in openchats:
-        if selection == '0'
+        if selection == '0':
             try:
                 photo_bytes = client.download_profile_photo(openchat, file=BytesIO())
                 if photo_bytes:
@@ -423,7 +423,7 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
     private_groups_html = []
     image_data_url = ''
     for closechat in closechats:
-        if selection == '0'
+        if selection == '0':
             try:
                 photo_bytes = client.download_profile_photo(closechat, file=BytesIO())
                 if photo_bytes:
@@ -520,7 +520,7 @@ def get_user_info(client, phone, selection):
     print(f"ID пользователя: {userid}")
     print(f"Имя пользователя: {firstname} {lastname}")
     print(f"Username пользователя: {username}")
-    if selection == '0'
+    if selection == '0':
         try:
             user_photo = client.get_profile_photos(userid)
             if user_photo:
@@ -549,7 +549,7 @@ def get_type_of_chats(client, selection):
 
     for chat in chats:   
         if isinstance(chat.entity, User) and chat.entity.bot: #Данные о ботах
-            if selection == '0'
+            if selection == '0':
                 try:
                     photo_bytes = client.download_profile_photo(chat.entity, file=BytesIO())
                     if photo_bytes:
@@ -673,7 +673,7 @@ def get_blocked_bot(client, selection):
         if peer.peer_id.__class__.__name__ == 'PeerUser':
             user = client.get_entity(peer.peer_id.user_id)
             if user.bot:
-                if selection == '0'
+                if selection == '0':
                     try:
                         photo_path = client.download_profile_photo(user, file=BytesIO())
                         if photo_path:
