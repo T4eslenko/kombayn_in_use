@@ -665,7 +665,7 @@ def get_blocked_bot(client, selection):
     count_blocked_bot = 0
     earliest_date = None
     latest_date = None
-    image_data_url = ''
+    image_data_url = "data:image/gif;base64,R0lGODlhMgAyAIAAAP///wAAACH5BAEAAAAALAAAAAAyADIAAAJhjI+py+0Po5y02ouz3rz7D4biSJbmWRKqerGqurF4cwXGdTv87w/7e2OyG8fuIGfcKiIcDJrBDAQA7"
     
     delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats, admin_id, user_bots, user_bots_html = get_type_of_chats(client, selection)
     result_blocked = client(GetBlockedRequest(offset=0, limit=200))
@@ -679,8 +679,8 @@ def get_blocked_bot(client, selection):
                         if photo_path:
                             encoded_image = base64.b64encode(photo_path.getvalue()).decode('utf-8')
                             image_data_url = f"data:image/jpeg;base64,{encoded_image}"
-                        else:
-                            image_data_url = ''
+                        #else:
+                            #image_data_url = ''
                     except Exception:
                         pass    
                 blocked_bot_info.append(f"\033[36m@{user.username}\033[0m \033[93m'{user.first_name}'\033[0m заблокирован: {peer.date.strftime('%d/%m/%Y')}")
