@@ -521,7 +521,8 @@ def get_user_info(client, phone):
         if user_photo:
             file_name = f"{phone}.jpg"
             path = client.download_media(user_photo[0], file=file_name)
-    except Exception as e:        
+    except Exception:
+        pass
     return userid, userinfo, firstname,lastname, username
         
 def get_type_of_chats(client, selection):
