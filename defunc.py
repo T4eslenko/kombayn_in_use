@@ -614,10 +614,24 @@ def get_blocked_bot(client, selection):
         if peer.peer_id.__class__.__name__ == 'PeerUser':
             user = client.get_entity(peer.peer_id.user_id)
             if user.bot:
+                photo_path = client.download_profile_photo(user, file=BytesIO())
+                
+                # Преобразуем изображение в Base64
+                if photo_path:
+                    encoded_image = base64.b64encode(photo_path.getvalue()).decode('utf-8')
+                    image_data_url = f"data:image/jpeg;base64,{encoded_image}"
+                else:
+                    image_data_url = ''
+                    
                 blocked_bot_info.append(f"\033[36m@{user.username}\033[0m \033[93m'{user.first_name}'\033[0m заблокирован: {peer.date.strftime('%d/%m/%Y')}")
+                #blocked_bot_info_html.append(
+                    #f'<a href="https://t.me/{user.username}" style="color:#0000FF; text-decoration: none;">@{user.username}</a> '
+                    #f'<span style="color:#556B2F;">{user.first_name}</span> заблокирован: {peer.date.strftime("%d/%m/%Y")}'
+                #)
                 blocked_bot_info_html.append(
-                    f'<a href="https://t.me/{user.username}" style="color:#0000FF; text-decoration: none;">@{user.username}</a> '
-                    f'<span style="color:#556B2F;">{user.first_name}</span> заблокирован: {peer.date.strftime("%d/%m/%Y")}'
+                    f'<img src="{image_data_url}" alt="avatar" style="width:50px;height:50px;vertical-align:middle;margin-right:10px;">'
+                    f'<a href="https://t.me/{user.username}" style="color:#0000FF; text-decoration: none;vertical-align:middle;">@{user.username}</a> '
+                    f'<span style="color:#556B2F;vertical-align:middle;">{user.first_name}</span> заблокирован: {peer.date.strftime("%d/%m/%Y")}'
                 )
 
                 if earliest_date is None or peer.date < earliest_date:
