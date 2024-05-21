@@ -630,7 +630,7 @@ def get_blocked_bot(client, selection):
                     #f'<span style="color:#556B2F;">{user.first_name}</span> заблокирован: {peer.date.strftime("%d/%m/%Y")}'
                 #)
                 blocked_bot_info_html.append(
-                    f'<img src="{image_data_url}" alt="avatar" style="width:50px;height:50px;vertical-align:middle;margin-right:10px;">'
+                    f'<img src="{image_data_url}" alt="No avatar" style="width:50px;height:50px;vertical-align:middle;margin-right:10px;">'
                     f'<a href="https://t.me/{user.username}" style="color:#0000FF; text-decoration: none;vertical-align:middle;">@{user.username}</a> '
                     f'<span style="color:#556B2F;vertical-align:middle;">{user.first_name}</span> заблокирован: {peer.date.strftime("%d/%m/%Y")}'
                 )
