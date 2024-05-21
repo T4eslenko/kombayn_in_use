@@ -324,6 +324,7 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
     all_info.append(f"\033[95m{openchannels_name}\033[0m")  
     openchannel_count = 1  
     public_channels_html = []
+    image_data_url = ''
     for openchannel in openchannels:
         photo_bytes = client.download_profile_photo(openchannel, file=BytesIO())
         if photo_bytes:
@@ -358,8 +359,9 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
     all_info.append(f"\033[95m{closechannels_name}\033[0m")  
     closechannel_count = 1
     private_channels_html = []
+    image_data_url = ''
     for closechannel in closechannels:
-        photo_bytes = client.download_profile_photo(openchannel, file=BytesIO())
+        photo_bytes = client.download_profile_photo(closechannel, file=BytesIO())
         if photo_bytes:
                 encoded_image = base64.b64encode(photo_bytes.getvalue()).decode('utf-8')
                 image_data_url = f"data:image/jpeg;base64,{encoded_image}"
@@ -385,8 +387,9 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
     all_info.append(f"\033[95m{openchats_name}\033[0m")
     opengroup_count = 1
     public_groups_html = []
+    image_data_url = ''
     for openchat in openchats:
-        photo_bytes = client.download_profile_photo(openchannel, file=BytesIO())
+        photo_bytes = client.download_profile_photo(openchat, file=BytesIO())
         if photo_bytes:
                 encoded_image = base64.b64encode(photo_bytes.getvalue()).decode('utf-8')
                 image_data_url = f"data:image/jpeg;base64,{encoded_image}"
@@ -418,8 +421,9 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
     all_info.append(f"\033[95m{closechats_name}\033[0m")
     closegroup_count = 1
     private_groups_html = []
+    image_data_url = ''
     for closechat in closechats:
-        photo_bytes = client.download_profile_photo(openchannel, file=BytesIO())
+        photo_bytes = client.download_profile_photo(closechat, file=BytesIO())
         if photo_bytes:
                 encoded_image = base64.b64encode(photo_bytes.getvalue()).decode('utf-8')
                 image_data_url = f"data:image/jpeg;base64,{encoded_image}"
