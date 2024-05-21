@@ -473,14 +473,7 @@ def get_user_info(client, phone):
         path = client.download_media(user_photo[0], file=file_name)
             
         
-        #current_directory = os.getcwd()
-        # Исходный каталог для сохранения фото
-        #source_image_path = os.path.join(current_directory, file_name)
-        # Целевой катало
-        target_image_path = "/var/www/"
         
-        # Копируем изображение в целевой каталог веб-сайта
-        shutil.copy(path, target_image_path)
 
     return userid, userinfo, firstname,lastname, username
         
