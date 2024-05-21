@@ -60,7 +60,7 @@
     <h1>ОТЧЕТ ОБ АККАУНТЕ ТЕЛЕГРАМ</h1>
     <h2>Информация о пользователе</h2>
     <ul>
-        <img src="{{ avatar_user }}" alt="User Profile Picture" width="100" height="100">
+        <img src="{{ avatar_user }}" alt="Аватарка не установлена" width="100" height="100">
         <li>Номер телефона: <b>{{ phone }}</b></li>
         <li>ID пользователя: <b>{{ userid }}</b></li>
         <li>Имя: <b>{{ firstname }}</b></li>
@@ -74,7 +74,7 @@
         <li>Количество общих контактов: <b>{{ total_mutual_contacts }}</b></li>
     </ul>
     
-    <h2>Инофрмация о ботах</h2>
+    <h2>Информация о ботах</h2>
     <h3>Действующие боты</h3>
         <ul>
         {% for userbot in user_bots_html %}
