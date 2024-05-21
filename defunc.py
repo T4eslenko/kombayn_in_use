@@ -342,7 +342,7 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
         messages_count = f" / [{chat_message_counts.get(openchannel.id, 0)}]" if chat_message_counts else ""
         all_info.append(f"{count_row} - {openchannel.title} \033[93m[{openchannel.participants_count}]{messages_count}\033[0m\033[91m {owner} {admin}\033[0m ID:{openchannel.id} \033[94m@{openchannel.username}\033[0m")
         public_channels_html.append(
-        f"{openchannel_count}. <img src='{image_data_url}' alt='                                 ' style='width:50px;height:50px;vertical-align:middle;margin-right:10px;'>" 
+        f"{openchannel_count}. <img src='{image_data_url}' alt=' ' style='width:50px;height:50px;vertical-align:middle;margin-right:10px;'>" 
         f"<span style='color:#556B2F;'>{openchannel.title}</span> <span style='color:#8B4513;'>[{openchannel.participants_count}]</span> "
         f"<span style='color:#FF0000;'>{owner} {admin}</span> ID:{openchannel.id} "
         f'<a href="https://t.me/{openchannel.username}" style="color:#0000FF; text-decoration: none;">@{openchannel.username}</a>'
@@ -375,7 +375,7 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
         messages_count = f" / [{chat_message_counts.get(closechannel.id, 0)}]" if chat_message_counts else ""
         all_info.append(f"{count_row} - {closechannel.title} \033[93m[{closechannel.participants_count}]{messages_count}\033[0m \033[91m{owner} {admin}\033[0m ID:{closechannel.id}")
         private_channels_html.append(
-            f'{closechannel_count}. <img src="{image_data_url}" alt="                                " style="width:50px;height:50px;vertical-align:middle;margin-right:10px;">'
+            f'{closechannel_count}. <img src="{image_data_url}" alt=" " style="width:50px;height:50px;vertical-align:middle;margin-right:10px;">'
             f"<span style='color:#556B2F;'>{closechannel.title}</span> <span style='color:#8B4513;'>[{closechannel.participants_count}]</span> <span style='color:#FF0000;'>{owner} {admin}</span> ID:{closechannel.id}"
         )
         closechannel_count += 1
@@ -406,7 +406,7 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
         messages_count = f" / [{chat_message_counts.get(openchat.id, 0)}]" if chat_message_counts else ""
         all_info.append(f"{count_row} - {openchat.title} \033[93m[{openchat.participants_count}]{messages_count}\033[0m\033[91m {owner} {admin}\033[0m ID:{openchat.id} \033[94m@{openchat.username}\033[0m")
         public_groups_html.append(
-            f'{opengroup_count}. <img src="{image_data_url}" alt="                                 " style="width:50px;height:50px;vertical-align:middle;margin-right:10px;">'
+            f'{opengroup_count}. <img src="{image_data_url}" alt=" " style="width:50px;height:50px;vertical-align:middle;margin-right:10px;">'
             f"<span style='color:#556B2F;'>{openchat.title}</span> <span style='color:#8B4513;'>[{openchat.participants_count}]</span> "
             f"<span style='color:#FF0000;'>{owner} {admin}</span> ID:{openchat.id} "
             f'<a href="https://t.me/{openchat.username}" style="color:#0000FF; text-decoration: none;">@{openchat.username}</a>'
@@ -440,7 +440,7 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
         all_info.append(f"{count_row} - {closechat.title} \033[93m[{closechat.participants_count}]{messages_count}\033[0m \033[91m{owner} {admin}\033[0m ID:{closechat.id}")
         #private_groups_html.append(f"{closegroup_count} - <span style='color:#556B2F;'>{closechat.title}</span> <span style='color:#8B4513;'>[{closechat.participants_count}]</span> <span style='color:#FF0000;'>{owner} {admin}</span> ID:{closechat.id}")
         private_groups_html.append(
-            f'{closegroup_count}. <img src="{image_data_url}" alt="                                 " style="width:50px;height:50px;vertical-align:middle;margin-right:10px;">'
+            f'{closegroup_count}. <img src="{image_data_url}" alt=" " style="width:50px;height:50px;vertical-align:middle;margin-right:10px;">'
             f"<span style='color:#556B2F;'>{closechat.title}</span> <span style='color:#8B4513;'>[{closechat.participants_count}]</span> <span style='color:#FF0000;'>{owner} {admin}</span> ID:{closechat.id}"
         )
         closegroup_count += 1
@@ -560,7 +560,7 @@ def get_type_of_chats(client, selection):
                 except Exception:
                     pass
             user_bots_html.append(
-                f'<img src="{image_data_url}" alt="                                 " style="width:50px;height:50px;vertical-align:middle;margin-right:10px;">'
+                f'<img src="{image_data_url}" alt=" " style="width:50px;height:50px;vertical-align:middle;margin-right:10px;">'
                 f'<a href="https://t.me/{chat.entity.username}" style="color:#0000FF; text-decoration: none;vertical-align:middle;">@{chat.entity.username}</a> '
                 f'<span style="color:#556B2F;vertical-align:middle;">{chat.entity.first_name}</span>'
             )
@@ -686,7 +686,7 @@ def get_blocked_bot(client, selection):
                 blocked_bot_info.append(f"\033[36m@{user.username}\033[0m \033[93m'{user.first_name}'\033[0m заблокирован: {peer.date.strftime('%d/%m/%Y')}")
                 
                 blocked_bot_info_html.append(
-                    f'<img src="{image_data_url}" alt="                                 " style="width:50px;height:50px;vertical-align:middle;margin-right:10px;">'
+                    f'<img src="{image_data_url}" alt=" " style="width:50px;height:50px;vertical-align:middle;margin-right:10px;">'
                     f'<a href="https://t.me/{user.username}" style="color:#0000FF; text-decoration: none;vertical-align:middle;">@{user.username}</a> '
                     f'<span style="color:#556B2F;vertical-align:middle;">{user.first_name}</span> заблокирован: {peer.date.strftime("%d/%m/%Y")}'
                 )
