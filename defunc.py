@@ -21,9 +21,14 @@ def generate_html_report(phone, userid, userinfo, firstname, lastname, username,
     # Путь к аватарке пользователя
     avatar_path = f"{phone}.jpg"
     
-    with open(avatar_path, "rb") as image_file:
-        encoded_string = base64.b64encode(image_file.read()).decode('utf-8')
-        avatar_data_uri = f"data:image/jpeg;base64,{encoded_string}"
+    if os.path.exists(avatar_path):
+        # Чтение и конвертация изображения в Base64
+        with open(avatar_path, "rb") as image_file:
+            encoded_string = base64.b64encode(image_file.read()).decode('utf-8')
+            avatar_data_uri = f"data:image/jpeg;base64,{encoded_string}"
+    else:
+        # Используем изображение по умолчанию или оставляем поле пустым
+        avatar_data_uri = "data:image/gif;base64,R0lGODlhAQABAIAAAAUEBA=="  # 1x1 прозрачный GIF
     
     # Открываем HTML шаблон
     with open('template.html', 'r', encoding='utf-8') as file:
