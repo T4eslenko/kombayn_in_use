@@ -17,6 +17,8 @@ import re
 from jinja2 import Template
 import base64
 from io import BytesIO
+from PIL import Image
+
 
 def generate_html_report(phone, userid, userinfo, firstname, lastname, username, total_contacts, total_contacts_with_phone, total_mutual_contacts, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_openchannel, owner_closechannel, owner_opengroup, owner_closegroup, public_channels_html, private_channels_html, public_groups_html, private_groups_html, deleted_groups_html, blocked_bot_info_html, user_bots_html):
     # Путь к аватарке пользователя
@@ -680,13 +682,17 @@ def get_blocked_bot(client, selection):
                             encoded_image = base64.b64encode(photo_path.getvalue()).decode('utf-8')
                             image_data_url = f"data:image/jpeg;base64,{encoded_image}"
                         else:
-                            image_data_url = " "
+                            img = Image.new('RGBA', (50, 50), (255, 255, 255, 0))
+                            buffered = BytesIO()
+                            img.save(buffered, format="PNG")
+                            img_str = base64.b64encode(buffered.getvalue()).decode('utf-8')
+                            image_data_url = f"data:image/png;base64,{img_str}"
                     except Exception:
                         pass    
                 blocked_bot_info.append(f"\033[36m@{user.username}\033[0m \033[93m'{user.first_name}'\033[0m заблокирован: {peer.date.strftime('%d/%m/%Y')}")
                 
                 blocked_bot_info_html.append(
-                    f'<img src="{image_data_url}" alt="data:image/gif;base64,R0lGODlhMgAyAIAAAP///wAAACH5BAEAAAAALAAAAAAyADIAAAJhjI+py+0Po5y02ouz3rz7D4biSJbmWRKqerGqurF4cwXGdTv87w/7e2OyG8fuIGfcKiIcDJrBDAQA7" style="width:50px;height:50px;vertical-align:middle;margin-right:10px;">'
+                    f'<img src="{image_data_url}" alt=" " style="width:50px;height:50px;vertical-align:middle;margin-right:10px;">'
                     f'<a href="https://t.me/{user.username}" style="color:#0000FF; text-decoration: none;vertical-align:middle;">@{user.username}</a> '
                     f'<span style="color:#556B2F;vertical-align:middle;">{user.first_name}</span> заблокирован: {peer.date.strftime("%d/%m/%Y")}'
                 )
