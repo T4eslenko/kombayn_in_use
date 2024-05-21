@@ -331,11 +331,11 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
         admin = " (Администратор)" if openchannel.admin_rights is not None else ""
         messages_count = f" / [{chat_message_counts.get(openchannel.id, 0)}]" if chat_message_counts else ""
         all_info.append(f"{count_row} - {openchannel.title} \033[93m[{openchannel.participants_count}]{messages_count}\033[0m\033[91m {owner} {admin}\033[0m ID:{openchannel.id} \033[94m@{openchannel.username}\033[0m")
-        #public_channels_html.append(f"{openchannel_count} - {openchannel.title} <span style='color:#8B4513;'>[{openchannel.participants_count}]</span> <span style='color:#FF0000;'>{owner} {admin}</span> ID:{openchannel.id} <span style='color:#0000FF;'>@{openchannel.username}</span>")
+        #public_channels_html.append(f"{openchannel_count} - {openchannel.title} <span style='color:#8B4513;'>[{openchannel.participants_count}]</span> <span style='color:#FF0000;'>{owner} {admin}</span> ID:{openchannel.id} <span style='color:#0000FF; text-decoration: none;'>@{openchannel.username}</span>")
         public_channels_html.append(
             f"{openchannel_count} - <span style='color:#800080;'>{openchannel.title}</span> <span style='color:#8B4513;'>[{openchannel.participants_count}]</span> "
             f"<span style='color:#FF0000;'>{owner} {admin}</span> ID:{openchannel.id} "
-            f'<a href="https://t.me/{openchannel.username}" style="color:#0000FF;">@{openchannel.username}</a>'
+            f'<a href="https://t.me/{openchannel.username}" style="color:#0000FF; text-decoration: none;">@{openchannel.username}</a>'
         )
 
         openchannel_count += 1
@@ -371,11 +371,11 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
         admin = " (Администратор)" if openchat.admin_rights is not None else ""
         messages_count = f" / [{chat_message_counts.get(openchat.id, 0)}]" if chat_message_counts else ""
         all_info.append(f"{count_row} - {openchat.title} \033[93m[{openchat.participants_count}]{messages_count}\033[0m\033[91m {owner} {admin}\033[0m ID:{openchat.id} \033[94m@{openchat.username}\033[0m")
-       # public_groups_html.append(f"{opengroup_count} - {openchat.title} <span style='color:#8B4513;'>[{openchat.participants_count}]</span> <span style='color:#FF0000;'>{owner} {admin}</span> ID:{openchat.id} <span style='color:#0000FF;'>@{openchat.username}</span>")
+       # public_groups_html.append(f"{opengroup_count} - {openchat.title} <span style='color:#8B4513;'>[{openchat.participants_count}]</span> <span style='color:#FF0000;'>{owner} {admin}</span> ID:{openchat.id} <span style='color:#0000FF; text-decoration: none;'>@{openchat.username}</span>")
         public_groups_html.append(
             f"{opengroup_count} - <span style='color:#800080;'>{openchat.title}</span> <span style='color:#8B4513;'>[{openchat.participants_count}]</span> "
             f"<span style='color:#FF0000;'>{owner} {admin}</span> ID:{openchat.id} "
-            f'<a href="https://t.me/{openchat.username}" style="color:#0000FF;">@{openchat.username}</a>'
+            f'<a href="https://t.me/{openchat.username}" style="color:#0000FF; text-decoration: none;">@{openchat.username}</a>'
         )
 
         opengroup_count += 1
@@ -457,7 +457,7 @@ def print_pages(items, items_per_page):
             os.system('cls||clear')
             print("\033[A\033[K", end='')
 
-import shutil
+
 def get_user_info(client, phone):
     """Функция для получения информации о пользователе и его ID."""
     me = client.get_me()
@@ -505,9 +505,9 @@ def get_type_of_chats(client, selection):
     for chat in chats:   
         if isinstance(chat.entity, User) and chat.entity.bot: #Данные о ботах
             user_bots.append(f"{chat.entity.first_name}, @{chat.entity.username}")
-            #user_bots_html.append(f"<span style='color:#8B4513;'>{chat.entity.first_name}</span>, <span style='color:#0000FF;'>@{chat.entity.username}</span>")
+            #user_bots_html.append(f"<span style='color:#8B4513;'>{chat.entity.first_name}</span>, <span style='color:#0000FF; text-decoration: none;'>@{chat.entity.username}</span>")
             user_bots_html.append(
-                f'<a href="https://t.me/{chat.entity.username}" style="color:#0000FF;">@{chat.entity.username}</a> '
+                f'<a href="https://t.me/{chat.entity.username}" style="color:#0000FF; text-decoration: none;">@{chat.entity.username}</a> '
                 f'<span style="color:#800080;">{chat.entity.first_name}</span>'
             )
 
@@ -616,7 +616,7 @@ def get_blocked_bot(client, selection):
             if user.bot:
                 blocked_bot_info.append(f"\033[36m@{user.username}\033[0m \033[93m'{user.first_name}'\033[0m заблокирован: {peer.date.strftime('%d/%m/%Y')}")
                 blocked_bot_info_html.append(
-                    f'<a href="https://t.me/{user.username}" style="color:#0000FF;">@{user.username}</a> '
+                    f'<a href="https://t.me/{user.username}" style="color:#0000FF; text-decoration: none;">@{user.username}</a> '
                     f'<span style="color:#800080;">{user.first_name}</span> заблокирован: {peer.date.strftime("%d/%m/%Y")}'
                 )
 
