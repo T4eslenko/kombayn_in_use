@@ -220,8 +220,6 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
     wb.save(filename)
 
 
-
-
 # Функция для выбора аккаунта и установки соответствующих переменных
 def choice_akk(api_id, api_hash, header):
     sessions = []
@@ -475,16 +473,11 @@ def get_user_info(client, phone):
     print(f"Username пользователя: {username}")
     
     user_photo = client.get_profile_photos(userid)
-
-
     if user_photo:
         # Сохраняем аватарку с именем, состоящим из номера телефона
         file_name = f"{phone}.jpg"
         path = client.download_media(user_photo[0], file=file_name)
             
-        
-        
-
     return userid, userinfo, firstname,lastname, username
         
 def get_type_of_chats(client, selection):
@@ -505,12 +498,28 @@ def get_type_of_chats(client, selection):
 
     for chat in chats:   
         if isinstance(chat.entity, User) and chat.entity.bot: #Данные о ботах
-            user_bots.append(f"{chat.entity.first_name}, @{chat.entity.username}")
-            #user_bots_html.append(f"<span style='color:#8B4513;'>{chat.entity.first_name}</span>, <span style='color:#0000FF; text-decoration: none;'>@{chat.entity.username}</span>")
+
+            # Скачиваем аватарку бота
+            photo_bytes = client.download_profile_photo(chat.entity, file=BytesIO())
+            
+            # Преобразуем изображение в Base64
+            if photo_bytes:
+                encoded_image = base64.b64encode(photo_bytes.getvalue()).decode('utf-8')
+                image_data_url = f"data:image/jpeg;base64,{encoded_image}"
+            else:
+                image_data_url = ''
+            
             user_bots_html.append(
-                f'<a href="https://t.me/{chat.entity.username}" style="color:#0000FF; text-decoration: none;">@{chat.entity.username}</a> '
-                f'<span style="color:#556B2F;">{chat.entity.first_name}</span>'
+                f'<img src="{image_data_url}" alt="No avatar" style="width:50px;height:50px;vertical-align:middle;margin-right:10px;">'
+                f'<a href="https://t.me/{chat.entity.username}" style="color:#0000FF; text-decoration: none;vertical-align:middle;">@{chat.entity.username}</a> '
+                f'<span style="color:#556B2F;vertical-align:middle;">{chat.entity.first_name}</span>'
             )
+            
+            user_bots.append(f"{chat.entity.first_name}, @{chat.entity.username}")
+            #user_bots_html.append(
+                #f'<a href="https://t.me/{chat.entity.username}" style="color:#0000FF; text-decoration: none;">@{chat.entity.username}</a> '
+                #f'<span style="color:#556B2F;">{chat.entity.first_name}</span>'
+            #)
 
         if isinstance(chat.entity, Channel) or isinstance(chat.entity, Chat): # проверяем групповой ли чат        
             if selection == '7': #выгружаем количество сообщений при функции выгрузить сообщение
