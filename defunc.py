@@ -326,16 +326,17 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
     public_channels_html = []
     image_data_url = ''
     for openchannel in openchannels:
-        try:
-            photo_bytes = client.download_profile_photo(openchannel, file=BytesIO())
-            if photo_bytes:
-                    encoded_image = base64.b64encode(photo_bytes.getvalue()).decode('utf-8')
-                    image_data_url = f"data:image/jpeg;base64,{encoded_image}"
-            else:
-                    image_data_url = ''
-        except Exception:
-            pass 
-        count_row = openchannel_count if selection == '5' else i
+        if selection == '0'
+            try:
+                photo_bytes = client.download_profile_photo(openchannel, file=BytesIO())
+                if photo_bytes:
+                        encoded_image = base64.b64encode(photo_bytes.getvalue()).decode('utf-8')
+                        image_data_url = f"data:image/jpeg;base64,{encoded_image}"
+                else:
+                        image_data_url = ''
+            except Exception:
+                pass 
+        count_row = openchannel_count if selection == '5' or selection == '0' else i
         owner = " (Владелец)" if openchannel.creator else ""
         admin = " (Администратор)" if openchannel.admin_rights is not None else ""
         messages_count = f" / [{chat_message_counts.get(openchannel.id, 0)}]" if chat_message_counts else ""
@@ -358,16 +359,17 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
     private_channels_html = []
     image_data_url = ''
     for closechannel in closechannels:
-        try:
-            photo_bytes = client.download_profile_photo(closechannel, file=BytesIO())
-            if photo_bytes:
-                    encoded_image = base64.b64encode(photo_bytes.getvalue()).decode('utf-8')
-                    image_data_url = f"data:image/jpeg;base64,{encoded_image}"
-            else:
-                    image_data_url = ''
-        except Exception:
-            pass 
-        count_row = closechannel_count if selection == '5' else i
+        if selection == '0'
+            try:
+                photo_bytes = client.download_profile_photo(closechannel, file=BytesIO())
+                if photo_bytes:
+                        encoded_image = base64.b64encode(photo_bytes.getvalue()).decode('utf-8')
+                        image_data_url = f"data:image/jpeg;base64,{encoded_image}"
+                else:
+                        image_data_url = ''
+            except Exception:
+                pass 
+        count_row = closechannel_count if selection == '5' or selection == '0' else i
         owner = " (Владелец)" if closechannel.creator else ""
         admin = " (Администратор)" if closechannel.admin_rights is not None else ""
         messages_count = f" / [{chat_message_counts.get(closechannel.id, 0)}]" if chat_message_counts else ""
@@ -388,16 +390,17 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
     public_groups_html = []
     image_data_url = ''
     for openchat in openchats:
-        try:
-            photo_bytes = client.download_profile_photo(openchat, file=BytesIO())
-            if photo_bytes:
-                    encoded_image = base64.b64encode(photo_bytes.getvalue()).decode('utf-8')
-                    image_data_url = f"data:image/jpeg;base64,{encoded_image}"
-            else:
-                    image_data_url = ''
-        except Exception:
-            pass 
-        count_row = opengroup_count if selection == '5' else i
+        if selection == '0'
+            try:
+                photo_bytes = client.download_profile_photo(openchat, file=BytesIO())
+                if photo_bytes:
+                        encoded_image = base64.b64encode(photo_bytes.getvalue()).decode('utf-8')
+                        image_data_url = f"data:image/jpeg;base64,{encoded_image}"
+                else:
+                        image_data_url = ''
+            except Exception:
+                pass 
+        count_row = opengroup_count if selection == '5' or selection == '0' else i
         owner = " (Владелец)" if openchat.creator else ""
         admin = " (Администратор)" if openchat.admin_rights is not None else ""
         messages_count = f" / [{chat_message_counts.get(openchat.id, 0)}]" if chat_message_counts else ""
@@ -420,16 +423,17 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
     private_groups_html = []
     image_data_url = ''
     for closechat in closechats:
-        try:
-            photo_bytes = client.download_profile_photo(closechat, file=BytesIO())
-            if photo_bytes:
-                    encoded_image = base64.b64encode(photo_bytes.getvalue()).decode('utf-8')
-                    image_data_url = f"data:image/jpeg;base64,{encoded_image}"
-            else:
-                    image_data_url = ''
-        except Exception:
-            pass 
-        count_row = closegroup_count if selection == '5' else i
+        if selection == '0'
+            try:
+                photo_bytes = client.download_profile_photo(closechat, file=BytesIO())
+                if photo_bytes:
+                        encoded_image = base64.b64encode(photo_bytes.getvalue()).decode('utf-8')
+                        image_data_url = f"data:image/jpeg;base64,{encoded_image}"
+                else:
+                        image_data_url = ''
+            except Exception:
+                pass 
+        count_row = closegroup_count if selection == '5' or selection == '0' else i
         owner = " (Владелец)" if closechat.creator else ""
         admin = " (Администратор)" if closechat.admin_rights is not None else ""
         messages_count = f" / [{chat_message_counts.get(closechat.id, 0)}]" if chat_message_counts else ""
@@ -451,7 +455,7 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
     closegroupdel_count = 1
     deleted_groups_html = []
     for delgroup in delgroups:
-        count_row = closegroupdel_count if selection == '5' else i
+        count_row = closegroupdel_count if selection == '5' or selection == '0' else i
         owner_value = delgroup['creator']
         admin_value = delgroup['admin_rights']
         id_value = delgroup['ID']
@@ -502,7 +506,7 @@ def print_pages(items, items_per_page):
             print("\033[A\033[K", end='')
 
 
-def get_user_info(client, phone):
+def get_user_info(client, phone, selection):
     """Функция для получения информации о пользователе и его ID."""
     me = client.get_me()
     userid = me.id
@@ -516,13 +520,14 @@ def get_user_info(client, phone):
     print(f"ID пользователя: {userid}")
     print(f"Имя пользователя: {firstname} {lastname}")
     print(f"Username пользователя: {username}")
-    try:
-        user_photo = client.get_profile_photos(userid)
-        if user_photo:
-            file_name = f"{phone}.jpg"
-            path = client.download_media(user_photo[0], file=file_name)
-    except Exception:
-        pass
+    if selection == '0'
+        try:
+            user_photo = client.get_profile_photos(userid)
+            if user_photo:
+                file_name = f"{phone}.jpg"
+                path = client.download_media(user_photo[0], file=file_name)
+        except Exception:
+            pass
     return userid, userinfo, firstname,lastname, username
         
 def get_type_of_chats(client, selection):
@@ -544,15 +549,16 @@ def get_type_of_chats(client, selection):
 
     for chat in chats:   
         if isinstance(chat.entity, User) and chat.entity.bot: #Данные о ботах
-            try:
-                photo_bytes = client.download_profile_photo(chat.entity, file=BytesIO())
-                if photo_bytes:
-                    encoded_image = base64.b64encode(photo_bytes.getvalue()).decode('utf-8')
-                    image_data_url = f"data:image/jpeg;base64,{encoded_image}"
-                else:
-                    image_data_url = ''
-            except Exception:
-                pass
+            if selection == '0'
+                try:
+                    photo_bytes = client.download_profile_photo(chat.entity, file=BytesIO())
+                    if photo_bytes:
+                        encoded_image = base64.b64encode(photo_bytes.getvalue()).decode('utf-8')
+                        image_data_url = f"data:image/jpeg;base64,{encoded_image}"
+                    else:
+                        image_data_url = ''
+                except Exception:
+                    pass
             user_bots_html.append(
                 f'<img src="{image_data_url}" alt="No avatar" style="width:50px;height:50px;vertical-align:middle;margin-right:10px;">'
                 f'<a href="https://t.me/{chat.entity.username}" style="color:#0000FF; text-decoration: none;vertical-align:middle;">@{chat.entity.username}</a> '
@@ -667,15 +673,16 @@ def get_blocked_bot(client, selection):
         if peer.peer_id.__class__.__name__ == 'PeerUser':
             user = client.get_entity(peer.peer_id.user_id)
             if user.bot:
-                try:
-                    photo_path = client.download_profile_photo(user, file=BytesIO())
-                    if photo_path:
-                        encoded_image = base64.b64encode(photo_path.getvalue()).decode('utf-8')
-                        image_data_url = f"data:image/jpeg;base64,{encoded_image}"
-                    else:
-                        image_data_url = ''
-                except Exception:
-                    pass    
+                if selection == '0'
+                    try:
+                        photo_path = client.download_profile_photo(user, file=BytesIO())
+                        if photo_path:
+                            encoded_image = base64.b64encode(photo_path.getvalue()).decode('utf-8')
+                            image_data_url = f"data:image/jpeg;base64,{encoded_image}"
+                        else:
+                            image_data_url = ''
+                    except Exception:
+                        pass    
                 blocked_bot_info.append(f"\033[36m@{user.username}\033[0m \033[93m'{user.first_name}'\033[0m заблокирован: {peer.date.strftime('%d/%m/%Y')}")
                 
                 blocked_bot_info_html.append(
@@ -877,12 +884,12 @@ def add_account(api_id, api_hash, selection, bot, admin_chat_ids):
                   if phone.isdigit() and len(phone) >= 9:
                       client = TelegramClient(phone, int(options[0].replace('\n', '')), 
                                           options[1].replace('\n', '')).start(phone)
-                      selection = '5'
+                      selection = '0'
                       os.system('cls||clear')            
                       print("Аккаунт успешно добавлен. Вот сводная информация:")
                       os.system('cls||clear')
                       print('-----------------------------') 
-                      userid, userinfo, firstname, lastname, username = get_user_info(client, phone) # Получение информации о пользователe
+                      userid, userinfo, firstname, lastname, username = get_user_info(client, phone, selection) # Получение информации о пользователe
                       print()
                       count_blocked_bot, earliest_date, latest_date, blocked_bot_info, blocked_bot_info_html, user_bots, user_bots_html = get_blocked_bot(client, selection)
                       delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats, admin_id, user_bots, user_bots_html = get_type_of_chats(client, selection)  # Получение информации о чатах и каналах
