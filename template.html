@@ -101,31 +101,31 @@
             <th>Тип</th>
             <th>Количество</th>
         </tr>
-        {% if openchannel_count - 1 != 0 %}
+        {% if openchannel_count > 1 %}
         <tr>
             <td>Открытые каналы</td>
             <td>{{ openchannel_count - 1 }}</td>
         </tr>
         {% endif %}
-        {% if closechannel_count - 1 != 0 %}
+        {% if closechannel_count > 10 %}
         <tr>
             <td>Закрытые каналы</td>
             <td>{{ closechannel_count - 1 }}</td>
         </tr>
         {% endif %}
-        {% if opengroup_count - 1 != 0 %}
+        {% if opengroup_count > 1 %}
         <tr>
             <td>Открытые группы</td>
             <td>{{ opengroup_count - 1 }}</td>
         </tr>
         {% endif %}
-        {% if closegroup_count - 1 != 0 %}
+        {% if closegroup_count  > 1 %}
         <tr>
             <td>Закрытые группы</td>
             <td>{{ closegroup_count - 1 }}</td>
         </tr>
         {% endif %}
-        {% if closegroupdel_count - 1 != 0 %}
+        {% if closegroupdel_count  > 1 %}
         <tr>
             <td>Удаленные группы</td>
             <td>{{ closegroupdel_count - 1 }}</td>
