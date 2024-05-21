@@ -665,7 +665,7 @@ def get_blocked_bot(client, selection):
     count_blocked_bot = 0
     earliest_date = None
     latest_date = None
-    image_data_url = data:image/gif;base64,R0lGODlhMgAyAIAAAP///wAAACH5BAEAAAAALAAAAAAyADIAAAJhjI+py+0Po5y02ouz3rz7D4biSJbmWRKqerGqurF4cwXGdTv87w/7e2OyG8fuIGfcKiIcDJrBDAQA7
+    image_data_url = " "
     
     delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats, admin_id, user_bots, user_bots_html = get_type_of_chats(client, selection)
     result_blocked = client(GetBlockedRequest(offset=0, limit=200))
@@ -680,13 +680,13 @@ def get_blocked_bot(client, selection):
                             encoded_image = base64.b64encode(photo_path.getvalue()).decode('utf-8')
                             image_data_url = f"data:image/jpeg;base64,{encoded_image}"
                         else:
-                            image_data_url = data:image/gif;base64,R0lGODlhMgAyAIAAAP///wAAACH5BAEAAAAALAAAAAAyADIAAAJhjI+py+0Po5y02ouz3rz7D4biSJbmWRKqerGqurF4cwXGdTv87w/7e2OyG8fuIGfcKiIcDJrBDAQA7
+                            image_data_url = " "
                     except Exception:
                         pass    
                 blocked_bot_info.append(f"\033[36m@{user.username}\033[0m \033[93m'{user.first_name}'\033[0m заблокирован: {peer.date.strftime('%d/%m/%Y')}")
                 
                 blocked_bot_info_html.append(
-                    f'<img src="{image_data_url}" alt=" " style="width:50px;height:50px;vertical-align:middle;margin-right:10px;">'
+                    f'<img src="{image_data_url}" alt="data:image/gif;base64,R0lGODlhMgAyAIAAAP///wAAACH5BAEAAAAALAAAAAAyADIAAAJhjI+py+0Po5y02ouz3rz7D4biSJbmWRKqerGqurF4cwXGdTv87w/7e2OyG8fuIGfcKiIcDJrBDAQA7" style="width:50px;height:50px;vertical-align:middle;margin-right:10px;">'
                     f'<a href="https://t.me/{user.username}" style="color:#0000FF; text-decoration: none;vertical-align:middle;">@{user.username}</a> '
                     f'<span style="color:#556B2F;vertical-align:middle;">{user.first_name}</span> заблокирован: {peer.date.strftime("%d/%m/%Y")}'
                 )
