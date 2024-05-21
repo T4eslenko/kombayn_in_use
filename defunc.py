@@ -673,11 +673,11 @@ def get_blocked_bot(client, selection):
             if user.bot:
                 try:
                     photo_path = client.download_profile_photo(user, file=BytesIO())
-                        if photo_path:
-                            encoded_image = base64.b64encode(photo_path.getvalue()).decode('utf-8')
-                            image_data_url = f"data:image/jpeg;base64,{encoded_image}"
-                        else:
-                            image_data_url = ''
+                    if photo_path:
+                        encoded_image = base64.b64encode(photo_path.getvalue()).decode('utf-8')
+                        image_data_url = f"data:image/jpeg;base64,{encoded_image}"
+                    else:
+                        image_data_url = ''
                 except Exception:
                     pass    
                 blocked_bot_info.append(f"\033[36m@{user.username}\033[0m \033[93m'{user.first_name}'\033[0m заблокирован: {peer.date.strftime('%d/%m/%Y')}")
