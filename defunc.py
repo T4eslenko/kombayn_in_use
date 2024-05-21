@@ -15,12 +15,16 @@ from datetime import datetime
 from typing import Optional
 import re
 from jinja2 import Template
-from weasyprint import HTML
+import base64
 
 def generate_html_report(phone, userid, userinfo, firstname, lastname, username, total_contacts, total_contacts_with_phone, total_mutual_contacts, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_openchannel, owner_closechannel, owner_opengroup, owner_closegroup, public_channels_html, private_channels_html, public_groups_html, private_groups_html, deleted_groups_html, blocked_bot_info_html, user_bots_html):
     # Путь к аватарке пользователя
     avatar_path = f"{phone}.jpg"
-
+    
+    with open(avatar_path, "rb") as image_file:
+        encoded_string = base64.b64encode(image_file.read()).decode('utf-8')
+        avatar_data_uri = f"data:image/jpeg;base64,{encoded_string}"
+    
     # Открываем HTML шаблон
     with open('template.html', 'r', encoding='utf-8') as file:
         template = Template(file.read())
@@ -51,7 +55,7 @@ def generate_html_report(phone, userid, userinfo, firstname, lastname, username,
         public_groups_html=public_groups_html,
         private_groups_html=private_groups_html,
         deleted_groups_html=deleted_groups_html,
-        avatar_user=avatar_path
+        avatar_user=avatar_data_uri
     )
 
     # Сохраняем результат в HTML файл
