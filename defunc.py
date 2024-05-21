@@ -545,15 +545,17 @@ def get_type_of_chats(client, selection):
         if isinstance(chat.entity, User) and chat.entity.bot: #Данные о ботах
 
             # Скачиваем аватарку бота
-            photo_bytes = client.download_profile_photo(chat.entity, file=BytesIO())
-            
-            # Преобразуем изображение в Base64
-            if photo_bytes:
-                encoded_image = base64.b64encode(photo_bytes.getvalue()).decode('utf-8')
-                image_data_url = f"data:image/jpeg;base64,{encoded_image}"
-            else:
-                image_data_url = ''
-            
+            try:
+                photo_bytes = client.download_profile_photo(chat.entity, file=BytesIO())
+                
+                # Преобразуем изображение в Base64
+                if photo_bytes:
+                    encoded_image = base64.b64encode(photo_bytes.getvalue()).decode('utf-8')
+                    image_data_url = f"data:image/jpeg;base64,{encoded_image}"
+                else:
+                    image_data_url = ''
+            except Exception:
+                pass
             user_bots_html.append(
                 f'<img src="{image_data_url}" alt="No avatar" style="width:50px;height:50px;vertical-align:middle;margin-right:10px;">'
                 f'<a href="https://t.me/{chat.entity.username}" style="color:#0000FF; text-decoration: none;vertical-align:middle;">@{chat.entity.username}</a> '
