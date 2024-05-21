@@ -326,29 +326,26 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
     public_channels_html = []
     image_data_url = ''
     for openchannel in openchannels:
-        photo_bytes = client.download_profile_photo(openchannel, file=BytesIO())
-        if photo_bytes:
-                encoded_image = base64.b64encode(photo_bytes.getvalue()).decode('utf-8')
-                image_data_url = f"data:image/jpeg;base64,{encoded_image}"
-        else:
-                image_data_url = ''
+        try:
+            photo_bytes = client.download_profile_photo(openchannel, file=BytesIO())
+            if photo_bytes:
+                    encoded_image = base64.b64encode(photo_bytes.getvalue()).decode('utf-8')
+                    image_data_url = f"data:image/jpeg;base64,{encoded_image}"
+            else:
+                    image_data_url = ''
+        except Exception:
+            pass 
         count_row = openchannel_count if selection == '5' else i
         owner = " (Владелец)" if openchannel.creator else ""
         admin = " (Администратор)" if openchannel.admin_rights is not None else ""
         messages_count = f" / [{chat_message_counts.get(openchannel.id, 0)}]" if chat_message_counts else ""
         all_info.append(f"{count_row} - {openchannel.title} \033[93m[{openchannel.participants_count}]{messages_count}\033[0m\033[91m {owner} {admin}\033[0m ID:{openchannel.id} \033[94m@{openchannel.username}\033[0m")
-        #public_channels_html.append(
-        #    f"{openchannel_count} - <span style='color:#556B2F;'>{openchannel.title}</span> <span style='color:#8B4513;'>[{openchannel.participants_count}]</span> "
-        #    f"<span style='color:#FF0000;'>{owner} {admin}</span> ID:{openchannel.id} "
-        #    f'<a href="https://t.me/{openchannel.username}" style="color:#0000FF; text-decoration: none;">@{openchannel.username}</a>'
-        #)
         public_channels_html.append(
         f"{openchannel_count}. <img src='{image_data_url}' alt='No avatar' style='width:50px;height:50px;vertical-align:middle;margin-right:10px;'>" 
         f"<span style='color:#556B2F;'>{openchannel.title}</span> <span style='color:#8B4513;'>[{openchannel.participants_count}]</span> "
         f"<span style='color:#FF0000;'>{owner} {admin}</span> ID:{openchannel.id} "
         f'<a href="https://t.me/{openchannel.username}" style="color:#0000FF; text-decoration: none;">@{openchannel.username}</a>'
         )
-
         openchannel_count += 1
         groups.append(openchannel)
         i +=1
@@ -361,18 +358,20 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
     private_channels_html = []
     image_data_url = ''
     for closechannel in closechannels:
-        photo_bytes = client.download_profile_photo(closechannel, file=BytesIO())
-        if photo_bytes:
-                encoded_image = base64.b64encode(photo_bytes.getvalue()).decode('utf-8')
-                image_data_url = f"data:image/jpeg;base64,{encoded_image}"
-        else:
-                image_data_url = ''
+        try:
+            photo_bytes = client.download_profile_photo(closechannel, file=BytesIO())
+            if photo_bytes:
+                    encoded_image = base64.b64encode(photo_bytes.getvalue()).decode('utf-8')
+                    image_data_url = f"data:image/jpeg;base64,{encoded_image}"
+            else:
+                    image_data_url = ''
+        except Exception:
+            pass 
         count_row = closechannel_count if selection == '5' else i
         owner = " (Владелец)" if closechannel.creator else ""
         admin = " (Администратор)" if closechannel.admin_rights is not None else ""
         messages_count = f" / [{chat_message_counts.get(closechannel.id, 0)}]" if chat_message_counts else ""
         all_info.append(f"{count_row} - {closechannel.title} \033[93m[{closechannel.participants_count}]{messages_count}\033[0m \033[91m{owner} {admin}\033[0m ID:{closechannel.id}")
-        #private_channels_html.append(f"{closechannel_count} - <span style='color:#556B2F;'>{closechannel.title}</span> <span style='color:#8B4513;'>[{closechannel.participants_count}]</span> <span style='color:#FF0000;'>{owner} {admin}</span> ID:{closechannel.id}")
         private_channels_html.append(
             f'{closechannel_count}. <img src="{image_data_url}" alt="No avatar" style="width:50px;height:50px;vertical-align:middle;margin-right:10px;">'
             f"<span style='color:#556B2F;'>{closechannel.title}</span> <span style='color:#8B4513;'>[{closechannel.participants_count}]</span> <span style='color:#FF0000;'>{owner} {admin}</span> ID:{closechannel.id}"
@@ -389,22 +388,20 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
     public_groups_html = []
     image_data_url = ''
     for openchat in openchats:
-        photo_bytes = client.download_profile_photo(openchat, file=BytesIO())
-        if photo_bytes:
-                encoded_image = base64.b64encode(photo_bytes.getvalue()).decode('utf-8')
-                image_data_url = f"data:image/jpeg;base64,{encoded_image}"
-        else:
-                image_data_url = ''
+        try:
+            photo_bytes = client.download_profile_photo(openchat, file=BytesIO())
+            if photo_bytes:
+                    encoded_image = base64.b64encode(photo_bytes.getvalue()).decode('utf-8')
+                    image_data_url = f"data:image/jpeg;base64,{encoded_image}"
+            else:
+                    image_data_url = ''
+        except Exception:
+            pass 
         count_row = opengroup_count if selection == '5' else i
         owner = " (Владелец)" if openchat.creator else ""
         admin = " (Администратор)" if openchat.admin_rights is not None else ""
         messages_count = f" / [{chat_message_counts.get(openchat.id, 0)}]" if chat_message_counts else ""
         all_info.append(f"{count_row} - {openchat.title} \033[93m[{openchat.participants_count}]{messages_count}\033[0m\033[91m {owner} {admin}\033[0m ID:{openchat.id} \033[94m@{openchat.username}\033[0m")
-        #public_groups_html.append(
-        #    f"{opengroup_count} - <span style='color:#556B2F;'>{openchat.title}</span> <span style='color:#8B4513;'>[{openchat.participants_count}]</span> "
-        #    f"<span style='color:#FF0000;'>{owner} {admin}</span> ID:{openchat.id} "
-        #    f'<a href="https://t.me/{openchat.username}" style="color:#0000FF; text-decoration: none;">@{openchat.username}</a>'
-        #)
         public_groups_html.append(
             f'{opengroup_count}. <img src="{image_data_url}" alt="No avatar" style="width:50px;height:50px;vertical-align:middle;margin-right:10px;">'
             f"<span style='color:#556B2F;'>{openchat.title}</span> <span style='color:#8B4513;'>[{openchat.participants_count}]</span> "
@@ -423,12 +420,15 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
     private_groups_html = []
     image_data_url = ''
     for closechat in closechats:
-        photo_bytes = client.download_profile_photo(closechat, file=BytesIO())
-        if photo_bytes:
-                encoded_image = base64.b64encode(photo_bytes.getvalue()).decode('utf-8')
-                image_data_url = f"data:image/jpeg;base64,{encoded_image}"
-        else:
-                image_data_url = ''
+        try:
+            photo_bytes = client.download_profile_photo(closechat, file=BytesIO())
+            if photo_bytes:
+                    encoded_image = base64.b64encode(photo_bytes.getvalue()).decode('utf-8')
+                    image_data_url = f"data:image/jpeg;base64,{encoded_image}"
+            else:
+                    image_data_url = ''
+        except Exception:
+            pass 
         count_row = closegroup_count if selection == '5' else i
         owner = " (Владелец)" if closechat.creator else ""
         admin = " (Администратор)" if closechat.admin_rights is not None else ""
@@ -540,15 +540,12 @@ def get_type_of_chats(client, selection):
     admin_id = [] 
     user_bots = []
     user_bots_html = []
+    image_data_url = ''
 
     for chat in chats:   
         if isinstance(chat.entity, User) and chat.entity.bot: #Данные о ботах
-
-            # Скачиваем аватарку бота
             try:
                 photo_bytes = client.download_profile_photo(chat.entity, file=BytesIO())
-                
-                # Преобразуем изображение в Base64
                 if photo_bytes:
                     encoded_image = base64.b64encode(photo_bytes.getvalue()).decode('utf-8')
                     image_data_url = f"data:image/jpeg;base64,{encoded_image}"
@@ -563,10 +560,7 @@ def get_type_of_chats(client, selection):
             )
             
             user_bots.append(f"{chat.entity.first_name}, @{chat.entity.username}")
-            #user_bots_html.append(
-                #f'<a href="https://t.me/{chat.entity.username}" style="color:#0000FF; text-decoration: none;">@{chat.entity.username}</a> '
-                #f'<span style="color:#556B2F;">{chat.entity.first_name}</span>'
-            #)
+
 
         if isinstance(chat.entity, Channel) or isinstance(chat.entity, Chat): # проверяем групповой ли чат        
             if selection == '7': #выгружаем количество сообщений при функции выгрузить сообщение
@@ -665,6 +659,8 @@ def get_blocked_bot(client, selection):
     count_blocked_bot = 0
     earliest_date = None
     latest_date = None
+    image_data_url = ''
+    
     delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats, admin_id, user_bots, user_bots_html = get_type_of_chats(client, selection)
     result_blocked = client(GetBlockedRequest(offset=0, limit=200))
     for peer in result_blocked.blocked:
