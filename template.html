@@ -107,7 +107,7 @@
             <td>{{ openchannel_count - 1 }}</td>
         </tr>
         {% endif %}
-        {% if closechannel_count > 10 %}
+        {% if closechannel_count > 1 %}
         <tr>
             <td>Закрытые каналы</td>
             <td>{{ closechannel_count - 1 }}</td>
@@ -131,22 +131,30 @@
             <td>{{ closegroupdel_count - 1 }}</td>
         </tr>
         {% endif %}
+        {% if owner_openchannel  > 0 %}
         <tr>
             <td>Права владельца или админа в открытых каналах</td>
             <td>{{ owner_openchannel }}</td>
         </tr>
+        {% endif %}
+        {% if owner_closechannel  > 0 %}
         <tr>
             <td>Права владельца или админа в закрытых каналах</td>
             <td>{{ owner_closechannel }}</td>
         </tr>
+        {% endif %}
+        {% if owner_opengroup  > 0 %}
         <tr>
             <td>Права владельца или админа в открытых группах</td>
             <td>{{ owner_opengroup }}</td>
         </tr>
+        {% endif %}
+        {% if owner_closegroup  > 0 %}
         <tr>
             <td>Права владельца или админа в закрытых группах</td>
             <td>{{ owner_closegroup }}</td>
         </tr>
+        {% endif %}
 </table>
 
 
