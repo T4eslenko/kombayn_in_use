@@ -58,12 +58,6 @@ def generate_html_report(phone, userid, userinfo, firstname, lastname, username,
     report_filename = f"{phone}_report.html"
     with open(report_filename, 'w', encoding='utf-8') as file:
         file.write(html_content)
-
-    # Преобразуем HTML в PDF
-    pdf_filename = f"{phone}_report.pdf"
-    HTML(string=html_content).write_pdf(pdf_filename)
-
-
     
 #Выгружаем сообщения 
 def remove_timezone(dt: datetime) -> Optional[datetime]:
