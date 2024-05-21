@@ -516,13 +516,13 @@ def get_user_info(client, phone):
     print(f"ID пользователя: {userid}")
     print(f"Имя пользователя: {firstname} {lastname}")
     print(f"Username пользователя: {username}")
-    try:
-        user_photo = client.get_profile_photos(userid)
-        if user_photo:
-            file_name = f"{phone}.jpg"
-            path = client.download_media(user_photo[0], file=file_name)
-    except Exception:
-        pass
+    #try:
+    #    user_photo = client.get_profile_photos(userid)
+    #    if user_photo:
+    #        file_name = f"{phone}.jpg"
+    #        path = client.download_media(user_photo[0], file=file_name)
+    #except Exception:
+    #    pass
     return userid, userinfo, firstname,lastname, username
         
 def get_type_of_chats(client, selection):
