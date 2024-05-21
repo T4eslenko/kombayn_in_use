@@ -329,10 +329,11 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
         photo_bytes = client.download_profile_photo(openchannel.entity, file=BytesIO())
             
             # Преобразуем изображение в Base64
-            if photo_bytes:
+            
+        if photo_bytes:
                 encoded_image = base64.b64encode(photo_bytes.getvalue()).decode('utf-8')
                 image_data_url = f"data:image/jpeg;base64,{encoded_image}"
-            else:
+        else:
                 image_data_url = ''
             
             #user_bots_html.append(
@@ -340,15 +341,13 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
                 #f'<a href="https://t.me/{chat.entity.username}" style="color:#0000FF; text-decoration: none;vertical-align:middle;">@{chat.entity.username}</a> '
                 #f'<span style="color:#556B2F;vertical-align:middle;">{chat.entity.first_name}</span>'
             #)
-            public_channels_html.append(
-            f'<img src="{image_data_url}" alt="No avatar" style="width:50px;height:50px;vertical-align:middle;margin-right:10px;">'
-            f"{openchannel_count} - <span style='color:#556B2F;'>{openchannel.title}</span> <span style='color:#8B4513;'>[{openchannel.participants_count}]</span> "
-            f"<span style='color:#FF0000;'>{owner} {admin}</span> ID:{openchannel.id} "
-            f'<a href="https://t.me/{openchannel.username}" style="color:#0000FF; text-decoration: none;">@{openchannel.username}</a>'
-            )
+        public_channels_html.append(
+        f'<img src="{image_data_url}" alt="No avatar" style="width:50px;height:50px;vertical-align:middle;margin-right:10px;">'
+        f"{openchannel_count} - <span style='color:#556B2F;'>{openchannel.title}</span> <span style='color:#8B4513;'>[{openchannel.participants_count}]</span> "
+        f"<span style='color:#FF0000;'>{owner} {admin}</span> ID:{openchannel.id} "
+        f'<a href="https://t.me/{openchannel.username}" style="color:#0000FF; text-decoration: none;">@{openchannel.username}</a>'
+        )
 
-
-        
         count_row = openchannel_count if selection == '5' else i
         owner = " (Владелец)" if openchannel.creator else ""
         admin = " (Администратор)" if openchannel.admin_rights is not None else ""
