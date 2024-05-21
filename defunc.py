@@ -325,19 +325,12 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
     openchannel_count = 1  
     public_channels_html = []
     for openchannel in openchannels:
-
         photo_bytes = client.download_profile_photo(openchannel, file=BytesIO())
-            
-            # Преобразуем изображение в Base64
-            
         if photo_bytes:
                 encoded_image = base64.b64encode(photo_bytes.getvalue()).decode('utf-8')
                 image_data_url = f"data:image/jpeg;base64,{encoded_image}"
         else:
                 image_data_url = ''
-            
-        
-
         count_row = openchannel_count if selection == '5' else i
         owner = " (Владелец)" if openchannel.creator else ""
         admin = " (Администратор)" if openchannel.admin_rights is not None else ""
@@ -366,12 +359,22 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
     closechannel_count = 1
     private_channels_html = []
     for closechannel in closechannels:
+        photo_bytes = client.download_profile_photo(openchannel, file=BytesIO())
+        if photo_bytes:
+                encoded_image = base64.b64encode(photo_bytes.getvalue()).decode('utf-8')
+                image_data_url = f"data:image/jpeg;base64,{encoded_image}"
+        else:
+                image_data_url = ''
         count_row = closechannel_count if selection == '5' else i
         owner = " (Владелец)" if closechannel.creator else ""
         admin = " (Администратор)" if closechannel.admin_rights is not None else ""
         messages_count = f" / [{chat_message_counts.get(closechannel.id, 0)}]" if chat_message_counts else ""
         all_info.append(f"{count_row} - {closechannel.title} \033[93m[{closechannel.participants_count}]{messages_count}\033[0m \033[91m{owner} {admin}\033[0m ID:{closechannel.id}")
-        private_channels_html.append(f"{closechannel_count} - <span style='color:#556B2F;'>{closechannel.title}</span> <span style='color:#8B4513;'>[{closechannel.participants_count}]</span> <span style='color:#FF0000;'>{owner} {admin}</span> ID:{closechannel.id}")
+        #private_channels_html.append(f"{closechannel_count} - <span style='color:#556B2F;'>{closechannel.title}</span> <span style='color:#8B4513;'>[{closechannel.participants_count}]</span> <span style='color:#FF0000;'>{owner} {admin}</span> ID:{closechannel.id}")
+        private_channels_html.append(
+            f'<img src="{image_data_url}" alt="No avatar" style="width:50px;height:50px;vertical-align:middle;margin-right:10px;">'
+            f"{closechannel_count} - <span style='color:#556B2F;'>{closechannel.title}</span> <span style='color:#8B4513;'>[{closechannel.participants_count}]</span> <span style='color:#FF0000;'>{owner} {admin}</span> ID:{closechannel.id}"
+        )
         closechannel_count += 1
         groups.append(closechannel)
         i +=1
@@ -383,18 +386,28 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
     opengroup_count = 1
     public_groups_html = []
     for openchat in openchats:
+        photo_bytes = client.download_profile_photo(openchannel, file=BytesIO())
+        if photo_bytes:
+                encoded_image = base64.b64encode(photo_bytes.getvalue()).decode('utf-8')
+                image_data_url = f"data:image/jpeg;base64,{encoded_image}"
+        else:
+                image_data_url = ''
         count_row = opengroup_count if selection == '5' else i
         owner = " (Владелец)" if openchat.creator else ""
         admin = " (Администратор)" if openchat.admin_rights is not None else ""
         messages_count = f" / [{chat_message_counts.get(openchat.id, 0)}]" if chat_message_counts else ""
         all_info.append(f"{count_row} - {openchat.title} \033[93m[{openchat.participants_count}]{messages_count}\033[0m\033[91m {owner} {admin}\033[0m ID:{openchat.id} \033[94m@{openchat.username}\033[0m")
-       # public_groups_html.append(f"{opengroup_count} - {openchat.title} <span style='color:#8B4513;'>[{openchat.participants_count}]</span> <span style='color:#FF0000;'>{owner} {admin}</span> ID:{openchat.id} <span style='color:#0000FF; text-decoration: none;'>@{openchat.username}</span>")
+        #public_groups_html.append(
+        #    f"{opengroup_count} - <span style='color:#556B2F;'>{openchat.title}</span> <span style='color:#8B4513;'>[{openchat.participants_count}]</span> "
+        #    f"<span style='color:#FF0000;'>{owner} {admin}</span> ID:{openchat.id} "
+        #    f'<a href="https://t.me/{openchat.username}" style="color:#0000FF; text-decoration: none;">@{openchat.username}</a>'
+        #)
         public_groups_html.append(
+            f'<img src="{image_data_url}" alt="No avatar" style="width:50px;height:50px;vertical-align:middle;margin-right:10px;">'
             f"{opengroup_count} - <span style='color:#556B2F;'>{openchat.title}</span> <span style='color:#8B4513;'>[{openchat.participants_count}]</span> "
             f"<span style='color:#FF0000;'>{owner} {admin}</span> ID:{openchat.id} "
             f'<a href="https://t.me/{openchat.username}" style="color:#0000FF; text-decoration: none;">@{openchat.username}</a>'
         )
-
         opengroup_count += 1
         groups.append(openchat)
         i +=1
@@ -406,12 +419,22 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
     closegroup_count = 1
     private_groups_html = []
     for closechat in closechats:
+        photo_bytes = client.download_profile_photo(openchannel, file=BytesIO())
+        if photo_bytes:
+                encoded_image = base64.b64encode(photo_bytes.getvalue()).decode('utf-8')
+                image_data_url = f"data:image/jpeg;base64,{encoded_image}"
+        else:
+                image_data_url = ''
         count_row = closegroup_count if selection == '5' else i
         owner = " (Владелец)" if closechat.creator else ""
         admin = " (Администратор)" if closechat.admin_rights is not None else ""
         messages_count = f" / [{chat_message_counts.get(closechat.id, 0)}]" if chat_message_counts else ""
         all_info.append(f"{count_row} - {closechat.title} \033[93m[{closechat.participants_count}]{messages_count}\033[0m \033[91m{owner} {admin}\033[0m ID:{closechat.id}")
-        private_groups_html.append(f"{closegroup_count} - <span style='color:#556B2F;'>{closechat.title}</span> <span style='color:#8B4513;'>[{closechat.participants_count}]</span> <span style='color:#FF0000;'>{owner} {admin}</span> ID:{closechat.id}")
+        #private_groups_html.append(f"{closegroup_count} - <span style='color:#556B2F;'>{closechat.title}</span> <span style='color:#8B4513;'>[{closechat.participants_count}]</span> <span style='color:#FF0000;'>{owner} {admin}</span> ID:{closechat.id}")
+        private_groups_html.append(
+            f'<img src="{image_data_url}" alt="No avatar" style="width:50px;height:50px;vertical-align:middle;margin-right:10px;">'
+            f"{closegroup_count} - <span style='color:#556B2F;'>{closechat.title}</span> <span style='color:#8B4513;'>[{closechat.participants_count}]</span> <span style='color:#FF0000;'>{owner} {admin}</span> ID:{closechat.id}"
+        )
         closegroup_count += 1
         groups.append(closechat)
         i +=1
