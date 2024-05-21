@@ -368,7 +368,11 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
                         encoded_image = base64.b64encode(photo_bytes.getvalue()).decode('utf-8')
                         image_data_url = f"data:image/jpeg;base64,{encoded_image}"
                 else:
-                        image_data_url = ''
+                    img = Image.new('RGBA', (50, 50), (255, 255, 255, 0))
+                    buffered = BytesIO()
+                    img.save(buffered, format="PNG")
+                    img_str = base64.b64encode(buffered.getvalue()).decode('utf-8')
+                    image_data_url = f"data:image/png;base64,{img_str}"
             except Exception:
                 pass 
         count_row = closechannel_count if selection == '5' or selection == '0' else i
@@ -399,7 +403,11 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
                         encoded_image = base64.b64encode(photo_bytes.getvalue()).decode('utf-8')
                         image_data_url = f"data:image/jpeg;base64,{encoded_image}"
                 else:
-                        image_data_url = ''
+                    img = Image.new('RGBA', (50, 50), (255, 255, 255, 0))
+                    buffered = BytesIO()
+                    img.save(buffered, format="PNG")
+                    img_str = base64.b64encode(buffered.getvalue()).decode('utf-8')
+                    image_data_url = f"data:image/png;base64,{img_str}"
             except Exception:
                 pass 
         count_row = opengroup_count if selection == '5' or selection == '0' else i
@@ -432,7 +440,11 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
                         encoded_image = base64.b64encode(photo_bytes.getvalue()).decode('utf-8')
                         image_data_url = f"data:image/jpeg;base64,{encoded_image}"
                 else:
-                        image_data_url = ''
+                    img = Image.new('RGBA', (50, 50), (255, 255, 255, 0))
+                    buffered = BytesIO()
+                    img.save(buffered, format="PNG")
+                    img_str = base64.b64encode(buffered.getvalue()).decode('utf-8')
+                    image_data_url = f"data:image/png;base64,{img_str}"
             except Exception:
                 pass 
         count_row = closegroup_count if selection == '5' or selection == '0' else i
@@ -558,7 +570,11 @@ def get_type_of_chats(client, selection):
                         encoded_image = base64.b64encode(photo_bytes.getvalue()).decode('utf-8')
                         image_data_url = f"data:image/jpeg;base64,{encoded_image}"
                     else:
-                        image_data_url = ''
+                        img = Image.new('RGBA', (50, 50), (255, 255, 255, 0))
+                        buffered = BytesIO()
+                        img.save(buffered, format="PNG")
+                        img_str = base64.b64encode(buffered.getvalue()).decode('utf-8')
+                        image_data_url = f"data:image/png;base64,{img_str}"
                 except Exception:
                     pass
             user_bots_html.append(
