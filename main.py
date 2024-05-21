@@ -80,7 +80,7 @@ if __name__ == "__main__":
            if result is None:
                continue
            client, phone, session_index = result
-           userid, userinfo, firstname, lastname, username = get_user_info(client, phone) # Получение информации о пользователe
+           userid, userinfo, firstname, lastname, username = get_user_info(client, phone, selection) # Получение информации о пользователe
            print()
            print('-----------------------------')
            print('=ВЫГРУЗКА КОНТАКТОВ В EXCEL=')
@@ -105,7 +105,7 @@ if __name__ == "__main__":
            os.system('cls||clear')
            client, phone, session_index = result
            print('-----------------------------') 
-           userid, userinfo, firstname, lastname, username = get_user_info(client, phone) # Получение информации о пользователe
+           userid, userinfo, firstname, lastname, username = get_user_info(client, phone, selection) # Получение информации о пользователe
            print()
            delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats, admin_id, user_bots, user_bots_html = get_type_of_chats(client, selection)  # Получение информации о чатах и каналах
            groups, i, all_info, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_openchannel, owner_closechannel, owner_opengroup, owner_closegroup = make_list_of_channels(delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats, selection, client)[:12]
@@ -150,7 +150,7 @@ if __name__ == "__main__":
               os.system('cls||clear')
               client, phone, session_index = result
               print('-----------------------------') 
-              userid, userinfo, firstname, lastname, username = get_user_info(client, phone) # Получение информации о пользователe
+              userid, userinfo, firstname, lastname, username = get_user_info(client, phone, selection) # Получение информации о пользователe
               print()
               delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats, admin_id, user_bots, user_bots_html = get_type_of_chats(client, selection)  # Получение информации о чатах и каналах
               groups, i, all_info, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_openchannel, owner_closechannel, owner_opengroup, owner_closegroup = make_list_of_channels(delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats, selection, client)[:12]
@@ -220,7 +220,7 @@ if __name__ == "__main__":
               os.system('cls||clear')
               client, phone, session_index = result
               print('-----------------------------') 
-              userid, userinfo, firstname, lastname, username = get_user_info(client, phone) # Получение информации о пользователe
+              userid, userinfo, firstname, lastname, username = get_user_info(client, phone, selection) # Получение информации о пользователe
               print()
               delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats, admin_id, user_bots, user_bots_html = get_type_of_chats(client, selection)  # Получение информации о чатах и каналах
               groups, i, all_info, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_openchannel, owner_closechannel, owner_opengroup, owner_closegroup = make_list_of_channels(delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats, selection, client)[:12]
@@ -289,7 +289,7 @@ if __name__ == "__main__":
            if result is None:
                continue
            client, phone, session_index = result
-           userid, userinfo, firstname, lastname, username = get_user_info(client, phone) # Получение информации о пользователe
+           userid, userinfo, firstname, lastname, username = get_user_info(client, phone, selection) # Получение информации о пользователe
            count_blocked_bot, earliest_date, latest_date, blocked_bot_info, blocked_bot_info_html, user_bots, user_bots_html = get_blocked_bot(client, selection)
            input("\033[93mНажмите Enter для продолжения...\033[0m")
            os.system('cls||clear')
