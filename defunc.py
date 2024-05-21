@@ -338,12 +338,12 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
         messages_count = f" / [{chat_message_counts.get(openchannel.id, 0)}]" if chat_message_counts else ""
         all_info.append(f"{count_row} - {openchannel.title} \033[93m[{openchannel.participants_count}]{messages_count}\033[0m\033[91m {owner} {admin}\033[0m ID:{openchannel.id} \033[94m@{openchannel.username}\033[0m")
         #public_channels_html.append(
-        #    f"{openchannel_count}. <span style='color:#556B2F;'>{openchannel.title}</span> <span style='color:#8B4513;'>[{openchannel.participants_count}]</span> "
+        #    f"{openchannel_count} - <span style='color:#556B2F;'>{openchannel.title}</span> <span style='color:#8B4513;'>[{openchannel.participants_count}]</span> "
         #    f"<span style='color:#FF0000;'>{owner} {admin}</span> ID:{openchannel.id} "
         #    f'<a href="https://t.me/{openchannel.username}" style="color:#0000FF; text-decoration: none;">@{openchannel.username}</a>'
         #)
         public_channels_html.append(
-        f"{openchannel_count} - <img src='{image_data_url}' alt='No avatar' style='width:50px;height:50px;vertical-align:middle;margin-right:10px;'>" 
+        f"{openchannel_count}. <img src='{image_data_url}' alt='No avatar' style='width:50px;height:50px;vertical-align:middle;margin-right:10px;'>" 
         f"<span style='color:#556B2F;'>{openchannel.title}</span> <span style='color:#8B4513;'>[{openchannel.participants_count}]</span> "
         f"<span style='color:#FF0000;'>{owner} {admin}</span> ID:{openchannel.id} "
         f'<a href="https://t.me/{openchannel.username}" style="color:#0000FF; text-decoration: none;">@{openchannel.username}</a>'
