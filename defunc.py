@@ -882,8 +882,13 @@ def add_account(api_id, api_hash, selection, bot, admin_chat_ids):
                   if phone.startswith('+'):
                       phone = phone[1:]  # Удаляем плюс, чтобы оставить только цифры
                   if phone.isdigit() and len(phone) >= 9:
-                      client = TelegramClient(phone, int(options[0].replace('\n', '')), 
-                                          options[1].replace('\n', '')).start(phone)
+                      try:
+                          client = TelegramClient(phone, int(options[0].replace('\n', '')), 
+                                              options[1].replace('\n', '')).start(phone)
+                      Exception as e:
+                          print(f"Произошла ошибка: {e}")
+                          input("Нажмите Enter, чтобы попробовать снова...")
+                          continue
                       selection = '0'
                       os.system('cls||clear')            
                       print("Аккаунт успешно добавлен. Вот сводная информация:")
