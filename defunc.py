@@ -326,7 +326,7 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
     public_channels_html = []
     for openchannel in openchannels:
 
-        photo_bytes = client.download_profile_photo(openchannel.entity, file=BytesIO())
+        photo_bytes = client.download_profile_photo(openchannel, file=BytesIO())
             
             # Преобразуем изображение в Base64
             
