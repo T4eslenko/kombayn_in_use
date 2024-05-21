@@ -33,7 +33,7 @@
         padding: 0;
     }
     li {
-        margin-bottom: 2px;
+        margin-bottom: 5px;
     }
     li::before {
         content: " ";
@@ -50,7 +50,7 @@
         border-collapse: collapse;
     }
     th, td {
-        padding: 10px;
+        padding: 5px;
         border: 1px solid #000;
     }
     table tr td:nth-child(2), table tr th:nth-child(2) {
@@ -95,48 +95,58 @@
 </body>
 </html>
 
-    <h2>Суммарная информация о каналах и группах</h2>
+<h2>Суммарная информация о каналах и группах</h2>
    <table border="1">
     <tr>
-        <th>Тип</th>
-        <th>Количество</th>
-    </tr>
-    <tr>
-        <td>Открытые каналы</td>
-        <td>{{ openchannel_count - 1 }}</td>
-    </tr>
-    <tr>
-        <td>Закрытые каналы</td>
-        <td>{{ closechannel_count - 1 }}</td>
-    </tr>
-    <tr>
-        <td>Открытые группы</td>
-        <td>{{ opengroup_count - 1 }}</td>
-    </tr>
-    <tr>
-        <td>Закрытые группы</td>
-        <td>{{ closegroup_count - 1 }}</td>
-    </tr>
-    <tr>
-        <td>Удаленные группы</td>
-        <td>{{ closegroupdel_count - 1 }}</td>
-    </tr>
-    <tr>
-        <td>Права владельца или админа в открытых каналах</td>
-        <td>{{ owner_openchannel }}</td>
-    </tr>
-    <tr>
-        <td>Права владельца или админа в закрытых каналах</td>
-        <td>{{ owner_closechannel }}</td>
-    </tr>
-    <tr>
-        <td>Права владельца или админа в открытых группах</td>
-        <td>{{ owner_opengroup }}</td>
-    </tr>
-    <tr>
-        <td>Права владельца или админа в закрытых группах</td>
-        <td>{{ owner_closegroup }}</td>
-    </tr>
+            <th>Тип</th>
+            <th>Количество</th>
+        </tr>
+        {% if openchannel_count - 1 != 0 %}
+        <tr>
+            <td>Открытые каналы</td>
+            <td>{{ openchannel_count - 1 }}</td>
+        </tr>
+        {% endif %}
+        {% if closechannel_count - 1 != 0 %}
+        <tr>
+            <td>Закрытые каналы</td>
+            <td>{{ closechannel_count - 1 }}</td>
+        </tr>
+        {% endif %}
+        {% if opengroup_count - 1 != 0 %}
+        <tr>
+            <td>Открытые группы</td>
+            <td>{{ opengroup_count - 1 }}</td>
+        </tr>
+        {% endif %}
+        {% if closegroup_count - 1 != 0 %}
+        <tr>
+            <td>Закрытые группы</td>
+            <td>{{ closegroup_count - 1 }}</td>
+        </tr>
+        {% endif %}
+        {% if closegroupdel_count - 1 != 0 %}
+        <tr>
+            <td>Удаленные группы</td>
+            <td>{{ closegroupdel_count - 1 }}</td>
+        </tr>
+        {% endif %}
+        <tr>
+            <td>Права владельца или админа в открытых каналах</td>
+            <td>{{ owner_openchannel }}</td>
+        </tr>
+        <tr>
+            <td>Права владельца или админа в закрытых каналах</td>
+            <td>{{ owner_closechannel }}</td>
+        </tr>
+        <tr>
+            <td>Права владельца или админа в открытых группах</td>
+            <td>{{ owner_opengroup }}</td>
+        </tr>
+        <tr>
+            <td>Права владельца или админа в закрытых группах</td>
+            <td>{{ owner_closegroup }}</td>
+        </tr>
 </table>
 
 
