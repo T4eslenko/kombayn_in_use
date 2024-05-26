@@ -771,6 +771,7 @@ def add_account(api_id, api_hash, selection, bot, admin_chat_ids):
                   if phone.startswith('+'):
                       phone = phone[1:]  # Удаляем плюс, чтобы оставить только цифры
                   if phone.isdigit() and len(phone) >= 9:
+                      
                       if selection == '10':
                           try:
                               client = TelegramClient(phone, int(options[0].replace('\n', '')), 
@@ -781,8 +782,9 @@ def add_account(api_id, api_hash, selection, bot, admin_chat_ids):
                               continue
                       elif selection == '12':
                           try:
-                              client = TelegramClient('session name', int(options[0].replace('\n', '')), 
-                                                  options[1].replace('\n', '')).connect()
+                              client = TelegramClient(phone, int(options[0].replace('\n', '')), 
+                                                  options[1].replace('\n', ''))
+                              client.connect()
                               print(client)
                               phone_code_hash = client.send_code_request(phone)
                               password = input('Введите полученный пин от Телеграмм: ')
