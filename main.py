@@ -326,7 +326,7 @@ if __name__ == "__main__":
                 print('Сделано, мой командир')
                 time.sleep(3)
 
-        elif selection == '10' or selection == '12':
+        elif selection == '10' or selection == '105':
            add_account(api_id, api_hash, selection, bot, admin_chat_ids)
 
         elif selection == '11':
