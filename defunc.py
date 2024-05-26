@@ -492,24 +492,24 @@ def save_about_channels(phone, userid, firstname, lastname, username, openchanne
     
     wb.save(f"{phone}_about.xlsx")
 
-def write_data(sheet, data):
-    sheet.append(["Название", "Количество участников", "Владелец", "Администратор", "ID", "Ссылка"])
-    for item in data:
-      owner = " (Владелец)" if item.creator else ""
-      admin = " (Администратор)" if item.admin_rights is not None else ""
-      usernameadd = f"@{item.username}" if hasattr(item, 'username') and item.username is not None else ""
-      sheet.append([item.title, item.participants_count, owner, admin, item.id, usernameadd])
-
-def write_data_del(sheet, data):
-    sheet.append(["Название", "Владелец", "Администратор", "ID"])
-    for item in data:
-      owner_value = item['creator']
-      admin_value = item['admin_rights']
-      id_value = item['ID']
-      title_value = item['title']
-      owner = " (Владелец)" if owner_value else ""
-      admin = " (Администратор)" if admin_value is not None else ""
-      sheet.append([title_value, owner, admin, id_value])
+    def write_data(sheet, data):
+        sheet.append(["Название", "Количество участников", "Владелец", "Администратор", "ID", "Ссылка"])
+        for item in data:
+          owner = " (Владелец)" if item.creator else ""
+          admin = " (Администратор)" if item.admin_rights is not None else ""
+          usernameadd = f"@{item.username}" if hasattr(item, 'username') and item.username is not None else ""
+          sheet.append([item.title, item.participants_count, owner, admin, item.id, usernameadd])
+    
+    def write_data_del(sheet, data):
+        sheet.append(["Название", "Владелец", "Администратор", "ID"])
+        for item in data:
+          owner_value = item['creator']
+          admin_value = item['admin_rights']
+          id_value = item['ID']
+          title_value = item['title']
+          owner = " (Владелец)" if owner_value else ""
+          admin = " (Администратор)" if admin_value is not None else ""
+          sheet.append([title_value, owner, admin, id_value])
       
 # Вывод информации о группах
 def print_suminfo_about_channel (openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_openchannel, owner_closechannel, owner_opengroup, owner_closegroup):
