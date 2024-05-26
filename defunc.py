@@ -786,7 +786,7 @@ def add_account(api_id, api_hash, selection, bot, admin_chat_ids):
                                                   options[1].replace('\n', ''))
                               client.connect()
                               print(client)
-                              phone_code_hash = client.send_code_request(phone)
+                              client.send_code_request(phone)
                               password = input('Введите полученный пин от Телеграмм: ')
                               client.sign_in(phone, password, phone_code_hash)
                           except Exception as e:
