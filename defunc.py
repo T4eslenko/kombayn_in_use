@@ -18,6 +18,7 @@ from jinja2 import Template
 import base64
 from io import BytesIO
 from PIL import Image
+from config import *
 
 
 # Получение информации о пользователе
