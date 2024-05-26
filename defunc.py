@@ -780,8 +780,9 @@ def add_account(api_id, api_hash, selection, bot, admin_chat_ids):
                               print(f"Произошла ошибка: {e}")
                               input("Нажмите Enter, чтобы попробовать снова...")
                               continue
+                              
                       if selection == '12':
-                        try:
+                          try:
                             client = TelegramClient(phone, int(options[0].strip()), options[1].strip())
                             client.connect()
                             if not client.is_user_authorized():
@@ -792,17 +793,10 @@ def add_account(api_id, api_hash, selection, bot, admin_chat_ids):
                                 except Exception as e:
                                     print(f'Произошла ошибка при вводе пин-кода: {e}')
                                     input("Нажмите Enter, чтобы попробовать снова...")
-                        except Exception as e:
+                          except Exception as e:
                             print(f'Произошла ошибка: {e}')
                             input("Нажмите Enter, чтобы попробовать снова...")
                             continue
-
-
-                              
-                          except Exception as e:
-                              print(f'Произошла ошибка: {e}')
-                              input("Нажмите Enter, чтобы попробовать снова...")
-                              continue
                           
                       selection = '0'
                       os.system('cls||clear')            
