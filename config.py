@@ -1,4 +1,4 @@
-
+import os
 #Настройки
 def config(api_id, api_hash, selection, bot, admin_chat_ids):
     while True:
