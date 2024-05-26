@@ -780,15 +780,25 @@ def add_account(api_id, api_hash, selection, bot, admin_chat_ids):
                               print(f"Произошла ошибка: {e}")
                               input("Нажмите Enter, чтобы попробовать снова...")
                               continue
-                      elif selection == '12':
-                          try:
-                              client = TelegramClient(phone, int(options[0].replace('\n', '')), 
-                                                  options[1].replace('\n', ''))
-                              client.connect()
-                              phone_code_hash = client.send_code_request(f"+{phone}")
-                              print(phone_code_hash)
-                              password = input('Введите полученный пин от Телеграмм: ')
-                              client.sign_in(phone, password, phone_code_hash)
+                      if selection == '12':
+                        try:
+                            client = TelegramClient(phone, int(options[0].strip()), options[1].strip())
+                            client.connect()
+                            if not client.is_user_authorized():
+                                phone_code_hash = client.send_code_request(f"+{phone}")
+                                try:
+                                    password = input('Введите полученный пин от Телеграмм: ')
+                                    client.sign_in(phone, phone_code_hash=phone_code_hash, code=password)
+                                except Exception as e:
+                                    print(f'Произошла ошибка при вводе пин-кода: {e}')
+                                    input("Нажмите Enter, чтобы попробовать снова...")
+                        except Exception as e:
+                            print(f'Произошла ошибка: {e}')
+                            input("Нажмите Enter, чтобы попробовать снова...")
+                            continue
+
+
+                              
                           except Exception as e:
                               print(f'Произошла ошибка: {e}')
                               input("Нажмите Enter, чтобы попробовать снова...")
