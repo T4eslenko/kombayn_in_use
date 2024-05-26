@@ -207,7 +207,7 @@ if __name__ == "__main__":
                            os.system('cls||clear')
 
         # 7 Выгрузить сообщения канала или сообщения и участников чата в excel
-        elif selection == '7':
+        elif selection == '7' or selection == '75':
             os.system('cls||clear')
             last_date = None    
             size_chats = 200
@@ -257,7 +257,7 @@ if __name__ == "__main__":
                               group_title = target_group.title
                               os.system('cls||clear')
                               print('Может потребоваться значительное количество времени, заварите кофе...')
-                              get_messages_and_save_xcls(client, target_group, user_id, user_name, group_title, userid, userinfo)
+                              get_messages_and_save_xcls(client, target_group, user_id, user_name, group_title, userid, userinfo, selection)
                               group_id = target_group.id
                               if group_id in admin_id:
                                  get_participants_and_save_xlsx(client, target_group, user_id, user_name, group_title, group_id, userid, userinfo)
