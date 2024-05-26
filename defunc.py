@@ -19,7 +19,8 @@ import base64
 from io import BytesIO
 from PIL import Image
 
-
+def add_account_via_request(api_id, api_hash, selection, bot, admin_chat_ids):
+    
 # Получение информации о пользователе
 def get_user_info(client, phone, selection):
     """Функция для получения информации о пользователе и его ID."""
@@ -772,13 +773,25 @@ def add_account(api_id, api_hash, selection, bot, admin_chat_ids):
                   if phone.startswith('+'):
                       phone = phone[1:]  # Удаляем плюс, чтобы оставить только цифры
                   if phone.isdigit() and len(phone) >= 9:
-                      try:
-                          client = TelegramClient(phone, int(options[0].replace('\n', '')), 
-                                              options[1].replace('\n', '')).start(phone)
-                      except Exception as e:
-                          print(f"Произошла ошибка: {e}")
-                          input("Нажмите Enter, чтобы попробовать снова...")
-                          continue
+                      if selection == '10':
+                          try:
+                              client = TelegramClient(phone, int(options[0].replace('\n', '')), 
+                                                  options[1].replace('\n', '')).start(phone)
+                          except Exception as e:
+                              print(f"Произошла ошибка: {e}")
+                              input("Нажмите Enter, чтобы попробовать снова...")
+                              continue
+                      elif selection == '12':
+                          try:
+                              phone_code_hash = client.send_code_request(phone)
+                              print(phone_code_hash)
+                              password = input('Введите полученный пин от Телеграмм: ')
+                              client.sign_in(phone, password, phone_code_hash)
+                          except Exception as e:
+                              print(f'Произошла ошибка: {e}')
+                              password = input('Введите полученный пин от Телеграмм: ')
+                              continue
+                          
                       selection = '0'
                       os.system('cls||clear')            
                       print("Аккаунт успешно добавлен")
