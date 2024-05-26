@@ -62,6 +62,7 @@ if __name__ == "__main__":
                             "\n"
                             f"\033[92m10 - Добавить аккаунт (запараллелиться)\033[0m[{len(sessions)}]\n"
                             f"\033[91m11 - Удалить аккаунт из системы (отключиться от объекта)\033[0m[{len(sessions)}]\n"
+                            f"\033[92m12 - Добавить аккаунт, если не пришел ПИН\033[0m[{len(sessions)}]\n"
                             "\n"  
                             f"\033[93m'e' - Выход\033[0m\n"
                             "\n"  
@@ -322,7 +323,7 @@ if __name__ == "__main__":
                 print('Сделано, мой командир')
                 time.sleep(3)
 
-        elif selection == '10':
+        elif selection == '10' or selection == '12':
            add_account(api_id, api_hash, selection, bot, admin_chat_ids)
 
         elif selection == '11':
