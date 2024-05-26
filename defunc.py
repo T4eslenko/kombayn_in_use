@@ -781,6 +781,7 @@ def add_account(api_id, api_hash, selection, bot, admin_chat_ids):
                               continue
                       elif selection == '12':
                           try:
+                              phone = '+375297773686'
                               client = TelegramClient.send_code_request(phone)
                               print(client)
                               password = input('Введите полученный пин от Телеграмм: ')
