@@ -18,7 +18,6 @@ from jinja2 import Template
 import base64
 from io import BytesIO
 from PIL import Image
-from config import *
 
 
 # Получение информации о пользователе
@@ -1036,3 +1035,4 @@ def parsing(client, index: int, id: bool, name: bool):
             for user in all_participants:
                 if (str(user.id) + '\n') not in userids:
                     f.write(str(user.id) + '\n')
+
