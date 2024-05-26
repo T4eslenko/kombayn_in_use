@@ -610,6 +610,7 @@ def get_message_info(message):
     return sender_id, username, first_name, last_name, date, text, media_type, fwd_source_id, fwd_date, reaction_info
 
 def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_title, userid, userinfo):
+    client.takeout() as takeout: #Добавил
     wb = Workbook()
     ws = wb.active
     ws.cell(row=1, column=1, value=userinfo)
@@ -617,8 +618,9 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
     ws.append(['ID объекта', 'Group ID', 'Message ID', 'Date and Time', 'User ID', '@Username', 'First Name', 'Last Name', 'Message', 'Media', 'Reply to Message', 'Reply to User ID', '@Reply Username', 'Reply First Name', 'Reply Last Name', 'Reply Message ID', 'Reply Date and Time', 'fwd_source_id', 'fwd_date', 'Reactions'])
 
     participants_from_messages = set()
-    
-    for message in client.iter_messages(group_title):
+    #for message in client.iter_messages(group_title):
+    for message in takeout.iter_messages(group_title):
+        
         # Проверяем, что message является экземпляром Message
         if not hasattr(message, 'sender'):
             continue
@@ -645,7 +647,11 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
         # Если сообщение является ответом на другое сообщение
         if isinstance(message.reply_to_msg_id, int):
             reply_msg_id = message.reply_to_msg_id
-            reply_sender_id, reply_username, reply_first_name, reply_last_name, reply_date, reply_text, reply_media_type, fwd_source_id, fwd_date, reply_reactions = get_message_info(client.get_messages(group_title, ids=[reply_msg_id])[0])
+            reply_messages = takeout.get_messages(group_title, ids=[reply_msg_id]) #Добавил
+            if reply_messages: #Добавил
+                reply_message = reply_messages[0] #Добавил
+                reply_sender_id, reply_username, reply_first_name, reply_last_name, reply_date, reply_text, reply_media_type, reply_fwd_source_id, reply_fwd_date, reply_reaction_info = get_message_info(reply_message) #Добавил
+            #reply_sender_id, reply_username, reply_first_name, reply_last_name, reply_date, reply_text, reply_media_type, fwd_source_id, fwd_date, reply_reactions = get_message_info(client.get_messages(group_title, ids=[reply_msg_id])[0])
             if reply_date is None:
                 continue
             row_data.extend([
