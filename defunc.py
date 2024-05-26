@@ -1036,3 +1036,15 @@ def parsing(client, index: int, id: bool, name: bool):
                 if (str(user.id) + '\n') not in userids:
                     f.write(str(user.id) + '\n')
 
+
+def getoptions():
+    with open('options.txt', 'r') as f:
+        options = f.readlines()
+    return options
+
+def getsessions():
+    sessions = []
+    for file in os.listdir('.'):
+        if file.endswith('.session'):
+            sessions.append(file)
+    return sessions
