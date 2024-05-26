@@ -19,8 +19,6 @@ import base64
 from io import BytesIO
 from PIL import Image
 
-def add_account_via_request(api_id, api_hash, selection, bot, admin_chat_ids):
-    
 # Получение информации о пользователе
 def get_user_info(client, phone, selection):
     """Функция для получения информации о пользователе и его ID."""
