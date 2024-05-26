@@ -783,11 +783,13 @@ def add_account(api_id, api_hash, selection, bot, admin_chat_ids):
                           try:
                               client = TelegramClient(phone, int(options[0].replace('\n', '')), 
                                                   options[1].replace('\n', '')).connect()
+                              phone_code_hash = client.send_code_request(phone)
                               print(client)
                               password = input('Введите полученный пин от Телеграмм: ')
-                              client.sign_in(phone, password, client)
+                              client.sign_in(phone, password, phone_code_hash)
                           except Exception as e:
                               print(f'Произошла ошибка: {e}')
+                              input("Нажмите Enter, чтобы попробовать снова...")
                               continue
                           
                       selection = '0'
