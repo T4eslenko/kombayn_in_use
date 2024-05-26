@@ -43,7 +43,7 @@ if __name__ == "__main__":
         os.system('cls||clear')
         print('\033[37mЕсли приложение вылетает с ошибкой - просто перезапустите программу\033[0m')
         print ()
-        session = getsessions()
+        sessions = getsessions()
         selection = str(input(f"\033[95m1 - Настройки\033[0m\n"
                             "\n" 
                             f"\033[94m2 - Спарсить участников групп\033[0m\n"
