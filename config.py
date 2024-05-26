@@ -1,5 +1,5 @@
 import os
-from defunc import add_account, remouve_account
+from defunc import add_account, remouve_account, getoptions, getsessions
 
 #Настройки
 def config(api_id, api_hash, selection, bot, admin_chat_ids):
@@ -102,15 +102,3 @@ def config(api_id, api_hash, selection, bot, admin_chat_ids):
         with open('options.txt', 'w') as f:
             f.writelines(options)
 
-
-def getoptions():
-    with open('options.txt', 'r') as f:
-        options = f.readlines()
-    return options
-
-def getsessions():
-    sessions = []
-    for file in os.listdir('.'):
-        if file.endswith('.session'):
-            sessions.append(file)
-    return sessions
