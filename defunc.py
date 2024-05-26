@@ -787,17 +787,19 @@ def add_account(api_id, api_hash, selection, bot, admin_chat_ids):
                             client.connect()
                             if not client.is_user_authorized():
                                 sent_code = client.send_code_request(f"+{phone}")
-                                try:
-                                    code = input('Введите полученный пин от Телеграмм: ')
-                                    client.sign_in(phone=phone, code=code, phone_code_hash=sent_code.phone_code_hash)
-                                except Exception as e:
-                                    print(f'Произошла ошибка при вводе пин-кода: {e}')
-                                    input("Нажмите Enter, чтобы попробовать снова...")
+                                while True:
+                                    try:
+                                        code = input('Введите полученный пин от Телеграмм: ')
+                                        client.sign_in(phone=phone, code=code, phone_code_hash=sent_code.phone_code_hash)
+                                        print("Успешная авторизация!")
+                                        break
+                                    except Exception as e:
+                                        print(f'Произошла ошибка при вводе пин-кода: {e}')
+                                        input("Нажмите Enter, чтобы попробовать снова...")
                           except Exception as e:
                             print(f'Произошла ошибка: {e}')
                             input("Нажмите Enter, чтобы попробовать снова...")
                             continue
-
                           
                       selection = '0'
                       os.system('cls||clear')            
