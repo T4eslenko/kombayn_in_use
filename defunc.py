@@ -782,13 +782,12 @@ def add_account(api_id, api_hash, selection, bot, admin_chat_ids):
                       elif selection == '12':
                           try:
                               client = TelegramClient(phone, int(options[0].replace('\n', '')), 
-                                                  options[1].replace('\n', '')).client.connect()
+                                                  options[1].replace('\n', '')).connect()
                               print(client)
                               password = input('Введите полученный пин от Телеграмм: ')
                               client.sign_in(phone, password, client)
                           except Exception as e:
                               print(f'Произошла ошибка: {e}')
-                              password = input('Введите полученный пин от Телеграмм: ')
                               continue
                           
                       selection = '0'
