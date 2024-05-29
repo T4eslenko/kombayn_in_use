@@ -91,7 +91,7 @@ if __name__ == "__main__":
            print('-----------------------------')
            print('=ВЫГРУЗКА КОНТАКТОВ В EXCEL=')
            print('-----------------------------')
-           get_and_save_contacts(client, phone, userinfo, userid)
+           get_and_save_contacts(client, phone, userid, userinfo, firstname, lastname, username)
            print()
            input("\033[93mНажмите Enter для продолжения...\033[0m")             
            client.disconnect()
