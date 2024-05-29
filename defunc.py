@@ -66,7 +66,7 @@ def get_and_save_contacts(client, phone_user, userid_user, userinfo, firstname_u
     wb = openpyxl.Workbook()
     sheet = wb.active
     sheet.cell(row=1, column=1, value=userinfo)
-    headers = ['ID', 'First name (так записан у объекта в книге)', 'Last name (так записан у объекта в книге)', 'Username', 'Телефон', 'Взаимный контакт', 'Дата внесения в базу', 'ID объекта', 'First name объекта', 'Last name объекта', 'Username объекта', 'Телефон объекта']
+    headers = ['ID контакта', 'First name контакта', 'Last name контакта', 'Username контакта', 'Телефон контакта', 'Взаимный контакт', 'Дата внесения в базу', 'First name объекта', 'Last name объекта', 'Username объекта', 'Телефон объекта', 'ID объекта']
     for col, header in enumerate(headers, start=1):
         sheet.cell(row=2, column=col, value=header)
         
