@@ -88,8 +88,9 @@ def get_and_save_contacts(client, phone_user, userid_user, userinfo, firstname_u
         sheet.cell(row=row_num, column=7, value=datetime.now().strftime('%d/%m/%Y %H:%M:%S'))
         sheet.cell(row=row_num, column=9, value=firstname_user)
         sheet.cell(row=row_num, column=10, value=lastname_user)
-        username_user_with_at = f"@{username_user}"
-        sheet.cell(row=row_num, column=11, value=username_user_with_at)
+        if username_user is not None:
+            username_user_with_at = f"@{username_user}"
+            sheet.cell(row=row_num, column=11, value=username_user_with_at)
         sheet.cell(row=row_num, column=12, value=phone_user)
         sheet.cell(row=row_num, column=13, value=userid_user)
      
