@@ -61,7 +61,7 @@ def get_and_save_contacts(client, phone_user, userid_user, userinfo, firstname_u
     
     # Сохраняем информацию о контактах
     contacts_file_name = f'{phone_user}_contacts.xlsx'
-    print(f"Контакты сохранены в файл {phone}_contacts.xlsx")
+    print(f"Контакты сохранены в файл {phone_user}_contacts.xlsx")
 
     wb = openpyxl.Workbook()
     sheet = wb.active
