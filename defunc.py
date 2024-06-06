@@ -261,7 +261,7 @@ def get_type_of_chats(client, selection):
                admin_id.append(chat.entity.id)
 
                 
-            if selection == '5': #Добавляем нулевые чаты только для общей информации
+            if selection == '5' or selection == '0': #Добавляем нулевые чаты только для общей информации
                 if isinstance(chat.entity, Chat) and hasattr(chat.entity, 'participants_count') and chat.entity.participants_count == 0:
                    if chat.entity.migrated_to is not None and isinstance(chat.entity.migrated_to, InputChannel):
                       deactivated_chats_all = {
@@ -273,7 +273,7 @@ def get_type_of_chats(client, selection):
                       }
                       deactivated_chats.append(deactivated_chats_all)
    
-    if selection == '5': #Добавляем нулевые чаты для общей информации
+    if selection == '5' or selection == '0': #Добавляем нулевые чаты для общей информации
        if isinstance(chat.entity, Channel) or isinstance(chat.entity, Chat): # проверяем групповой ли чат
           for current_deleted_chat in deactivated_chats:
                  ID_migrated_values = current_deleted_chat['ID_migrated']
