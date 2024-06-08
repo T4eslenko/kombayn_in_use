@@ -43,9 +43,8 @@ def get_user_info(client, phone, selection):
 
 
     result = client(functions.contacts.GetTopPeersRequest(
-        offset=42,
+        offset=0,
         limit=100,
-        hash=-12398745604826,
         correspondents=True,
         bots_pm=True,
         bots_inline=True,
