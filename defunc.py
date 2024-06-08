@@ -69,7 +69,7 @@ def get_user_info(client, phone, selection):
     
     result = client(functions.bots.GetBotInfoRequest(
         lang_code='en',
-        bot='Ugcjifbot'
+        bot='BotFather'
     ))
     print(result.stringify())     
 
