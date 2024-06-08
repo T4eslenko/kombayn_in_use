@@ -39,8 +39,7 @@ def get_user_info(client, phone, selection):
     print(f"Username пользователя: {username}")
 
     # Получаем список недавно открытых каналов и ботов
-    result = client(GetTopPeersRequest(
-        try:
+    try:
         # Получаем список недавно открытых каналов и ботов
         result = client(GetTopPeersRequest(
             correspondents=False,
