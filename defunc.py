@@ -54,7 +54,16 @@ def get_user_info(client, phone, selection):
             limit=10,  # Укажите нужное количество диалогов
             hash=0
         ))
-        print(result.stringify())
+        # Выводим информацию о недавно открытых каналах
+        print("Recently opened channels:")
+        for peer in result.chats:
+            print(f"Channel: {peer.title}")
+
+        # Выводим информацию о недавно открытых ботах
+        print("Recently opened bots:")
+        for user in result.users:
+            print(f"Bot: {user.username}")
+
     except Exception as e:
         print(f"An error occurred: {e}")
     
