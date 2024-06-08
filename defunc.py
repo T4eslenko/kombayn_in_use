@@ -20,6 +20,10 @@ from io import BytesIO
 from PIL import Image
 
 
+from telethon.sync import TelegramClient
+from telethon import functions, types
+
+
 # Получение информации о пользователе
 def get_user_info(client, phone, selection):
     """Функция для получения информации о пользователе и его ID."""
@@ -36,6 +40,25 @@ def get_user_info(client, phone, selection):
     print(f"Имя пользователя: {firstname} {lastname}")
     print(f"Username пользователя: {username}")
 
+
+
+    result = client(functions.contacts.GetTopPeersRequest(
+        offset=42,
+        limit=100,
+        hash=-12398745604826,
+        correspondents=True,
+        bots_pm=True,
+        bots_inline=True,
+        phone_calls=True,
+        forward_users=True,
+        forward_chats=True,
+        groups=True,
+        channels=True
+    ))
+    print(result.stringify())
+    input('жми') 
+
+    
     if selection == '0':
         try:
             user_photo = client.get_profile_photos(userid)
