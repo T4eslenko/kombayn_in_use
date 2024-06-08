@@ -19,9 +19,8 @@ import base64
 from io import BytesIO
 from PIL import Image
 
-from telethon import TelegramClient, errors
-from telethon.tl.functions.contacts import GetTopPeersRequest
-from telethon.tl.types import TopPeerCategoryBotsPM, TopPeerCategoryChannels
+from telethon.sync import TelegramClient
+from telethon import functions, types
 
 # Получение информации о пользователе
 def get_user_info(client, phone, selection):
@@ -42,7 +41,7 @@ def get_user_info(client, phone, selection):
     # Получаем список недавно открытых каналов и ботов
     try:
         # Получаем список недавно открытых каналов и ботов
-        result = client(GetTopPeersRequest(
+        result = client(functions.contacts.GetTopPeersRequest(
             correspondents=False,
             bots_pm=True,       # Включаем личных ботов
             bots_inline=False,
@@ -56,11 +55,7 @@ def get_user_info(client, phone, selection):
             hash=0
         ))
 
-        # Проверяем, вернулся ли результат в виде `TopPeersDisabled`
-        if isinstance(result, TopPeersDisabled):
-            print("Top peers are disabled for this user.")
-            return
-
+    
         # Выводим информацию о недавно открытых каналах
         print("Recently opened channels:")
         for category in result.categories:
