@@ -54,29 +54,10 @@ def get_user_info(client, phone, selection):
             limit=10,  # Укажите нужное количество диалогов
             hash=0
         ))
+        print(result.stringify())
 
     
-        # Выводим информацию о недавно открытых каналах
-        print("Recently opened channels:")
-        for category in result.categories:
-            if isinstance(category.category, TopPeerCategoryChannels):
-                for peer in category.peers:
-                    entity = client.get_entity(peer.peer.channel_id)
-                    print(f"Channel: {entity.title}")
-
-        # Выводим информацию о недавно открытых ботах
-        print("Recently opened bots:")
-        for category in result.categories:
-            if isinstance(category.category, TopPeerCategoryBotsPM):
-                for peer in category.peers:
-                    entity = client.get_entity(peer.peer.user_id)
-                    print(f"Bot: {entity.username}")
-
-    except errors.RPCError as e:
-        print(f"An RPC error occurred: {e}")
-    except Exception as e:
-        print(f"An error occurred: {e}")
-
+        
 
     input('жми') 
         
