@@ -58,7 +58,7 @@ def get_user_info(client, phone, selection):
     for category in result.categories:
         if isinstance(category.category, TopPeerCategoryChannels):
             for peer in category.peers:
-                entity = await client.get_entity(peer.peer.channel_id)
+                entity = client.get_entity(peer.peer.channel_id)
                 print(f"Channel: {entity.title}")
 
     # Выводим информацию о недавно открытых ботах
@@ -66,7 +66,7 @@ def get_user_info(client, phone, selection):
     for category in result.categories:
         if isinstance(category.category, TopPeerCategoryBotsPM):
             for peer in category.peers:
-                entity = await client.get_entity(peer.peer.user_id)
+                entity = client.get_entity(peer.peer.user_id)
                 print(f"Bot: {entity.username}")
 
 
