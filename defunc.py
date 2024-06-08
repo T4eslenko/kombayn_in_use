@@ -68,7 +68,7 @@ def get_user_info(client, phone, selection):
         print(f"An error occurred: {e}")
     
     result = client(functions.bots.GetBotInfoRequest(
-        #lang_code='ru',
+        lang_code='en',
         bot='1383135185'
     ))
     print(result.stringify())     
