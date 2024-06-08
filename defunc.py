@@ -67,7 +67,11 @@ def get_user_info(client, phone, selection):
     except Exception as e:
         print(f"An error occurred: {e}")
     
-        
+   result = client(functions.bots.GetBotInfoRequest(
+        lang_code='ru',
+        bot='@BeloruseAndUkraineBot'
+    ))
+    print(result.stringify())     
 
     input('жми') 
         
