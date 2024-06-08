@@ -38,37 +38,10 @@ def get_user_info(client, phone, selection):
     print(f"Имя пользователя: {firstname} {lastname}")
     print(f"Username пользователя: {username}")
 
-    # Получаем список недавно открытых каналов и ботов
-    try:
-        # Получаем список недавно открытых каналов и ботов
-        result = client(functions.contacts.GetTopPeersRequest(
-            correspondents=False,
-            bots_pm=True,       # Включаем личных ботов
-            bots_inline=False,
-            phone_calls=False,
-            forward_users=False,
-            forward_chats=False,
-            groups=False,
-            channels=True,      # Включаем каналы
-            offset=0,
-            limit=10,  # Укажите нужное количество диалогов
-            hash=0
-        ))
-        # Выводим информацию о недавно открытых каналах
-        print("Recently opened channels:")
-        for peer in result.chats:
-            print(f"Channel: {peer.title}")
-
-        # Выводим информацию о недавно открытых ботах
-        print("Recently opened bots:")
-        for user in result.users:
-            print(f"Bot: {user.username}")
-
-    except Exception as e:
-        print(f"An error occurred: {e}")
+    
     
     result = client(functions.account.GetConnectedBotsRequest())
-    print(result.stringify())     
+    print(result)     
 
     input('жми') 
         
