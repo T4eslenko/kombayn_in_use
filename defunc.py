@@ -19,6 +19,9 @@ import base64
 from io import BytesIO
 from PIL import Image
 
+from telethon.tl.functions.messages import GetRecentDialogsRequest
+from telethon.tl.types import InputPeerEmpty
+
 # Получение информации о пользователе
 def get_user_info(client, phone, selection):
     """Функция для получения информации о пользователе и его ID."""
