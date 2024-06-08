@@ -55,7 +55,8 @@ def get_user_info(client, phone, selection):
             hash=0
         ))
         print(result.stringify())
-
+    except Exception as e:
+        print(f"An error occurred: {e}")
     
         
 
