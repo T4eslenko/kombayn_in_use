@@ -19,6 +19,7 @@ import base64
 from io import BytesIO
 from PIL import Image
 
+from telethon import TelegramClient, errors
 from telethon.tl.functions.contacts import GetTopPeersRequest
 from telethon.tl.types import TopPeerCategoryBotsPM, TopPeerCategoryChannels
 
