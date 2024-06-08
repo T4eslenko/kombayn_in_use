@@ -40,37 +40,47 @@ def get_user_info(client, phone, selection):
 
     # Получаем список недавно открытых каналов и ботов
     result = client(GetTopPeersRequest(
-        correspondents=False,
-        bots_pm=True,       # Включаем личных ботов
-        bots_inline=False,
-        phone_calls=False,
-        forward_users=False,
-        forward_chats=False,
-        groups=False,
-        channels=True,      # Включаем каналы
-        offset=0,
-        limit=10,  # Укажите нужное количество диалогов
-        hash=0
-    ))
+        try:
+        # Получаем список недавно открытых каналов и ботов
+        result = client(GetTopPeersRequest(
+            correspondents=False,
+            bots_pm=True,       # Включаем личных ботов
+            bots_inline=False,
+            phone_calls=False,
+            forward_users=False,
+            forward_chats=False,
+            groups=False,
+            channels=True,      # Включаем каналы
+            offset=0,
+            limit=10,  # Укажите нужное количество диалогов
+            hash=0
+        ))
 
-    # Выводим информацию о недавно открытых каналах
-    print("Recently opened channels:")
-    for category in result.categories:
-        if isinstance(category.category, TopPeerCategoryChannels):
-            for peer in category.peers:
-                entity = client.get_entity(peer.peer.channel_id)
-                print(f"Channel: {entity.title}")
+        # Проверяем, вернулся ли результат в виде `TopPeersDisabled`
+        if isinstance(result, errors.TopPeersDisabled):
+            print("Top peers are disabled for this user.")
+            return
 
-    # Выводим информацию о недавно открытых ботах
-    print("Recently opened bots:")
-    for category in result.categories:
-        if isinstance(category.category, TopPeerCategoryBotsPM):
-            for peer in category.peers:
-                entity = client.get_entity(peer.peer.user_id)
-                print(f"Bot: {entity.username}")
+        # Выводим информацию о недавно открытых каналах
+        print("Recently opened channels:")
+        for category in result.categories:
+            if isinstance(category.category, TopPeerCategoryChannels):
+                for peer in category.peers:
+                    entity = client.get_entity(peer.peer.channel_id)
+                    print(f"Channel: {entity.title}")
 
+        # Выводим информацию о недавно открытых ботах
+        print("Recently opened bots:")
+        for category in result.categories:
+            if isinstance(category.category, TopPeerCategoryBotsPM):
+                for peer in category.peers:
+                    entity = client.get_entity(peer.peer.user_id)
+                    print(f"Bot: {entity.username}")
 
-
+    except errors.TopPeersDisabled:
+        print("Top peers are disabled for this user.")
+    except Exception as e:
+        print(f"An error occurred: {e}")
 
 
 
