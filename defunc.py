@@ -34,6 +34,19 @@ def get_user_info(client, phone, selection):
     print(f"ID пользователя: {userid}")
     print(f"Имя пользователя: {firstname} {lastname}")
     print(f"Username пользователя: {username}")
+
+    result = client(GetRecentDialogsRequest(
+        limit=100,   # Укажите нужное количество диалогов
+        offset_id=0,
+        offset_peer=InputPeerEmpty(),
+        hash=0
+    ))
+
+    # Выводим информацию о диалогах
+    for dialog in result.dialogs:
+        print(dialog)
+    input('жми') 
+        
     if selection == '0':
         try:
             user_photo = client.get_profile_photos(userid)
