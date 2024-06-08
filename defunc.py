@@ -19,8 +19,6 @@ import base64
 from io import BytesIO
 from PIL import Image
 
-from telethon.sync import TelegramClient
-from telethon import functions, types
 
 # Получение информации о пользователе
 def get_user_info(client, phone, selection):
@@ -38,13 +36,6 @@ def get_user_info(client, phone, selection):
     print(f"Имя пользователя: {firstname} {lastname}")
     print(f"Username пользователя: {username}")
 
-    
-    
-    result = client(functions.account.GetConnectedBotsRequest())
-    print(result)     
-
-    input('жми') 
-        
     if selection == '0':
         try:
             user_photo = client.get_profile_photos(userid)
