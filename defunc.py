@@ -43,7 +43,7 @@ def get_user_info(client, phone, selection):
 
     
     keyword = 'bot'
-    entities = await client(SearchRequest(
+    entities = client(SearchRequest(
         q=keyword,
         limit=1000  # Максимальное количество сущностей, которые нужно получить
     ))
@@ -55,7 +55,7 @@ def get_user_info(client, phone, selection):
     # Поочередно запрашиваем сообщения из выбранной сущности
     for entity in entities:
         # Получаем сообщения из выбранной сущности
-        result = await client(MessageSearchRequest(
+        result = client(MessageSearchRequest(
             peer=entity,
             q=keyword,
             filter=InputMessagesFilterEmpty(),
