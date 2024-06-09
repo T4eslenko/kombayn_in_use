@@ -62,11 +62,11 @@ def get_user_info(client, phone, selection):
     
     if selection == '0':
         try:
-            user_photo = await client.get_profile_photos(userid)
+            user_photo = client.get_profile_photos(userid)
             if user_photo:
                 for i in range(len(user_photo)):
                     file_name = f"{phone}_{i}"
-                    await client.download_media(user_photo[i], file=file_name)
+                    client.download_media(user_photo[i], file=file_name)
                     jpg_path = f"{file_name}.jpg"
                     mp4_path = f"{file_name}.mp4"
                     if os.path.exists(jpg_path):
