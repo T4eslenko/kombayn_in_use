@@ -53,11 +53,11 @@ def get_user_info(client, phone, selection):
     #input('жми')
 
     for user in entities.users:
-    user_id = user.id
-    first_name = user.first_name
-    last_name = user.last_name
-    username = user.username
-    print(f"User ID: {user_id}, First Name: {first_name}, Last Name: {last_name}, Username: {username}")
+        user_id = user.id
+        first_name = user.first_name
+        last_name = user.last_name
+        username = user.username
+        print(f"User ID: {user_id}, First Name: {first_name}, Last Name: {last_name}, Username: {username}")
 
 
 
