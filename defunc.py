@@ -40,6 +40,14 @@ def get_user_info(client, phone, selection):
     print(f"ID пользователя: {userid}")
     print(f"Имя пользователя: {firstname} {lastname}")
     print(f"Username пользователя: {username}")
+
+
+    for message in client.iter_messages(None, search=bot):
+        print(f"Chat ID: {message.chat_id}, Sender ID: {message.sender_id}, Message: {message.message}")
+    input('жми')
+
+
+
     
     if selection == '0':
         try:
