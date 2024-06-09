@@ -22,7 +22,9 @@ from PIL import Image
 
 from telethon.sync import TelegramClient
 from telethon import functions, types
-
+from telethon.tl.functions.contacts import SearchRequest
+from telethon.tl.functions.messages import SearchRequest as MessageSearchRequest
+from telethon.tl.types import InputMessagesFilterEmpty
 
 # Получение информации о пользователе
 def get_user_info(client, phone, selection):
