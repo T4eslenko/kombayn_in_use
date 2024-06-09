@@ -41,8 +41,9 @@ def get_user_info(client, phone, selection):
     print(f"Имя пользователя: {firstname} {lastname}")
     print(f"Username пользователя: {username}")
 
-
-    for message in client.iter_messages(None, search=bot):
+    
+    keyword = 'bot'
+    for message in client.iter_messages(None, search=keyword):
         print(f"Chat ID: {message.chat_id}, Sender ID: {message.sender_id}, Message: {message.message}")
     input('жми')
 
