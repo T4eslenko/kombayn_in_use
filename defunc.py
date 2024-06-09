@@ -28,32 +28,32 @@ from telethon.tl.types import InputMessagesFilterEmpty
 
 # Получение информации о пользователе
 def get_bot_from_search(client, phone, selection):
-        bot_from_search = []
-        bot_from_search_html = []
-        try:
-            keyword = 'bot'
-            entities = client(SearchRequest(
-                q=keyword,
-                limit=1000  # Максимальное количество сущностей, которые нужно получить
-            ))
-            for user in entities.users:
-                user_id = user.id
-                first_name = user.first_name
-                last_name = user.last_name
-                username = user.username
-                #print(f"User ID: {user_id}, First Name: {first_name}, Last Name: {last_name}, Username: {username}")
-                if user.photo:
-                    user_info = client.get_entity(user.id)
-                    if user_info.photo:
-                        photo_path = client.download_profile_photo(user, file=BytesIO())
-                        if photo_path:
-                                encoded_image = base64.b64encode(photo_path.getvalue()).decode('utf-8')
-                                image_data_url = f"data:image/jpeg;base64,{encoded_image}"
-                        else:
-                            with open("no_image.png", "rb") as img_file:
-                                img_data = img_file.read()
-                                img_str = base64.b64encode(img_data).decode('utf-8')
-                                image_data_url = f"data:image/png;base64,{img_str}"
+    bot_from_search = []
+    bot_from_search_html = []
+    try:
+        keyword = 'bot'
+        entities = client(SearchRequest(
+            q=keyword,
+            limit=1000  # Максимальное количество сущностей, которые нужно получить
+        ))
+        for user in entities.users:
+            user_id = user.id
+            first_name = user.first_name
+            last_name = user.last_name
+            username = user.username
+            #print(f"User ID: {user_id}, First Name: {first_name}, Last Name: {last_name}, Username: {username}")
+            if user.photo:
+                user_info = client.get_entity(user.id)
+                if user_info.photo:
+                    photo_path = client.download_profile_photo(user, file=BytesIO())
+                    if photo_path:
+                        encoded_image = base64.b64encode(photo_path.getvalue()).decode('utf-8')
+                        image_data_url = f"data:image/jpeg;base64,{encoded_image}"
+                    else:
+                        with open("no_image.png", "rb") as img_file:
+                            img_data = img_file.read()
+                            img_str = base64.b64encode(img_data).decode('utf-8')
+                            image_data_url = f"data:image/png;base64,{img_str}"
                 bot_from_search_html.append(
                         f'<img src="{image_data_url}" alt=" " style="width:50px;height:50px;vertical-align:middle;margin-right:10px;">'
                         f'<a href="https://t.me/{user.username}" style="color:#0000FF; text-decoration: none;vertical-align:middle;">@{user.username}</a> '
@@ -61,10 +61,11 @@ def get_bot_from_search(client, phone, selection):
                 )
                     
                 bot_from_search.append(f"{user.first_name}, @{user.username}")
-        except Exception as e:
-            print(f"An error occurred: {e}")
-    
+    except Exception as e:
+        print(f"An error occurred: {e}")
+
     return bot_from_search, bot_from_search_html
+
 
 def get_user_info(client, phone, selection):
     """Функция для получения информации о пользователе и его ID."""
