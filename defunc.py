@@ -770,9 +770,9 @@ def get_blocked_bot(client, selection):
                             image_data_url = f"data:image/jpeg;base64,{encoded_image}"
                         else:
                             with open("no_image.png", "rb") as img_file:
-                            img_data = img_file.read()
-                            img_str = base64.b64encode(img_data).decode('utf-8')
-                            image_data_url = f"data:image/png;base64,{img_str}"
+                                img_data = img_file.read()
+                                img_str = base64.b64encode(img_data).decode('utf-8')
+                                image_data_url = f"data:image/png;base64,{img_str}"
                     except Exception:
                         pass    
                 blocked_bot_info.append(f"\033[36m@{user.username}\033[0m \033[93m'{user.first_name}'\033[0m заблокирован: {peer.date.strftime('%d/%m/%Y')}")
