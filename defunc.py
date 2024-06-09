@@ -49,7 +49,8 @@ def get_user_info(client, phone, selection):
         q=keyword,
         limit=1000  # Максимальное количество сущностей, которые нужно получить
     ))
-
+    print(entities)
+    input('жми')
     # Выводим список сущностей
     for entity in entities:
         print(f"Entity: {entity.__class__.__name__}, Title: {entity.title}")
