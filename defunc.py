@@ -230,17 +230,16 @@ def get_type_of_chats(client, selection):
         #Получаем данные о ботах
         if isinstance(chat.entity, User) and chat.entity.bot: 
             if selection == '0':
-                try:
-                    photo_bytes = client.download_profile_photo(chat.entity, file=BytesIO())
+                 try:
+                    photo_bytes = await client.download_profile_photo(chat.entity, file=BytesIO())
                     if photo_bytes:
                         encoded_image = base64.b64encode(photo_bytes.getvalue()).decode('utf-8')
                         image_data_url = f"data:image/jpeg;base64,{encoded_image}"
                     else:
-                        img = Image.new('RGBA', (50, 50), (255, 255, 255, 0))
-                        buffered = BytesIO()
-                        img.save(buffered, format="PNG")
-                        img_str = base64.b64encode(buffered.getvalue()).decode('utf-8')
-                        image_data_url = f"data:image/png;base64,{img_str}"
+                        with open("no_image.png", "rb") as img_file:
+                            img_data = img_file.read()
+                            img_str = base64.b64encode(img_data).decode('utf-8')
+                            image_data_url = f"data:image/png;base64,{img_str}"
                 except Exception:
                     pass
             user_bots_html.append(
@@ -357,7 +356,10 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
                         encoded_image = base64.b64encode(photo_bytes.getvalue()).decode('utf-8')
                         image_data_url = f"data:image/jpeg;base64,{encoded_image}"
                 else:
-                        image_data_url = ''
+                    with open("no_image.png", "rb") as img_file:
+                            img_data = img_file.read()
+                            img_str = base64.b64encode(img_data).decode('utf-8')
+                            image_data_url = f"data:image/png;base64,{img_str}"
             except Exception:
                 pass 
         count_row = openchannel_count if selection == '5' or selection == '0' else i
@@ -390,11 +392,10 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
                         encoded_image = base64.b64encode(photo_bytes.getvalue()).decode('utf-8')
                         image_data_url = f"data:image/jpeg;base64,{encoded_image}"
                 else:
-                    img = Image.new('RGBA', (50, 50), (255, 255, 255, 0))
-                    buffered = BytesIO()
-                    img.save(buffered, format="PNG")
-                    img_str = base64.b64encode(buffered.getvalue()).decode('utf-8')
-                    image_data_url = f"data:image/png;base64,{img_str}"
+                    with open("no_image.png", "rb") as img_file:
+                            img_data = img_file.read()
+                            img_str = base64.b64encode(img_data).decode('utf-8')
+                            image_data_url = f"data:image/png;base64,{img_str}"
             except Exception:
                 pass 
         count_row = closechannel_count if selection == '5' or selection == '0' else i
@@ -425,11 +426,10 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
                         encoded_image = base64.b64encode(photo_bytes.getvalue()).decode('utf-8')
                         image_data_url = f"data:image/jpeg;base64,{encoded_image}"
                 else:
-                    img = Image.new('RGBA', (50, 50), (255, 255, 255, 0))
-                    buffered = BytesIO()
-                    img.save(buffered, format="PNG")
-                    img_str = base64.b64encode(buffered.getvalue()).decode('utf-8')
-                    image_data_url = f"data:image/png;base64,{img_str}"
+                    with open("no_image.png", "rb") as img_file:
+                            img_data = img_file.read()
+                            img_str = base64.b64encode(img_data).decode('utf-8')
+                            image_data_url = f"data:image/png;base64,{img_str}"
             except Exception:
                 pass 
         count_row = opengroup_count if selection == '5' or selection == '0' else i
@@ -462,11 +462,10 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
                         encoded_image = base64.b64encode(photo_bytes.getvalue()).decode('utf-8')
                         image_data_url = f"data:image/jpeg;base64,{encoded_image}"
                 else:
-                    img = Image.new('RGBA', (50, 50), (255, 255, 255, 0))
-                    buffered = BytesIO()
-                    img.save(buffered, format="PNG")
-                    img_str = base64.b64encode(buffered.getvalue()).decode('utf-8')
-                    image_data_url = f"data:image/png;base64,{img_str}"
+                    with open("no_image.png", "rb") as img_file:
+                            img_data = img_file.read()
+                            img_str = base64.b64encode(img_data).decode('utf-8')
+                            image_data_url = f"data:image/png;base64,{img_str}"
             except Exception:
                 pass 
         count_row = closegroup_count if selection == '5' or selection == '0' else i
@@ -770,10 +769,9 @@ def get_blocked_bot(client, selection):
                             encoded_image = base64.b64encode(photo_path.getvalue()).decode('utf-8')
                             image_data_url = f"data:image/jpeg;base64,{encoded_image}"
                         else:
-                            img = Image.new('RGBA', (50, 50), (255, 255, 255, 0))
-                            buffered = BytesIO()
-                            img.save(buffered, format="PNG")
-                            img_str = base64.b64encode(buffered.getvalue()).decode('utf-8')
+                            with open("no_image.png", "rb") as img_file:
+                            img_data = img_file.read()
+                            img_str = base64.b64encode(img_data).decode('utf-8')
                             image_data_url = f"data:image/png;base64,{img_str}"
                     except Exception:
                         pass    
