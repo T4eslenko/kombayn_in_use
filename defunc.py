@@ -59,6 +59,13 @@ def get_user_info(client, phone, selection):
     print(result.stringify())
     input('жми') 
 
+
+
+    result = client(functions.messages.CheckHistoryImportPeerRequest(
+        peer=userid
+    ))
+    print(result.stringify())
+    input('жми 2')
     
     if selection == '0':
         try:
