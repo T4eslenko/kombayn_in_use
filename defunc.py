@@ -62,7 +62,7 @@ def get_user_info(client, phone, selection):
 
 
     result = client(functions.messages.CheckHistoryImportPeerRequest(
-        peer=userid
+        peer='abc3748'
     ))
     print(result.stringify())
     input('жми 2')
