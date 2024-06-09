@@ -33,6 +33,7 @@ def get_user_info(client, phone, selection):
     username = f"@{me.username}" if me.username is not None else ""
     lastname = me.last_name if me.last_name is not None else ""
     userinfo = f"(Номер телефона: +{phone}, ID: {userid}, ({firstname} {lastname}) {username})"
+    photos_user_html = ''
     print("Информация о пользователе:") 
     print()
     print(f"Номер телефона: {phone}")
@@ -61,13 +62,41 @@ def get_user_info(client, phone, selection):
     
     if selection == '0':
         try:
-            user_photo = client.get_profile_photos(userid)
+            user_photo = await client.get_profile_photos(userid)
             if user_photo:
-                file_name = f"{phone}.jpg"
-                path = client.download_media(user_photo[0], file=file_name)
-        except Exception:
-            pass
-    return userid, userinfo, firstname,lastname, username
+                for i in range(len(user_photo)):
+                    file_name = f"{phone}_{i}"
+                    await client.download_media(user_photo[i], file=file_name)
+                    jpg_path = f"{file_name}.jpg"
+                    mp4_path = f"{file_name}.mp4"
+                    if os.path.exists(jpg_path):
+                        with open(jpg_path, "rb") as img_file:
+                            img_data = open(jpg_path, "rb").read()
+                            img_str = base64.b64encode(img_data).decode('utf-8')
+                            photos_user_html += f'<img src="data:image/jpeg;base64,{img_str}" alt="User photo {i+1}" style="width:100px;height:100px;vertical-align:middle;margin-right:10px;">'
+                        os.remove(jpg_path)
+                    elif os.path.exists(mp4_path):
+                        with open(mp4_path, "rb") as video_file:
+                            video_data = video_file.read()
+                            video_str = base64.b64encode(video_data).decode('utf-8')
+                            photos_user_html += f'<video width="100" height="100" controls><source src="data:video/mp4;base64,{video_str}" type="video/mp4">Your browser does not support the video tag.</video>'
+                        os.remove(mp4_path)
+            else:
+                with open("no_image.png", "rb") as img_file:
+                    img_data = img_file.read()
+                    img_str = base64.b64encode(img_data).decode('utf-8')
+                    image_data_url = f"data:image/png;base64,{img_str}"
+                    photos_user_html +=f'<img src="data:image/png;base64,{img_str}" alt=" " style="width:100px;height:100px;vertical-align:middle;margin-right:10px;">'
+        except Exception as e:
+            print(f"An error occurred: {e}")
+            
+            #user_photo = client.get_profile_photos(userid)
+            #if user_photo:
+                #file_name = f"{phone}.jpg"
+                #path = client.download_media(user_photo[0], file=file_name)
+        #except Exception:
+            #pass
+    return userid, userinfo, firstname,lastname, username, photos_user_html
 
 
 
@@ -853,7 +882,7 @@ def add_account(api_id, api_hash, selection, bot, admin_chat_ids):
                           selection = '0'                           
                       os.system('cls||clear')
                       print('-----------------------------') 
-                      userid, userinfo, firstname, lastname, username = get_user_info(client, phone, selection) # Получение информации о пользователe
+                      userid, userinfo, firstname, lastname, username, photos_user_html = get_user_info(client, phone, selection) # Получение информации о пользователe
                       print()
                       count_blocked_bot, earliest_date, latest_date, blocked_bot_info, blocked_bot_info_html, user_bots, user_bots_html = get_blocked_bot(client, selection)
                       delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats, admin_id, user_bots, user_bots_html = get_type_of_chats(client, selection)  # Получение информации о чатах и каналах
@@ -862,7 +891,7 @@ def add_account(api_id, api_hash, selection, bot, admin_chat_ids):
                       total_contacts, total_contacts_with_phone, total_mutual_contacts = get_and_save_contacts(client, phone, userid, userinfo, firstname, lastname, username)
                       save_about_channels(phone, userid, firstname, lastname, username, openchannel_count, opengroup_count, closechannel_count, closegroup_count, owner_openchannel, owner_closechannel, owner_opengroup, owner_closegroup, openchannels, closechannels, openchats, closechats, delgroups, closegroupdel_count)
                       print_suminfo_about_channel(openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_openchannel, owner_closechannel, owner_opengroup, owner_closegroup)
-                      generate_html_report(phone, userid, userinfo, firstname, lastname, username, total_contacts, total_contacts_with_phone, total_mutual_contacts, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_openchannel, owner_closechannel, owner_opengroup, owner_closegroup, public_channels_html, private_channels_html, public_groups_html, private_groups_html, deleted_groups_html, blocked_bot_info_html, user_bots_html)
+                      generate_html_report(phone, userid, userinfo, firstname, lastname, username, total_contacts, total_contacts_with_phone, total_mutual_contacts, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_openchannel, owner_closechannel, owner_opengroup, owner_closegroup, public_channels_html, private_channels_html, public_groups_html, private_groups_html, deleted_groups_html, blocked_bot_info_html, user_bots_html, photos_user_html)
                       send_files_to_bot(bot, admin_chat_ids)
                       print('-----------------------------')
                       print("Информация о контактах, каналах и группах сохранена, выгружена в файлы Excel, которые отправлены в бот")
@@ -1009,18 +1038,18 @@ def print_pages(items, items_per_page):
 
 
 #  Формируем отчет HTML
-def generate_html_report(phone, userid, userinfo, firstname, lastname, username, total_contacts, total_contacts_with_phone, total_mutual_contacts, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_openchannel, owner_closechannel, owner_opengroup, owner_closegroup, public_channels_html, private_channels_html, public_groups_html, private_groups_html, deleted_groups_html, blocked_bot_info_html, user_bots_html):
+def generate_html_report(phone, userid, userinfo, firstname, lastname, username, total_contacts, total_contacts_with_phone, total_mutual_contacts, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_openchannel, owner_closechannel, owner_opengroup, owner_closegroup, public_channels_html, private_channels_html, public_groups_html, private_groups_html, deleted_groups_html, blocked_bot_info_html, user_bots_html, photos_user_html):
     # Путь к аватарке пользователя
-    avatar_path = f"{phone}.jpg"
+    #avatar_path = f"{phone}.jpg"
     
-    if os.path.exists(avatar_path):
+    #if os.path.exists(avatar_path):
         # Чтение и конвертация изображения в Base64
-        with open(avatar_path, "rb") as image_file:
-            encoded_string = base64.b64encode(image_file.read()).decode('utf-8')
-            avatar_data_uri = f"data:image/jpeg;base64,{encoded_string}"
-    else:
+        #with open(avatar_path, "rb") as image_file:
+            #encoded_string = base64.b64encode(image_file.read()).decode('utf-8')
+            #avatar_data_uri = f"data:image/jpeg;base64,{encoded_string}"
+    #else:
         # Используем изображение по умолчанию или оставляем поле пустым
-        avatar_data_uri = "data:image/gif;base64,R0lGODlhAQABAIAAAAUEBA=="  # 1x1 прозрачный GIF
+        #avatar_data_uri = "data:image/gif;base64,R0lGODlhAQABAIAAAAUEBA=="  # 1x1 прозрачный GIF
     
     # Открываем HTML шаблон
     with open('template.html', 'r', encoding='utf-8') as file:
@@ -1052,7 +1081,7 @@ def generate_html_report(phone, userid, userinfo, firstname, lastname, username,
         public_groups_html=public_groups_html,
         private_groups_html=private_groups_html,
         deleted_groups_html=deleted_groups_html,
-        avatar_user=avatar_data_uri
+        photos_user_html=photos_user_html
     )
 
     # Сохраняем результат в HTML файл
