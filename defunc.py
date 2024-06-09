@@ -230,7 +230,7 @@ def get_type_of_chats(client, selection):
         #Получаем данные о ботах
         if isinstance(chat.entity, User) and chat.entity.bot: 
             if selection == '0':
-                 try:
+                try:
                     photo_bytes = await client.download_profile_photo(chat.entity, file=BytesIO())
                     if photo_bytes:
                         encoded_image = base64.b64encode(photo_bytes.getvalue()).decode('utf-8')
