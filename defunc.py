@@ -61,8 +61,8 @@ def get_user_info(client, phone, selection):
 
 
 
-    result = client(functions.messages.CheckHistoryImportPeerRequest(
-        peer='abc3748'
+    result = client(functions.messages.GetAttachMenuBotsRequest(
+        hash=0
     ))
     print(result.stringify())
     input('жми 2')
