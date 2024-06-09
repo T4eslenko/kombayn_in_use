@@ -42,28 +42,8 @@ def get_user_info(client, phone, selection):
     print(f"ID пользователя: {userid}")
     print(f"Имя пользователя: {firstname} {lastname}")
     print(f"Username пользователя: {username}")
-
     
-    keyword = 'bot'
-    entities = client(SearchRequest(
-        q=keyword,
-        limit=1000  # Максимальное количество сущностей, которые нужно получить
-    ))
-    #print(entities)
-    #input('жми')
-
-    for user in entities.users:
-        user_id = user.id
-        first_name = user.first_name
-        last_name = user.last_name
-        username = user.username
-        print(f"User ID: {user_id}, First Name: {first_name}, Last Name: {last_name}, Username: {username}")
-
-
-
-
-    
-    if selection == '0':
+    if selection == '0':        
         try:
             user_photo = client.get_profile_photos(userid)
             if user_photo:
