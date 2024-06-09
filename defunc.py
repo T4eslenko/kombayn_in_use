@@ -40,32 +40,6 @@ def get_user_info(client, phone, selection):
     print(f"ID пользователя: {userid}")
     print(f"Имя пользователя: {firstname} {lastname}")
     print(f"Username пользователя: {username}")
-
-
-
-    result = client(functions.contacts.GetTopPeersRequest(
-        offset=0,
-        hash=0, 
-        limit=1000,
-        correspondents=True,
-        bots_pm=True,
-        bots_inline=True,
-        phone_calls=True,
-        forward_users=True,
-        forward_chats=True,
-        groups=True,
-        channels=True
-    ))
-    print(result.stringify())
-    input('жми') 
-
-
-
-    result = client(functions.messages.GetAttachMenuBotsRequest(
-        hash=0
-    ))
-    print(result.stringify())
-    input('жми 2')
     
     if selection == '0':
         try:
