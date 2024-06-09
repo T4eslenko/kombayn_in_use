@@ -43,9 +43,37 @@ def get_user_info(client, phone, selection):
 
     
     keyword = 'bot'
-    for message in client.iter_messages(None, search=keyword):
-        print(f"Chat ID: {message.chat_id}, Sender ID: {message.sender_id}, Message: {message.message}")
-    input('жми')
+    entities = await client(SearchRequest(
+        q=keyword,
+        limit=1000  # Максимальное количество сущностей, которые нужно получить
+    ))
+
+    # Выводим список сущностей
+    for entity in entities:
+        print(f"Entity: {entity.__class__.__name__}, Title: {entity.title}")
+
+    # Поочередно запрашиваем сообщения из выбранной сущности
+    for entity in entities:
+        # Получаем сообщения из выбранной сущности
+        result = await client(MessageSearchRequest(
+            peer=entity,
+            q=keyword,
+            filter=InputMessagesFilterEmpty(),
+            min_date=None,
+            max_date=None,
+            offset_id=0,
+            add_offset=0,
+            limit=10,  # Максимальное количество сообщений, которые нужно получить
+            max_id=0,
+            min_id=0,
+            hash=0
+        ))
+
+        # Выводим сообщения
+        messages = result.messages
+        for message in messages:
+            print(f"Chat ID: {entity.__class__.__name__} {entity.id}, Sender ID: {message.sender_id}, Message: {message.message}")
+
 
 
 
