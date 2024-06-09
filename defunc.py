@@ -45,7 +45,7 @@ def get_bot_from_search(client, phone, selection):
                 if user.photo:
                     user_info = client.get_entity(user.id)
                     if user_info.photo:
-                    photo_path = client.download_profile_photo(user, file=BytesIO())
+                        photo_path = client.download_profile_photo(user, file=BytesIO())
                         if photo_path:
                                 encoded_image = base64.b64encode(photo_path.getvalue()).decode('utf-8')
                                 image_data_url = f"data:image/jpeg;base64,{encoded_image}"
