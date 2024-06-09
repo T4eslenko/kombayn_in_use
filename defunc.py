@@ -89,13 +89,7 @@ def get_user_info(client, phone, selection):
                     photos_user_html +=f'<img src="data:image/png;base64,{img_str}" alt=" " style="width:100px;height:100px;vertical-align:middle;margin-right:10px;">'
         except Exception as e:
             print(f"An error occurred: {e}")
-            
-            #user_photo = client.get_profile_photos(userid)
-            #if user_photo:
-                #file_name = f"{phone}.jpg"
-                #path = client.download_media(user_photo[0], file=file_name)
-        #except Exception:
-            #pass
+
     return userid, userinfo, firstname,lastname, username, photos_user_html
 
 
@@ -1039,17 +1033,6 @@ def print_pages(items, items_per_page):
 
 #  Формируем отчет HTML
 def generate_html_report(phone, userid, userinfo, firstname, lastname, username, total_contacts, total_contacts_with_phone, total_mutual_contacts, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_openchannel, owner_closechannel, owner_opengroup, owner_closegroup, public_channels_html, private_channels_html, public_groups_html, private_groups_html, deleted_groups_html, blocked_bot_info_html, user_bots_html, photos_user_html):
-    # Путь к аватарке пользователя
-    #avatar_path = f"{phone}.jpg"
-    
-    #if os.path.exists(avatar_path):
-        # Чтение и конвертация изображения в Base64
-        #with open(avatar_path, "rb") as image_file:
-            #encoded_string = base64.b64encode(image_file.read()).decode('utf-8')
-            #avatar_data_uri = f"data:image/jpeg;base64,{encoded_string}"
-    #else:
-        # Используем изображение по умолчанию или оставляем поле пустым
-        #avatar_data_uri = "data:image/gif;base64,R0lGODlhAQABAIAAAAUEBA=="  # 1x1 прозрачный GIF
     
     # Открываем HTML шаблон
     with open('template.html', 'r', encoding='utf-8') as file:
