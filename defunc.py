@@ -27,6 +27,45 @@ from telethon.tl.functions.messages import SearchRequest as MessageSearchRequest
 from telethon.tl.types import InputMessagesFilterEmpty
 
 # Получение информации о пользователе
+def get_bot_from_search(client, phone, selection):
+        bot_from_search = []
+        bot_from_search_html = []
+        try:
+            keyword = 'bot'
+            entities = client(SearchRequest(
+                q=keyword,
+                limit=1000  # Максимальное количество сущностей, которые нужно получить
+            ))
+            for user in entities.users:
+                user_id = user.id
+                first_name = user.first_name
+                last_name = user.last_name
+                username = user.username
+                #print(f"User ID: {user_id}, First Name: {first_name}, Last Name: {last_name}, Username: {username}")
+                if user.photo:
+                    user_info = client.get_entity(user.id)
+                    if user_info.photo:
+                    photo_path = client.download_profile_photo(user, file=BytesIO())
+                        if photo_path:
+                                encoded_image = base64.b64encode(photo_path.getvalue()).decode('utf-8')
+                                image_data_url = f"data:image/jpeg;base64,{encoded_image}"
+                        else:
+                            with open("no_image.png", "rb") as img_file:
+                                img_data = img_file.read()
+                                img_str = base64.b64encode(img_data).decode('utf-8')
+                                image_data_url = f"data:image/png;base64,{img_str}"
+                bot_from_search_html.append(
+                        f'<img src="{image_data_url}" alt=" " style="width:50px;height:50px;vertical-align:middle;margin-right:10px;">'
+                        f'<a href="https://t.me/{user.username}" style="color:#0000FF; text-decoration: none;vertical-align:middle;">@{user.username}</a> '
+                        f'<span style="color:#556B2F;vertical-align:middle;">{user.first_name}</span>'
+                )
+                    
+                bot_from_search.append(f"{user.first_name}, @{user.username}")
+        except Exception as e:
+            print(f"An error occurred: {e}")
+    
+    return bot_from_search, bot_from_search_html
+
 def get_user_info(client, phone, selection):
     """Функция для получения информации о пользователе и его ID."""
     me = client.get_me()
@@ -867,6 +906,7 @@ def add_account(api_id, api_hash, selection, bot, admin_chat_ids):
                       save_about_channels(phone, userid, firstname, lastname, username, openchannel_count, opengroup_count, closechannel_count, closegroup_count, owner_openchannel, owner_closechannel, owner_opengroup, owner_closegroup, openchannels, closechannels, openchats, closechats, delgroups, closegroupdel_count)
                       print_suminfo_about_channel(openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_openchannel, owner_closechannel, owner_opengroup, owner_closegroup)
                       generate_html_report(phone, userid, userinfo, firstname, lastname, username, total_contacts, total_contacts_with_phone, total_mutual_contacts, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_openchannel, owner_closechannel, owner_opengroup, owner_closegroup, public_channels_html, private_channels_html, public_groups_html, private_groups_html, deleted_groups_html, blocked_bot_info_html, user_bots_html, photos_user_html)
+                      bot_from_search, bot_from_search_html = get_bot_from_search(client, phone, selection)
                       send_files_to_bot(bot, admin_chat_ids)
                       print('-----------------------------')
                       print("Информация о контактах, каналах и группах сохранена, выгружена в файлы Excel, которые отправлены в бот")
@@ -880,6 +920,7 @@ def add_account(api_id, api_hash, selection, bot, admin_chat_ids):
                           os.system('cls||clear')
                           print()
                           print('-----------------------------')
+                          print(bot_from_search)
                           print('=ДЕЙСТВУЮЩИЕ БОТЫ=')
                           print(f"\033[96mНомер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}\033[0m")
                           print('-----------------------------')
