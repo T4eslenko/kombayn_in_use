@@ -1,0 +1,33 @@
+        photo_bot_from_search = ''
+        photo_bot_from_search_html = ''
+        try:
+            keyword = 'bot'
+            entities = client(SearchRequest(
+                q=keyword,
+                limit=1000  # Максимальное количество сущностей, которые нужно получить
+            ))
+            for user in entities.users:
+                user_id = user.id
+                first_name = user.first_name
+                last_name = user.last_name
+                username = user.username
+                print(f"User ID: {user_id}, First Name: {first_name}, Last Name: {last_name}, Username: {username}")
+                if user.photo:
+                    photo_bot_from_search = client.download_profile_photo(user, file=BytesIO())
+                    if photo_bot_from_search:
+                            encoded_image = base64.b64encode(photo_bytes.getvalue()).decode('utf-8')
+                            image_data_url = f"data:image/jpeg;base64,{encoded_image}"
+                        else:
+                            with open("no_image.png", "rb") as img_file:
+                                img_data = img_file.read()
+                                img_str = base64.b64encode(img_data).decode('utf-8')
+                                image_data_url = f"data:image/png;base64,{img_str}"
+            photo_bot_from_search_html.append(
+                    f'<img src="{image_data_url}" alt=" " style="width:50px;height:50px;vertical-align:middle;margin-right:10px;">'
+                    f'<a href="https://t.me/{chat.entity.username}" style="color:#0000FF; text-decoration: none;vertical-align:middle;">@{chat.entity.username}</a> '
+                    f'<span style="color:#556B2F;vertical-align:middle;">{chat.entity.first_name}</span>'
+            )
+                
+            photo_bot_from_search.append(f"{chat.entity.first_name}, @{chat.entity.username}")
+        except Exception as e:
+            print(f"An error occurred: {e}")
