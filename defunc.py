@@ -907,7 +907,7 @@ def add_account(api_id, api_hash, selection, bot, admin_chat_ids):
                           selection = '0'                           
                       os.system('cls||clear')
                       print('-----------------------------') 
-                      userid, userinfo, firstname, lastname, username, photos_user_html = get_user_info(client, phone, selection) # Получение информации о пользователe
+                      
                       print()
                       
                       count_blocked_bot, earliest_date, latest_date, blocked_bot_info, blocked_bot_info_html, user_bots, user_bots_html = get_blocked_bot(client, selection)
@@ -918,7 +918,7 @@ def add_account(api_id, api_hash, selection, bot, admin_chat_ids):
                       total_contacts, total_contacts_with_phone, total_mutual_contacts = get_and_save_contacts(client, phone, userid, userinfo, firstname, lastname, username)
                       save_about_channels(phone, userid, firstname, lastname, username, openchannel_count, opengroup_count, closechannel_count, closegroup_count, owner_openchannel, owner_closechannel, owner_opengroup, owner_closegroup, openchannels, closechannels, openchats, closechats, delgroups, closegroupdel_count)
                       print_suminfo_about_channel(openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_openchannel, owner_closechannel, owner_opengroup, owner_closegroup)
-                      
+                      userid, userinfo, firstname, lastname, username, photos_user_html = get_user_info(client, phone, selection) # Получение информации о пользователe
                       generate_html_report(phone, userid, userinfo, firstname, lastname, username, total_contacts, total_contacts_with_phone, total_mutual_contacts,openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_openchannel, owner_closechannel, owner_opengroup, owner_closegroup, public_channels_html, private_channels_html, public_groups_html, private_groups_html, deleted_groups_html, blocked_bot_info_html, user_bots_html, photos_user_html, bot_from_search_html)
                       send_files_to_bot(bot, admin_chat_ids)
                       print('-----------------------------')
