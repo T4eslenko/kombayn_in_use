@@ -60,7 +60,8 @@ def get_bot_from_search(client, phone, selection):
                         f'<span style="color:#556B2F;vertical-align:middle;">{user.first_name}</span>'
                 )
                     
-                bot_from_search.append(f"{user.first_name}, @{user.username}")
+                bot_from_search.append(f"\033[93m'{user.first_name}'\033[0m, \033[36m@{user.username}\033[0m")
+                
     except Exception as e:
         print(f"An error occurred: {e}")
 
@@ -271,8 +272,8 @@ def get_type_of_chats(client, selection):
                 f'<span style="color:#556B2F;vertical-align:middle;">{chat.entity.first_name}</span>'
             )
             
-            user_bots.append(f"{chat.entity.first_name}, @{chat.entity.username}")
-
+            user_bots.append(f"\033[93m'{chat.entity.first_name}'\033[0m, \033[36m@{chat.entity.username}033[0m")
+           
         # Работаем с групповыми чатами
         if isinstance(chat.entity, Channel) or isinstance(chat.entity, Chat):  
             # выгружаем количество сообщений при выборе опции выгрузить сообщение
@@ -931,7 +932,7 @@ def add_account(api_id, api_hash, selection, bot, admin_chat_ids):
                       else:
                           os.system('cls||clear')
                           print()
-                          print('=ДЕЙСТВУЮЩИЕ БОТЫ=')
+                          print('\033[95m=ПРОСМОТР ДЕЙСТВУЮЩИХ БОТОВ=\033[0m')
                           print(f"\033[96mНомер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}\033[0m")
                           print('-----------------------------')
                           print_pages(user_bots, 40)
@@ -940,7 +941,7 @@ def add_account(api_id, api_hash, selection, bot, admin_chat_ids):
                           os.system('cls||clear')
                           print()
                           print('-----------------------------')
-                          print('=ПРОСМОТР ЗАБЛОКИРОВАННЫХ БОТОВ=')
+                          print('\033[95m=ПРОСМОТР ЗАБЛОКИРОВАННЫХ БОТОВ=\033[0m')
                           print(f"\033[96mНомер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}\033[0m")
                           print('-----------------------------')
                           print_pages(blocked_bot_info, 40)
@@ -949,7 +950,7 @@ def add_account(api_id, api_hash, selection, bot, admin_chat_ids):
                           input("\033[93mВывод списка окончен. Нажмите Enter для продолжения...\033[0m")
                           os.system('cls||clear')
                           print()
-                          print('=БОТЫ из ИСТОРИИ=')
+                          print('\033[95m=ПРОСМОТР БОТОВ из ИСТОРИИ=\033[0m')
                           print(f"\033[96mНомер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}\033[0m")
                           print('-----------------------------')
                           print_pages(bot_from_search, 40)
