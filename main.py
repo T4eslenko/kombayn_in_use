@@ -316,7 +316,8 @@ if __name__ == "__main__":
            print_pages(blocked_bot_info, 40)
            print('-----------------------------')
            print()
-           input("\033[93mВывод списка закончен. Нажмите Enter для продолжения...\033[0m")         
+           input("\033[93mВывод списка закончен. Нажмите Enter для продолжения...\033[0m")   
+           os.system('cls||clear')
            print()
            print('=БОТЫ из ИСТОРИИ=')
            print(f"\033[96mНомер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}\033[0m")
@@ -324,6 +325,7 @@ if __name__ == "__main__":
            print_pages(bot_from_search, 40)
            print('-----------------------------')
            input("\033[93mВывод списка закончен. Нажмите Enter для продолжения...\033[0m")
+           os.system('cls||clear')
            client.disconnect()
     
 # 8 Отправка файлов
