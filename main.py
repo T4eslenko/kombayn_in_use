@@ -297,6 +297,7 @@ if __name__ == "__main__":
            client, phone, session_index = result
            userid, userinfo, firstname, lastname, username, photos_user_html = get_user_info(client, phone, selection) # Получение информации о пользователe
            count_blocked_bot, earliest_date, latest_date, blocked_bot_info, blocked_bot_info_html, user_bots, user_bots_html = get_blocked_bot(client, selection, phone)
+           bot_from_search, bot_from_search_html = get_bot_from_search(client, phone, selection)
            input("\033[93mНажмите Enter для продолжения...\033[0m")
            os.system('cls||clear')
            print()
@@ -316,6 +317,13 @@ if __name__ == "__main__":
            print('-----------------------------')
            print()
            input("\033[93mВывод списка закончен. Нажмите Enter для продолжения...\033[0m")         
+           print()
+           print('=БОТЫ из ИСТОРИИ=')
+           print(f"\033[96mНомер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}\033[0m")
+           print('-----------------------------')
+           print_pages(bot_from_search, 40)
+           print('-----------------------------')
+           input("\033[93mВывод списка закончен. Нажмите Enter для продолжения...\033[0m")
            client.disconnect()
     
 # 8 Отправка файлов
