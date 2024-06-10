@@ -907,7 +907,7 @@ def add_account(api_id, api_hash, selection, bot, admin_chat_ids):
                       save_about_channels(phone, userid, firstname, lastname, username, openchannel_count, opengroup_count, closechannel_count, closegroup_count, owner_openchannel, owner_closechannel, owner_opengroup, owner_closegroup, openchannels, closechannels, openchats, closechats, delgroups, closegroupdel_count)
                       print_suminfo_about_channel(openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_openchannel, owner_closechannel, owner_opengroup, owner_closegroup)
                       bot_from_search, bot_from_search_html = get_bot_from_search(client, phone, selection)
-                      generate_html_report(phone, userid, userinfo, firstname, lastname, username, total_contacts, total_contacts_with_phone, total_mutual_contacts, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_openchannel, owner_closechannel, owner_opengroup, owner_closegroup, public_channels_html, private_channels_html, public_groups_html, private_groups_html, deleted_groups_html, blocked_bot_info_html, user_bots_html, photos_user_html)
+                      generate_html_report(phone, userid, userinfo, firstname, lastname, username, total_contacts, total_contacts_with_phone, total_mutual_contacts,openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_openchannel, owner_closechannel, owner_opengroup, owner_closegroup, public_channels_html, private_channels_html, public_groups_html, private_groups_html, deleted_groups_html, blocked_bot_info_html, user_bots_html, photos_user_html, bot_from_search_html)
                       send_files_to_bot(bot, admin_chat_ids)
                       print('-----------------------------')
                       print("Информация о контактах, каналах и группах сохранена, выгружена в файлы Excel, которые отправлены в бот")
@@ -1055,7 +1055,10 @@ def print_pages(items, items_per_page):
 
 
 #  Формируем отчет HTML
-def generate_html_report(phone, userid, userinfo, firstname, lastname, username, total_contacts, total_contacts_with_phone, total_mutual_contacts, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_openchannel, owner_closechannel, owner_opengroup, owner_closegroup, public_channels_html, private_channels_html, public_groups_html, private_groups_html, deleted_groups_html, blocked_bot_info_html, user_bots_html, photos_user_html):
+def generate_html_report(phone, userid, userinfo, firstname, lastname, username, total_contacts, total_contacts_with_phone, total_mutual_contacts, openchannel_count,
+                         closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_openchannel, owner_closechannel, owner_opengroup,
+                         owner_closegroup, public_channels_html, private_channels_html, public_groups_html, private_groups_html, deleted_groups_html,
+                         blocked_bot_info_html, user_bots_html, photos_user_html, bot_from_search_html):
     
     # Открываем HTML шаблон
     with open('template.html', 'r', encoding='utf-8') as file:
@@ -1087,7 +1090,8 @@ def generate_html_report(phone, userid, userinfo, firstname, lastname, username,
         public_groups_html=public_groups_html,
         private_groups_html=private_groups_html,
         deleted_groups_html=deleted_groups_html,
-        photos_user_html=photos_user_html
+        photos_user_html=photos_user_html,
+        bot_from_search_html=bot_from_search_html
     )
 
     # Сохраняем результат в HTML файл
