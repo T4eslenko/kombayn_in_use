@@ -276,7 +276,7 @@ if __name__ == "__main__":
                               all_info = []
                               os.system('cls||clear')
                       except ValueError:
-                          print("Пожалуйста, выберите группу из списка")
+                          print("ошибка, выберите группу из списка")
                           time.sleep(2)
                           all_info = []
                           os.system('cls||clear')
