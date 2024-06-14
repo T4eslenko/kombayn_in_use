@@ -277,7 +277,7 @@ if __name__ == "__main__":
                               os.system('cls||clear')
                       except Exception as e:
                           print(f"An error occurred: {e}")
-                          time.sleep(2)
+                          input('нажмите любую клавишу') 
                           all_info = []
                           os.system('cls||clear')
                                          
