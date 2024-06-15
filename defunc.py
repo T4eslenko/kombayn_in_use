@@ -791,11 +791,11 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
 
     participants_from_messages = set()
     # рабочая all_messages = client.iter_messages(group_title) if selection == '7' else client.get_messages(group_title, limit=None)
-    if selection == '7':
-        all_messages = client.iter_messages(group_title)
-    else:
-       with client.takeout() as takeout:
-            all_messages = takeout.iter_messages(group_title)
+    #if selection == '7':
+    all_messages = client.iter_messages(group_title)
+    #else:
+       #with client.takeout() as takeout:
+           # all_messages = takeout.iter_messages(group_title)
         
     #all_messages = client.iter_messages(group_title) if selection == '7' else takeout.iter_messages(group_title)  было
       
