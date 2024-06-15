@@ -896,7 +896,7 @@ def add_account(api_id, api_hash, selection, bot, admin_chat_ids):
                     client = TelegramClient(phone, int(options[0].strip()), options[1].strip())
                     client.connect()
                     if not client.is_user_authorized():
-                    sent_code = client.send_code_request(f"+{phone}")
+                        sent_code = client.send_code_request(f"+{phone}")
                 except Exception as e:
                     print(f"Произошла ошибка: {e}")
                     input("Нажмите Enter, чтобы попробовать снова...")
