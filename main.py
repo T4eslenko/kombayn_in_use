@@ -140,6 +140,15 @@ if __name__ == "__main__":
                           g_index = int(g_index_str)
                           if 0 <= g_index < i:
                               target_user = users_list[int(g_index)]
+                              print(client)
+                              print(target_user)
+                              print(user_id)
+                              print(firstname)
+                              print(target_user)
+                              print(userid)
+                              print(userinfo)
+                              print(selection)
+                              input()
                               get_messages_and_save_xcls(client, target_user, user_id, firstname, target_user, userid, userinfo, selection)
                               print('Сообщения пользователя выгружены в excel, мой командир')
                               client.disconnect()
