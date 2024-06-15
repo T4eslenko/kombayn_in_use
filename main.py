@@ -140,7 +140,7 @@ if __name__ == "__main__":
                           g_index = int(g_index_str)
                           if 0 <= g_index < i:
                               target_user = users_list[int(g_index)]
-                              get_private_messages(client, target_user, userinfo)
+                              get_private_messages(client, target_user, userid, firstname, lastname, username, userinfo)
                               print('Сообщения пользователя выгружены в excel, мой командир')
                               client.disconnect()
                               time.sleep(3)
