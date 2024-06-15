@@ -253,7 +253,7 @@ def get_user_dialogs(client):
                 f'/ \033[33m[{count_messages}]\033[0m'
             )
 
-            users_list.append(dialog.entity)
+            users_list.append(dialog.entity.user.id)
             i += 1
     
     return user_dialogs, i, users_list
