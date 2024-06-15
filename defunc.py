@@ -892,25 +892,12 @@ def add_account(api_id, api_hash, selection, bot, admin_chat_ids):
                     continue
             
             if selection == '105':
-                attempts = 0
-                while attempts < 3:
-                    try:
-                        client = TelegramClient(phone, int(options[0].strip()), options[1].strip())
-                        client.connect()
-                        if not client.is_user_authorized():
-                            sent_code = client.send_code_request(f"+{phone}")
-                    except Exception as e:
-                        attempts += 1
-                        if attempts == 3:
-                            print("Три попытки ввода неверного PIN-кода исчерпаны.")
-                            input("Нажмите Enter, чтобы продолжить...")
-                            break
-                        else:
-                            print(f"Произошла ошибка: {e}")
-                            input("Нажмите Enter, чтобы попробовать снова...")
-                            continue
-                    else:
-                        break
+                try:
+                    client = TelegramClient(phone, int(options[0].replace('\n', '')), options[1].replace('\n', '')).start(phone, force_sms: True)
+                except Exception as e:
+                    print(f"Произошла ошибка: {e}")
+                    input("Нажмите Enter, чтобы попробовать снова...")
+                    continue
             
             selection = '0'
             os.system('cls||clear')
