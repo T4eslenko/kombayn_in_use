@@ -143,8 +143,8 @@ if __name__ == "__main__":
                       try:
                           g_index = int(g_index_str)
                           if 0 <= g_index < i:
-                              target_group = user_dialogs[int(g_index)]
-                              user_id_match = re.search(r'ID: (\d+)', target_user_info)
+                              target_user = user_dialogs[int(g_index)]
+                              user_id_match = re.search(r'ID: (\d+)', target_user)
                               if user_id_match:
                                  recieved_id = int(user_id_match.group(1))
                               else:
