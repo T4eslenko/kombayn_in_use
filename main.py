@@ -118,19 +118,14 @@ if __name__ == "__main__":
               client, phone, session_index = result
               print('-----------------------------') 
               userid, userinfo, firstname, lastname, username, photos_user_html = get_user_info(client, phone, selection) # Получение информации о пользователe
-              print()
-              user_dialogs, i = get_user_dialogs(client)
-              print()
-              
-              input("\033[93mНажмите Enter для продолжения...\033[0m")
               while True:
                    os.system('cls||clear')
                    i = 0
-                   print('-----------------------------')
-                   print('=ВЫГРУЗКА ЛИЧНЫХ СООБЩЕНИЙ=')
-                   print(f"\033[96mНомер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}\033[0m")
-                   print('-----------------------------')
-                   user_dialogs, i = get_user_dialogs(client)
+                   #print('-----------------------------')
+                   #print('=ВЫГРУЗКА ЛИЧНЫХ СООБЩЕНИЙ=')
+                   #print(f"\033[96mНомер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}\033[0m")
+                   #print('-----------------------------')
+                   user_dialogs, i, user = get_user_dialogs(client)
                    print_pages(user_dialogs, 40)
                    print('-----------------------------')
                    print()
@@ -143,12 +138,17 @@ if __name__ == "__main__":
                       try:
                           g_index = int(g_index_str)
                           if 0 <= g_index < i:
-                              target_user = user_dialogs[int(g_index)]
-                              user_id_match = re.search(r'ID: (\d+)', target_user)
-                              if user_id_match:
-                                 recieved_id = int(user_id_match.group(1))
-                              else:
-                                 print("Не удалось извлечь ID пользователя из строки.")
+                              target_user = user[int(g_index)]
+                              input(user)
+                              user_id = target_user.id
+                              recieved_id = target_group.id
+
+                              #target_user = user_dialogs[int(g_index)]
+                              #user_id_match = re.search(r'ID: (\d+)', target_user)
+                              #if user_id_match:
+                              #   recieved_id = int(user_id_match.group(1))
+                              #else:
+                              #   print("Не удалось извлечь ID пользователя из строки.")
                               print(recieved_id)
                               print('Сообщения чата выгружены в excel, мой командир')
                               client.disconnect()
