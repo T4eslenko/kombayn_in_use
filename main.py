@@ -136,13 +136,11 @@ if __name__ == "__main__":
                       exit_flag = True
                       break
                    else:
-                      #try:
+                      try:
                           g_index = int(g_index_str)
                           if 0 <= g_index < i:
                               target_user = users_list[int(g_index)]
-                              for message in client.iter_messages(target_user):
-                                 print(message.text)
-                              #get_messages_and_save_xcls(client, username, user_id, user_name, target_user, userid, userinfo, selection)
+                              get_private_messages(client, target_user)
                               print('Сообщения пользователя выгружены в excel, мой командир')
                               client.disconnect()
                               time.sleep(3)
@@ -153,11 +151,11 @@ if __name__ == "__main__":
                               time.sleep(2)
                               all_info = []
                               os.system('cls||clear')
-                      #except Exception as e:
-                          #print(f"An error occurred: {e}")
-                          #input('нажмите любую клавишу') 
-                          #all_info = []
-                          #os.system('cls||clear')
+                      except Exception as e:
+                          print(f"An error occurred: {e}")
+                          input('нажмите любую клавишу') 
+                          all_info = []
+                          os.system('cls||clear')
 
            
        # 5 Выгрузить инфу об аккаунте
