@@ -119,7 +119,7 @@ if __name__ == "__main__":
               print('-----------------------------') 
               userid, userinfo, firstname, lastname, username, photos_user_html = get_user_info(client, phone, selection) # Получение информации о пользователe
               print()
-              user_dialogs = get_user_dialogs(client)
+              user_dialogs, i = get_user_dialogs(client)
               print()
               
               input("\033[93mНажмите Enter для продолжения...\033[0m")
@@ -130,11 +130,11 @@ if __name__ == "__main__":
                    print('=ВЫГРУЗКА ЛИЧНЫХ СООБЩЕНИЙ=')
                    print(f"\033[96mНомер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}\033[0m")
                    print('-----------------------------')
-                   groups, i, all_info, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_openchannel, owner_closechannel, owner_opengroup, owner_closegroup = make_list_of_channels(delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats, selection, client)[:12]
-                   print_pages(all_info, 40)
+                   user_dialogs, i = get_user_dialogs(client)
+                   print_pages(user_dialogs, 40)
                    print('-----------------------------')
                    print()
-                   g_index_str = str(input("\033[92mВыберите чат для получения списка его участников ('e' - назад): \033[0m"))
+                   g_index_str = str(input("\033[92mВыберите пользователя для получения списка его участников ('e' - назад): \033[0m"))
                    if g_index_str.lower() == 'e':
                       client.disconnect()
                       exit_flag = True
@@ -143,19 +143,13 @@ if __name__ == "__main__":
                       try:
                           g_index = int(g_index_str)
                           if 0 <= g_index < i:
-                              target_group = groups[int(g_index)]
-                              group_title = target_group.title
+                              target_group = user_dialogs[int(g_index)]
+                              group_title = target_group.user.id
                               os.system('cls||clear')
                               print('Может потребоваться значительное количество времени, заварите кофе...')
                               get_messages_and_save_xcls(client, target_group, user_id, user_name, group_title, userid, userinfo, selection)
                               group_id = target_group.id
-                              if group_id in admin_id:
-                                 get_participants_and_save_xlsx(client, target_group, user_id, user_name, group_title, group_id, userid, userinfo)
-                                 os.system('cls||clear')
-                                 print('Сообщения чата и его участники выгружены в excel, мой командир')
-                              else:
-                                 os.system('cls||clear')
-                                 print('Сообщения чата выгружены в excel, мой командир')
+                              print('Сообщения чата выгружены в excel, мой командир')
                               client.disconnect()
                               time.sleep(3)
                               exit_flag = True
@@ -324,7 +318,7 @@ if __name__ == "__main__":
                    print_pages(all_info, 40)
                    print('-----------------------------')
                    print()
-                   g_index_str = str(input("\033[92mВыберите чат для получения списка его участников ('e' - назад): \033[0m"))
+                   g_index_str = str(input("\033[92mВыберите чат для выгрузки сообщений ('e' - назад): \033[0m"))
                    if g_index_str.lower() == 'e':
                       client.disconnect()
                       exit_flag = True
