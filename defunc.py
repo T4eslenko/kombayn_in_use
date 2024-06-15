@@ -782,6 +782,7 @@ def get_message_info(message):
     return sender_id, username, first_name, last_name, date, text, media_type, fwd_source_id, fwd_date, reaction_info
 
 def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_title, userid, userinfo, selection):
+    group_title = str(group_title)
   #with client.takeout() as takeout: #Добавил
     wb = Workbook()
     ws = wb.active
@@ -864,7 +865,6 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
     
     # Удаляем недопустимые символы из имени файла
     def sanitize_filename(filename):
-        group_title = str(group_title)
         return re.sub(r'[\\/*?:"<>|]', '', filename)
     
     clean_group_title = sanitize_filename(group_title)
