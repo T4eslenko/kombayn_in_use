@@ -32,6 +32,7 @@ from html import escape
 
 def get_private_messages(client, target_user, userid_client, firstname_client, lastname_client, username_client, userinfo):
     minsk_timezone = timezone('Europe/Minsk')
+    
     user = client.get_entity(target_user)
     username = f'@{user.username}' if user.username else ""
     first_name = user.first_name if user.first_name else ''
@@ -46,9 +47,9 @@ def get_private_messages(client, target_user, userid_client, firstname_client, l
             message_time = message.date.astimezone(minsk_timezone).strftime('%Y-%m-%d %H:%M:%S')
 
             if message.sender_id == userid_client:
-                sender_info = f"Сообщение от вас ({username_client} {firstname_client} {lastname_client})"
+                sender_info = f"Сообщение от объекта ({firstname client}"
             else:
-                sender_info = f"Сообщение от {username} {first_name} {last_name}"
+                sender_info = f"Сообщение от {first_name}"
 
             html_output += f"<div class='message'><p><strong>{sender_info}</strong></p>"
             html_output += f"<p><strong>Дата и время:</strong> {message_time}</p>"
