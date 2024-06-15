@@ -55,6 +55,13 @@ def get_private_messages(client, target_user, userinfo):
             message_class = "sender" if message.sender_id == user_id else "recipient"
             html_output += f"<p class='{message_class}'><strong>Сообщение:</strong> {escape(message.text)}</p>"
             
+            # Получаем информацию о реакциях на сообщение
+            reactions = message.reactions
+            if reactions and reactions.recent_reactions:
+                reaction_info = " ".join(reaction.reaction.emoticon for reaction in reactions.recent_reactions)
+                if reaction_info:
+                    html_output += f"<p><strong>Реакции:</strong> {reaction_info}</p>"
+            
             html_output += "<hr>"
     except Exception as e:
         html_output += f"<p>Ошибка при получении переписки: {e}</p>"
@@ -64,6 +71,7 @@ def get_private_messages(client, target_user, userinfo):
     with open(filename, "w", encoding="utf-8") as file:
         file.write(html_output)
     print(f"HTML-файл сохранен как '{filename}'")
+
 
 
 
