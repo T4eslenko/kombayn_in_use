@@ -926,24 +926,25 @@ def add_account(api_id, api_hash, selection, bot, admin_chat_ids):
                                             print(f"Неверный пароль. Попробуйте снова. Попытка {attempts_password} из 3")
                                     except Exception as e:
                                         input(f"Произошла ошибка: {e}. Нажмите Enter, чтобы попробовать снова...")
-                                        exit_flag = True
                                         break
-                                if attempts_password < 3:
-                                    break  # Выход из цикла ожидания пароля при успешной авторизации или превышении попыток
+                                if attempts_password >= 3:
+                                    break  # Выход из цикла ожидания пароля при превышении попыток
+                                else:
+                                    break  # Выход из цикла ожидания пароля при успешной авторизации
                             except PhoneCodeInvalidError:
                                 attempts_pin += 1
                                 if attempts_pin >= 3:
                                     input("Превышено количество попыток ввода кода. Нажмите Enter, чтобы попробовать снова...")
-                                    exit_flag = True
                                     break
                                 else:
                                     print(f"Неверный ПИН-код. Попробуйте снова. Попытка {attempts_pin} из 3")
                             except Exception as e:
                                 input(f"Произошла ошибка: {e}. Нажмите Enter, чтобы попробовать снова...")
-                                exit_flag = True
                                 break
-                        if attempts_pin < 3:
-                            break  # Выход из цикла ожидания PIN-кода при успешной авторизации или превышении попыток
+                        if attempts_pin >= 3:
+                            continue  # Возвращаемся к началу при превышении попыток
+                        else:
+                            break  # Выход из цикла ожидания PIN-кода при успешной авторизации
                 
                 except Exception as e:
                     input(f"Произошла ошибка: {e}. Нажмите Enter, чтобы попробовать снова...")
