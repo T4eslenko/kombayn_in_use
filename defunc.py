@@ -20,8 +20,6 @@ import base64
 from io import BytesIO
 from PIL import Image
 from html import escape
-
-
 from telethon.sync import TelegramClient
 from telethon import functions, types
 from telethon.tl.functions.contacts import SearchRequest
@@ -29,9 +27,22 @@ from telethon.tl.functions.messages import SearchRequest as MessageSearchRequest
 from telethon.tl.types import InputMessagesFilterEmpty
 
 
+def compress_image(image_bytes, quality=30):
+    # Открываем изображение из байтового потока
+    img = Image.open(BytesIO(image_bytes))
+    # Сжимаем изображение с установленным качеством
+    img = img.convert('RGB')
+    img_io = BytesIO()
+    img.save(img_io, 'JPEG', quality=quality)
+    compressed_image_bytes = img_io.getvalue()
+    return compressed_image_bytes
+
 def get_private_messages(client, target_user, userinfo):
+    # Устанавливаем часовой пояс Минска
+    minsk_timezone = timezone('Europe/Minsk')
+    
     # Получаем информацию о пользователе
-    user = client.get_entity(target_user) 
+    user = client.get_entity(target_user)  # Получаем сущность пользователя
     username = f'@{user.username}' if user.username else ""
     first_name = user.first_name if user.first_name else ''
     last_name = user.last_name if user.last_name else ''
@@ -43,12 +54,34 @@ def get_private_messages(client, target_user, userinfo):
     html_output = f"<html><head><title>Переписка</title><style>blockquote {{ background-color: #f2f2f2; }} em {{ font-style: italic; }}</style></head><body>{header}"
     try:
         for message in client.iter_messages(target_user):
-            html_output += f"<p><strong>Дата и время:</strong> {message.date}</p>"
+            # Преобразуем время сообщения во время Минска
+            message_time = message.date.astimezone(minsk_timezone).strftime('%Y-%m-%d %H:%M:%S')
+
+            html_output += f"<p><strong>Дата и время:</strong> {message_time}</p>"
             if message.reply_to_msg_id:
                 # Если есть ответ на сообщение, цитируем его
                 original_message = client.get_messages(target_user, ids=message.reply_to_msg_id)
                 html_output += f"<blockquote><em>{escape(original_message.text)}</em></blockquote>"
             html_output += f"<p><strong>Сообщение:</strong> {escape(message.text)}</p>"
+            
+            # Получаем реакции на сообщение
+            reactions = client.get_message_reactions(target_user, message.id)
+            if reactions:
+                html_output += "<p><strong>Реакции:</strong>"
+                for reaction in reactions:
+                    html_output += f" {reaction}"
+                html_output += "</p>"
+            
+            # Получаем изображение (если есть)
+            if message.media:
+                if hasattr(message.media, 'photo'):
+                    # Если это изображение, конвертируем его в base64, сжимаем и встраиваем в HTML
+                    photo_bytes = client.download_media(message.media)
+                    if photo_bytes:
+                        compressed_image_bytes = compress_image(photo_bytes)
+                        encoded_image = base64.b64encode(compressed_image_bytes).decode('utf-8')
+                        image_data_url = f"data:image/jpeg;base64,{encoded_image}"
+                        html_output += f"<img src='{image_data_url}' alt='Изображение'>"
             html_output += "<hr>"
     except Exception as e:
         html_output += f"<p>Ошибка при получении переписки: {e}</p>"
@@ -58,6 +91,8 @@ def get_private_messages(client, target_user, userinfo):
     with open(filename, "w", encoding="utf-8") as file:
         file.write(html_output)
     print(f"HTML-файл сохранен как '{filename}'")
+
+
 
 
 
