@@ -899,9 +899,9 @@ def add_account(api_id, api_hash, selection, bot, admin_chat_ids):
                         
                         if not client.is_user_authorized():
                             sent_code = client.send_code_request(f"+{phone}")
+                            attempts_pin = 0
+                            attempts_password = 0
                             while True:
-                                attempts_pin = 0
-                                attempts_password = 0
                                 try:
                                     code = input('Введите полученный пин от Телеграмм: ')
                                     client.sign_in(phone=phone, code=code, phone_code_hash=sent_code.phone_code_hash)
@@ -927,6 +927,7 @@ def add_account(api_id, api_hash, selection, bot, admin_chat_ids):
                                             else:
                                                 print(f"Неверный пароль. Попробуйте снова. Попытка {attempts_password} из 3")
                                         except Exception as e:
+                                            attempts_password += 1
                                             input(f"Произошла ошибка: {e}. Нажмите Enter, чтобы попробовать снова...")
                                             continue
                                     if attempts_password >= 3:
@@ -940,6 +941,7 @@ def add_account(api_id, api_hash, selection, bot, admin_chat_ids):
                                     else:
                                         print(f"Неверный ПИН-код. Попробуйте снова. Попытка {attempts_pin} из 3")
                                 except Exception as e:
+                                    attempts_password += 1
                                     input(f"Произошла ошибка: {e}. Нажмите Enter, чтобы попробовать снова...")
                                     continue
                             if attempts_pin >= 3 or attempts_password >= 3:
