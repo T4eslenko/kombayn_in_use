@@ -144,11 +144,12 @@ if __name__ == "__main__":
                           g_index = int(g_index_str)
                           if 0 <= g_index < i:
                               target_group = user_dialogs[int(g_index)]
-                              group_title = target_group.user.id
-                              os.system('cls||clear')
-                              print('Может потребоваться значительное количество времени, заварите кофе...')
-                              get_messages_and_save_xcls(client, target_group, user_id, user_name, group_title, userid, userinfo, selection)
-                              group_id = target_group.id
+                              user_id_match = re.search(r'ID: (\d+)', target_user_info)
+                              if user_id_match:
+                                 recieved_id = int(user_id_match.group(1))
+                              else:
+                                 print("Не удалось извлечь ID пользователя из строки.")
+                              print(recieved_id)
                               print('Сообщения чата выгружены в excel, мой командир')
                               client.disconnect()
                               time.sleep(3)
@@ -159,11 +160,11 @@ if __name__ == "__main__":
                               time.sleep(2)
                               all_info = []
                               os.system('cls||clear')
-                      except Exception as e:
-                          print(f"An error occurred: {e}")
-                          input('нажмите любую клавишу') 
-                          all_info = []
-                          os.system('cls||clear')
+                      except ValueError:
+                           print("Пожалуйста, выберите группу из списка")
+                           time.sleep(2)
+                           all_info = []
+                           os.system('cls||clear')
 
 
 
@@ -349,11 +350,11 @@ if __name__ == "__main__":
                               time.sleep(2)
                               all_info = []
                               os.system('cls||clear')
-                      except Exception as e:
-                          print(f"An error occurred: {e}")
-                          input('нажмите любую клавишу') 
-                          all_info = []
-                          os.system('cls||clear')
+                      except ValueError:
+                           print("Пожалуйста, выберите группу из списка")
+                           time.sleep(2)
+                           all_info = []
+                           os.system('cls||clear')
                                          
                                 
 # 9 Инф о ботах              
