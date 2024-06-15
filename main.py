@@ -150,6 +150,7 @@ if __name__ == "__main__":
                               print(selection)
                               input()
                               get_messages_and_save_xcls(client, target_user, user_id, firstname, target_user, userid, userinfo, selection)
+                              #get_messages_and_save_xcls(client, target_group, user_id, user_name, group_title, userid, userinfo, selection)
                               print('Сообщения пользователя выгружены в excel, мой командир')
                               client.disconnect()
                               time.sleep(3)
@@ -326,6 +327,16 @@ if __name__ == "__main__":
                           if 0 <= g_index < i:
                               target_group = groups[int(g_index)]
                               group_title = target_group.title
+                              print(client)
+                              print(target_group)
+                              print(user_id)
+                              print(user_name)
+                              print(group_title)
+                              print(userid)
+                              print(userinfo)
+                              print(selection)
+
+                              input()
                               os.system('cls||clear')
                               print('Может потребоваться значительное количество времени, заварите кофе...')
                               get_messages_and_save_xcls(client, target_group, user_id, user_name, group_title, userid, userinfo, selection)
