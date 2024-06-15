@@ -32,22 +32,23 @@ from telethon.tl.types import InputMessagesFilterEmpty
 def get_private_messages(client, target_user):
     html_output = "<html><head><title>Переписка</title><style>blockquote { background-color: #f2f2f2; } em { font-style: italic; }</style></head><body>"
     try:
-            for message in client.iter_messages(target_user):
-                html_output += f"<p><strong>Дата и время:</strong> {message.date}</p>"
-                if message.reply_to:
-                    # Если есть ответ на сообщение, цитируем его
-                    original_message = client.get_messages(target_user, ids=message.reply_to.msg_id)
-                    html_output += f"<blockquote><em>{escape(original_message.text)}</em></blockquote>"
-                html_output += f"<p><strong>Сообщение:</strong> {escape(message.text)}</p>"
-                html_output += "<hr>"
-        except Exception as e:
-            html_output += f"<p>Ошибка при получении переписки: {e}</p>"
+        for message in client.iter_messages(target_user):
+            html_output += f"<p><strong>Дата и время:</strong> {message.date}</p>"
+            if message.reply_to:
+                # Если есть ответ на сообщение, цитируем его
+                original_message = client.get_messages(target_user, ids=message.reply_to.msg_id)
+                html_output += f"<blockquote><em>{escape(original_message.text)}</em></blockquote>"
+            html_output += f"<p><strong>Сообщение:</strong> {escape(message.text)}</p>"
+            html_output += "<hr>"
+    except Exception as e:
+        html_output += f"<p>Ошибка при получении переписки: {e}</p>"
     html_output += "</body></html>"
     
     filename = f"{target_user}_private_messages.html"
     with open(filename, "w", encoding="utf-8") as file:
         file.write(html_output)
     print(f"HTML-файл сохранен как '{filename}'")
+
 
 # Получение информации о пользователе
 def get_bot_from_search(client, phone, selection):
