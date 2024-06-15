@@ -31,7 +31,7 @@ from datetime import datetime
 from pytz import timezone
 from html import escape
 
-def get_private_messages(client, target_user, userinfo):
+def get_private_messages(client, target_user, userid_client, firstname_client, lastname_client, username_client, userinfo):
     minsk_timezone = timezone('Europe/Minsk')
     user = client.get_entity(target_user)
     username = f'@{user.username}' if user.username else ""
@@ -39,15 +39,15 @@ def get_private_messages(client, target_user, userinfo):
     last_name = user.last_name if user.last_name else ''
     user_id = user.id
    
-    header = f"<h1>Переписка с: {user_id}, {username}, {first_name}, {last_name} #Выгрузка личных сообщений</h1>"
+    header = f"<h1>Переписка {userinfo} с: {user_id}, {username}, {first_name}, {last_name}</h1>"
     
     html_output = f"<html><head><title>Переписка</title><style>blockquote {{ background-color: #f2f2f2; }} em {{ font-style: italic; }} .message {{ padding: 10px; border-bottom: 1px solid #ccc; }} .sender {{ background-color: #DCF8C6; }} .recipient {{ background-color: #FFFFFF; }}</style></head><body>{header}"
     try:
         for message in client.iter_messages(target_user):
             message_time = message.date.astimezone(minsk_timezone).strftime('%Y-%m-%d %H:%M:%S')
 
-            sender_info = "recipient" if message.sender_id == user_id else f"{first_name} {last_name}"
-            message_class = "ВЫ" if message.sender_id == user_id else "sender"
+            sender_info = f"{username} {first_name} {last_name}" 
+            message_class = userinfo
 
             html_output += f"<div class='message {message_class}'><p><strong>{sender_info}</strong></p>"
             html_output += f"<p><strong>Дата и время:</strong> {message_time}</p>"
