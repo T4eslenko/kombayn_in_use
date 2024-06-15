@@ -96,6 +96,84 @@ if __name__ == "__main__":
            input("\033[93mНажмите Enter для продолжения...\033[0m")             
            client.disconnect()
 
+        elif selection == '40':
+           os.system('cls||clear')
+            last_date = None    
+            size_chats = 200
+            exit_flag = False
+            while not exit_flag:
+              os.system('cls||clear')
+              sessions = []
+              header = '''
+   -----------------------------
+   =ВЫГРУЗКА ЛИЧНЫХ СООБЩЕНИЙ=
+   -----------------------------
+              '''
+              result = choice_akk(api_id, api_hash, header)
+              if result is None:
+                  break
+              os.system('cls||clear')
+              client, phone, session_index = result
+              print('-----------------------------') 
+              userid, userinfo, firstname, lastname, username, photos_user_html = get_user_info(client, phone, selection) # Получение информации о пользователe
+              print()
+              user_dialogs = get_user_dialogs(client)
+              print()
+              
+              input("\033[93mНажмите Enter для продолжения...\033[0m")
+              while True:
+                   os.system('cls||clear')
+                   i = 0
+                   print('-----------------------------')
+                   print('=ВЫГРУЗКА ЛИЧНЫХ СООБЩЕНИЙ=')
+                   print(f"\033[96mНомер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}\033[0m")
+                   print('-----------------------------')
+                   groups, i, all_info, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_openchannel, owner_closechannel, owner_opengroup, owner_closegroup = make_list_of_channels(delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats, selection, client)[:12]
+                   print_pages(all_info, 40)
+                   print('-----------------------------')
+                   print()
+                   g_index_str = str(input("\033[92mВыберите чат для получения списка его участников ('e' - назад): \033[0m"))
+                   if g_index_str.lower() == 'e':
+                      client.disconnect()
+                      exit_flag = True
+                      break
+                   else:
+                      try:
+                          g_index = int(g_index_str)
+                          if 0 <= g_index < i:
+                              target_group = groups[int(g_index)]
+                              group_title = target_group.title
+                              os.system('cls||clear')
+                              print('Может потребоваться значительное количество времени, заварите кофе...')
+                              get_messages_and_save_xcls(client, target_group, user_id, user_name, group_title, userid, userinfo, selection)
+                              group_id = target_group.id
+                              if group_id in admin_id:
+                                 get_participants_and_save_xlsx(client, target_group, user_id, user_name, group_title, group_id, userid, userinfo)
+                                 os.system('cls||clear')
+                                 print('Сообщения чата и его участники выгружены в excel, мой командир')
+                              else:
+                                 os.system('cls||clear')
+                                 print('Сообщения чата выгружены в excel, мой командир')
+                              client.disconnect()
+                              time.sleep(3)
+                              exit_flag = True
+                              break
+                          else:
+                              print("Пожалуйста, выберите группу из списка")
+                              time.sleep(2)
+                              all_info = []
+                              os.system('cls||clear')
+                      except Exception as e:
+                          print(f"An error occurred: {e}")
+                          input('нажмите любую клавишу') 
+                          all_info = []
+                          os.system('cls||clear')
+
+
+
+
+           
+           
        # 5 Выгрузить инфу об аккаунте
         elif selection == '5':
            os.system('cls||clear')
