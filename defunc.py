@@ -29,15 +29,23 @@ from telethon.tl.functions.messages import SearchRequest as MessageSearchRequest
 from telethon.tl.types import InputMessagesFilterEmpty
 
 
-#Выгрузка личных сообщений.
-def get_private_messages(client, target_user):
-    html_output = "<html><head><title>Переписка</title><style>blockquote { background-color: #f2f2f2; } em { font-style: italic; }</style></head><body>"
+def get_private_messages(client, target_user, userinfo):
+    # Получаем информацию о пользователе
+    user_id = userinfo.id
+    username = userinfo.username
+    first_name = userinfo.first_name
+    last_name = userinfo.last_name
+    
+    # Создаем заголовок
+    header = f"<h1>Переписка с: {user_id}, {username}, {first_name}, {last_name} #Выгрузка личных сообщений</h1>"
+    
+    html_output = f"<html><head><title>Переписка</title><style>blockquote {{ background-color: #f2f2f2; }} em {{ font-style: italic; }}</style></head><body>{header}"
     try:
         for message in client.iter_messages(target_user):
             html_output += f"<p><strong>Дата и время:</strong> {message.date}</p>"
-            if message.reply_to:
+            if message.reply_to_msg_id:
                 # Если есть ответ на сообщение, цитируем его
-                original_message = client.get_messages(target_user, ids=message.reply_to.msg_id)
+                original_message = client.get_messages(target_user, ids=message.reply_to_msg_id)
                 html_output += f"<blockquote><em>{escape(original_message.text)}</em></blockquote>"
             html_output += f"<p><strong>Сообщение:</strong> {escape(message.text)}</p>"
             html_output += "<hr>"
@@ -49,6 +57,7 @@ def get_private_messages(client, target_user):
     with open(filename, "w", encoding="utf-8") as file:
         file.write(html_output)
     print(f"HTML-файл сохранен как '{filename}'")
+
 
 
 # Получение информации о пользователе
