@@ -235,6 +235,7 @@ def get_participants_and_save_xlsx(client, index: int, id: bool, name: bool, gro
 def get_user_dialogs(client):
     user_dialogs = []
     dialogs = client.get_dialogs()
+    i = 0
     
     for dialog in dialogs:
         if isinstance(dialog.entity, User) and not dialog.entity.bot:
@@ -242,11 +243,15 @@ def get_user_dialogs(client):
             count_messages = messages.total
             
             user = dialog.entity
-            user_info = f'User ID: {user.id}, Username: {user.username}, Name: {user.first_name} {user.last_name} / [{count_messages}]'
+            username = user.username if user.username else ''
+            first_name = user.first_name if user.first_name else ''
+            last_name = user.last_name if user.last_name else ''
+            
+            user_info = f'{i} ID: {user.id}, Username: \033[36m@{user.username}\033[0m, Имя: {user.first_name} Фамилия: {user.last_name} / \033[33m[{count_messages}]\033[0m'
             user_dialogs.append(user_info)
-            print(user_info)
+            i += 1
     
-    return user_dialogs
+    return user_dialogs, i
 
 # Группируем каналы и чаты на открытые и закрытые, действующие боты        
 def get_type_of_chats(client, selection):
