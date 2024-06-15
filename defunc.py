@@ -31,7 +31,7 @@ from telethon.tl.types import InputMessagesFilterEmpty
 
 def get_private_messages(client, target_user, userinfo):
     # Получаем информацию о пользователе
-    dialog = client.get_dialogs(target_user)
+    dialog = client.get_entity(target_user)
     user = dialog.entity
     username = f'@{user.username}' if user.username else ""
     first_name = user.first_name if user.first_name else ''
