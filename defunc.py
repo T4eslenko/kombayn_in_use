@@ -7,6 +7,7 @@ from telethon.tl.functions.contacts import GetContactsRequest, GetBlockedRequest
 from telethon.tl.functions.messages import GetDialogsRequest, ImportChatInviteRequest
 from telethon.tl.types import InputChannel, InputPhoneContact, User, Chat, Channel, Message, MessageFwdHeader, MessageMediaDocument, PeerChannel, DocumentAttributeFilename
 from telethon.sync import TelegramClient, types
+from telethon.errors import SessionPasswordNeededError, PhoneCodeInvalidError, PasswordHashInvalidError
 from openpyxl import Workbook
 from openpyxl.utils import get_column_letter
 from datetime import datetime
