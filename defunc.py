@@ -247,7 +247,6 @@ def get_user_dialogs(client):
             first_name = user.first_name if user.first_name else ''
             last_name = user.last_name if user.last_name else ''
             
-            user_info = 
             user_dialogs.append(
                 f'{i}) ID: {user.id}, Имя: {first_name} {last_name} \033[36m@{username}\033[0m, 
                 / \033[33m[{count_messages}]\033[0m'
