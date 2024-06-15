@@ -252,6 +252,7 @@ def get_type_of_chats(client, selection):
     image_data_url = ''
 
     for chat in chats:   
+        
         #Получаем данные о ботах
         if isinstance(chat.entity, User) and chat.entity.bot: 
             if selection == '0':
@@ -276,13 +277,19 @@ def get_type_of_chats(client, selection):
             user_bots.append(f"\033[93m'{chat.entity.first_name}'\033[0m, \033[36m@{chat.entity.username}033[0m")
            
         # Работаем с групповыми чатами
-        if isinstance(chat.entity, Channel) or isinstance(chat.entity, Chat):  
+        if (isinstance(chat.entity, Channel) or isinstance(chat.entity, Chat)) or (isinstance(chat.entity, User) and not chat.entity.bot):  
             # выгружаем количество сообщений при выборе опции выгрузить сообщение
             if selection == '7' or selection == '75': 
                 messages = client.get_messages(chat.entity, limit=0)
                 count_messages = messages.total
                 chat_message_counts[chat.entity.id] = count_messages
 
+            # ОпределЕм сообщения пользователй
+            if isinstance(chat.entity, User) and not chat.entity.bot:
+                user = chat.entity
+                print(f'User ID: {user.id}, Username: {user.username}, Name: {user.first_name} {user.last_name}')
+        
+        
             # Определяем открытый канал
             if isinstance(chat.entity, Channel) and hasattr(chat.entity, 'broadcast') and chat.entity.participants_count is not None:
                 if chat.entity.broadcast and chat.entity.username:
