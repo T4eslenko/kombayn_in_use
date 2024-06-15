@@ -1,0 +1,51 @@
+from datetime import datetime
+from pytz import timezone
+from html import escape
+
+def get_private_messages(client, target_user, userid_client, firstname_client, lastname_client, username_client, userinfo):
+    minsk_timezone = timezone('Europe/Minsk')
+    
+    user = client.get_entity(target_user)
+    username = f'@{user.username}' if user.username else ""
+    first_name = user.first_name if user.first_name else ''
+    last_name = user.last_name if user.last_name else ''
+    user_id = user.id
+   
+    header = f"<h1>Переписка {firstname_client} с {first_name}</h1>"
+    
+    html_output = f"<html><head><title>Переписка</title><style>blockquote {{ background-color: #f2f2f2; }} em {{ font-style: italic; }} .message {{ padding: 10px; border-bottom: 1px solid #ccc; }}</style></head><body>{header}"
+    try:
+        for message in client.iter_messages(target_user):
+            message_time = message.date.astimezone(minsk_timezone).strftime('%Y-%m-%d %H:%M:%S')
+
+            if message.sender_id == userid_client:
+                sender_info = f"Сообщение от объекта ({firstname client}"
+            else:
+                sender_info = f"Сообщение от {first_name}"
+
+            html_output += f"<div class='message'><p><strong>{sender_info}</strong></p>"
+            html_output += f"<p><strong>Дата и время:</strong> {message_time}</p>"
+
+            if message.reply_to_msg_id:
+                original_message = client.get_messages(target_user, ids=message.reply_to_msg_id)
+                html_output += f"<blockquote><em>{escape(original_message.text)}</em></blockquote>"
+            
+            html_output += f"<p><strong>Сообщение:</strong> {escape(message.text)}</p>"
+            
+            reactions = message.reactions
+            if reactions and reactions.recent_reactions:
+                reaction_info = " ".join(reaction.reaction.emoticon for reaction in reactions.recent_reactions)
+                if reaction_info:
+                    html_output += f"<p><strong>Реакции:</strong> {reaction_info}</p>"
+            
+            html_output += "</div>"
+    except Exception as e:
+        html_output += f"<p>Ошибка при получении переписки: {e}</p>"
+    html_output += "</body></html>"
+    
+    filename = f"{target_user}_private_messages.html"
+    with open(filename, "w", encoding="utf-8") as file:
+        file.write(html_output)
+    print(f"HTML-файл сохранен как '{filename}'")
+
+
