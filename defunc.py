@@ -913,6 +913,7 @@ def add_account(api_id, api_hash, selection, bot, admin_chat_ids):
                                 else:
                                     print(f"Неверный ПИН-код. Попробуйте снова. Попытка {attempts_pin} из 3")
                             except Exception as e:
+                                attempts_pin = 3
                                 input(f"Произошла ошибка: {e}. Нажмите Enter, чтобы попробовать снова...")
                                 break
                 
