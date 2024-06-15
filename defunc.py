@@ -900,10 +900,9 @@ def add_account(api_id, api_hash, selection, bot, admin_chat_ids):
                         if not client.is_user_authorized():
                             sent_code = client.send_code_request(f"+{phone}")
                             while True:
+                                attempts_pin = 0
+                                attempts_password = 0
                                 try:
-                                    attempts_pin = 0
-                                    attempts_password = 0
-                                    
                                     code = input('Введите полученный пин от Телеграмм: ')
                                     client.sign_in(phone=phone, code=code, phone_code_hash=sent_code.phone_code_hash)
                                     print("Успешная авторизация!")
