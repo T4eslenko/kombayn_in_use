@@ -139,18 +139,7 @@ if __name__ == "__main__":
                           g_index = int(g_index_str)
                           if 0 <= g_index < i:
                               target_user = users_list[int(g_index)]
-                              input(target_user)
-                              input(users_list)
-                              user_id = target_user.id
-                              recieved_id = target_group.id
-
-                              #target_user = user_dialogs[int(g_index)]
-                              #user_id_match = re.search(r'ID: (\d+)', target_user)
-                              #if user_id_match:
-                              #   recieved_id = int(user_id_match.group(1))
-                              #else:
-                              #   print("Не удалось извлечь ID пользователя из строки.")
-                              print(recieved_id)
+                              
                               print('Сообщения чата выгружены в excel, мой командир')
                               client.disconnect()
                               time.sleep(3)
