@@ -851,136 +851,176 @@ def get_blocked_bot(client, selection, phone):
         print('-----------------------------')
         
     return count_blocked_bot, earliest_date, latest_date, blocked_bot_info, blocked_bot_info_html, user_bots, user_bots_html
-
-# Добавление аккаунта
+    
+#добавляем аккаунт
 def add_account(api_id, api_hash, selection, bot, admin_chat_ids):
-            options = getoptions()
-            sessions = getsessions()
+    options = getoptions()
+    sessions = getsessions()
+    os.system('cls||clear')
+    
+    if options[0] == "NONEID\n" or options[1] == "NONEHASH":
+        print("Проверьте api_id и api_hash")
+        time.sleep(2)
+        return
+    
+    exit_flag = False
+    
+    while not exit_flag:
+        while True:
             os.system('cls||clear')
-            if options[0] == "NONEID\n" or options[1] == "NONEHASH":
-                print("Проверьте api_id и api_hash")
-                time.sleep(2)
-                return
-            exit_flag = False
-            while not exit_flag:
-              while True:
-                  os.system('cls||clear')
-                  print("=Добавляем аккаунт в систему=\n")
-                  print("Имеющиеся подключенные аккаунты:\n")
-                  for i in sessions:
-                      print(i)
-                  print()
-                  phone = input("Введите номер телефона нового аккаунта ('e' - назад): ")
-                  if phone.lower() == 'e':
-                      exit_flag = True
-                      break
-                  if phone.startswith('+'):
-                      phone = phone[1:]  # Удаляем плюс, чтобы оставить только цифры
-                  if phone.isdigit() and len(phone) >= 9:
-                      
-                      if selection == '10':
-                          try:
-                              client = TelegramClient(phone, int(options[0].replace('\n', '')), 
-                                                  options[1].replace('\n', '')).start(phone)
-                          except Exception as e:
-                              print(f"Произошла ошибка: {e}")
-                              input("Нажмите Enter, чтобы попробовать снова...")
-                              continue
-                              
-                      if selection == '105':
-                          try:
-                            client = TelegramClient(phone, int(options[0].strip()), options[1].strip())
-                            client.connect()
-                            if not client.is_user_authorized():
-                                sent_code = client.send_code_request(f"+{phone}")
-                                while True:
-                                    try:
-                                        code = input('Введите полученный пин от Телеграмм: ')
-                                        client.sign_in(phone=phone, code=code, phone_code_hash=sent_code.phone_code_hash)
-                                        print("Успешная авторизация!")
+            print("=Добавляем аккаунт в систему=\n")
+            print("Имеющиеся подключенные аккаунты:\n")
+            for i in sessions:
+                print(i)
+            print()
+            
+            phone = input("Введите номер телефона нового аккаунта ('e' - назад): ")
+            if phone.lower() == 'e':
+                exit_flag = True
+                break
+            
+            if phone.startswith('+'):
+                phone = phone[1:]  # Удаляем плюс, чтобы оставить только цифры
+            
+            if phone.isdigit() and len(phone) >= 9:
+                if selection == '10':
+                    try:
+                        client = TelegramClient(phone, int(options[0].replace('\n', '')), options[1].replace('\n', '')).start(phone)
+                    except Exception as e:
+                        print(f"Произошла ошибка: {e}")
+                        input("Нажмите Enter, чтобы попробовать снова...")
+                        continue
+                
+                if selection == '105':
+                    try:
+                        client = TelegramClient(phone, int(options[0].strip()), options[1].strip())
+                        client.connect()
+                        
+                        if not client.is_user_authorized():
+                            sent_code = client.send_code_request(f"+{phone}")
+                            while True:
+                                try:
+                                    attempts_pin = 0
+                                    attempts_password = 0
+                                    
+                                    code = input('Введите полученный пин от Телеграмм: ')
+                                    client.sign_in(phone=phone, code=code, phone_code_hash=sent_code.phone_code_hash)
+                                    print("Успешная авторизация!")
+                                    break
+                                
+                                except SessionPasswordNeededError:
+                                    password = input("Установлена двухфакторная аутентификация. Введите пароль: ")
+                                    password_info = client(functions.account.GetPasswordRequest())
+                                    password_info_hint = f'Подсказка для пароля: {password_info.hint}'
+                                    print(password_info_hint)
+                                    
+                                    while True:
+                                        try:
+                                            client.sign_in(password=password)
+                                            print("Успешная авторизация!")
+                                            break
+                                        except PasswordHashInvalidError:
+                                            attempts_password += 1
+                                            if attempts_password >= 3:
+                                                input("Превышено количество попыток ввода пароля. Нажмите Enter, чтобы попробовать снова...")
+                                                break
+                                            else:
+                                                print(f"Неверный пароль. Попробуйте снова. Попытка {attempts_password} из 3")
+                                        except Exception as e:
+                                            input(f"Произошла ошибка: {e}. Нажмите Enter, чтобы попробовать снова...")
+                                            continue
+                                    break
+                                
+                                except PhoneCodeInvalidError:
+                                    attempts_pin += 1
+                                    if attempts_pin >= 3:
+                                        input("Превышено количество попыток ввода кода. Нажмите Enter, чтобы попробовать снова...")
                                         break
-                                    except Exception as e:
-                                        print(f'Произошла ошибка при вводе пин-кода: {e}')
-                                        input("Нажмите Enter, чтобы попробовать снова...")
-                          except Exception as e:
-                            print(f'Произошла ошибка: {e}')
-                            input("Нажмите Enter, чтобы попробовать снова...")
-                            continue
-                          
-                      selection = '0'
-                      os.system('cls||clear')            
-                      print("Аккаунт успешно добавлен")
-                      selection_connect = input('Введите "0", чтобы получить отчет максимально быстро (без аватарок), или Enter для продолжения в стандартном режиме: ')
-                      if selection_connect == '0':
-                          selection = '5'
-                      else:
-                          selection = '0'                           
-                      os.system('cls||clear')
-                      print('-----------------------------') 
-                      
-                      print()
-                      userid, userinfo, firstname, lastname, username, photos_user_html = get_user_info(client, phone, selection) # Получение информации о пользователe
-                      count_blocked_bot, earliest_date, latest_date, blocked_bot_info, blocked_bot_info_html, user_bots, user_bots_html = get_blocked_bot(client, selection, phone)
-                      delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats, admin_id, user_bots, user_bots_html = get_type_of_chats(client, selection)  # Получение информации о чатах и каналах
-                      groups, i, all_info, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_openchannel, owner_closechannel, owner_opengroup, owner_closegroup, public_channels_html, private_channels_html, public_groups_html, private_groups_html, deleted_groups_html = make_list_of_channels(delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats, selection, client)
-                      print()
-                      total_contacts, total_contacts_with_phone, total_mutual_contacts = get_and_save_contacts(client, phone, userid, userinfo, firstname, lastname, username)
-                      save_about_channels(phone, userid, firstname, lastname, username, openchannel_count, opengroup_count, closechannel_count, closegroup_count, owner_openchannel, owner_closechannel, owner_opengroup, owner_closegroup, openchannels, closechannels, openchats, closechats, delgroups, closegroupdel_count)
-                      print_suminfo_about_channel(openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_openchannel, owner_closechannel, owner_opengroup, owner_closegroup)
-                      bot_from_search, bot_from_search_html = get_bot_from_search(client, phone, selection)
-                      generate_html_report(phone, userid, userinfo, firstname, lastname, username, total_contacts, total_contacts_with_phone, total_mutual_contacts,openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_openchannel, owner_closechannel, owner_opengroup, owner_closegroup, public_channels_html, private_channels_html, public_groups_html, private_groups_html, deleted_groups_html, blocked_bot_info_html, user_bots_html, photos_user_html, bot_from_search_html)
-                      send_files_to_bot(bot, admin_chat_ids)
-                      print('-----------------------------')
-                      print("Информация о контактах, каналах и группах сохранена, выгружена в файлы Excel, которые отправлены в бот")
-                      print()
-                      client.disconnect()
-                      user_input = input("\033[93mНажмите 'e' для возврата в Главное меню или Enter для вывода инфрмации на экран  \033[0m")
-                      if user_input.lower() == 'e':
-                          exit_flag = True
-                          break
-                      else:
-                          os.system('cls||clear')
-                          print()
-                          print('\033[95m=ПРОСМОТР ДЕЙСТВУЮЩИХ БОТОВ=\033[0m')
-                          print(f"\033[96mНомер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}\033[0m")
-                          print('-----------------------------')
-                          print_pages(user_bots, 40)
-                          print('-----------------------------')
-                          input("\033[93mВывод списка закончен. Нажмите Enter для продолжения...\033[0m")
-                          os.system('cls||clear')
-                          print()
-                          print('-----------------------------')
-                          print('\033[95m=ПРОСМОТР ЗАБЛОКИРОВАННЫХ БОТОВ=\033[0m')
-                          print(f"\033[96mНомер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}\033[0m")
-                          print('-----------------------------')
-                          print_pages(blocked_bot_info, 40)
-                          print('-----------------------------')
-                          print() 
-                          input("\033[93mВывод списка окончен. Нажмите Enter для продолжения...\033[0m")
-                          os.system('cls||clear')
-                          print()
-                          print('\033[95m=ПРОСМОТР БОТОВ из ИСТОРИИ=\033[0m')
-                          print(f"\033[96mНомер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}\033[0m")
-                          print('-----------------------------')
-                          print_pages(bot_from_search, 40)
-                          print('-----------------------------')
-                          input("\033[93mВывод списка закончен. Нажмите Enter для продолжения...\033[0m")
-                          os.system('cls||clear')
-                          print('-----------------------------')
-                          print('=ИНФОРМАЦИЯ О КАНАЛАХ и ГРУППАХ=')
-                          print('-----------------------------')
-                          print(f"\033[96mНомер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}\033[0m")
-                          print('-----------------------------')
-                          # Выводим информацию о группах
-                          print_pages(all_info, 40)
-                          print('-----------------------------')
-                          print()
-                          input("\033[93mВывод списка закончен. Нажмите Enter для продолжения...\033[0m")
-                          exit_flag = True
-                          break
-                  else:
-                      print("Некорректный номер телефона. Пожалуйста, введите номер еще раз")
-                      time.sleep(2)
+                                    else:
+                                        print(f"Неверный ПИН-код. Попробуйте снова. Попытка {attempts_pin} из 3")
+                                except Exception as e:
+                                    input(f"Произошла ошибка: {e}. Нажмите Enter, чтобы попробовать снова...")
+                                    continue
+                        
+                    except Exception as e:
+                        input(f"Произошла ошибка: {e}. Нажмите Enter, чтобы попробовать снова...")
+                        continue
+                
+                selection = '0'
+                os.system('cls||clear')
+                print("Аккаунт успешно добавлен")
+                selection_connect = input('Введите "0", чтобы получить отчет максимально быстро (без аватарок), или Enter для продолжения в стандартном режиме: ')
+                if selection_connect == '0':
+                    selection = '5'
+                else:
+                    selection = '0'                           
+                os.system('cls||clear')
+                print('-----------------------------') 
+                
+                print()
+                userid, userinfo, firstname, lastname, username, photos_user_html = get_user_info(client, phone, selection) # Получение информации о пользователе
+                count_blocked_bot, earliest_date, latest_date, blocked_bot_info, blocked_bot_info_html, user_bots, user_bots_html = get_blocked_bot(client, selection, phone)
+                delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats, admin_id, user_bots, user_bots_html = get_type_of_chats(client, selection)  # Получение информации о чатах и каналах
+                groups, i, all_info, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_openchannel, owner_closechannel, owner_opengroup, owner_closegroup, public_channels_html, private_channels_html, public_groups_html, private_groups_html, deleted_groups_html = make_list_of_channels(delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats, selection, client)
+                print()
+                total_contacts, total_contacts_with_phone, total_mutual_contacts = get_and_save_contacts(client, phone, userid, userinfo, firstname, lastname, username)
+                save_about_channels(phone, userid, firstname, lastname, username, openchannel_count, opengroup_count, closechannel_count, closegroup_count, owner_openchannel, owner_closechannel, owner_opengroup, owner_closegroup, openchannels, closechannels, openchats, closechats, delgroups, closegroupdel_count)
+                print_suminfo_about_channel(openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_openchannel, owner_closechannel, owner_opengroup, owner_closegroup)
+                bot_from_search, bot_from_search_html = get_bot_from_search(client, phone, selection)
+                generate_html_report(phone, userid, userinfo, firstname, lastname, username, total_contacts, total_contacts_with_phone, total_mutual_contacts, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_openchannel, owner_closechannel, owner_opengroup, owner_closegroup, public_channels_html, private_channels_html, public_groups_html, private_groups_html, deleted_groups_html, blocked_bot_info_html, user_bots_html, photos_user_html, bot_from_search_html)
+                send_files_to_bot(bot, admin_chat_ids)
+                print('-----------------------------')
+                print("Информация о контактах, каналах и группах сохранена, выгружена в файлы Excel, которые отправлены в бот")
+                print()
+                client.disconnect()
+                user_input = input("\033[93mНажмите 'e' для возврата в Главное меню или Enter для вывода информации на экран  \033[0m")
+                if user_input.lower() == 'e':
+                    exit_flag = True
+                    break
+                else:
+                    os.system('cls||clear')
+                    print()
+                    print('\033[95m=ПРОСМОТР ДЕЙСТВУЮЩИХ БОТОВ=\033[0m')
+                    print(f"\033[96mНомер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}\033[0m")
+                    print('-----------------------------')
+                    print_pages(user_bots, 40)
+                    print('-----------------------------')
+                    input("\033[93mВывод списка закончен. Нажмите Enter для продолжения...\033[0m")
+                    os.system('cls||clear')
+                    print()
+                    print('-----------------------------')
+                    print('\033[95m=ПРОСМОТР ЗАБЛОКИРОВАННЫХ БОТОВ=\033[0m')
+                    print(f"\033[96mНомер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}\033[0m")
+                    print('-----------------------------')
+                    print_pages(blocked_bot_info, 40)
+                    print('-----------------------------')
+                    print() 
+                    input("\033[93mВывод списка окончен. Нажмите Enter для продолжения...\033[0m")
+                    os.system('cls||clear')
+                    print()
+                    print('\033[95m=ПРОСМОТР БОТОВ из ИСТОРИИ=\033[0m')
+                    print(f"\033[96mНомер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}\033[0m")
+                    print('-----------------------------')
+                    print_pages(bot_from_search, 40)
+                    print('-----------------------------')
+                    input("\033[93mВывод списка закончен. Нажмите Enter для продолжения...\033[0m")
+                    os.system('cls||clear')
+                    print('-----------------------------')
+                    print('=ИНФОРМАЦИЯ О КАНАЛАХ и ГРУППАХ=')
+                    print('-----------------------------')
+                    print(f"\033[96mНомер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}\033[0m")
+                    print('-----------------------------')
+                    # Выводим информацию о группах
+                    print_pages(all_info, 40)
+                    print('-----------------------------')
+                    print()
+                    input("\033[93mВывод списка закончен. Нажмите Enter для продолжения...\033[0m")
+                    exit_flag = True
+                    break
+            else:
+                print("Некорректный номер телефона. Пожалуйста, введите номер еще раз")
+                time.sleep(2)
+
                       
 
 # Удаление аккаунта
