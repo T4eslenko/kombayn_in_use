@@ -31,11 +31,13 @@ from telethon.tl.types import InputMessagesFilterEmpty
 
 def get_private_messages(client, target_user, userinfo):
     # Получаем информацию о пользователе
-    user_id = userinfo.id
-    username = userinfo.username
-    first_name = userinfo.first_name
-    last_name = userinfo.last_name
-    
+    dialogs = client.get_dialogs(target_user)
+    user = dialog.entity
+    username = f'@{user.username} if user.username else ''
+    first_name = user.first_name if user.first_name else ''
+    last_name = user.last_name if user.last_name else ''
+    user_id = user.id
+   
     # Создаем заголовок
     header = f"<h1>Переписка с: {user_id}, {username}, {first_name}, {last_name} #Выгрузка личных сообщений</h1>"
     
@@ -277,12 +279,12 @@ def get_user_dialogs(client):
             count_messages = messages.total
             
             user = dialog.entity
-            username = user.username if user.username else ''
+            username = f'@{user.username} if user.username else ''
             first_name = user.first_name if user.first_name else ''
             last_name = user.last_name if user.last_name else ''
             
             user_dialogs.append(
-                f'{i}) ID: {user.id}, Имя: {first_name} {last_name} \033[36m@{username}\033[0m, ' 
+                f'{i}) ID: {user.id}, Имя: {first_name} {last_name} \033[36m{username}\033[0m ' 
                 f'/ \033[33m[{count_messages}]\033[0m'
             )
 
