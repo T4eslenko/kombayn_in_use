@@ -235,7 +235,7 @@ def get_participants_and_save_xlsx(client, index: int, id: bool, name: bool, gro
 def get_user_dialogs(client):
     user_dialogs = []
     dialogs = client.get_dialogs()
-    i = 1
+    i = 0
     
     for dialog in dialogs:
         if isinstance(dialog.entity, User) and not dialog.entity.bot:
