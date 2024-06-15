@@ -33,7 +33,7 @@ def get_private_messages(client, target_user, userinfo):
     # Получаем информацию о пользователе
     dialogs = client.get_dialogs(target_user)
     user = dialog.entity
-    username = f'@{user.username} if user.username else ""
+    username = f'@{user.username}' if user.username else ""
     first_name = user.first_name if user.first_name else ''
     last_name = user.last_name if user.last_name else ''
     user_id = user.id
