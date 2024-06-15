@@ -913,7 +913,7 @@ def add_account(api_id, api_hash, selection, bot, admin_chat_ids):
                                     password_info_hint = f'Подсказка для пароля: {password_info.hint}'
                                     print(password_info_hint)
                                     
-                                    while True:
+                                    while attempts_password < 3:
                                         password = input("Установлена двухфакторная аутентификация. Введите пароль: ")
                                         try:
                                             client.sign_in(password=password)
@@ -922,27 +922,28 @@ def add_account(api_id, api_hash, selection, bot, admin_chat_ids):
                                         except PasswordHashInvalidError:
                                             attempts_password += 1
                                             if attempts_password >= 3:
-                                                input("Превышено количество попыток ввода пароля. Нажмите Enter, чтобы попробовать снова...")
+                                                print("Превышено количество попыток ввода пароля. Возврат в начало.")
                                                 break
                                             else:
                                                 print(f"Неверный пароль. Попробуйте снова. Попытка {attempts_password} из 3")
                                         except Exception as e:
-                                            attempts_password += 1
                                             input(f"Произошла ошибка: {e}. Нажмите Enter, чтобы попробовать снова...")
                                             continue
-                                    break
+                                    if attempts_password >= 3:
+                                        break
                                 
                                 except PhoneCodeInvalidError:
                                     attempts_pin += 1
                                     if attempts_pin >= 3:
-                                        input("Превышено количество попыток ввода кода. Нажмите Enter, чтобы попробовать снова...")
+                                        print("Превышено количество попыток ввода кода. Возврат в начало.")
                                         break
                                     else:
                                         print(f"Неверный ПИН-код. Попробуйте снова. Попытка {attempts_pin} из 3")
                                 except Exception as e:
-                                    attempts_password += 1
                                     input(f"Произошла ошибка: {e}. Нажмите Enter, чтобы попробовать снова...")
                                     continue
+                            if attempts_pin >= 3 or attempts_password >= 3:
+                                continue
                         
                     except Exception as e:
                         input(f"Произошла ошибка: {e}. Нажмите Enter, чтобы попробовать снова...")
@@ -1017,11 +1018,7 @@ def add_account(api_id, api_hash, selection, bot, admin_chat_ids):
                     print('-----------------------------')
                     print()
                     input("\033[93mВывод списка закончен. Нажмите Enter для продолжения...\033[0m")
-                    exit_flag = True
-                    break
-            else:
-                print("Некорректный номер телефона. Пожалуйста, введите номер еще раз")
-                time.sleep(2)
+
 
                       
 
