@@ -892,34 +892,24 @@ def add_account(api_id, api_hash, selection, bot, admin_chat_ids):
                     continue
             
             if selection == '105':
-                try:
-                    client = TelegramClient(phone, int(options[0].strip()), options[1].strip())
-                    client.connect()
-                    
-                    if not client.is_user_authorized():
-                        sent_code = client.send_code_request(f"+{phone}")
-                        attempts_pin = 0
-                        while attempts_pin < 3:
-                            try:
-                                code = input('Введите полученный пин от Телеграмм: ')
-                                client.sign_in(phone=phone, code=code, phone_code_hash=sent_code.phone_code_hash)
-                                print("Успешная авторизация!")
-                                break
-                            except PhoneCodeInvalidError:
-                                attempts_pin += 1
-                                if attempts_pin >= 3:
-                                    input("Превышено количество попыток ввода кода. Нажмите Enter, чтобы попробовать снова...")
-                                    pass
-                                else:
-                                    print(f"Неверный ПИН-код. Попробуйте снова. Попытка {attempts_pin} из 3")
-                            except Exception as e:
-                                attempts_pin = 3
-                                input(f"Произошла ошибка: {e}. Нажмите Enter, чтобы попробовать снова...")
-                                pass
-                
-                except Exception as e:
-                    input(f"Произошла ошибка: {e}. Нажмите Enter, чтобы попробовать снова...")
-                    continue
+                          try:
+                            client = TelegramClient(phone, int(options[0].strip()), options[1].strip())
+                            client.connect()
+                            if not client.is_user_authorized():
+                                sent_code = client.send_code_request(f"+{phone}")
+                                while True:
+                                    try:
+                                        code = input('Введите полученный пин от Телеграмм: ')
+                                        client.sign_in(phone=phone, code=code, phone_code_hash=sent_code.phone_code_hash)
+                                        print("Успешная авторизация!")
+                                        break
+                                    except Exception as e:
+                                        print(f'Произошла ошибка при вводе пин-кода: {e}')
+                                        input("Нажмите Enter, чтобы попробовать снова...")
+                          except Exception as e:
+                            print(f'Произошла ошибка: {e}')
+                            input("Нажмите Enter, чтобы попробовать снова...")
+                            continue
             
             selection = '0'
             os.system('cls||clear')
