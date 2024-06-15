@@ -910,12 +910,12 @@ def add_account(api_id, api_hash, selection, bot, admin_chat_ids):
                                     break
                                 
                                 except SessionPasswordNeededError:
-                                    password = input("Установлена двухфакторная аутентификация. Введите пароль: ")
                                     password_info = client(functions.account.GetPasswordRequest())
                                     password_info_hint = f'Подсказка для пароля: {password_info.hint}'
                                     print(password_info_hint)
                                     
                                     while True:
+                                        password = input("Установлена двухфакторная аутентификация. Введите пароль: ")
                                         try:
                                             client.sign_in(password=password)
                                             print("Успешная авторизация!")
