@@ -864,6 +864,7 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
     
     # Удаляем недопустимые символы из имени файла
     def sanitize_filename(filename):
+        group_title = str(group_title)
         return re.sub(r'[\\/*?:"<>|]', '', filename)
     
     clean_group_title = sanitize_filename(group_title)
