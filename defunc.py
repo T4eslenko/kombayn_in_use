@@ -28,6 +28,8 @@ from telethon.tl.types import InputMessagesFilterEmpty
 from datetime import datetime
 from pytz import timezone
 from html import escape
+from jinja2 import Environment, FileSystemLoader
+
 
 def get_private_messages(client, target_user, userid_client, firstname_client, lastname_client, username_client, userinfo):
     minsk_timezone = timezone('Europe/Minsk')
