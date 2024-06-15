@@ -97,7 +97,8 @@ if __name__ == "__main__":
            print()
            input("\033[93mНажмите Enter для продолжения...\033[0m")             
            client.disconnect()
-
+           
+# Выгрузка личных сообщений
         elif selection == '40':
             os.system('cls||clear')
             last_date = None    
@@ -139,27 +140,23 @@ if __name__ == "__main__":
                           g_index = int(g_index_str)
                           if 0 <= g_index < i:
                               target_user = users_list[int(g_index)]
-                              
-                              print('Сообщения чата выгружены в excel, мой командир')
+                              get_messages_and_save_xcls(client, target_user, user_id, user_name, firstname, userid, userinfo, selection)
+                              print('Сообщения пользователя выгружены в excel, мой командир')
                               client.disconnect()
                               time.sleep(3)
                               exit_flag = True
                               break
                           else:
-                              print("Пожалуйста, выберите группу из списка")
+                              print("Пожалуйста, выберите пользователя из списка")
                               time.sleep(2)
                               all_info = []
                               os.system('cls||clear')
                       except ValueError:
-                           print("Пожалуйста, выберите группу из списка")
+                           print("Пожалуйста, выберите пользователя из списка")
                            time.sleep(2)
                            all_info = []
                            os.system('cls||clear')
 
-
-
-
-           
            
        # 5 Выгрузить инфу об аккаунте
         elif selection == '5':
@@ -294,7 +291,7 @@ if __name__ == "__main__":
               userid, userinfo, firstname, lastname, username, photos_user_html = get_user_info(client, phone, selection) # Получение информации о пользователe
               print()
               delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats, admin_id, user_bots, user_bots_html = get_type_of_chats(client, selection)  # Получение информации о чатах и каналах
-              groups, i, all_info, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_openchannel, owner_closechannel, owner_opengroup, owner_closegroup = make_list_of_channels(delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats, selection, client)[:12]
+              groups, i, all_info, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_openchannel, owner_closechannel, owner_opengroup, owner_closegroup, public_channels_html, private_channels_html, public_groups_html, private_groups_html, deleted_groups_html = make_list_of_channels(delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats, selection, client)
               print()
               print_suminfo_about_channel(openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_openchannel, owner_closechannel, owner_opengroup, owner_closegroup)
               input("\033[93mНажмите Enter для продолжения...\033[0m")
