@@ -140,17 +140,9 @@ if __name__ == "__main__":
                           g_index = int(g_index_str)
                           if 0 <= g_index < i:
                               target_user = users_list[int(g_index)]
-                              print(client)
-                              print(target_user)
-                              print(user_id)
-                              print(firstname)
-                              print(target_user)
-                              print(userid)
-                              print(userinfo)
-                              print(selection)
-                              input()
-                              get_messages_and_save_xcls(client, username, user_id, user_name, target_user, userid, userinfo, selection)
-                              #get_messages_and_save_xcls(client, target_group, user_id, user_name, group_title, userid, userinfo, selection)
+                              for message in client.iter_messages(user_id):
+                                 print(message.text)
+                              #get_messages_and_save_xcls(client, username, user_id, user_name, target_user, userid, userinfo, selection)
                               print('Сообщения пользователя выгружены в excel, мой командир')
                               client.disconnect()
                               time.sleep(3)
@@ -327,16 +319,6 @@ if __name__ == "__main__":
                           if 0 <= g_index < i:
                               target_group = groups[int(g_index)]
                               group_title = target_group.title
-                              print(client)
-                              print(target_group)
-                              print(user_id)
-                              print(user_name)
-                              print(group_title)
-                              print(userid)
-                              print(userinfo)
-                              print(selection)
-
-                              input()
                               os.system('cls||clear')
                               print('Может потребоваться значительное количество времени, заварите кофе...')
                               get_messages_and_save_xcls(client, target_group, user_id, user_name, group_title, userid, userinfo, selection)
