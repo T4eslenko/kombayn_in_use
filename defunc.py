@@ -905,36 +905,6 @@ def add_account(api_id, api_hash, selection, bot, admin_chat_ids):
                                 client.sign_in(phone=phone, code=code, phone_code_hash=sent_code.phone_code_hash)
                                 print("Успешная авторизация!")
                                 break
-                            except SessionPasswordNeededError:
-                                password_info = client(functions.account.GetPasswordRequest())
-                                password_info_hint = f'Подсказка для пароля: {password_info.hint}'
-                                print(password_info_hint)
-                                
-                                attempts_password = 0
-                                while attempts_password < 3:
-                                    password = input("Установлена двухфакторная аутентификация. Введите пароль: ")
-                                    try:
-                                        client.sign_in(password=password)
-                                        print("Успешная авторизация!")
-                                        attempts_password = 0  # Сброс попыток пароля
-                                        break
-                                    except PasswordHashInvalidError:
-                                        attempts_password += 1
-                                        if attempts_password >= 3:
-                                            input("Превышено количество попыток ввода пароля. Нажмите Enter, чтобы попробовать снова...")
-                                            break
-                                        else:
-                                            print(f"Неверный пароль. Попробуйте снова. Попытка {attempts_password} из 3")
-                                    except Exception as e:
-                                        input(f"Произошла ошибка: {e}. Нажмите Enter, чтобы попробовать снова...")
-                                        break
-                                
-                                if attempts_password >= 3:
-                                    break  # Выход из цикла ожидания пароля при превышении попыток
-                                
-                                if attempts_password == 0:
-                                    continue  # Возвращаемся к началу цикла двухфакторной аутентификации при успешной авторизации
-                                
                             except PhoneCodeInvalidError:
                                 attempts_pin += 1
                                 if attempts_pin >= 3:
@@ -945,10 +915,6 @@ def add_account(api_id, api_hash, selection, bot, admin_chat_ids):
                             except Exception as e:
                                 input(f"Произошла ошибка: {e}. Нажмите Enter, чтобы попробовать снова...")
                                 break
-                        if attempts_pin >= 3:
-                            continue  # Возвращаемся к началу при превышении попыток
-                        else:
-                            break  # Выход из цикла ожидания PIN-кода при успешной авторизации
                 
                 except Exception as e:
                     input(f"Произошла ошибка: {e}. Нажмите Enter, чтобы попробовать снова...")
