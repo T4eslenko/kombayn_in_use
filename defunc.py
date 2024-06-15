@@ -25,7 +25,6 @@ from telethon import functions, types
 from telethon.tl.functions.contacts import SearchRequest
 from telethon.tl.functions.messages import SearchRequest as MessageSearchRequest
 from telethon.tl.types import InputMessagesFilterEmpty
-
 from datetime import datetime
 from pytz import timezone
 from html import escape
@@ -39,46 +38,57 @@ def get_private_messages(client, target_user, userid_client, firstname_client, l
     last_name = user.last_name if user.last_name else ''
     user_id = user.id
    
-    header = f"<h1>Переписка {firstname_client} с {first_name}</h1>"
-    
-    html_output = f"<html><head><title>Переписка</title><style>blockquote {{ background-color: #f2f2f2; }} em {{ font-style: italic; }} .message {{ padding: 10px; border-bottom: 1px solid #ccc; }}</style></head><body>{header}"
+    messages = []
     try:
         for message in client.iter_messages(target_user):
             message_time = message.date.astimezone(minsk_timezone).strftime('%Y-%m-%d %H:%M:%S')
 
             if message.sender_id == userid_client:
-                sender_info = f"Сообщение от объекта ({firstname client}"
+                sender_info = f"Сообщение от вас ({username_client} {firstname_client} {lastname_client})"
             else:
-                sender_info = f"Сообщение от {first_name}"
+                sender_info = f"Сообщение от {username} {first_name} {last_name}"
 
-            html_output += f"<div class='message'><p><strong>{sender_info}</strong></p>"
-            html_output += f"<p><strong>Дата и время:</strong> {message_time}</p>"
-
+            reply_text = None
             if message.reply_to_msg_id:
                 original_message = client.get_messages(target_user, ids=message.reply_to_msg_id)
-                html_output += f"<blockquote><em>{escape(original_message.text)}</em></blockquote>"
-            
-            html_output += f"<p><strong>Сообщение:</strong> {escape(message.text)}</p>"
-            
+                reply_text = escape(original_message.text)
+
+            reaction_info = ""
             reactions = message.reactions
             if reactions and reactions.recent_reactions:
                 reaction_info = " ".join(reaction.reaction.emoticon for reaction in reactions.recent_reactions)
-                if reaction_info:
-                    html_output += f"<p><strong>Реакции:</strong> {reaction_info}</p>"
-            
-            html_output += "</div>"
+
+            messages.append({
+                'time': message_time,
+                'sender_info': sender_info,
+                'reply_text': reply_text,
+                'text': escape(message.text),
+                'reactions': reaction_info,
+                'sender_id': message.sender_id
+            })
     except Exception as e:
-        html_output += f"<p>Ошибка при получении переписки: {e}</p>"
-    html_output += "</body></html>"
+        messages.append({
+            'time': '',
+            'sender_info': 'Ошибка',
+            'reply_text': None,
+            'text': f"Ошибка при получении переписки: {e}",
+            'reactions': '',
+            'sender_id': None
+        })
+
+    env = Environment(loader=FileSystemLoader('.'))
+    template = env.get_template('template_user_messages.html')
+    html_output = template.render(
+        firstname_client=firstname_client,
+        first_name=first_name,
+        messages=messages,
+        userid_client=userid_client
+    )
     
     filename = f"{target_user}_private_messages.html"
     with open(filename, "w", encoding="utf-8") as file:
         file.write(html_output)
-    print(f"HTML-файл сохранен как '{filename}'")
-
-
-
-
+    
 # Получение информации о пользователе
 def get_bot_from_search(client, phone, selection):
     bot_from_search = []
