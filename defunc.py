@@ -829,10 +829,10 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
         # Если сообщение является ответом на другое сообщение
         if isinstance(message.reply_to_msg_id, int):
             reply_msg_id = message.reply_to_msg_id
-            if selection == '7':
-                reply_sender_id, reply_username, reply_first_name, reply_last_name, reply_date, reply_text, reply_media_type, fwd_source_id, fwd_date, reply_reactions = get_message_info(client.get_messages(group_title, ids=[reply_msg_id])[0])  
-            if selection == '75':
-                reply_messages = takeout.get_messages(group_title, ids=[reply_msg_id]) #Добавил
+            #if selection == '7':
+            reply_sender_id, reply_username, reply_first_name, reply_last_name, reply_date, reply_text, reply_media_type, fwd_source_id, fwd_date, reply_reactions = get_message_info(client.get_messages(group_title, ids=[reply_msg_id])[0])  
+            #if selection == '75':
+                #reply_messages = takeout.get_messages(group_title, ids=[reply_msg_id]) #Добавил
                 # рабочая была reply_messages = client.get_messages(group_title, ids=[reply_msg_id])
                 if reply_messages: #Добавил
                     reply_message = reply_messages[0] #Добавил
