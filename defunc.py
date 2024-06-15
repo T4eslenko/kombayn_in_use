@@ -834,9 +834,9 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
             #if selection == '75':
                 #reply_messages = takeout.get_messages(group_title, ids=[reply_msg_id]) #Добавил
                 # рабочая была reply_messages = client.get_messages(group_title, ids=[reply_msg_id])
-            if reply_messages: #Добавил
-                    reply_message = reply_messages[0] #Добавил
-                    reply_sender_id, reply_username, reply_first_name, reply_last_name, reply_date, reply_text, reply_media_type, reply_fwd_source_id, reply_fwd_date, reply_reaction_info = get_message_info(reply_message) #Добавил
+                #if reply_messages: #Добавил
+                    #reply_message = reply_messages[0] #Добавил
+                    #reply_sender_id, reply_username, reply_first_name, reply_last_name, reply_date, reply_text, reply_media_type, reply_fwd_source_id, reply_fwd_date, reply_reaction_info = get_message_info(reply_message) #Добавил
             if reply_date is None:
                 continue
             row_data.extend([
