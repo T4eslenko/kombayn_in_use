@@ -41,7 +41,7 @@ def get_private_messages(client, target_user, userinfo):
    
     header = f"<h1>Переписка с: {user_id}, {username}, {first_name}, {last_name} #Выгрузка личных сообщений</h1>"
     
-    html_output = f"<html><head><title>Переписка</title><style>blockquote {{ background-color: #f2f2f2; }} em {{ font-style: italic; }} .sender {{ background-color: #DCF8C6; }} .recipient {{ background-color: #FFFFFF; }}</style></head><body>{header}"
+    html_output = f"<html><head><title>Переписка</title><style>blockquote {{ background-color: #f2f2f2; }} em {{ font-style: italic; }} .recipient {{ background-color: #DCF8C6; }} .sender {{ background-color: #FFFFFF; }}</style></head><body>{header}"
     try:
         for message in client.iter_messages(target_user):
             message_time = message.date.astimezone(minsk_timezone).strftime('%Y-%m-%d %H:%M:%S')
@@ -52,7 +52,7 @@ def get_private_messages(client, target_user, userinfo):
                 html_output += f"<blockquote><em>{escape(original_message.text)}</em></blockquote>"
             
             # Определяем класс сообщения в зависимости от отправителя
-            message_class = "sender" if message.sender_id == user_id else "recipient"
+            message_class = "recipient" if message.sender_id == user_id else "sender"
             html_output += f"<p class='{message_class}'><strong>Сообщение:</strong> {escape(message.text)}</p>"
             
             # Получаем информацию о реакциях на сообщение
