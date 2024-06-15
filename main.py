@@ -99,7 +99,7 @@ if __name__ == "__main__":
            client.disconnect()
 
         elif selection == '40':
-           os.system('cls||clear')
+            os.system('cls||clear')
             last_date = None    
             size_chats = 200
             exit_flag = False
