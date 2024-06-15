@@ -27,6 +27,13 @@ from telethon.tl.functions.messages import SearchRequest as MessageSearchRequest
 from telethon.tl.types import InputMessagesFilterEmpty
 
 
+from datetime import datetime
+from pytz import timezone
+from html import escape
+import base64
+from io import BytesIO
+from PIL import Image
+
 def compress_image(image_bytes, quality=30):
     # Открываем изображение из байтового потока
     img = Image.open(BytesIO(image_bytes))
@@ -91,6 +98,7 @@ def get_private_messages(client, target_user, userinfo):
     with open(filename, "w", encoding="utf-8") as file:
         file.write(html_output)
     print(f"HTML-файл сохранен как '{filename}'")
+
 
 
 
