@@ -149,7 +149,7 @@ if __name__ == "__main__":
                               print(userinfo)
                               print(selection)
                               input()
-                              get_messages_and_save_xcls(client, target_user, user_id, user_name, target_user, userid, userinfo, selection)
+                              get_messages_and_save_xcls(client, username, user_id, user_name, target_user, userid, userinfo, selection)
                               #get_messages_and_save_xcls(client, target_group, user_id, user_name, group_title, userid, userinfo, selection)
                               print('Сообщения пользователя выгружены в excel, мой командир')
                               client.disconnect()
