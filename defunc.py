@@ -30,17 +30,6 @@ from telethon.tl.types import InputMessagesFilterEmpty
 from datetime import datetime
 from pytz import timezone
 from html import escape
-import base64
-from io import BytesIO
-from PIL import Image
-
-def compress_image(image_bytes, quality=70):
-    img = Image.open(BytesIO(image_bytes))
-    img = img.convert('RGB')
-    img_io = BytesIO()
-    img.save(img_io, 'JPEG', quality=quality)
-    compressed_image_bytes = img_io.getvalue()
-    return compressed_image_bytes
 
 def get_private_messages(client, target_user, userinfo):
     minsk_timezone = timezone('Europe/Minsk')
@@ -52,7 +41,7 @@ def get_private_messages(client, target_user, userinfo):
    
     header = f"<h1>Переписка с: {user_id}, {username}, {first_name}, {last_name} #Выгрузка личных сообщений</h1>"
     
-    html_output = f"<html><head><title>Переписка</title><style>blockquote {{ background-color: #f2f2f2; }} em {{ font-style: italic; }}</style></head><body>{header}"
+    html_output = f"<html><head><title>Переписка</title><style>blockquote {{ background-color: #f2f2f2; }} em {{ font-style: italic; }} .sender {{ background-color: #DCF8C6; }} .recipient {{ background-color: #FFFFFF; }}</style></head><body>{header}"
     try:
         for message in client.iter_messages(target_user):
             message_time = message.date.astimezone(minsk_timezone).strftime('%Y-%m-%d %H:%M:%S')
@@ -61,30 +50,11 @@ def get_private_messages(client, target_user, userinfo):
             if message.reply_to_msg_id:
                 original_message = client.get_messages(target_user, ids=message.reply_to_msg_id)
                 html_output += f"<blockquote><em>{escape(original_message.text)}</em></blockquote>"
-            html_output += f"<p><strong>Сообщение:</strong> {escape(message.text)}</p>"
             
-            # Получаем информацию о реакциях на сообщение
-            reaction_info = ""
-            reactions = message.reactions
-            if reactions and reactions.recent_reactions:
-                for reaction in reactions.recent_reactions:
-                    try:
-                        user_id = reaction.peer_id.user_id
-                        reaction_emoji = reaction.reaction.emoticon
-                        reaction_info += f"Пользователь с ID {user_id} оставил реакцию {reaction_emoji}\n"
-                    except Exception:
-                        pass
-            if reaction_info:
-                html_output += f"<p><strong>Реакции:</strong><br>{reaction_info}</p>"
+            # Определяем класс сообщения в зависимости от отправителя
+            message_class = "sender" if message.sender_id == user_id else "recipient"
+            html_output += f"<p class='{message_class}'><strong>Сообщение:</strong> {escape(message.text)}</p>"
             
-            if message.media:
-                if hasattr(message.media, 'photo'):
-                    photo_bytes = client.download_media(message.media)
-                    if photo_bytes:
-                        compressed_image_bytes = compress_image(photo_bytes)
-                        encoded_image = base64.b64encode(compressed_image_bytes).decode('utf-8')
-                        image_data_url = f"data:image/jpeg;base64,{encoded_image}"
-                        html_output += f"<img src='{image_data_url}' alt='Изображение'>"
             html_output += "<hr>"
     except Exception as e:
         html_output += f"<p>Ошибка при получении переписки: {e}</p>"
@@ -94,8 +64,6 @@ def get_private_messages(client, target_user, userinfo):
     with open(filename, "w", encoding="utf-8") as file:
         file.write(html_output)
     print(f"HTML-файл сохранен как '{filename}'")
-
-
 
 
 
