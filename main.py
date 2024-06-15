@@ -121,11 +121,11 @@ if __name__ == "__main__":
               while True:
                    os.system('cls||clear')
                    i = 0
-                   #print('-----------------------------')
-                   #print('=ВЫГРУЗКА ЛИЧНЫХ СООБЩЕНИЙ=')
-                   #print(f"\033[96mНомер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}\033[0m")
-                   #print('-----------------------------')
-                   user_dialogs, i, user = get_user_dialogs(client)
+                   print('-----------------------------')
+                   print('=ВЫГРУЗКА ЛИЧНЫХ СООБЩЕНИЙ=')
+                   print(f"\033[96mНомер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}\033[0m")
+                   print('-----------------------------')
+                   user_dialogs, i, users_list = get_user_dialogs(client)
                    print_pages(user_dialogs, 40)
                    print('-----------------------------')
                    print()
@@ -138,8 +138,9 @@ if __name__ == "__main__":
                       try:
                           g_index = int(g_index_str)
                           if 0 <= g_index < i:
-                              target_user = user[int(g_index)]
-                              input(user)
+                              target_user = users_list[int(g_index)]
+                              input(target_user)
+                              input(users_list)
                               user_id = target_user.id
                               recieved_id = target_group.id
 
