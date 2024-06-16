@@ -31,6 +31,12 @@ from html import escape
 from jinja2 import Environment, FileSystemLoader
 
 
+from telethon import TelegramClient, types
+from datetime import datetime
+from pytz import timezone
+from html import escape
+from jinja2 import Environment, FileSystemLoader
+
 def get_private_messages(client, target_user):
     minsk_timezone = timezone('Europe/Minsk')
 
@@ -68,12 +74,46 @@ def get_private_messages(client, target_user):
             if reactions and reactions.recent_reactions:
                 reaction_info = " ".join(reaction.reaction.emoticon for reaction in reactions.recent_reactions)
 
+            media_type = None
+            if message.media is not None:
+                if isinstance(message.media, types.MessageMediaPhoto):
+                    media_type = 'Photo'
+                elif isinstance(message.media, types.MessageMediaDocument):
+                    for attribute in message.media.document.attributes:
+                        if isinstance(attribute, types.DocumentAttributeFilename):
+                            document_name = attribute.file_name
+                            media_type = f"Document: {document_name}"
+                            break
+                    if media_type is None:
+                        media_type = 'Document (Photo, video, etc)'
+                elif isinstance(message.media, types.MessageMediaWebPage):
+                    media_type = 'WebPage'
+                elif isinstance(message.media, types.MessageMediaContact):
+                    media_type = 'Contact'
+                elif isinstance(message.media, types.MessageMediaGeo):
+                    media_type = 'Geo'
+                elif isinstance(message.media, types.MessageMediaVenue):
+                    media_type = 'Venue'
+                elif isinstance(message.media, types.MessageMediaGame):
+                    media_type = 'Game'
+                elif isinstance(message.media, types.MessageMediaInvoice):
+                    media_type = 'Invoice'
+                elif isinstance(message.media, types.MessageMediaPoll):
+                    media_type = 'Poll'
+                elif isinstance(message.media, types.MessageMediaDice):
+                    media_type = 'Dice'
+                elif isinstance(message.media, types.MessageMediaPhotoExternal):
+                    media_type = 'PhotoExternal'
+                else:
+                    media_type = 'Unknown'
+
             messages.append({
                 'time': message_time,
                 'sender_info': sender_info,
                 'reply_text': reply_text,
                 'text': escape(message.text),
                 'reactions': reaction_info,
+                'media_type': media_type,
                 'sender_id': message.sender_id
             })
     except Exception as e:
@@ -83,6 +123,7 @@ def get_private_messages(client, target_user):
             'reply_text': None,
             'text': f"Ошибка при получении переписки: {e}",
             'reactions': '',
+            'media_type': '',
             'sender_id': None
         })
 
@@ -98,6 +139,7 @@ def get_private_messages(client, target_user):
     filename = f"{target_user}_private_messages.html"
     with open(filename, "w", encoding="utf-8") as file:
         file.write(html_output)
+
     print(f"HTML-файл сохранен как '{filename}'")
 
 
