@@ -96,6 +96,7 @@ def get_private_messages(client, target_user, selection):
 
                             #image = image.resize((image.width // 2, image.height // 2))
                             output = BytesIO()
+                            #quality = input('Введите процент сохранения качества, рекомендуется около 90)
                             image.save(output, format='JPEG', quality=90)
                             encoded_image = base64.b64encode(output.getvalue()).decode('utf-8')
                             image_data_url = f"data:image/jpeg;base64,{encoded_image}"
