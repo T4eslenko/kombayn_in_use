@@ -74,7 +74,11 @@ def get_private_messages(client, target_user, selection):
             is_forward = False
             if message.forward:
                 is_forward = True
-                forward_text = escape(message.forward.text) if message.forward.text else None
+                forward_chat = client.get_entity(message.forward.chat_id)
+                if forward_chat:
+                    forward_message = client.get_messages(forward_chat, ids=message.forward.id)
+                    if forward_message:
+                        forward_text = escape(forward_message.text) if forward_message.text else None
 
 
             reply_text = None
