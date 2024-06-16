@@ -394,7 +394,7 @@ if __name__ == "__main__":
             for admin_chat_id in admin_chat_ids:
                 send_files_to_bot(bot, admin_chat_ids)
                 print()
-                print('Сделано, мой командир. Нажмите Enter для продолжения... ')
+                input('Сделано, мой командир. Нажмите Enter для продолжения... ')
 
         elif selection == '10':
            add_account(api_id, api_hash, selection, bot, admin_chat_ids)
