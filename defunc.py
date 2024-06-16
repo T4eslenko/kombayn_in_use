@@ -31,11 +31,8 @@ from html import escape
 from jinja2 import Environment, FileSystemLoader
 
 
-from telethon import TelegramClient, types
-from datetime import datetime
-from pytz import timezone
-from html import escape
-from jinja2 import Environment, FileSystemLoader
+import base64
+from io import BytesIO
 
 def get_private_messages(client, target_user):
     minsk_timezone = timezone('Europe/Minsk')
@@ -77,7 +74,12 @@ def get_private_messages(client, target_user):
             media_type = None
             if message.media is not None:
                 if isinstance(message.media, types.MessageMediaPhoto):
-                    media_type = 'Photo'
+                    # Загрузка фото в формате base64
+                    photo_bytes = client.download_media(message.media.photo, file=BytesIO())
+                    if photo_bytes:
+                        encoded_image = base64.b64encode(photo_bytes.getvalue()).decode('utf-8')
+                        image_data_url = f"data:image/jpeg;base64,{encoded_image}"
+                        media_type = f'<img src="{image_data_url}" alt="Photo">'
                 elif isinstance(message.media, types.MessageMediaDocument):
                     for attribute in message.media.document.attributes:
                         if isinstance(attribute, types.DocumentAttributeFilename):
@@ -141,6 +143,7 @@ def get_private_messages(client, target_user):
         file.write(html_output)
 
     print(f"HTML-файл сохранен как '{filename}'")
+
 
 
     
