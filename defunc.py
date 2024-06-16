@@ -167,8 +167,8 @@ def get_private_messages(client, target_user, selection):
         messages=messages,
         userid_client=userid_client,
         user_id=user_id,
-        first_message_date=first_message_date.astimezone(minsk_timezone).strftime('%Y-%m-%d %H:%M:%S'),
-        last_message_date=last_message_date.astimezone(minsk_timezone).strftime('%Y-%m-%d %H:%M:%S'),
+        first_message_date=first_message_date.astimezone(minsk_timezone).strftime('%d.%m.%Y'),
+        last_message_date=last_message_date.astimezone(minsk_timezone).strftime('%d.%m.%Y'),
         messages_count=messages_count
     )
     
