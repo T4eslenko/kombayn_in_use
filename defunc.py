@@ -88,6 +88,7 @@ def get_private_messages(client, target_user, selection):
                     forward_sender = " ".join(forward_sender_parts)
 
                 except Exception as e:
+                    input(e) 
                     forward_sender = 'не известный'
                 
         
