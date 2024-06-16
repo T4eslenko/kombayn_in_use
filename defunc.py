@@ -192,6 +192,7 @@ def get_private_messages(client, target_user, selection):
             'media_type': '',
             'sender_id': None
         })
+    input(forward_sender) 
 
     env = Environment(loader=FileSystemLoader('.'))
     template = env.get_template('template_user_messages.html')
