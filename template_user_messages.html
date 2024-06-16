@@ -81,9 +81,8 @@
             {% endif %}
             {% if message.is_forward %}
                 <div class="forward">
-                    <em><p style="color: purple;"> {{ message.forward_text }} </p></em>
-                    <br>
-                    <em>{{ message.forward_sender }} </em>
+                    <em>Пользователь: {{ message.forward_sender }} написал:</em>
+                    <p> style="color: black;"> {{ message.forward_text }} </p></em>
                 </div>
             {% else %}
                 <p><strong>Сообщение:</strong> {{ message.text }}</p>
