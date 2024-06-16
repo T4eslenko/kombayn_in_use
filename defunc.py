@@ -90,6 +90,8 @@ def get_private_messages(client, target_user, selection):
                             #media_type = f'<img src="{image_data_url}" alt="Photo">'
                         else:
                             media_type = 'Photo'
+                    else:
+                            media_type = 'Photo'
                 elif isinstance(message.media, types.MessageMediaDocument):
                     for attribute in message.media.document.attributes:
                         if isinstance(attribute, types.DocumentAttributeFilename):
