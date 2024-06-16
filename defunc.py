@@ -967,7 +967,7 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
         
         if message.sender_id == userid:
                 sender_info = f"{first_name} (объект):"
-            else:
+        else:
                 sender_info = f"{first_name}:"
                 
         # Обновляем переменные для дат первого и последнего сообщения
