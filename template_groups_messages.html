@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Переписка в группе</title>
+    <style>
+        .header {
+            text-align: center;
+            background: #404040;
+            color: white;
+            font-weight: bold;
+            border-radius: 1px;
+            padding: 5px;
+            font-size: 1.2em;
+        }
+        .message {
+            width: 100%;
+            margin-bottom: 5px;
+            padding: 5px;
+            border: 1px solid #404040;
+            border-radius: 1px;
+            background: #f9f9f9;
+        }
+        .message-header {
+            font-weight: bold;
+            margin-bottom: 2px;
+        }
+        .message-body {
+            margin-left: 5px;
+        }
+        .sender {
+            background: #EBFFF5;
+        }
+        .reply {
+            font-size: 90%;
+            background: LightGray;
+            color: #057875;
+            padding: 5px;
+            border-left: 2px solid #32a1ce;
+            margin-bottom: 2px;
+        }
+        body {
+            color: #101010;
+            line-height: 1.0;
+            font-size: 0.9em;
+        }
+        h1 {
+            font-weight: normal;
+            font-size: 1.5rem;
+            line-height: 1.0;
+        }
+        h2 {
+            font-weight: normal;
+            font-weight: italic;
+            font-size: 1.2rem;
+            line-height: 1.0;
+        }
+        p {
+            margin: 2px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Переписка в группе <b>{{ group_title }}</b></h1>
+    <h2>Информация о переписке за период с {{ first_message_date }} по {{ last_message_date }}. Всего {{ messages_count }} сообщений</h2>
+    {% for message in messages %}
+    <div class="message {% if message.sender_id == userid_client %}sender{% endif %}">
+        <div class="message-header">{{ message.time }} - {{ message.sender_info }}</div>
+        <div class="message-body">
+            {% if message.reply_text %}
+            <div class="reply"><em>{{ message.reply_text }}</em></div>
+            {% endif %}
+            {% if message.text %}
+            <p><strong>Сообщение:</strong> {{ message.text }}</p>
+            {% endif %}
+            {% if message.media_type %}
+            <p><strong>Медиа:</strong> {{ message.media_type }}</p>
+            {% endif %}
+            {% if message.reactions %}
+            <p><strong>Реакции:</strong> {{ message.reactions }}</p>
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+</body>
+</html>
