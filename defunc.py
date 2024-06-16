@@ -83,9 +83,9 @@ def get_private_messages(client, target_user, selection):
                     forward_first_name = forward_user.first_name if hasattr(forward_user, 'first_name') else ' '
                     forward_last_name = forward_user.last_name if hasattr(forward_user, 'last_name') else ' '
                     forward_username = forward_user.username if hasattr(forward_user, 'username') else ' '
-                    forward_sender = f"{forward_username} {forward_first_name} {forward_last_name} {forward_id}"
-                    #forward_sender_parts = [part for part in [forward_username, forward_first_name, forward_last_name, forward_id] if (isinstance(part, str) and part.strip() != "") or isinstance(part, int)]
-                    #forward_sender = " ".join(map(str, forward_sender_parts))
+                    #forward_sender = f"{forward_username} {forward_first_name} {forward_last_name} {forward_id}"
+                    forward_sender_parts = [part for part in [f"@{forward_username}" if forward_username else '', forward_first_name, forward_last_name, f"id: {forward_id}" if forward_id else ''] if (isinstance(part, str) and part.strip() != "") or isinstance(part, int)]
+                    forward_sender = " ".join(map(str, forward_sender_parts))
 
                     
                 except Exception as e:
