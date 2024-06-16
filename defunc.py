@@ -949,6 +949,10 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
     
     # Генерация HTML данных на основе шаблона
     html_data = ""
+    first_message_date = None
+    last_message_date = None
+    messages_count = 0
+    
 
     for message in all_messages:
         
@@ -974,6 +978,12 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
             media_type
         ]
         participants_from_messages.add(sender_id)
+
+        # Обновляем переменные для дат первого и последнего сообщения
+        if first_message_date is None or date < first_message_date:
+            first_message_date = date
+        if last_message_date is None or date > last_message_date:
+            last_message_date = date
 
         # Если сообщение является ответом на другое сообщение
         if isinstance(message.reply_to_msg_id, int):
@@ -1003,6 +1013,8 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
             row_data.extend([None] * 2)
         row_data.append(reaction_info)
         ws.append(row_data)
+
+        messages_count += 1
 
      # Заполнение шаблона HTML данными
         html_data += f"<div class='message {'sender' if sender_id == userid else ''}'>"
