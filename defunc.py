@@ -31,10 +31,16 @@ from html import escape
 from jinja2 import Environment, FileSystemLoader
 
 
+from telethon import TelegramClient
+from datetime import datetime
+from pytz import timezone
+from html import escape
+from jinja2 import Environment, FileSystemLoader
+
 def get_private_messages(client, target_user):
     minsk_timezone = timezone('Europe/Minsk')
 
-    #Информция об объекте
+    # Информация об объекте
     me = client.get_me()
     userid_client = me.id
     firstname_client = me.first_name
@@ -42,7 +48,7 @@ def get_private_messages(client, target_user):
     lastname_client = me.last_name if me.last_name is not None else ""
     
     user = client.get_entity(target_user)
-    #Информация о собеседнике
+    # Информация о собеседнике
     username = f'@{user.username}' if user.username else ""
     first_name = user.first_name if user.first_name else ''
     last_name = user.last_name if user.last_name else ''
@@ -98,6 +104,8 @@ def get_private_messages(client, target_user):
     filename = f"{target_user}_private_messages.html"
     with open(filename, "w", encoding="utf-8") as file:
         file.write(html_output)
+    print(f"HTML-файл сохранен как '{filename}'")
+
     
 # Получение информации о пользователе
 def get_bot_from_search(client, phone, selection):
