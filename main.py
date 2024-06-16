@@ -137,9 +137,9 @@ if __name__ == "__main__":
                           if 0 <= g_index < i:
                               target_user = users_list[int(g_index)]
                               get_private_messages(client, target_user)
+                              print()
                               input('Сообщения пользователя выгружены. Нажмите Enter для продолжения... ')
                               client.disconnect()
-                              time.sleep(3)
                               exit_flag = True
                               break
                           else:
