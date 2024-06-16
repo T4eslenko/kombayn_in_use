@@ -31,12 +31,6 @@ from html import escape
 from jinja2 import Environment, FileSystemLoader
 
 
-from telethon import TelegramClient
-from datetime import datetime
-from pytz import timezone
-from html import escape
-from jinja2 import Environment, FileSystemLoader
-
 def get_private_messages(client, target_user):
     minsk_timezone = timezone('Europe/Minsk')
 
