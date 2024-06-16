@@ -48,13 +48,18 @@
             font-weight: bold;
             font-size: 1.5rem;
         }
+        h2 {
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
         p {
             margin: 2px 0; /* Уменьшены отступы в абзацах */
         }
     </style>
 </head>
 <body>
-    <h1>Переписка {{ firstname_client }} с {{ first_name }}</h1>
+    <h1>Переписка {{ firstname_client }} ({{ userid_client }}) с {{ first_name }} ({{ user_id }})</h1>
+    <h2>за период с {{ first_message_date }} по {{ last_message_date }}. Всего {{ messages_count }} сообщений</h2>
     {% for message in messages %}
     <div class="message {% if message.sender_id == userid_client %}sender{% endif %}">
         <div class="message-header">{{ message.time }} - {{ message.sender_info }}</div>
