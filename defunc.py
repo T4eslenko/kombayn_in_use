@@ -193,7 +193,7 @@ def get_private_messages(client, target_user, selection):
             'media_type': '',
             'sender_id': None
         })
-    forward_sender_list.append(forward_sender)
+            forward_sender_list.append(forward_sender)
     input(forward_sender_list) 
 
     env = Environment(loader=FileSystemLoader('.'))
