@@ -72,10 +72,12 @@ def get_private_messages(client, target_user, selection):
 
             reply_text = None
             if message.reply_to_msg_id:
-                original_message = client.get_messages(target_user, ids=message.reply_to_msg_id)
-                if original_message and original_message[0]:
-                    original_message = original_message[0]
-                    reply_text = escape(original_message.text) if original_message.text else None
+                if message.reply_to_msg_id:
+                    original_message = client.get_messages(target_user, ids=message.reply_to_msg_id)
+                    if original_message:
+                        reply_text = escape(original_message.text) if original_message.text else None
+                    else:
+                        reply_text = None
 
             #if message.reply_to_msg_id:
             #    original_message = client.get_messages(target_user, ids=message.reply_to_msg_id)
