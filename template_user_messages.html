@@ -82,6 +82,7 @@
             {% if message.is_forward %}
                 <div class="forward">
                     <em>{{ message.forward_text }}</em>
+                    <em>{{ forward_sender }} </em>
                 </div>
             {% else %}
                 <p><strong>Сообщение:</strong> {{ message.text }}</p>
