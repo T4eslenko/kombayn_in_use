@@ -54,9 +54,9 @@ def get_private_messages(client, target_user):
             message_time = message.date.astimezone(minsk_timezone).strftime('%Y-%m-%d %H:%M:%S')
 
             if message.sender_id == userid_client:
-                sender_info = f"Сообщение от объекта ({firstname_client})"
+                sender_info = f"{firstname_client}:"
             else:
-                sender_info = f"Сообщение от {first_name}"
+                sender_info = f"{first_name}:"
 
             reply_text = None
             if message.reply_to_msg_id:
