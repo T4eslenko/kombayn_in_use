@@ -76,14 +76,18 @@ def get_private_messages(client, target_user, selection):
             if message.forward:
                 is_forward = True
                 forward_text = escape(message.text) if message.text else None
-                #forward_sender = None
+                forward_sender = None
+                try:
 
-                forward_user = client.get_entity(message.forward.sender_id)
-                forward_id = forward_user.id if hasattr(forward_user, 'id') else 'Unknown ID'
-                forward_first_name = forward_user.first_name if hasattr(forward_user, 'first_name') else ''
-                forward_last_name = forward_user.last_name if hasattr(forward_user, 'last_name') else ''
-                forward_username = forward_user.username if hasattr(forward_user, 'username') else 'No username'
-                forward_sender = f"ID: {forward_id}, Name: {forward_first_name} {forward_last_name}, Username: {forward_username}"
+                    forward_user = client.get_entity(message.forward.sender_id)
+                    forward_id = forward_user.id if hasattr(forward_user, 'id') else 'Unknown ID'
+                    forward_first_name = forward_user.first_name if hasattr(forward_user, 'first_name') else ''
+                    forward_last_name = forward_user.last_name if hasattr(forward_user, 'last_name') else ''
+                    forward_username = forward_user.username if hasattr(forward_user, 'username') else 'No username'
+                    forward_sender = f"ID: {forward_id}, Name: {forward_first_name} {forward_last_name}, Username: {forward_username}"
+                except Exception as e:
+                    forward_sender = 'Unknown sender'
+        
 
 
 
