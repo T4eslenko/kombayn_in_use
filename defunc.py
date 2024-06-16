@@ -56,6 +56,7 @@ def get_private_messages(client, target_user, selection):
     first_message_date = None
     last_message_date = None
     forward_sender = None
+    forward_sender_list = [] 
     try:
         for message in client.iter_messages(target_user):
             message_time = message.date.astimezone(minsk_timezone).strftime('%Y-%m-%d %H:%M:%S')
@@ -192,7 +193,8 @@ def get_private_messages(client, target_user, selection):
             'media_type': '',
             'sender_id': None
         })
-    input(forward_sender) 
+    forward_sender_list.append(forward_sender)
+    input(forward_sender_list) 
 
     env = Environment(loader=FileSystemLoader('.'))
     template = env.get_template('template_user_messages.html')
