@@ -163,7 +163,8 @@ def get_private_messages(client, target_user, selection):
                 'text': escape(message.text) if message.text else '',
                 'reactions': reaction_info,
                 'media_type': media_type,
-                'sender_id': message.sender_id
+                'sender_id': message.sender_id, 
+                'is_forward': is_forward,
             })
     except Exception as e:
         messages.append({
