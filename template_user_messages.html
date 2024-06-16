@@ -6,7 +6,7 @@
     <style>
         blockquote { background-color: #f2f2f2; }
         em { font-style: italic; }
-        .message { padding: 10px; border-bottom: 1px solid #ccc; line-height: 1; } /* уменьшенный межстрочный интервал */
+        .message { padding: 10px; border-bottom: 1px solid #ccc; line-height: 0,5; } /* уменьшенный межстрочный интервал */
         .sender { background-color: #DCF8C6; }
         .recipient { background-color: #FFFFFF; }
     </style>
@@ -22,7 +22,7 @@
             {% endif %}
             <p><strong>Сообщение:</strong> {{ message.text }}</p>
             {% if message.reactions %}
-                <p><strong>Реакции:</strong> {{ message.reactions }}</p>
+                <p>{{ message.reactions }}</p>
             {% endif %}
         </div>
     {% endfor %}
