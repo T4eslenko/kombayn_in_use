@@ -64,6 +64,7 @@ if __name__ == "__main__":
                             f"\033[91m11 - Удалить аккаунт из системы (отключиться от объекта)\033[0m[{len(sessions)}]\n"
                             "\n"
                             f"\033[36m40 - Выгрузка личных сообщений\033[0m\n"
+                            f"\033[36m45 - Выгрузка личных сообщений (с ФОТО)\033[0m\n"
                             "\n" 
                             f"\033[93m'e' - Выход\033[0m\n"
                             "\n"  
@@ -95,7 +96,7 @@ if __name__ == "__main__":
            client.disconnect()
            
 # Выгрузка личных сообщений
-        elif selection == '40':
+        elif selection == '40' or selection == '45':
             os.system('cls||clear')
             last_date = None    
             size_chats = 200
@@ -136,7 +137,7 @@ if __name__ == "__main__":
                           g_index = int(g_index_str)
                           if 0 <= g_index < i:
                               target_user = users_list[int(g_index)]
-                              get_private_messages(client, target_user)
+                              get_private_messages(client, target_user, selection)
                               print()
                               input('Сообщения пользователя выгружены. Нажмите Enter для продолжения... ')
                               client.disconnect()
