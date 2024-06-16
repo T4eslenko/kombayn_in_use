@@ -169,7 +169,7 @@ def get_private_messages(client, target_user, selection):
         user_id=user_id,
         first_message_date=first_message_date.astimezone(minsk_timezone).strftime('%Y-%m-%d %H:%M:%S'),
         last_message_date=last_message_date.astimezone(minsk_timezone).strftime('%Y-%m-%d %H:%M:%S'),
-        messages_count
+        messages_count=messages_count
     )
     
     filename = f"{target_user}_private_messages.html"
