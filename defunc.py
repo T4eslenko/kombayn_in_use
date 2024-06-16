@@ -74,7 +74,7 @@ def get_private_messages(client, target_user, selection):
             media_type = None
             if message.media is not None:
                 if isinstance(message.media, types.MessageMediaPhoto):
-                    if selection == '45'
+                    if selection == '45':
                         # Загрузка фото в формате base64
                         photo_bytes = client.download_media(message.media.photo, file=BytesIO())
                         if photo_bytes:
