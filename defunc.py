@@ -55,6 +55,7 @@ def get_private_messages(client, target_user, selection):
     messages_count = 0
     first_message_date = None
     last_message_date = None
+    forward_sender = None
     try:
         for message in client.iter_messages(target_user):
             message_time = message.date.astimezone(minsk_timezone).strftime('%Y-%m-%d %H:%M:%S')
@@ -75,7 +76,7 @@ def get_private_messages(client, target_user, selection):
             if message.forward:
                 is_forward = True
                 forward_text = escape(message.text) if message.text else None
-                forward_sender = None
+                #forward_sender = None
 
                 forward_user = client.get_entity(message.forward.sender_id)
                 forward_id = forward_user.id if hasattr(forward_user, 'id') else 'Unknown ID'
