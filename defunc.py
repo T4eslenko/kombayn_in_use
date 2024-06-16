@@ -938,7 +938,6 @@ def get_message_info(message):
 
 def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_title, userid, userinfo, selection):
     group_title = str(group_title)
-  #with client.takeout() as takeout: #Добавил
     wb = Workbook()
     ws = wb.active
     ws.cell(row=1, column=1, value=userinfo)
@@ -946,17 +945,8 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
     ws.append(['ID объекта', 'Group ID', 'Message ID', 'Date and Time', 'User ID', '@Username', 'First Name', 'Last Name', 'Message', 'Media', 'Reply to Message', 'Reply to User ID', '@Reply Username', 'Reply First Name', 'Reply Last Name', 'Reply Message ID', 'Reply Date and Time', 'fwd_source_id', 'fwd_date', 'Reactions'])
 
     participants_from_messages = set()
-    # рабочая all_messages = client.iter_messages(group_title) if selection == '7' else client.get_messages(group_title, limit=None)
-    #if selection == '7':
     all_messages = client.iter_messages(group_title)
-    #else:
-       #with client.takeout() as takeout:
-           # all_messages = takeout.iter_messages(group_title)
-        
-    #all_messages = client.iter_messages(group_title) if selection == '7' else takeout.iter_messages(group_title)  было
-      
-    #for message in client.iter_messages(group_title):
-    #for message in takeout.iter_messages(group_title):
+
     for message in all_messages:
         
         # Проверяем, что message является экземпляром Message
@@ -985,14 +975,7 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
         # Если сообщение является ответом на другое сообщение
         if isinstance(message.reply_to_msg_id, int):
             reply_msg_id = message.reply_to_msg_id
-            #if selection == '7':
             reply_sender_id, reply_username, reply_first_name, reply_last_name, reply_date, reply_text, reply_media_type, fwd_source_id, fwd_date, reply_reactions = get_message_info(client.get_messages(group_title, ids=[reply_msg_id])[0])  
-            #if selection == '75':
-                #reply_messages = takeout.get_messages(group_title, ids=[reply_msg_id]) #Добавил
-                # рабочая была reply_messages = client.get_messages(group_title, ids=[reply_msg_id])
-                #if reply_messages: #Добавил
-                    #reply_message = reply_messages[0] #Добавил
-                    #reply_sender_id, reply_username, reply_first_name, reply_last_name, reply_date, reply_text, reply_media_type, reply_fwd_source_id, reply_fwd_date, reply_reaction_info = get_message_info(reply_message) #Добавил
             if reply_date is None:
                 continue
             row_data.extend([
@@ -1031,6 +1014,24 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
 
     wb.save(filename)
 
+ # Генерация HTML из данных
+    html_data = "<table border='1'><tr>"
+    for row in ws.iter_rows(min_row=1, max_col=ws.max_column, max_row=2):
+        for cell in row:
+            html_data += f"<th>{cell.value}</th>"
+        html_data += "</tr><tr>"
+    for row in ws.iter_rows(min_row=3, max_col=ws.max_column, max_row=ws.max_row):
+        for cell in row:
+            html_data += f"<td>{cell.value}</td>"
+        html_data += "</tr><tr>"
+    html_data += "</table>"
+    
+    # Подставляем HTML в шаблон и сохраняем
+    with open("template_groups_messages.html", "r") as f:
+        template = f.read()
+        template_with_data = template.replace("{messages_data}", html_data)
+        with open(f"{clean_group_title}.html", "w") as output_file:
+            output_file.write(template_with_data)
 
 # Поиск заблокированных ботов
 def get_blocked_bot(client, selection, phone):
