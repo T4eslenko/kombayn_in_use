@@ -70,6 +70,13 @@ def get_private_messages(client, target_user, selection):
             else:
                 sender_info = f"{first_name}:"
 
+            forward_text = None
+            is_forward = False
+            if message.forward:
+                is_forward = True
+                forward_text = escape(message.forward.text) if message.forward.text else None
+
+
             reply_text = None
             if message.reply_to_msg_id:
                 if message.reply_to_msg_id:
@@ -152,6 +159,7 @@ def get_private_messages(client, target_user, selection):
                 'time': message_time,
                 'sender_info': sender_info,
                 'reply_text': reply_text,
+                'forward_text': forward_text, 
                 'text': escape(message.text) if message.text else '',
                 'reactions': reaction_info,
                 'media_type': media_type,
@@ -162,6 +170,7 @@ def get_private_messages(client, target_user, selection):
             'time': '',
             'sender_info': 'Ошибка',
             'reply_text': None,
+            'forward_text': None, 
             'text': f"Ошибка при получении переписки: {e}",
             'reactions': '',
             'media_type': '',
