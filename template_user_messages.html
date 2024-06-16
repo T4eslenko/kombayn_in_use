@@ -62,7 +62,9 @@
             {% if message.reply_text %}
             <div class="reply"><em>{{ message.reply_text }}</em></div>
             {% endif %}
+            {% if message.text %}
             <p><strong>Сообщение:</strong> {{ message.text }}</p>
+            {% endif %}
             {% if message.media_type %}
             <p><strong>Медиа:</strong> {{ message.media_type }}</p>
             {% endif %}
