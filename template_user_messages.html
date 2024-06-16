@@ -42,7 +42,7 @@
         .forward {
             font-size: 90%;
             background: LightBlue; /* Исправлено на LightBlue */
-            font-style: italic;
+            font-style: normal;
             color: gray;
             padding: 5px;
             border-left: 2px solid #32a1ce;
@@ -82,7 +82,7 @@
             {% if message.is_forward %}
                 <div class="forward">
                     <em>Пользователь: {{ message.forward_sender }} написал:</em>
-                    <p> style="color: black;"> {{ message.forward_text }} </p></em>
+                    <p style="color: black;"> {{ message.forward_text }} </p></em>
                 </div>
             {% else %}
                 <p><strong>Сообщение:</strong> {{ message.text }}</p>
