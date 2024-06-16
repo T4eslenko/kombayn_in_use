@@ -79,7 +79,6 @@ def get_private_messages(client, target_user, selection):
                 forward_text = escape(message.text) if message.text else None
                 forward_sender = None
                 try:
-
                     forward_user = client.get_entity(message.forward.sender_id)
                     forward_id = forward_user.id if hasattr(forward_user, 'id') else 'Unknown ID'
                     forward_first_name = forward_user.first_name if hasattr(forward_user, 'first_name') else ''
@@ -88,10 +87,8 @@ def get_private_messages(client, target_user, selection):
                     forward_sender = f"ID: {forward_id}, Name: {forward_first_name} {forward_last_name}, Username: {forward_username}"
                 except Exception as e:
                     forward_sender = 'Unknown sender'
+                forward_sender_list.append(forward_sender)
         
-
-
-
             reply_text = None
             if message.reply_to_msg_id:
                 if message.reply_to_msg_id:
@@ -100,8 +97,7 @@ def get_private_messages(client, target_user, selection):
                         reply_text = escape(original_message.text) if original_message.text else None
                     else:
                         reply_text = None
-
-            
+   
             reaction_info = ""
             reactions = message.reactions
             if reactions and reactions.recent_reactions:
@@ -162,7 +158,6 @@ def get_private_messages(client, target_user, selection):
                     media_type = 'Unknown'
             
             messages_count +=1
-            forward_sender_list.append(forward_sender)
             messages.append({
                 'time': message_time,
                 'sender_info': sender_info,
@@ -187,7 +182,8 @@ def get_private_messages(client, target_user, selection):
             'sender_id': None
         })
             
-    input(forward_sender_list) 
+    for fs in forward_sender_list:
+        print(fs)
 
     env = Environment(loader=FileSystemLoader('.'))
     template = env.get_template('template_user_messages.html')
