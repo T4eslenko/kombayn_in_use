@@ -155,7 +155,8 @@ def get_private_messages(client, target_user, selection):
         firstname_client=firstname_client,
         first_name=first_name,
         messages=messages,
-        userid_client=userid_client
+        userid_client=userid_client,
+        user_id=user_id
     )
     
     filename = f"{target_user}_private_messages.html"
