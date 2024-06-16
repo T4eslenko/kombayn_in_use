@@ -58,7 +58,7 @@ def get_private_messages(client, target_user, selection):
     forward_sender = None
     try:
         for message in client.iter_messages(target_user):
-            message_time = message.date.astimezone(minsk_timezone).strftime('%Y-%m-%d %H:%M:%S')
+            message_time = message.date.astimezone(minsk_timezone).strftime('%d.%m.%Y %H:%M:%S')
             
             if first_message_date is None or message.date < first_message_date:
                 first_message_date = message.date
