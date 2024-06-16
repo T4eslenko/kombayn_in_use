@@ -56,7 +56,6 @@ def get_private_messages(client, target_user, selection):
     first_message_date = None
     last_message_date = None
     forward_sender = None
-    forward_sender_list = [] 
     try:
         for message in client.iter_messages(target_user):
             message_time = message.date.astimezone(minsk_timezone).strftime('%Y-%m-%d %H:%M:%S')
@@ -83,11 +82,11 @@ def get_private_messages(client, target_user, selection):
                     forward_id = forward_user.id if hasattr(forward_user, 'id') else 'Unknown ID'
                     forward_first_name = forward_user.first_name if hasattr(forward_user, 'first_name') else ''
                     forward_last_name = forward_user.last_name if hasattr(forward_user, 'last_name') else ''
-                    forward_username = forward_user.username if hasattr(forward_user, 'username') else 'No username'
+                    forward_username = forward_user.username if hasattr(forward_user, 'username') else ''
                     forward_sender = f"ID: {forward_id}, Name: {forward_first_name} {forward_last_name}, Username: {forward_username}"
                 except Exception as e:
-                    forward_sender = 'Unknown sender'
-                forward_sender_list.append(forward_sender)
+                    forward_sender = 'первоисточник источник не известен'
+                
         
             reply_text = None
             if message.reply_to_msg_id:
@@ -182,8 +181,6 @@ def get_private_messages(client, target_user, selection):
             'sender_id': None
         })
             
-    for fs in forward_sender_list:
-        print(fs)
 
     env = Environment(loader=FileSystemLoader('.'))
     template = env.get_template('template_user_messages.html')
