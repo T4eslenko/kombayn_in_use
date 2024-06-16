@@ -79,11 +79,11 @@ def get_private_messages(client, target_user, selection):
                 forward_sender = None
                 try:
                     forward_user = client.get_entity(message.forward.sender_id)
-                    forward_id = f"id: {forward_user.id}" if hasattr(forward_user, 'id') else 'Unknown ID'
+                    forward_id = f"id: {forward_user.id}" if hasattr(forward_user, 'id') else ''
                     forward_first_name = forward_user.first_name if hasattr(forward_user, 'first_name') else ''
                     forward_last_name = forward_user.last_name if hasattr(forward_user, 'last_name') else ''
                     forward_username = f"@{forward_user.username}" if hasattr(forward_user, 'username') else ''
-                    forward_sender = f"Переслано от пользователя: id:{forward_username} {forward_first_name} {forward_last_name} {forward_id}"
+                    forward_sender = f"Переслано от пользователя: {forward_username} {forward_first_name} {forward_last_name} {forward_id}"
                 except Exception as e:
                     forward_sender = 'первоисточник источник не известен'
                 
@@ -110,8 +110,6 @@ def get_private_messages(client, target_user, selection):
                         photo_bytes = client.download_media(message.media.photo, file=BytesIO())
                         if photo_bytes:
                             image = Image.open(photo_bytes)
-                            
-
                             original_size = image.size
                             new_size = (original_size[0] // 2, original_size[1] // 2)
                             image = image.resize(new_size)
@@ -164,7 +162,7 @@ def get_private_messages(client, target_user, selection):
                 'media_type': media_type,
                 'sender_id': message.sender_id, 
                 'is_forward': is_forward,
-                'forward_sender': forward_sender,
+                'forward_sender': forward_sender
             })
     except Exception as e:
         messages.append({
