@@ -34,7 +34,7 @@ from jinja2 import Environment, FileSystemLoader
 import base64
 from io import BytesIO
 
-def get_private_messages(client, target_user):
+def get_private_messages(client, target_user, selection):
     minsk_timezone = timezone('Europe/Minsk')
 
     # Информация об объекте
@@ -74,12 +74,22 @@ def get_private_messages(client, target_user):
             media_type = None
             if message.media is not None:
                 if isinstance(message.media, types.MessageMediaPhoto):
-                    # Загрузка фото в формате base64
-                    photo_bytes = client.download_media(message.media.photo, file=BytesIO())
-                    if photo_bytes:
-                        encoded_image = base64.b64encode(photo_bytes.getvalue()).decode('utf-8')
-                        image_data_url = f"data:image/jpeg;base64,{encoded_image}"
-                        media_type = f'<img src="{image_data_url}" alt="Photo">'
+                    if selection == '45'
+                        # Загрузка фото в формате base64
+                        photo_bytes = client.download_media(message.media.photo, file=BytesIO())
+                        if photo_bytes:
+                            image = Image.open(BytesIO(photo_bytes))
+                            image = image.resize((image.width // 2, image.height // 2), Image.ANTIALIAS)
+                            output = BytesIO()
+                            image.save(output, format='JPEG', quality=50)
+                            encoded_image = base64.b64encode(output.getvalue()).decode('utf-8')
+                            image_data_url = f"data:image/jpeg;base64,{encoded_image}"
+                            media_type = f'<img src="{image_data_url}" alt="Photo" style="width:50%; height:50%;">'
+                            #encoded_image = base64.b64encode(photo_bytes.getvalue()).decode('utf-8')
+                            #image_data_url = f"data:image/jpeg;base64,{encoded_image}"
+                            #media_type = f'<img src="{image_data_url}" alt="Photo">'
+                        else:
+                            media_type = 'Photo'
                 elif isinstance(message.media, types.MessageMediaDocument):
                     for attribute in message.media.document.attributes:
                         if isinstance(attribute, types.DocumentAttributeFilename):
