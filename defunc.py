@@ -1017,12 +1017,16 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
         if row_data[19]:
             html_data += f"<p><strong>Реакции:</strong> {row_data[19]}</p>"
         html_data += "</div></div>"
-    input(html_data)
     
     # Загрузка шаблона HTML
     with open("template_groups_messages.html", "r") as f:
         template = f.read()
-        template_with_data = template.replace("{messages_data}", html_data)
+        # Заменяем переменные в шаблоне HTML данными
+        template_with_data = template.replace("{{ group_title }}", group_title)
+        template_with_data = template_with_data.replace("{{ first_message_date }}", first_message_date)
+        template_with_data = template_with_data.replace("{{ last_message_date }}", last_message_date)
+        template_with_data = template_with_data.replace("{{ messages_count }}", str(messages_count))
+        template_with_data = template_with_data.replace("{messages_data}", html_data)
         
     # Удаляем недопустимые символы из имени файла
     def sanitize_filename(filename):
