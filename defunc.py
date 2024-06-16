@@ -52,10 +52,19 @@ def get_private_messages(client, target_user, selection):
     user_id = user.id
    
     messages = []
+    messages_count = 0
+    first_message_date = None
+    last_message_date = None
     try:
         for message in client.iter_messages(target_user):
             message_time = message.date.astimezone(minsk_timezone).strftime('%Y-%m-%d %H:%M:%S')
+            
+            if first_message_date is None or message.date < first_message_date:
+                first_message_date = message.date
 
+            if last_message_date is None or message.date > last_message_date:
+                last_message_date = message.date
+                
             if message.sender_id == userid_client:
                 sender_info = f"{firstname_client}:"
             else:
@@ -128,7 +137,8 @@ def get_private_messages(client, target_user, selection):
                     media_type = 'PhotoExternal'
                 else:
                     media_type = 'Unknown'
-
+            
+            messages_count +=1
             messages.append({
                 'time': message_time,
                 'sender_info': sender_info,
@@ -156,7 +166,10 @@ def get_private_messages(client, target_user, selection):
         first_name=first_name,
         messages=messages,
         userid_client=userid_client,
-        user_id=user_id
+        user_id=user_id,
+        first_message_date=first_message_date.astimezone(minsk_timezone).strftime('%Y-%m-%d %H:%M:%S'),
+        last_message_date=last_message_date.astimezone(minsk_timezone).strftime('%Y-%m-%d %H:%M:%S'),
+        messages_count
     )
     
     filename = f"{target_user}_private_messages.html"
