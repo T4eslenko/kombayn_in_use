@@ -31,10 +31,18 @@ from html import escape
 from jinja2 import Environment, FileSystemLoader
 
 
-def get_private_messages(client, target_user, userid_client, firstname_client, lastname_client, username_client, userinfo):
+def get_private_messages(client, target_user):
     minsk_timezone = timezone('Europe/Minsk')
+
+    #Информция об объекте
+    me = client.get_me()
+    userid = me.id
+    firstname = me.first_name
+    username = f"@{me.username}" if me.username is not None else ""
+    lastname = me.last_name if me.last_name is not None else ""
     
     user = client.get_entity(target_user)
+    #Информация о собеседнике
     username = f'@{user.username}' if user.username else ""
     first_name = user.first_name if user.first_name else ''
     last_name = user.last_name if user.last_name else ''
@@ -308,12 +316,12 @@ def get_user_dialogs(client):
             count_messages = messages.total
             
             user = dialog.entity
-            username = f'@{user.username}' if user.username else ""
+            username = f', \033[36m@{user.username}\033[0m' if user.username else ""
             first_name = user.first_name if user.first_name else ''
             last_name = user.last_name if user.last_name else ''
             
             user_dialogs.append(
-                f'{i}) ID: {user.id}, Имя: {first_name} {last_name} \033[36m{username}\033[0m ' 
+                f'{i}) \033[96m{first_name} {last_name}\033[0m{username}, \033[93m{user.id}\033[0m, ' 
                 f'/ \033[33m[{count_messages}]\033[0m'
             )
 
