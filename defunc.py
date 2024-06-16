@@ -101,10 +101,7 @@ def get_private_messages(client, target_user, selection):
                     else:
                         reply_text = None
 
-            #if message.reply_to_msg_id:
-            #    original_message = client.get_messages(target_user, ids=message.reply_to_msg_id)
-            #    reply_text = escape(original_message.text)
-
+            
             reaction_info = ""
             reactions = message.reactions
             if reactions and reactions.recent_reactions:
@@ -131,11 +128,6 @@ def get_private_messages(client, target_user, selection):
                             encoded_image = base64.b64encode(output.getvalue()).decode('utf-8')
                             image_data_url = f"data:image/jpeg;base64,{encoded_image}"
                             media_type = f'<img src="{image_data_url}" alt="Photo">'
-
-                        
-                            #encoded_image = base64.b64encode(photo_bytes.getvalue()).decode('utf-8')
-                            #image_data_url = f"data:image/jpeg;base64,{encoded_image}"
-                            #media_type = f'<img src="{image_data_url}" alt="Photo">'
                         else:
                             media_type = 'Photo'
                     else:
@@ -170,6 +162,7 @@ def get_private_messages(client, target_user, selection):
                     media_type = 'Unknown'
             
             messages_count +=1
+            forward_sender_list.append(forward_sender)
             messages.append({
                 'time': message_time,
                 'sender_info': sender_info,
@@ -193,7 +186,7 @@ def get_private_messages(client, target_user, selection):
             'media_type': '',
             'sender_id': None
         })
-            forward_sender_list.append(forward_sender)
+            
     input(forward_sender_list) 
 
     env = Environment(loader=FileSystemLoader('.'))
