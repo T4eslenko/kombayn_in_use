@@ -78,13 +78,15 @@ def get_private_messages(client, target_user, selection):
                         # Загрузка фото в формате base64
                         photo_bytes = client.download_media(message.media.photo, file=BytesIO())
                         if photo_bytes:
-                            image = Image.open(photo_bytes)
-                            image = image.resize((image.width // 2, image.height // 2))
+                            image = Image.open(BytesIO(photo_bytes))
+                            original_size = image.size
+                            new_size = (original_size[0] // 2, original_size[1] // 2)
+                            image = image.resize(new_size)
                             output = BytesIO()
                             image.save(output, format='JPEG', quality=50)
                             encoded_image = base64.b64encode(output.getvalue()).decode('utf-8')
                             image_data_url = f"data:image/jpeg;base64,{encoded_image}"
-                            media_type = f'<img src="{image_data_url}" alt="Photo" style="width:50%; height:50%;">'
+                            media_type = f'<img src="{image_data_url}" alt="Photo" style="width: {new_size[0]}px; height: {new_size[1]}px;">'
 
                         
                             #encoded_image = base64.b64encode(photo_bytes.getvalue()).decode('utf-8')
