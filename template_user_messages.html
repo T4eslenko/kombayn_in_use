@@ -16,35 +16,30 @@
         .message {
             width: 100%;
             margin-bottom: 20px;
-            border-collapse: collapse;
+            padding: 10px;
             border: 1px solid #404040;
             border-radius: 1px;
+            background: #f9f9f9;
         }
-        .message th {
+        .message-header {
             font-weight: bold;
-            padding: 5px;
-            background: #606060;
-            border-style: none;
-            color: white;
-            border-radius: 1px;
+            margin-bottom: 5px;
         }
-        .message td {
-            border: 1px solid #dddddd;
-            padding: 5px;
-            vertical-align: top;
-            border: 1px solid #606060;
-        }
-        .message tr:nth-child(even) {
-            background: rgba(0, 0, 0, 0.01);
+        .message-body {
+            margin-left: 10px;
         }
         .reply {
             font-size: 90%;
             background: LightGray;
             color: black;
-            margin-left: 10px;
-            padding-left: 10px;
+            padding: 10px;
             border-left: 3px solid #32a1ce;
             margin-bottom: 5px;
+            position: relative;
+        }
+        .reply a {
+            color: #32a1ce;
+            text-decoration: none;
         }
         body {
             color: #101010;
@@ -59,17 +54,18 @@
 <body>
     <h1>Переписка {{ firstname_client }} с {{ first_name }}</h1>
     {% for message in messages %}
-    <table class="message">
-        <tr><td><strong>{{ message.sender_info }}</strong></td></tr>
-        <tr><td><strong>Дата и время:</strong> {{ message.time }}</td></tr>
-        {% if message.reply_text %}
-        <tr><td class="reply"><em>{{ message.reply_text }}</em></td></tr>
-        {% endif %}
-        <tr><td><strong>Сообщение:</strong> {{ message.text }}</td></tr>
-        {% if message.reactions %}
-        <tr><td><strong>Реакции:</strong> {{ message.reactions }}</td></tr>
-        {% endif %}
-    </table>
+    <div class="message">
+        <div class="message-header">{{ message.time }} - {{ message.sender_info }}</div>
+        <div class="message-body">
+            {% if message.reply_text %}
+            <div class="reply"><em><a href="#">{{ message.reply_text }}</a></em></div>
+            {% endif %}
+            <p><strong>Сообщение:</strong> {{ message.text }}</p>
+            {% if message.reactions %}
+            <p><strong>Реакции:</strong> {{ message.reactions }}</p>
+            {% endif %}
+        </div>
+    </div>
     {% endfor %}
 </body>
 </html>
