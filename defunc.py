@@ -36,10 +36,10 @@ def get_private_messages(client, target_user):
 
     #Информция об объекте
     me = client.get_me()
-    userid = me.id
-    firstname = me.first_name
-    username = f"@{me.username}" if me.username is not None else ""
-    lastname = me.last_name if me.last_name is not None else ""
+    userid_client = me.id
+    firstname_client = me.first_name
+    username_client = f"@{me.username}" if me.username is not None else ""
+    lastname_client = me.last_name if me.last_name is not None else ""
     
     user = client.get_entity(target_user)
     #Информация о собеседнике
