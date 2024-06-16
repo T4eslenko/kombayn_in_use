@@ -106,6 +106,7 @@ def get_private_messages(client, target_user):
         file.write(html_output)
     print(f"HTML-файл сохранен как '{filename}'")
 
+
     
 # Получение информации о пользователе
 def get_bot_from_search(client, phone, selection):
