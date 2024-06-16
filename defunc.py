@@ -1035,8 +1035,8 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
         template = f.read()
         # Заменяем переменные в шаблоне HTML данными
         template_with_data = template.replace("{{ group_title }}", group_title)
-        template_with_data = template_with_data.replace("{{ first_message_date }}", first_message_date)
-        template_with_data = template_with_data.replace("{{ last_message_date }}", last_message_date)
+        template_with_data = template_with_data.replace("{{ first_message_date }}", str(first_message_date) if first_message_date else "Unknown")
+        template_with_data = template_with_data.replace("{{ last_message_date }}", str(last_message_date) if last_message_date else "Unknown")
         template_with_data = template_with_data.replace("{{ messages_count }}", str(messages_count))
         template_with_data = template_with_data.replace("{messages_data}", html_data)
         
