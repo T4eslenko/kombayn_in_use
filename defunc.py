@@ -949,18 +949,33 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
     
     # Генерация HTML данных на основе шаблона
     html_data = ""
+    minsk_timezone = timezone('Europe/Minsk')
     first_message_date = None
     last_message_date = None
     messages_count = 0
+    messages = []
     
 
     for message in all_messages:
+        
         
         # Проверяем, что message является экземпляром Message
         if not hasattr(message, 'sender'):
             continue
         # Основная информация о сообщении
         sender_id, username, first_name, last_name, date, text, media_type, fwd_source_id, fwd_date, reaction_info = get_message_info(message)
+        
+        if message.sender_id == userid:
+                sender_info = f"{first_name} (объект):"
+            else:
+                sender_info = f"{first_name}:"
+                
+        # Обновляем переменные для дат первого и последнего сообщения
+        if first_message_date is None or date < first_message_date:
+            first_message_date = date
+        if last_message_date is None or date > last_message_date:
+            last_message_date = date
+            
         if date is None:
             continue
         if sender_id is None:
@@ -978,12 +993,6 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
             media_type
         ]
         participants_from_messages.add(sender_id)
-
-        # Обновляем переменные для дат первого и последнего сообщения
-        if first_message_date is None or date < first_message_date:
-            first_message_date = date
-        if last_message_date is None or date > last_message_date:
-            last_message_date = date
 
         # Если сообщение является ответом на другое сообщение
         if isinstance(message.reply_to_msg_id, int):
@@ -1014,31 +1023,31 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
         row_data.append(reaction_info)
         ws.append(row_data)
 
-        messages_count += 1
+        try:
+            messages.append({
+                    'time': remove_timezone(date),
+                    'sender_info': sender_info,
+                    'text': escape(message.text),
+                    'reactions': reaction_info,
+                    'media_type': media_type,
+                    'sender_id': message.sender_id,
+                    'reply_text': reply_text,
+                    'reply_sender_id': reply_sender_id     
+                })
+        except Exception as e:
+            messages.append({
+                'time': '',
+                'sender_info': 'Ошибка',
+                'text': f"Ошибка при получении переписки: {e}",
+                'reactions': '',
+                'media_type': '',
+                'sender_id': None,
+                'reply_text': f"Ошибка при получении цитаты: {e}",
+                'reply_sender_id': None
+                
+            })
 
-     # Заполнение шаблона HTML данными
-        html_data += f"<div class='message {'sender' if sender_id == userid else ''}'>"
-        html_data += f"<div class='message-header'>{row_data[3]} - {row_data[4]}</div>"
-        html_data += "<div class='message-body'>"
-        if row_data[10]:
-            html_data += f"<div class='reply'><em>{row_data[10]}</em></div>"
-        if row_data[8]:
-            html_data += f"<p><strong>Сообщение:</strong> {row_data[8]}</p>"
-        if row_data[9]:
-            html_data += f"<p><strong>Медиа:</strong> {row_data[9]}</p>"
-        if row_data[19]:
-            html_data += f"<p><strong>Реакции:</strong> {row_data[19]}</p>"
-        html_data += "</div></div>"
-    
-    # Загрузка шаблона HTML
-    with open("template_groups_messages.html", "r") as f:
-        template = f.read()
-        # Заменяем переменные в шаблоне HTML данными
-        template_with_data = template.replace("{{ group_title }}", group_title)
-        template_with_data = template_with_data.replace("{{ first_message_date }}", str(first_message_date) if first_message_date else "Unknown")
-        template_with_data = template_with_data.replace("{{ last_message_date }}", str(last_message_date) if last_message_date else "Unknown")
-        template_with_data = template_with_data.replace("{{ messages_count }}", str(messages_count))
-        template_with_data = template_with_data.replace("{messages_data}", html_data)
+        messages_count += 1
         
     # Удаляем недопустимые символы из имени файла
     def sanitize_filename(filename):
@@ -1053,13 +1062,35 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
 
     wb.save(filename)
     
-     # Сохранение HTML файла
+    env = Environment(loader=FileSystemLoader('.'))
+    template = env.get_template('template_groups_messages.html')
+    html_output = template.render(
+        firstname_client=sender_info,
+        first_name=first_name,
+        messages=messages,
+        userid_client=userid,
+        user_id=user_id,
+        first_message_date=first_message_date.astimezone(minsk_timezone).strftime('%d.%m.%Y'),
+        last_message_date=last_message_date.astimezone(minsk_timezone).strftime('%d.%m.%Y'),
+        messages_count=messages_count
+    )
+
+     # Удаляем недопустимые символы из имени файла
+    def sanitize_filename(filename):
+        return re.sub(r'[\\/*?:"<>|]', '', filename)
+    
+    clean_group_title = sanitize_filename(group_title)
+
     if clean_group_title == group_title:
-        filename_html = f"{group_title}_messages.html"
+        filename = f"{group_title}_chat_messages.html"
     else:
-        filename_html = f"{clean_group_title}_messages.html"
-    with open(filename_html, "w") as output_file:
-        output_file.write(template_with_data)
+        filename = f"{clean_group_title}_chat_messages.html"
+        
+    filename = f"{target_user}_chat_messages.html"
+    with open(filename, "w", encoding="utf-8") as file:
+        file.write(html_output)
+
+    print(f"HTML-файл сохранен как '{filename}'")
 
 
 # Поиск заблокированных ботов
