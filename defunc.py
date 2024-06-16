@@ -144,7 +144,7 @@ def get_private_messages(client, target_user, selection):
                 'time': message_time,
                 'sender_info': sender_info,
                 'reply_text': reply_text,
-                'text': escape(message.text),
+                'text': escape(message.text) if message.text else '',
                 'reactions': reaction_info,
                 'media_type': media_type,
                 'sender_id': message.sender_id
