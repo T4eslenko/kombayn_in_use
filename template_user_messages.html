@@ -1,31 +1,75 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <title>Переписка</title>
     <style>
-        blockquote { background-color: #f2f2f2; }
-        em { font-style: italic; }
-        .message { padding: 5px; border-bottom: 1px solid #ccc; line-height: 1.1; } /* уменьшенный межстрочный интервал и padding */
-        .message p { margin: 5px 0; } /* уменьшение отступов вокруг абзацев */
-        .sender { background-color: #DCF8C6; }
-        .recipient { background-color: #FFFFFF; }
+        .header {
+            text-align: center;
+            background: #404040;
+            color: white;
+            font-weight: bold;
+            border-radius: 1px;
+            padding: 5px;
+            font-size: 1.2em;
+        }
+        .message {
+            width: 100%;
+            margin-bottom: 20px;
+            border-collapse: collapse;
+            border: 1px solid #404040;
+            border-radius: 1px;
+        }
+        .message th {
+            font-weight: bold;
+            padding: 5px;
+            background: #606060;
+            border-style: none;
+            color: white;
+            border-radius: 1px;
+        }
+        .message td {
+            border: 1px solid #dddddd;
+            padding: 5px;
+            vertical-align: top;
+            border: 1px solid #606060;
+        }
+        .message tr:nth-child(even) {
+            background: rgba(0, 0, 0, 0.01);
+        }
+        .reply {
+            font-size: 90%;
+            background: LightGray;
+            color: black;
+            margin-left: 10px;
+            padding-left: 10px;
+            border-left: 3px solid #32a1ce;
+            margin-bottom: 5px;
+        }
+        body {
+            color: #101010;
+            line-height: 1.2;
+        }
+        h1 {
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
     </style>
 </head>
 <body>
     <h1>Переписка {{ firstname_client }} с {{ first_name }}</h1>
     {% for message in messages %}
-        <div class="message {{ 'sender' if message.sender_id == userid_client else 'recipient' }}">
-            <p><strong>{{ message.sender_info }}</strong></p>
-            <p><strong>Дата и время:</strong> {{ message.time }}</p>
-            {% if message.reply_text %}
-                <blockquote><em>{{ message.reply_text }}</em></blockquote>
-            {% endif %}
-            <p><strong>Сообщение:</strong> {{ message.text }}</p>
-            {% if message.reactions %}
-                <p>{{ message.reactions }}</p>
-            {% endif %}
-        </div>
+    <table class="message">
+        <tr><td><strong>{{ message.sender_info }}</strong></td></tr>
+        <tr><td><strong>Дата и время:</strong> {{ message.time }}</td></tr>
+        {% if message.reply_text %}
+        <tr><td class="reply"><em>{{ message.reply_text }}</em></td></tr>
+        {% endif %}
+        <tr><td><strong>Сообщение:</strong> {{ message.text }}</td></tr>
+        {% if message.reactions %}
+        <tr><td><strong>Реакции:</strong> {{ message.reactions }}</td></tr>
+        {% endif %}
+    </table>
     {% endfor %}
 </body>
 </html>
