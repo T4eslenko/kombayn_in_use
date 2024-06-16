@@ -83,7 +83,7 @@ def get_private_messages(client, target_user, selection):
                     forward_first_name = forward_user.first_name if hasattr(forward_user, 'first_name') else ''
                     forward_last_name = forward_user.last_name if hasattr(forward_user, 'last_name') else ''
                     forward_username = forward_user.username if hasattr(forward_user, 'username') else ''
-                    forward_sender = {forward_username} {forward_first_name} {forward_last_name} {forward_id}"
+                    forward_sender = f"{forward_username} {forward_first_name} {forward_last_name} {forward_id}"
                     
                 except Exception as e:
                     input(e) 
