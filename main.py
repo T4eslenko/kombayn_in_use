@@ -65,6 +65,11 @@ if __name__ == "__main__":
                             "\n"
                             f"\033[36m40 - Выгрузка личных сообщений\033[0m\n"
                             f"\033[36m45 - Выгрузка личных сообщений (с ФОТО)\033[0m\n"
+                            "\n"
+                            f"\033[95m70 - Выгрузка сообщений из каналов, групп в HTML\033[0m\n"
+                            f"\033[95m75 - Выгрузка  сообщений из групп (с ФОТО) в HTML\033[0m\n"
+                            "\n"
+                              
                             "\n" 
                             f"\033[93m'e' - Выход\033[0m\n"
                             "\n"  
@@ -265,7 +270,7 @@ if __name__ == "__main__":
                            os.system('cls||clear')
 
         # 7 Выгрузить сообщения канала или сообщения и участников чата в excel
-        elif selection == '7':
+        elif selection == '7' or selection == '70' or selection == '75':
             os.system('cls||clear')
             last_date = None    
             size_chats = 200
@@ -316,16 +321,20 @@ if __name__ == "__main__":
                               os.system('cls||clear')
                               print('Может потребоваться значительное количество времени, заварите кофе...')
                               get_messages_and_save_xcls(client, target_group, user_id, user_name, group_title, userid, userinfo, selection)
-                              group_id = target_group.id
-                              if group_id in admin_id:
-                                 get_participants_and_save_xlsx(client, target_group, user_id, user_name, group_title, group_id, userid, userinfo)
-                                 os.system('cls||clear')
-                                 print()
-                                 input('Сообщения чата и его участники выгружены в excel, мой командир. Нажмите Enter для продолжения... ')
+                              if selection == '7':
+                                 group_id = target_group.id
+                                 if group_id in admin_id:
+                                    get_participants_and_save_xlsx(client, target_group, user_id, user_name, group_title, group_id, userid, userinfo)
+                                    os.system('cls||clear')
+                                    print()
+                                    input('Сообщения чата и его участники выгружены в excel, мой командир. Нажмите Enter для продолжения... ')
+                                 else:
+                                    os.system('cls||clear')
+                                    print()
+                                    input('Сообщения чата выгружены в excel, мой командир. Нажмите Enter для продолжения... ')
                               else:
-                                 os.system('cls||clear')
                                  print()
-                                 input('Сообщения чата выгружены в excel, мой командир. Нажмите Enter для продолжения... ')
+                                 input('Сообщения выгружены в HTML, мой командир. Нажмите Enter для продолжения... ')
                               client.disconnect()
                               time.sleep(3)
                               exit_flag = True
