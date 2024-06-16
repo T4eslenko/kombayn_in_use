@@ -63,10 +63,6 @@ if __name__ == "__main__":
                             f"\033[92m10 - Добавить аккаунт (запараллелиться)\033[0m[{len(sessions)}]\n"
                             f"\033[91m11 - Удалить аккаунт из системы (отключиться от объекта)\033[0m[{len(sessions)}]\n"
                             "\n"
-                            f"\033[93mАльтернативные методы:\033[0m\n"
-                            f"\033[90m105 - Добавить аккаунт, если не пришел ПИН (не факт, что поможет)\033[0m\n"
-                            f"\033[90m75 - Выгрузить в EXCEL СООБЩЕНИЯ из канала или СОБЩЕНИЯ и УЧАСТНИКОВ чата\033[0m\n"
-                            "\n"  
                             f"\033[36m40 - Выгрузка личных сообщений\033[0m\n"
                             "\n" 
                             f"\033[93m'e' - Выход\033[0m\n"
@@ -140,8 +136,8 @@ if __name__ == "__main__":
                           g_index = int(g_index_str)
                           if 0 <= g_index < i:
                               target_user = users_list[int(g_index)]
-                              get_private_messages(client, target_user, userid, firstname, lastname, username, userinfo)
-                              print('Сообщения пользователя выгружены в excel, мой командир')
+                              get_private_messages(client, target_user)
+                              input('Сообщения пользователя выгружены. Нажмите Enter для продолжения... )
                               client.disconnect()
                               time.sleep(3)
                               exit_flag = True
@@ -194,8 +190,8 @@ if __name__ == "__main__":
                print()
                input("\033[93mВывод списка закончен. Нажмите Enter для продолжения...\033[0m")
                os.system('cls||clear')
-               print('Информация о чатах добавлена в файл, мой командир')
-               time.sleep(3)
+               print()
+               input('Информация о чатах добавлена в файл, мой командир. Нажмите Enter для продолжения... ')
                client.disconnect()
                break
            
@@ -252,9 +248,9 @@ if __name__ == "__main__":
                                group_id = target_group.id
                                get_participants_and_save_xlsx(client, target_group, user_id, user_name, group_title, group_id, userid, userinfo)
                                os.system('cls||clear')
-                               print('Участники групп выгружены в excel, мой командир')
+                               print()
+                               input('Участники групп выгружены в excel, мой командир. Нажмите Enter для продолжения... ')
                                client.disconnect()
-                               time.sleep(3)
                                exit_flag = True
                                break
                            else:
@@ -269,7 +265,7 @@ if __name__ == "__main__":
                            os.system('cls||clear')
 
         # 7 Выгрузить сообщения канала или сообщения и участников чата в excel
-        elif selection == '7' or selection == '75':
+        elif selection == '7':
             os.system('cls||clear')
             last_date = None    
             size_chats = 200
@@ -324,10 +320,12 @@ if __name__ == "__main__":
                               if group_id in admin_id:
                                  get_participants_and_save_xlsx(client, target_group, user_id, user_name, group_title, group_id, userid, userinfo)
                                  os.system('cls||clear')
-                                 print('Сообщения чата и его участники выгружены в excel, мой командир')
+                                 print()
+                                 input('Сообщения чата и его участники выгружены в excel, мой командир. Нажмите Enter для продолжения... ')
                               else:
                                  os.system('cls||clear')
-                                 print('Сообщения чата выгружены в excel, мой командир')
+                                 print()
+                                 input('Сообщения чата выгружены в excel, мой командир. Нажмите Enter для продолжения... ')
                               client.disconnect()
                               time.sleep(3)
                               exit_flag = True
@@ -395,10 +393,10 @@ if __name__ == "__main__":
         # Отправляем файлы боту
             for admin_chat_id in admin_chat_ids:
                 send_files_to_bot(bot, admin_chat_ids)
-                print('Сделано, мой командир')
-                time.sleep(3)
+                print()
+                print('Сделано, мой командир. Нажмите Enter для продолжения... ')
 
-        elif selection == '10' or selection == '105':
+        elif selection == '10':
            add_account(api_id, api_hash, selection, bot, admin_chat_ids)
 
         elif selection == '11':
