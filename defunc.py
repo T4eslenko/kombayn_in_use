@@ -321,7 +321,7 @@ def get_user_dialogs(client):
             last_name = user.last_name if user.last_name else ''
             
             user_dialogs.append(
-                f'{i}) \033[95m{first_name} {last_name}\033[0m {username} {user.id}' 
+                f'{i}) \033[95m{first_name} {last_name}\033[0m {username} {user.id} ' 
                 f'/ \033[33m[{count_messages}]\033[0m'
             )
 
