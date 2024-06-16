@@ -946,6 +946,9 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
 
     participants_from_messages = set()
     all_messages = client.iter_messages(group_title)
+    
+    # Генерация HTML данных на основе шаблона
+    html_data = ""
 
     for message in all_messages:
         
@@ -1000,7 +1003,26 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
             row_data.extend([None] * 2)
         row_data.append(reaction_info)
         ws.append(row_data)
+
+     # Заполнение шаблона HTML данными
+        html_data += f"<div class='message {'sender' if sender_id == userid else ''}'>"
+        html_data += f"<div class='message-header'>{row_data[3]} - {row_data[4]}</div>"
+        html_data += "<div class='message-body'>"
+        if row_data[10]:
+            html_data += f"<div class='reply'><em>{row_data[10]}</em></div>"
+        if row_data[8]:
+            html_data += f"<p><strong>Сообщение:</strong> {row_data[8]}</p>"
+        if row_data[9]:
+            html_data += f"<p><strong>Медиа:</strong> {row_data[9]}</p>"
+        if row_data[19]:
+            html_data += f"<p><strong>Реакции:</strong> {row_data[19]}</p>"
+        html_data += "</div></div>"
     
+    # Чтобы использовать существующий шаблон HTML, мы можем просто заменить его часть нужными данными
+    with open("template_groups_messages.html", "r") as f:
+        template = f.read()
+        template_with_data = template.replace("{messages_data}", html_data)
+        
     # Удаляем недопустимые символы из имени файла
     def sanitize_filename(filename):
         return re.sub(r'[\\/*?:"<>|]', '', filename)
@@ -1013,25 +1035,11 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
         filename = f"{clean_group_title}_messages.xlsx"
 
     wb.save(filename)
-
- # Генерация HTML из данных
-    html_data = "<table border='1'><tr>"
-    for row in ws.iter_rows(min_row=1, max_col=ws.max_column, max_row=2):
-        for cell in row:
-            html_data += f"<th>{cell.value}</th>"
-        html_data += "</tr><tr>"
-    for row in ws.iter_rows(min_row=3, max_col=ws.max_column, max_row=ws.max_row):
-        for cell in row:
-            html_data += f"<td>{cell.value}</td>"
-        html_data += "</tr><tr>"
-    html_data += "</table>"
     
-    # Подставляем HTML в шаблон и сохраняем
-    with open("template_groups_messages.html", "r") as f:
-        template = f.read()
-        template_with_data = template.replace("{messages_data}", html_data)
-        with open(f"{clean_group_title}.html", "w") as output_file:
-            output_file.write(template_with_data)
+    # Сохраняем HTML файл с данными из шаблона
+    with open(f"{clean_group_title}_messages.html", "w") as output_file:
+        output_file.write(template_with_data)
+
 
 # Поиск заблокированных ботов
 def get_blocked_bot(client, selection, phone):
