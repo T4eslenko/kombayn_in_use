@@ -130,12 +130,13 @@ if __name__ == "__main__":
                    print('=ВЫГРУЗКА ЛИЧНЫХ СООБЩЕНИЙ=')
                    print(f"\033[96mНомер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}\033[0m")
                    print('-----------------------------')
-                   input(flag_user_dialogs)
+                   input(i)
                    if flag_user_dialogs == False:
                       user_dialogs, i, users_list, flag_user_dialogs = get_user_dialogs(client, flag_user_dialogs)
                    print_pages(user_dialogs, 40)
                    print('-----------------------------')
                    print()
+                   i=i
                    g_index_str = str(input("\033[92mВыберите пользователя для получения списка его участников ('e' - назад): \033[0m"))
                    if g_index_str.lower() == 'e':
                       client.disconnect()
