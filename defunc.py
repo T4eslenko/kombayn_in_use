@@ -183,11 +183,20 @@ def get_messages_from_group(client, target_group, selection):
         last_message_date=last_message_date.astimezone(minsk_timezone).strftime('%d.%m.%Y'),
         messages_count=messages_count
     )
+
+    # Удаляем недопустимые символы из имени файла
+    def sanitize_filename(filename):
+        return re.sub(r'[\\/*?:"<>|]', '', filename)
     
-    filename = f"{group_title}_chat_messages.html"
+    clean_group_title = sanitize_filename(group_title)
+
+    if clean_group_title == group_title:
+        filename = f"{group_title}_chat_messages.html"
+    else:
+        filename = f"{clean_group_title}_chat_messages.html"
+
     with open(filename, "w", encoding="utf-8") as file:
         file.write(html_output)
-    
     
     print(f"HTML-файл сохранен как '{filename}' и отправлен в бот")
 
