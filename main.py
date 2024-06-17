@@ -148,7 +148,6 @@ if __name__ == "__main__":
                               get_private_messages(client, target_user, selection)
                               print()
                               send_files_to_bot(bot, admin_chat_ids)
-                              input('Сообщения пользователя выгружены, файл отправлен в бот. Нажмите Enter для продолжения... ')
                               client.disconnect()
                               exit_flag = True
                               break
