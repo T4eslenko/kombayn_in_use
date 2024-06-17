@@ -286,7 +286,8 @@ def get_user_info(client, phone, selection):
         print(f"Имя пользователя: {firstname} {lastname}")
         print(f"Username пользователя: {username}")
         
-        if selection == '0':        
+        if selection == '0': 
+            try:
                 user_photo = client.get_profile_photos(userid)
                 if user_photo:
                     for i in range(len(user_photo)):
@@ -313,6 +314,9 @@ def get_user_info(client, phone, selection):
                         image_data_url = f"data:image/png;base64,{img_str}"
                         photos_user_html +=f'<img src="data:image/png;base64,{img_str}" alt=" " style="width:100px;height:100px;vertical-align:middle;margin-right:10px;">'
             except Exception as e:
+                print(f"An error occurred: {e}")
+                
+        except Exception as e:
                 print(f"An error occurred: {e}")
                 
     return userid, userinfo, firstname,lastname, username, photos_user_html
