@@ -102,7 +102,7 @@ if __name__ == "__main__":
            client.disconnect()
            
 # Выгрузка личных сообщений
-        elif selection in [40, 45, 450]:
+        elif selection in ['40', '45', '450']:
             os.system('cls||clear')
             last_date = None    
             size_chats = 200
