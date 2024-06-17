@@ -34,7 +34,6 @@ from jinja2 import Environment, FileSystemLoader
 def get_user_dialogs(client, flag_user_dialogs):
     user_dialogs = []
     users_list = []
-    flag_user_dialogs = 0
     dialogs = client.get_dialogs()
     i = 0
     
