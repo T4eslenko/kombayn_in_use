@@ -198,7 +198,7 @@ def get_private_messages(client, target_user, selection):
                         if isinstance(attribute, types.DocumentAttributeFilename):
                             if selection == '450':
                                 video_bytes = client.download_media(message.media.MessageMediaDocument, file=BytesIO())
-                                if video_bytes
+                                #if video_bytes
                             
                             else:
                                 document_name = attribute.file_name
