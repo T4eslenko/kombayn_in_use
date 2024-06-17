@@ -130,7 +130,7 @@ if __name__ == "__main__":
                    print('=ВЫГРУЗКА ЛИЧНЫХ СООБЩЕНИЙ=')
                    print(f"\033[96mНомер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}\033[0m")
                    print('-----------------------------')
-                   input(i)
+                  
                    if flag_user_dialogs == False:
                       user_dialogs, i, users_list, flag_user_dialogs = get_user_dialogs(client, flag_user_dialogs)
                    print_pages(user_dialogs, 40)
@@ -144,6 +144,8 @@ if __name__ == "__main__":
                       break
                    else:
                       try:
+                          input(users_list) 
+                          input(i) 
                           g_index = int(g_index_str)
                           if 0 <= g_index < i:
                               target_user = users_list[int(g_index)]
