@@ -287,7 +287,6 @@ def get_user_info(client, phone, selection):
         print(f"Username пользователя: {username}")
         
         if selection == '0':        
-            try:
                 user_photo = client.get_profile_photos(userid)
                 if user_photo:
                     for i in range(len(user_photo)):
