@@ -122,15 +122,13 @@ if __name__ == "__main__":
               client, phone, session_index = result
               print('-----------------------------') 
               userid, userinfo, firstname, lastname, username, photos_user_html = get_user_info(client, phone, selection) # Получение информации о пользователe
-              c = 0
+              i = 0
               while True:
                    os.system('cls||clear')
-                   i = 0
                    print('-----------------------------')
                    print('=ВЫГРУЗКА ЛИЧНЫХ СООБЩЕНИЙ=')
                    print(f"\033[96mНомер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}\033[0m")
                    print('-----------------------------')
-                  
                    if flag_user_dialogs == False:
                       user_dialogs, i, users_list, flag_user_dialogs = get_user_dialogs(client, flag_user_dialogs)
                    print_pages(user_dialogs, 40)
@@ -144,8 +142,6 @@ if __name__ == "__main__":
                       break
                    else:
                       try:
-                          input(users_list) 
-                          input(i) 
                           g_index = int(g_index_str)
                           if 0 <= g_index < i:
                               target_user = users_list[int(g_index)]
@@ -161,7 +157,7 @@ if __name__ == "__main__":
                               all_info = []
                               os.system('cls||clear')
                       except ValueError:
-                           print("Пожалуйста, выберите группу из списка")
+                           print("Пожалуйста, выберите пользователя из списка")
                            time.sleep(2)
                            all_info = []
                            os.system('cls||clear')
