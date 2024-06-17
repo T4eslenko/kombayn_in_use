@@ -78,13 +78,13 @@
         <div class="message-body">
             {% if message.reply_text %}
             <div class="reply">
-                <em><p style="color: maroon;"><strong>Ответ на: </strong>strong></p></em>
+                <em><p style="color: maroon;"><strong>Ответ на: </strong></p></em>
                 <em>{{ message.reply_text }}</em>
             </div>
             {% endif %}
             {% if message.is_forward %}
                 <div class="forward">
-                    <em><p style="color: maroon;"><strong>Репост: </strong>strong></p>{{ message.forward_sender }}</em>
+                    <em><p style="color: maroon;"><strong>Репост: </strong></p>{{ message.forward_sender }}</em>
                     <em><p style="color: black;"> {{ message.forward_text }} </p></em>
                 </div>
             {% else %}
