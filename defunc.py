@@ -67,43 +67,50 @@ def get_forwarded_info(client, message):
     fwd_channel_id = message.fwd_from.from_id.channel_id if isinstance(message.fwd_from, MessageFwdHeader) and hasattr(message.fwd_from.from_id, 'channel_id') and isinstance(message.fwd_from.from_id, PeerChannel) else None
     fwd_date = message.fwd_from.date if isinstance(message.fwd_from, MessageFwdHeader) and hasattr(message.fwd_from, 'date') else None
 
-    # Переменная для хранения источника
-    fwd_source_id = None
-
     # Данные о пользователе или канале
     fwd_info = {}
 
     if fwd_user_id or fwd_channel_id:
         if fwd_user_id:
-            fwd_source_id = f"From user: {fwd_user_id}"
+            fwd_info['Источник'] = "пользователь"
             
             # Получение информации о пользователе
             user = client.get_entity(PeerUser(fwd_user_id))
             if isinstance(user, User):
-                if hasattr(user, 'first_name') and user.first_name:
-                    fwd_info['First name'] = user.first_name
-                if hasattr(user, 'last_name') and user.last_name:
-                    fwd_info['Last name'] = user.last_name
-                if hasattr(user, 'username') and user.username:
-                    fwd_info['Username'] = user.username
+                # Имя и фамилия
+                if user.first_name or user.last_name:
+                    name = " ".join(filter(None, [user.first_name, user.last_name]))
+                    fwd_info['Имя и фамилия'] = name
+                
+                # Юзернейм
+                if user.username:
+                    fwd_info['Юзернейм'] = f"@{user.username}"
+                
+                # ID пользователя
+                fwd_info['ID'] = fwd_user_id
         else:
-            fwd_source_id = f"From channel: {fwd_channel_id}"
+            fwd_info['Источник'] = "канал"
             
             # Получение информации о канале
             channel = client.get_entity(PeerChannel(fwd_channel_id))
             if isinstance(channel, Channel):
-                if hasattr(channel, 'title') and channel.title:
-                    fwd_info['Channel title'] = channel.title
-                if hasattr(channel, 'username') and channel.username:
-                    fwd_info['Channel link'] = f"https://t.me/{channel.username}"
+                # Название канала
+                if channel.title:
+                    fwd_info['Название канала'] = channel.title
+                
+                # Ссылка на канал
+                if channel.username:
+                    fwd_info['Ссылка на канал'] = f"https://t.me/{channel.username}"
+                
+                # ID канала
+                fwd_info['ID'] = fwd_channel_id
 
-    if fwd_source_id:
-        fwd_info['Source'] = fwd_source_id
+    # Дата
     if fwd_date:
-        fwd_info['Forward date'] = fwd_date
+        fwd_info['Дата'] = fwd_date.strftime('%d.%m.%Y %H:%M:%S')
 
-    # Если никакая информация не получена, устанавливаем "неизвестный"
-    forward_sender = fwd_info if fwd_info else "неизвестный"
+    # Формируем строку из непустых значений
+    forward_sender = ", ".join([f"{key}: {value}" for key, value in fwd_info.items()]) if fwd_info else "Источник неизвестен"
     return forward_sender
 
 
