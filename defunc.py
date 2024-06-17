@@ -280,7 +280,7 @@ def get_private_messages(client, target_user, selection):
         file.write(html_output)
     
     
-    print(f"HTML-файл сохранен как '{filename}' и отправлен в бот")
+    print(f"HTML-файл сохранен как '{filename}'")
 
 
 
