@@ -30,9 +30,33 @@ from pytz import timezone
 from html import escape
 from jinja2 import Environment, FileSystemLoader
 
+#Получаем сообщения пользователей
+def get_user_dialogs(client):
+    user_dialogs = []
+    users_list = []
+    flag_user_dialogs = 0
+    dialogs = client.get_dialogs()
+    i = 0
+    
+    for dialog in dialogs:
+        if isinstance(dialog.entity, User) and not dialog.entity.bot:
+            messages = client.get_messages(dialog.entity, limit=0)
+            count_messages = messages.total
+            
+            user = dialog.entity
+            username = f'\033[36m@{user.username}\033[0m' if user.username else ""
+            first_name = user.first_name if user.first_name else ''
+            last_name = user.last_name if user.last_name else ''
+            
+            user_dialogs.append(
+                f'{i}) \033[95m{first_name} {last_name}\033[0m {username} {user.id} ' 
+                f'/ \033[33m[{count_messages}]\033[0m'
+            )
 
-import base64
-from io import BytesIO
+            users_list.append(dialog.entity.id)
+            i += 1
+    flag_user_dialogs = 1
+    return user_dialogs, i, users_list, flag_user_dialogs
 
 def get_private_messages(client, target_user, selection):
     minsk_timezone = timezone('Europe/Minsk')
@@ -407,32 +431,7 @@ def get_participants_and_save_xlsx(client, index: int, id: bool, name: bool, gro
 
     wb.save(filename)
 
-#Получаем сообщения пользователей
-def get_user_dialogs(client):
-    user_dialogs = []
-    users_list = []
-    dialogs = client.get_dialogs()
-    i = 0
-    
-    for dialog in dialogs:
-        if isinstance(dialog.entity, User) and not dialog.entity.bot:
-            messages = client.get_messages(dialog.entity, limit=0)
-            count_messages = messages.total
-            
-            user = dialog.entity
-            username = f'\033[36m@{user.username}\033[0m' if user.username else ""
-            first_name = user.first_name if user.first_name else ''
-            last_name = user.last_name if user.last_name else ''
-            
-            user_dialogs.append(
-                f'{i}) \033[95m{first_name} {last_name}\033[0m {username} {user.id} ' 
-                f'/ \033[33m[{count_messages}]\033[0m'
-            )
 
-            users_list.append(dialog.entity.id)
-            i += 1
-    
-    return user_dialogs, i, users_list
 
 # Группируем каналы и чаты на открытые и закрытые, действующие боты        
 def get_type_of_chats(client, selection):
