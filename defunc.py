@@ -93,7 +93,7 @@ def get_messages_from_group(client, target_group, selection):
             media_type = None
             if message.media is not None:
                 if isinstance(message.media, types.MessageMediaPhoto):
-                    if selection in ['45', '450']:
+                    if selection in ['75', '750']:
                         # Загрузка фото в формате base64
                         photo_bytes = client.download_media(message.media.photo, file=BytesIO())
                         if photo_bytes:
@@ -114,7 +114,7 @@ def get_messages_from_group(client, target_group, selection):
                 elif isinstance(message.media, types.MessageMediaDocument):
                     for attribute in message.media.document.attributes:
                         if isinstance(attribute, types.DocumentAttributeFilename):
-                            if selection == '450':
+                            if selection == '750':
                                 video_bytes = client.download_media(message.media.MessageMediaDocument, file=BytesIO())
                                 #if video_bytes
                             
