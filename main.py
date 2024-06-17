@@ -130,7 +130,7 @@ if __name__ == "__main__":
                    print('=ВЫГРУЗКА ЛИЧНЫХ СООБЩЕНИЙ=')
                    print(f"\033[96mНомер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}\033[0m")
                    print('-----------------------------')
-                   if flag_user_dialogs = False:
+                   if flag_user_dialogs == False:
                       user_dialogs, i, users_list, flag_user_dialogs = get_user_dialogs(client, flag_user_dialogs)
                    print_pages(user_dialogs, 40)
                    print('-----------------------------')
