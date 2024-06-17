@@ -77,12 +77,15 @@
         <div class="message-header">{{ message.time }} - {{ message.sender_info }}</div>
         <div class="message-body">
             {% if message.reply_text %}
-            <div class="reply"><em>{{ message.reply_text }}</em></div>
+            <div class="reply">
+                <em><p style="color: maroon;"><strong>Ответ на: </strong>strong></p></em>
+                <em>{{ message.reply_text }}</em>
+            </div>
             {% endif %}
             {% if message.is_forward %}
                 <div class="forward">
-                    <em>Репост от: {{ message.forward_sender }}</em>
-                    <p style="color: black;"> {{ message.forward_text }} </p></em>
+                    <em><p style="color: maroon;"><strong>Репост: </strong>strong></p>{{ message.forward_sender }}</em>
+                    <em><p style="color: black;"> {{ message.forward_text }} </p></em>
                 </div>
             {% else %}
                 <p><strong>Сообщение:</strong> {{ message.text }}</p>
