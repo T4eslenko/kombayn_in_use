@@ -115,7 +115,7 @@ def get_forwarded_info(client, message):
 
 
 
-def get_private_messages(client, target_user, selection, bot, admin_chat_ids):
+def get_private_messages(client, target_user, selection):
     minsk_timezone = timezone('Europe/Minsk')
 
     # Информация об объекте
@@ -279,7 +279,7 @@ def get_private_messages(client, target_user, selection, bot, admin_chat_ids):
     with open(filename, "w", encoding="utf-8") as file:
         file.write(html_output)
     
-    send_files_to_bot(bot, admin_chat_ids)
+    
     print(f"HTML-файл сохранен как '{filename}' и отправлен в бот")
 
 
