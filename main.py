@@ -141,7 +141,7 @@ if __name__ == "__main__":
                       exit_flag = True
                       break
                    else:
-                      try:
+                      #try:
                           g_index = int(g_index_str)
                           if 0 <= g_index < i:
                               target_user = users_list[int(g_index)]
@@ -156,11 +156,11 @@ if __name__ == "__main__":
                               time.sleep(2)
                               all_info = []
                               os.system('cls||clear')
-                      except ValueError:
-                           print("Пожалуйста, выберите группу из списка")
-                           time.sleep(2)
-                           all_info = []
-                           os.system('cls||clear')
+                      #except ValueError:
+                           #print("Пожалуйста, выберите группу из списка")
+                           #time.sleep(2)
+                           #all_info = []
+                           #os.system('cls||clear')
            
        # 5 Выгрузить инфу об аккаунте
         elif selection == '5':
