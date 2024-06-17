@@ -1029,9 +1029,7 @@ def get_messages_and_save_xcls(client, index: int, id_: bool, name: bool, group_
         row_data.append(reaction_info)
         ws.append(row_data)
 
-        try:
-            messages.append({
-              
+        
     # Удаляем недопустимые символы из имени файла
     def sanitize_filename(filename):
         return re.sub(r'[\\/*?:"<>|]', '', filename)
