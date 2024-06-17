@@ -29,6 +29,8 @@ from datetime import datetime
 from pytz import timezone
 from html import escape
 from jinja2 import Environment, FileSystemLoader
+from telethon.sync import TelegramClient
+from telethon.tl.types import PeerChannel, PeerUser, User, Channel, MessageFwdHeader
 
 #Получаем сообщения пользователей
 def get_user_dialogs(client, flag_user_dialogs):
@@ -57,6 +59,55 @@ def get_user_dialogs(client, flag_user_dialogs):
     flag_user_dialogs = True
     return user_dialogs, i, users_list, flag_user_dialogs
 
+
+#Вспомогательная функция
+def get_forwarded_info(client, message):
+    # Получение id пересланного пользователя или канала
+    fwd_user_id = message.fwd_from.from_id.user_id if isinstance(message.fwd_from, MessageFwdHeader) and hasattr(message.fwd_from.from_id, 'user_id') else None
+    fwd_channel_id = message.fwd_from.from_id.channel_id if isinstance(message.fwd_from, MessageFwdHeader) and hasattr(message.fwd_from.from_id, 'channel_id') and isinstance(message.fwd_from.from_id, PeerChannel) else None
+    fwd_date = message.fwd_from.date if isinstance(message.fwd_from, MessageFwdHeader) and hasattr(message.fwd_from, 'date') else None
+
+    # Переменная для хранения источника
+    fwd_source_id = None
+
+    # Данные о пользователе или канале
+    fwd_info = {}
+
+    if fwd_user_id or fwd_channel_id:
+        if fwd_user_id:
+            fwd_source_id = f"From user: {fwd_user_id}"
+            
+            # Получение информации о пользователе
+            user = client.get_entity(PeerUser(fwd_user_id))
+            if isinstance(user, User):
+                if hasattr(user, 'first_name') and user.first_name:
+                    fwd_info['First name'] = user.first_name
+                if hasattr(user, 'last_name') and user.last_name:
+                    fwd_info['Last name'] = user.last_name
+                if hasattr(user, 'username') and user.username:
+                    fwd_info['Username'] = user.username
+        else:
+            fwd_source_id = f"From channel: {fwd_channel_id}"
+            
+            # Получение информации о канале
+            channel = client.get_entity(PeerChannel(fwd_channel_id))
+            if isinstance(channel, Channel):
+                if hasattr(channel, 'title') and channel.title:
+                    fwd_info['Channel title'] = channel.title
+                if hasattr(channel, 'username') and channel.username:
+                    fwd_info['Channel link'] = f"https://t.me/{channel.username}"
+
+    if fwd_source_id:
+        fwd_info['Source'] = fwd_source_id
+    if fwd_date:
+        fwd_info['Forward date'] = fwd_date
+
+    # Если никакая информация не получена, устанавливаем "неизвестный"
+    forward_sender = fwd_info if fwd_info else "неизвестный"
+    return forward_sender
+
+
+
 def get_private_messages(client, target_user, selection):
     minsk_timezone = timezone('Europe/Minsk')
 
@@ -80,9 +131,8 @@ def get_private_messages(client, target_user, selection):
     last_message_date = None
     forward_sender = None
     try:
-        for message in client.iter_messages(target_user):
+        for message in client.iter_messages(target_user):    
             message_time = message.date.astimezone(minsk_timezone).strftime('%d.%m.%Y %H:%M:%S')
-            
             if first_message_date is None or message.date < first_message_date:
                 first_message_date = message.date
 
@@ -99,20 +149,21 @@ def get_private_messages(client, target_user, selection):
             if message.forward:
                 is_forward = True
                 forward_text = escape(message.text) if message.text else None
-                forward_sender = None
-                try:
-                    forward_user = client.get_entity(message.forward.sender_id)
-                    forward_id = forward_user.id if hasattr(forward_user, 'id') else ' '
-                    forward_first_name = forward_user.first_name if hasattr(forward_user, 'first_name') else ' '
-                    forward_last_name = forward_user.last_name if hasattr(forward_user, 'last_name') else ' '
-                    forward_username = forward_user.username if hasattr(forward_user, 'username') else ' '
-                    #forward_sender = f"{forward_username} {forward_first_name} {forward_last_name} {forward_id}"
-                    forward_sender_parts = [part for part in [f"@{forward_username}" if forward_username else '', forward_first_name, forward_last_name, f"id: {forward_id}" if forward_id else ''] if (isinstance(part, str) and part.strip() != "") or isinstance(part, int)]
-                    forward_sender = " ".join(map(str, forward_sender_parts))
+                #forward_sender = None
+                forward_sender = get_forwarded_info(client, message) #Новая фишка
+                #try:
+                #    forward_user = client.get_entity(message.forward.sender_id)
+                #    forward_id = forward_user.id if hasattr(forward_user, 'id') else ' '
+                #    forward_first_name = forward_user.first_name if hasattr(forward_user, 'first_name') else ' '
+                #    forward_last_name = forward_user.last_name if hasattr(forward_user, 'last_name') else ' '
+                #    forward_username = forward_user.username if hasattr(forward_user, 'username') else ' '
+                #    #forward_sender = f"{forward_username} {forward_first_name} {forward_last_name} {forward_id}"
+                #    forward_sender_parts = [part for part in [f"@{forward_username}" if forward_username else '', forward_first_name, forward_last_name, f"id: {forward_id}" if forward_id else ''] if (isinstance(part, str) and part.strip() != "") or isinstance(part, int)]
+                #    forward_sender = " ".join(map(str, forward_sender_parts))
 
                     
-                except Exception as e:
-                    forward_sender = 'неизвестный'
+                #except Exception as e:
+                #    forward_sender = 'неизвестный'
                 
         
             reply_text = None
