@@ -316,9 +316,6 @@ def get_user_info(client, phone, selection):
             except Exception as e:
                 print(f"An error occurred: {e}")
                 
-    except Exception as e:
-                input(f"An error occurred: {e}. Для продолжения нажмите Enter... ")
-        
     return userid, userinfo, firstname,lastname, username, photos_user_html
 
 
