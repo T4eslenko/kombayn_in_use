@@ -106,6 +106,7 @@ if __name__ == "__main__":
             last_date = None    
             size_chats = 200
             exit_flag = False
+            flag_user_dialogs = False
             while not exit_flag:
               os.system('cls||clear')
               sessions = []
@@ -129,8 +130,8 @@ if __name__ == "__main__":
                    print('=ВЫГРУЗКА ЛИЧНЫХ СООБЩЕНИЙ=')
                    print(f"\033[96mНомер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}\033[0m")
                    print('-----------------------------')
-                   if flag_user_dialogs = 0:
-                      user_dialogs, i, users_list, flag_user_dialogs = get_user_dialogs(client)
+                   if flag_user_dialogs = False:
+                      user_dialogs, i, users_list, flag_user_dialogs = get_user_dialogs(client, flag_user_dialogs)
                    print_pages(user_dialogs, 40)
                    print('-----------------------------')
                    print()
