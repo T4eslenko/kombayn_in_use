@@ -1,6 +1,8 @@
 def get_messages_from_group(client, target_group, selection):
     minsk_timezone = timezone('Europe/Minsk')
 
+    group_title = target_group.title
+
     # Информация об объекте
     me = client.get_me()
     userid_client = me.id
@@ -16,7 +18,7 @@ def get_messages_from_group(client, target_group, selection):
     forward_sender = None
     try:
         for message in client.iter_messages(target_group):
-            sender_id = message.sender_id if hasattr(message, 'sender_id') else None
+            sender_id = message.sender_id if hasattr(message, 'sender_id') else group_title
             username = message.sender.username if hasattr(message.sender, 'username') else None
             first_name = message.sender.first_name if hasattr(message.sender, 'first_name') else None
             last_name = message.sender.last_name if hasattr(message.sender, 'last_name') else None
@@ -135,19 +137,19 @@ def get_messages_from_group(client, target_group, selection):
             
 
     env = Environment(loader=FileSystemLoader('.'))
-    template = env.get_template('template_user_messages.html')
+    template = env.get_template('template_groups_messages.html')
     html_output = template.render(
         firstname_client=firstname_client,
         first_name=first_name,
         messages=messages,
         userid_client=userid_client,
-        user_id=user_id,
+        group_title=group_title,
         first_message_date=first_message_date.astimezone(minsk_timezone).strftime('%d.%m.%Y'),
         last_message_date=last_message_date.astimezone(minsk_timezone).strftime('%d.%m.%Y'),
         messages_count=messages_count
     )
     
-    filename = f"{target_group}_private_messages.html"
+    filename = f"{group_title}_chat_messages.html"
     with open(filename, "w", encoding="utf-8") as file:
         file.write(html_output)
     
