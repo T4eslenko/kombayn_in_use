@@ -121,6 +121,7 @@ if __name__ == "__main__":
               client, phone, session_index = result
               print('-----------------------------') 
               userid, userinfo, firstname, lastname, username, photos_user_html = get_user_info(client, phone, selection) # Получение информации о пользователe
+              c = 0
               while True:
                    os.system('cls||clear')
                    i = 0
@@ -128,7 +129,8 @@ if __name__ == "__main__":
                    print('=ВЫГРУЗКА ЛИЧНЫХ СООБЩЕНИЙ=')
                    print(f"\033[96mНомер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}\033[0m")
                    print('-----------------------------')
-                   user_dialogs, i, users_list = get_user_dialogs(client)
+                   if flag_user_dialogs = 0:
+                      user_dialogs, i, users_list, flag_user_dialogs = get_user_dialogs(client)
                    print_pages(user_dialogs, 40)
                    print('-----------------------------')
                    print()
