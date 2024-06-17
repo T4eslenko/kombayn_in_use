@@ -31,7 +31,7 @@ from html import escape
 from jinja2 import Environment, FileSystemLoader
 
 #Получаем сообщения пользователей
-def get_user_dialogs(client):
+def get_user_dialogs(client, flag_user_dialogs):
     user_dialogs = []
     users_list = []
     flag_user_dialogs = 0
@@ -55,7 +55,7 @@ def get_user_dialogs(client):
 
             users_list.append(dialog.entity.id)
             i += 1
-    flag_user_dialogs = 1
+    flag_user_dialogs = True
     return user_dialogs, i, users_list, flag_user_dialogs
 
 def get_private_messages(client, target_user, selection):
