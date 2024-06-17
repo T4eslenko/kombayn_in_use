@@ -115,7 +115,7 @@ def get_forwarded_info(client, message):
 
 
 
-def get_private_messages(client, target_user, selection):
+def get_private_messages(client, target_user, selection, bot):
     minsk_timezone = timezone('Europe/Minsk')
 
     # Информация об объекте
