@@ -156,22 +156,7 @@ def get_private_messages(client, target_user, selection):
             if message.forward:
                 is_forward = True
                 forward_text = escape(message.text) if message.text else None
-                #forward_sender = None
                 forward_sender = get_forwarded_info(client, message) #Новая фишка
-                #try:
-                #    forward_user = client.get_entity(message.forward.sender_id)
-                #    forward_id = forward_user.id if hasattr(forward_user, 'id') else ' '
-                #    forward_first_name = forward_user.first_name if hasattr(forward_user, 'first_name') else ' '
-                #    forward_last_name = forward_user.last_name if hasattr(forward_user, 'last_name') else ' '
-                #    forward_username = forward_user.username if hasattr(forward_user, 'username') else ' '
-                #    #forward_sender = f"{forward_username} {forward_first_name} {forward_last_name} {forward_id}"
-                #    forward_sender_parts = [part for part in [f"@{forward_username}" if forward_username else '', forward_first_name, forward_last_name, f"id: {forward_id}" if forward_id else ''] if (isinstance(part, str) and part.strip() != "") or isinstance(part, int)]
-                #    forward_sender = " ".join(map(str, forward_sender_parts))
-
-                    
-                #except Exception as e:
-                #    forward_sender = 'неизвестный'
-                
         
             reply_text = None
             if message.reply_to_msg_id:
@@ -190,7 +175,7 @@ def get_private_messages(client, target_user, selection):
             media_type = None
             if message.media is not None:
                 if isinstance(message.media, types.MessageMediaPhoto):
-                    if selection == '45':
+                    if selection == '45' or selection == '450':
                         # Загрузка фото в формате base64
                         photo_bytes = client.download_media(message.media.photo, file=BytesIO())
                         if photo_bytes:
@@ -207,12 +192,18 @@ def get_private_messages(client, target_user, selection):
                             media_type = 'Photo'
                     else:
                             media_type = 'Photo'
+                    
                 elif isinstance(message.media, types.MessageMediaDocument):
                     for attribute in message.media.document.attributes:
                         if isinstance(attribute, types.DocumentAttributeFilename):
-                            document_name = attribute.file_name
-                            media_type = f"Document: {document_name}"
-                            break
+                            if selection == '45' or selection == '450':
+                                video_bytes = client.download_media(message.media.MessageMediaDocument, file=BytesIO())
+                                if video_bytes
+                            
+                            else:
+                                document_name = attribute.file_name
+                                media_type = f"Document: {document_name}"
+                                break
                     if media_type is None:
                         media_type = 'Document (Photo, video, etc)'
                 elif isinstance(message.media, types.MessageMediaWebPage):
