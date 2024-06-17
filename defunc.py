@@ -271,52 +271,55 @@ def get_bot_from_search(client, phone, selection):
 
 def get_user_info(client, phone, selection):
     """Функция для получения информации о пользователе и его ID."""
-    me = client.get_me()
-    userid = me.id
-    firstname = me.first_name
-    username = f"@{me.username}" if me.username is not None else ""
-    lastname = me.last_name if me.last_name is not None else ""
-    userinfo = f"(Номер телефона: +{phone}, ID: {userid}, ({firstname} {lastname}) {username})"
-    photos_user_html = ''
-    print("Информация о пользователе:") 
-    print()
-    print(f"Номер телефона: {phone}")
-    print(f"ID пользователя: {userid}")
-    print(f"Имя пользователя: {firstname} {lastname}")
-    print(f"Username пользователя: {username}")
-    
-    if selection == '0':        
-        try:
-            user_photo = client.get_profile_photos(userid)
-            if user_photo:
-                for i in range(len(user_photo)):
-                    file_name = f"{phone}_{i}"
-                    client.download_media(user_photo[i], file=file_name)
-                    jpg_path = f"{file_name}.jpg"
-                    mp4_path = f"{file_name}.mp4"
-                    if os.path.exists(jpg_path):
-                        with open(jpg_path, "rb") as img_file:
-                            img_data = open(jpg_path, "rb").read()
-                            img_str = base64.b64encode(img_data).decode('utf-8')
-                            photos_user_html += f'<img src="data:image/jpeg;base64,{img_str}" alt="User photo {i+1}" style="width:100px;height:100px;vertical-align:middle;margin-right:10px;">'
-                        os.remove(jpg_path)
-                    elif os.path.exists(mp4_path):
-                        with open(mp4_path, "rb") as video_file:
-                            video_data = video_file.read()
-                            video_str = base64.b64encode(video_data).decode('utf-8')
-                            photos_user_html += f'<video width="100" height="100" controls><source src="data:video/mp4;base64,{video_str}" type="video/mp4">Your browser does not support the video tag.</video>'
-                        os.remove(mp4_path)
-            else:
-                with open("no_image.png", "rb") as img_file:
-                    img_data = img_file.read()
-                    img_str = base64.b64encode(img_data).decode('utf-8')
-                    image_data_url = f"data:image/png;base64,{img_str}"
-                    photos_user_html +=f'<img src="data:image/png;base64,{img_str}" alt=" " style="width:100px;height:100px;vertical-align:middle;margin-right:10px;">'
-        except Exception as e:
-            print(f"An error occurred: {e}")
-
+    try:
+        me = client.get_me()
+        userid = me.id
+        firstname = me.first_name
+        username = f"@{me.username}" if me.username is not None else ""
+        lastname = me.last_name if me.last_name is not None else ""
+        userinfo = f"(Номер телефона: +{phone}, ID: {userid}, ({firstname} {lastname}) {username})"
+        photos_user_html = ''
+        print("Информация о пользователе:") 
+        print()
+        print(f"Номер телефона: {phone}")
+        print(f"ID пользователя: {userid}")
+        print(f"Имя пользователя: {firstname} {lastname}")
+        print(f"Username пользователя: {username}")
+        
+        if selection == '0':        
+            try:
+                user_photo = client.get_profile_photos(userid)
+                if user_photo:
+                    for i in range(len(user_photo)):
+                        file_name = f"{phone}_{i}"
+                        client.download_media(user_photo[i], file=file_name)
+                        jpg_path = f"{file_name}.jpg"
+                        mp4_path = f"{file_name}.mp4"
+                        if os.path.exists(jpg_path):
+                            with open(jpg_path, "rb") as img_file:
+                                img_data = open(jpg_path, "rb").read()
+                                img_str = base64.b64encode(img_data).decode('utf-8')
+                                photos_user_html += f'<img src="data:image/jpeg;base64,{img_str}" alt="User photo {i+1}" style="width:100px;height:100px;vertical-align:middle;margin-right:10px;">'
+                            os.remove(jpg_path)
+                        elif os.path.exists(mp4_path):
+                            with open(mp4_path, "rb") as video_file:
+                                video_data = video_file.read()
+                                video_str = base64.b64encode(video_data).decode('utf-8')
+                                photos_user_html += f'<video width="100" height="100" controls><source src="data:video/mp4;base64,{video_str}" type="video/mp4">Your browser does not support the video tag.</video>'
+                            os.remove(mp4_path)
+                else:
+                    with open("no_image.png", "rb") as img_file:
+                        img_data = img_file.read()
+                        img_str = base64.b64encode(img_data).decode('utf-8')
+                        image_data_url = f"data:image/png;base64,{img_str}"
+                        photos_user_html +=f'<img src="data:image/png;base64,{img_str}" alt=" " style="width:100px;height:100px;vertical-align:middle;margin-right:10px;">'
+            except Exception as e:
+                print(f"An error occurred: {e}")
+                
+    except Exception as e:
+                input(f"An error occurred: {e}. Для продолжения нажмите Enter... ")
+        
     return userid, userinfo, firstname,lastname, username, photos_user_html
-
 
 
 # Получение и сохранение в Excel контактов пользователя
