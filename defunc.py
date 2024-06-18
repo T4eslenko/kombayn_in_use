@@ -32,6 +32,29 @@ from jinja2 import Environment, FileSystemLoader
 from telethon.sync import TelegramClient
 from telethon.tl.types import PeerChannel, PeerUser, User, Channel, MessageFwdHeader
 
+def download_media_files(client, target_user):
+    media_files = []
+
+    try:
+        for message in client.iter_messages(target_user):
+            if message.media is not None:
+                if isinstance(message.media, (types.MessageMediaPhoto, types.MessageMediaDocument)):
+                    media_path = client.download_media(message.media)
+                    if media_path:
+                        media_files.append(media_path)
+    except Exception as e:
+        print(f"Ошибка при скачивании медиафайлов: {e}")
+
+    # Создание архива с медиафайлами
+    archive_filename = f"{target_user}_media_files.zip"
+    with zipfile.ZipFile(archive_filename, 'w') as zipf:
+        for file_path in media_files:
+            zipf.write(file_path)
+    
+    print(f"Медиафайлы сохранены в архив '{archive_filename}' и отправлены в бот")
+
+
+
 
 def get_messages_from_group(client, target_group, selection):
     minsk_timezone = timezone('Europe/Minsk')
