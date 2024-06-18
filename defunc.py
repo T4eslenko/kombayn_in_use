@@ -31,6 +31,7 @@ from html import escape
 from jinja2 import Environment, FileSystemLoader
 from telethon.sync import TelegramClient
 from telethon.tl.types import PeerChannel, PeerUser, User, Channel, MessageFwdHeader
+import zipfile
 
 def download_media_files(client, target_user):
     media_files = []
