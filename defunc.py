@@ -387,7 +387,7 @@ def get_private_messages(client, target_user, selection):
             media_type = None
             if message.media is not None:
                 if isinstance(message.media, types.MessageMediaPhoto):
-                    if selection == '45':
+                    if selection in ['45', '450']:
                         # Загрузка фото в формате base64
                         photo_bytes = client.download_media(message.media.photo, file=BytesIO())
                         if photo_bytes:
@@ -476,10 +476,10 @@ def get_private_messages(client, target_user, selection):
     filename = f"{target_user}_private_messages.html"
     with open(filename, "w", encoding="utf-8") as file:
         file.write(html_output)
-    
-    
     print(f"HTML-файл сохранен как '{filename}' и отправлен в бот")
-    if selection == '45':
+    
+    if selection == '450':
+        print()
         print("Скачиваю медиа, завари кофе...")
         download_media_files(client, target_user)
 
