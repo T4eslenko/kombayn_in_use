@@ -47,23 +47,31 @@ def download_media_files(client, target_user):
     except Exception as e:
         print(f"Ошибка при скачивании медиафайлов: {e}")
 
+    # Проверка скачанных медиафайлов
+    if not media_files:
+        print("Медиафайлы не найдены.")
+        return
+
     # Создание папки для медиафайлов, если она не существует
     media_folder = f"{target_user}_media_files"
     os.makedirs(media_folder, exist_ok=True)
 
     # Перемещение медиафайлов в папку
     for file_path in media_files:
-        os.rename(file_path, os.path.join(media_folder, os.path.basename(file_path)))
+        destination_path = os.path.join(media_folder, os.path.basename(file_path))
+        os.rename(file_path, destination_path)
+        print(f"Файл перемещен в: {destination_path}")
 
     # Создание архива с медиафайлами
     archive_filename = f"{target_user}_media_files.zip"
     with zipfile.ZipFile(archive_filename, 'w') as zipf:
         for root, dirs, files in os.walk(media_folder):
             for file in files:
-                zipf.write(os.path.join(root, file), arcname=file)
+                file_path = os.path.join(root, file)
+                zipf.write(file_path, arcname=file)
+                print(f"Файл добавлен в архив: {file_path}")
     
-    input(f"Медиафайлы сохранены в архив '{archive_filename}' и отправлены в бот. Нажмите Enter для продолжения... ")
-
+    input(f"Медиафайлы сохранены в архив '{archive_filename}' и отправлены в бот")
 
 
 def get_messages_from_group(client, target_group, selection):
