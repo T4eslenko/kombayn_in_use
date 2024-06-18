@@ -32,7 +32,8 @@ from jinja2 import Environment, FileSystemLoader
 from telethon.sync import TelegramClient
 from telethon.tl.types import PeerChannel, PeerUser, User, Channel, MessageFwdHeader
 import zipfile
-
+    
+        
 def download_media_files(client, target_user):
     media_files = []
 
@@ -71,6 +72,13 @@ def download_media_files(client, target_user):
                 zipf.write(file_path, arcname=file)
                 print(f"Файл добавлен в архив: {file_path}")
     
+    
+    try:
+        shutil.rmtree(media_folder)
+        print(f"Папка '{media_folder}' успешно удалена.")
+    except Exception as e:
+        print(f"Ошибка при удалении папки '{media_folder}': {e}")
+
     input(f"Медиафайлы сохранены в архив '{archive_filename}' и отправлены в бот")
 
 
