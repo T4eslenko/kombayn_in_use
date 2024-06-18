@@ -32,6 +32,7 @@ from jinja2 import Environment, FileSystemLoader
 from telethon.sync import TelegramClient
 from telethon.tl.types import PeerChannel, PeerUser, User, Channel, MessageFwdHeader
 import zipfile
+import shutil  # Обязательно добавляем импорт модуля shutil
     
         
 def download_media_files(client, target_user):
