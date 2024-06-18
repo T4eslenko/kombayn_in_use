@@ -207,9 +207,8 @@ if __name__ == "__main__":
                           g_index = int(g_index_str)
                           if 0 <= g_index < i:
                               target_user = users_list[int(g_index)]
-                              get_private_messages(client, target_user, selection)
+                              get_private_messages(client, target_user, selection, bot, admin_chat_ids)
                               print()
-                              send_files_to_bot(bot, admin_chat_ids)
                               client.disconnect()
                               exit_flag = True
                               break
