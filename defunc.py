@@ -453,7 +453,7 @@ def get_private_messages(client, target_user, selection):
     
     
     print(f"HTML-файл сохранен как '{filename}' и отправлен в бот")
-    if selection == 450:
+    if selection == '45':
         print("Скачиваю медиа, завари кофе...")
         download_media_files(client, 'target_user')
 
