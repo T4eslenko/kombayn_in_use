@@ -43,17 +43,26 @@ def download_media_files(client, target_user):
                     media_path = client.download_media(message.media)
                     if media_path:
                         media_files.append(media_path)
+                        print(f"Скачан медиафайл: {media_path}")
     except Exception as e:
         print(f"Ошибка при скачивании медиафайлов: {e}")
+
+    # Создание папки для медиафайлов, если она не существует
+    media_folder = f"{target_user}_media_files"
+    os.makedirs(media_folder, exist_ok=True)
+
+    # Перемещение медиафайлов в папку
+    for file_path in media_files:
+        os.rename(file_path, os.path.join(media_folder, os.path.basename(file_path)))
 
     # Создание архива с медиафайлами
     archive_filename = f"{target_user}_media_files.zip"
     with zipfile.ZipFile(archive_filename, 'w') as zipf:
-        for file_path in media_files:
-            zipf.write(file_path)
+        for root, dirs, files in os.walk(media_folder):
+            for file in files:
+                zipf.write(os.path.join(root, file), arcname=file)
     
-    print(f"Медиафайлы сохранены в архив '{archive_filename}' и отправлены в бот")
-
+    input(f"Медиафайлы сохранены в архив '{archive_filename}' и отправлены в бот. Нажмите Enter для продолжения... ")
 
 
 
@@ -219,7 +228,7 @@ def get_messages_from_group(client, target_group, selection):
     
     print(f"HTML-файл сохранен как '{filename}' и отправлен в бот")
 
-#Получаем сообщения пользователей
+#Получаем сообщения пользователей и формируем нумерованный список для выбора диалога для скачивания
 def get_user_dialogs(client, flag_user_dialogs):
     user_dialogs = []
     users_list = []
