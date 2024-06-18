@@ -506,25 +506,28 @@ def get_bot_from_search(client, phone, selection):
             username = user.username
             image_data_url =''
             if selection == '0':
-                if user.photo:
+                try:
                     user_info = client.get_entity(user.id)
-                    if user_info.photo:
-                        photo_path = client.download_profile_photo(user, file=BytesIO())
-                        if photo_path:
-                            encoded_image = base64.b64encode(photo_path.getvalue()).decode('utf-8')
-                            image_data_url = f"data:image/jpeg;base64,{encoded_image}"
-                        else:
-                            with open("no_image.png", "rb") as img_file:
-                                img_data = img_file.read()
-                                img_str = base64.b64encode(img_data).decode('utf-8')
-                                image_data_url = f"data:image/png;base64,{img_str}"
+                    if user.photo:
+                        if user_info.photo:
+                            photo_path = client.download_profile_photo(user, file=BytesIO())
+                            if photo_path:
+                                encoded_image = base64.b64encode(photo_path.getvalue()).decode('utf-8')
+                                image_data_url = f"data:image/jpeg;base64,{encoded_image}"
+                            else:
+                                with open("no_image.png", "rb") as img_file:
+                                    img_data = img_file.read()
+                                    img_str = base64.b64encode(img_data).decode('utf-8')
+                                    image_data_url = f"data:image/png;base64,{img_str}"
                     bot_from_search_html.append(
                             f'<img src="{image_data_url}" alt=" " style="width:50px;height:50px;vertical-align:middle;margin-right:10px;">'
                             f'<a href="https://t.me/{user.username}" style="color:#0000FF; text-decoration: none;vertical-align:middle;">@{user.username}</a> '
                             f'<span style="color:#556B2F;vertical-align:middle;">{user.first_name}</span>'
                     )
                         
-                bot_from_search.append(f"\033[93m'{user.first_name}'\033[0m, \033[36m@{user.username}\033[0m")
+                    bot_from_search.append(f"\033[93m'{user.first_name}'\033[0m, \033[36m@{user.username}\033[0m")
+                except Exception as e:
+                    print(f"An error occurred: {e}")
                 
     except Exception as e:
         print(f"An error occurred: {e}")
