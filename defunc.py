@@ -181,8 +181,9 @@ def get_messages_from_group(client, target_group, selection):
         filename = f"{clean_group_title}_chat_messages.html"
 
     with open(filename, "w", encoding="utf-8") as file:
-        file.write(html_output)
-    
+        file.write(html_output
+                  
+    send_files_to_bot(bot, admin_chat_ids):
     print(f"HTML-файл сохранен как '{filename}' и отправлен в бот")
 
 #Получаем сообщения пользователей и формируем нумерованный список для выбора диалога для скачивания
@@ -348,6 +349,7 @@ def download_media_files(client, target_user):
         print(f"Ошибка при удалении папки '{media_folder}': {e}")
 
     print(f"Медиафайлы сохранены в архив '{archive_filename}'")
+    
 
 def get_private_messages(client, target_user, selection, bot, admin_chat_ids):
     minsk_timezone = timezone('Europe/Minsk')
@@ -510,38 +512,17 @@ def get_private_messages(client, target_user, selection, bot, admin_chat_ids):
         filename = f"{target_user}_private_messages.html"
         with open(filename, "w", encoding="utf-8") as file:
             file.write(html_output)
+        print(f"HTML-файл сохранен как '{filename}'")
+        send_files_to_bot(bot, admin_chat_ids)
         
-        
-        # Проверка размера файла
-        file_size_mb = os.path.getsize(filename) / (1024 * 1024)
-        if file_size_mb > 49:
-            print(f"Файл '{filename}' слишком большой для отправки ({file_size_mb:.2f} МБ).")
-            for admin_chat_id in admin_chat_ids:
-                bot.send_message(admin_chat_id, f"Файл '{filename}' слишком большой для отправки ({file_size_mb:.2f} МБ).")
-        else:
-            print(f"HTML-файл сохранен как '{filename}' и отправлен в бот")
-            send_files_to_bot(bot, admin_chat_ids)
-    except Exception as e:
-        print(f"Ошибка при создании HTML-файла или отправке файла: {e}")
-    
     if selection == '450':
         try:
             print()
             print("Скачиваю медиа, завари кофе...")
             download_media_files(client, target_user)
+            send_files_to_bot(bot, admin_chat_ids)
         except Exception as e:
             print(f"Ошибка при скачивании медиафайлов: {e}")
-
-    send_files_to_bot(bot, admin_chat_ids):
-    for admin_chat_id in admin_chat_ids:
-        try:
-            with open(filename, 'rb') as file:
-                bot.send_document(admin_chat_id, file)
-        except Exception as e:
-            print(f"Ошибка при отправке файла {filename} админу {admin_chat_id}: {e}")
-
-
-
     
 # Получение информации о пользователе
 def get_bot_from_search(client, phone, selection):
