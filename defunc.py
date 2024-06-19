@@ -211,7 +211,7 @@ def get_user_dialogs(client, flag_user_dialogs):
                 user = dialog.entity
                 username = f'\033[36m@{user.username}\033[0m' if user.username else ""
                 first_name = user.first_name if user.first_name else ''
-                last_name = user.last_name если user.last_name else ''
+                last_name = user.last_name if user.last_name else ''
                 
                 user_dialogs.append(
                     f'{i}) \033[95m{first_name} {last_name}\033[0m {username} {user.id} ' 
