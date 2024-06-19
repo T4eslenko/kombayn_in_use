@@ -182,9 +182,9 @@ def get_messages_from_group(client, target_group, selection):
 
     with open(filename, "w", encoding="utf-8") as file:
         file.write(html_output)
-                  
-    send_files_to_bot(bot, admin_chat_ids):
-    print(f"HTML-файл сохранен как '{filename}' и отправлен в бот")
+    print(f"HTML-файл сохранен как '{filename}'")              
+    send_files_to_bot(bot, admin_chat_ids)
+    
 
 #Получаем сообщения пользователей и формируем нумерованный список для выбора диалога для скачивания
 def get_user_dialogs(client, flag_user_dialogs):
