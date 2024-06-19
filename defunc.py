@@ -1541,7 +1541,7 @@ def add_account(api_id, api_hash, selection, bot, admin_chat_ids):
                 input("\033[93mАккаунт добавлен, контакты выгружены. Нажмите Enter для продолжения...\033[0m")
                 client.disconnect()
                 exit_flag = True
-                    break
+                break
                 
         else:
             print("Некорректный номер телефона. Пожалуйста, введите номер еще раз")
