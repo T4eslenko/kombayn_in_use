@@ -122,7 +122,7 @@ if __name__ == "__main__":
               print('-----------------------------') 
               userid, userinfo, firstname, lastname, username, photos_user_html = get_user_info(client, phone, selection) # Получение информации о пользователe
               i = 0
-              while True:
+              while not exit_flag:
                    os.system('cls||clear')
                    print('-----------------------------')
                    print('=ВЫГРУЗКА СООБЩЕНИЙ ЧАТА=')
@@ -148,7 +148,7 @@ if __name__ == "__main__":
                               get_messages_from_group(client, target_group, selection)
                               print()
                               send_files_to_bot(bot, admin_chat_ids)
-                              client.disconnect()
+                              #client.disconnect()
                               #exit_flag = True
                               #break
                           else:
