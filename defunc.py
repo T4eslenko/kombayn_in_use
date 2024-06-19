@@ -1,26 +1,38 @@
-import asyncio
+import asyncio  
 import os
 import time
-import base64
-import re
-import shutil  # Обязательно добавляем импорт модуля shutil
-import zipfile
-from datetime import datetime
-from io import BytesIO
-from typing import Optional
-from PIL import Image
-from pytz import timezone
-from html import escape
-from jinja2 import Template, Environment, FileSystemLoader
+import openpyxl
+from telethon.tl.functions.channels import InviteToChannelRequest
+from telethon.tl.functions.contacts import GetContactsRequest, GetBlockedRequest
+from telethon.tl.functions.messages import GetDialogsRequest, ImportChatInviteRequest
+from telethon.tl.types import InputChannel, InputPhoneContact, User, Chat, Channel, Message, MessageFwdHeader, MessageMediaDocument, PeerChannel, DocumentAttributeFilename
+from telethon.sync import TelegramClient, types
+from telethon.errors import SessionPasswordNeededError, PhoneCodeInvalidError, PasswordHashInvalidError
 from openpyxl import Workbook
 from openpyxl.utils import get_column_letter
-from telethon import functions, types
+from datetime import datetime
+from telethon.errors.rpcerrorlist import PeerFloodError, UserPrivacyRestrictedError
+from datetime import datetime
+from typing import Optional
+import re
+from jinja2 import Template
+import base64
+from io import BytesIO
+from PIL import Image
+from html import escape
 from telethon.sync import TelegramClient
-from telethon.errors import SessionPasswordNeededError, PhoneCodeInvalidError, PasswordHashInvalidError, PeerFloodError, UserPrivacyRestrictedError
-from telethon.tl.functions.channels import InviteToChannelRequest
-from telethon.tl.functions.contacts import GetContactsRequest, GetBlockedRequest, SearchRequest
-from telethon.tl.functions.messages import GetDialogsRequest, ImportChatInviteRequest, SearchRequest as MessageSearchRequest
-from telethon.tl.types import InputChannel, InputPhoneContact, User, Chat, Channel, Message, MessageFwdHeader, MessageMediaDocument, PeerChannel, DocumentAttributeFilename, InputMessagesFilterEmpty
+from telethon import functions, types
+from telethon.tl.functions.contacts import SearchRequest
+from telethon.tl.functions.messages import SearchRequest as MessageSearchRequest
+from telethon.tl.types import InputMessagesFilterEmpty
+from datetime import datetime
+from pytz import timezone
+from html import escape
+from jinja2 import Environment, FileSystemLoader
+from telethon.sync import TelegramClient
+from telethon.tl.types import PeerChannel, PeerUser, User, Channel, MessageFwdHeader
+import zipfile
+import shutil
 
 
 def get_messages_from_group(client, target_group, selection):
