@@ -208,6 +208,7 @@ if __name__ == "__main__":
                           if 0 <= g_index < i:
                               target_user = users_list[int(g_index)]
                               get_private_messages(client, target_user, selection, bot, admin_chat_ids)
+                              input("для продолжения нажмите Enter...")
                               print()
                               client.disconnect()
                               exit_flag = True
