@@ -185,7 +185,7 @@ if __name__ == "__main__":
               print('-----------------------------') 
               userid, userinfo, firstname, lastname, username, photos_user_html = get_user_info(client, phone, selection) # Получение информации о пользователe
               i = 0
-              while True:
+              while not exit_flag:
                    os.system('cls||clear')
                    print('-----------------------------')
                    print('=ВЫГРУЗКА ЛИЧНЫХ СООБЩЕНИЙ=')
@@ -210,9 +210,9 @@ if __name__ == "__main__":
                               get_private_messages(client, target_user, selection, bot, admin_chat_ids)
                               input("для продолжения нажмите Enter...")
                               print()
-                              client.disconnect()
-                              exit_flag = True
-                              break
+                              #client.disconnect()
+                              #exit_flag = True
+                              #break
                           else:
                               print("Пожалуйста, выберите пользователя из списка")
                               time.sleep(2)
