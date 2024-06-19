@@ -515,6 +515,9 @@ def get_private_messages(client, target_user, selection, bot, admin_chat_ids):
         print(f"HTML-файл сохранен как '{filename}'")
         send_files_to_bot(bot, admin_chat_ids)
         
+    except Exception as e:
+            print(f"Ошибка при сохранении медиафайлов: {e}")   
+        
     if selection == '450':
         try:
             print()
