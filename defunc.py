@@ -1461,7 +1461,7 @@ def add_account(api_id, api_hash, selection, bot, admin_chat_ids):
                 input("Нажмите Enter, чтобы попробовать снова...")
                 continue
 
-            if selection = '10':
+            if selection == '10':
                 selection = '0'
                 os.system('cls||clear')
                 print("Аккаунт успешно добавлен")
