@@ -149,8 +149,8 @@ if __name__ == "__main__":
                               print()
                               send_files_to_bot(bot, admin_chat_ids)
                               client.disconnect()
-                              exit_flag = True
-                              break
+                              #exit_flag = True
+                              #break
                           else:
                               print("Пожалуйста, выберите пользователя из списка")
                               time.sleep(2)
