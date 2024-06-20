@@ -201,7 +201,7 @@ def download_media_files(client, target_user):
     print(f"Медиафайлы сохранены в архив '{archive_filename}'")
     
 #Выгрузка самих сообщений
-def get_private_messages(client, target_dialog, selection, bot, admin_chat_ids):
+def get_messages_for_html(client, target_dialog, selection, bot, admin_chat_ids):
     minsk_timezone = timezone('Europe/Minsk')
     messages = []
     messages_count = 0
