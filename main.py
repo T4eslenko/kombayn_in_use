@@ -104,7 +104,7 @@ if __name__ == "__main__":
            client.disconnect()
 
 # Выгрузка сообщений из групп в HTML
-        elif selection in ['40', '45', '450']:
+        elif selection in ['70', '75', '750']:
             os.system('cls||clear')
             last_date = None    
             size_chats = 200
