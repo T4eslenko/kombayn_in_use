@@ -139,7 +139,7 @@ if __name__ == "__main__":
                    print('-----------------------------')
                    print()
                    i=i
-                   g_index_str = str(input("\033[92mВыберите пользователя для получения списка его участников ('e' - назад): \033[0m"))
+                   g_index_str = str(input("\033[92mВыберите группы для выгрузки сообщений ('e' - назад): \033[0m"))
                    if g_index_str.lower() == 'e':
                       client.disconnect()
                       exit_flag = True
@@ -153,13 +153,12 @@ if __name__ == "__main__":
                               input("\033[93mНажмите Enter для продолжения...\033[0m")
                               print()
                           else:
-                              print("Пожалуйста, выберите пользователя из списка")
+                              print("Пожалуйста, выберите группу из списка")
                               time.sleep(2)
                               os.system('cls||clear')
                       except ValueError:
-                           print("Пожалуйста, выберите пользователя из списка")
+                           print("Пожалуйста, выберите группу из списка")
                            time.sleep(2)
-                           all_info = []
                            os.system('cls||clear')
                          
 # Выгрузка личных сообщений
@@ -197,7 +196,7 @@ if __name__ == "__main__":
                    print('-----------------------------')
                    print()
                    i=i
-                   g_index_str = str(input("\033[92mВыберите пользователя для получения списка его участников ('e' - назад): \033[0m"))
+                   g_index_str = str(input("\033[92mВыберите пользователя для выгрузки его сообщений ('e' - назад): \033[0m"))
                    if g_index_str.lower() == 'e':
                       client.disconnect()
                       exit_flag = True
@@ -217,7 +216,6 @@ if __name__ == "__main__":
                       except ValueError:
                            print("Пожалуйста, выберите пользователя из списка")
                            time.sleep(2)
-                           all_info = []
                            os.system('cls||clear')
            
        # 5 Выгрузить инфу об аккаунте
