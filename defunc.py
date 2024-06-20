@@ -87,14 +87,6 @@ def get_messages_for_html(client, target_dialog, selection, bot, admin_chat_ids)
     last_message_date = None
     forward_sender = None
     
-
-    if selection in ['70', '75', '750']:  # если выгрузка из канала
-        selected = 'channel_messages'
-        template_file = 'template_groups_messages.html'
-    elif selection in ['40', '45', '450']:
-        selected = 'user_messages'
-        template_file = 'template_user_messages.html'
-
     try:
         # Информация об объекте (подсоединен к телеграм-клинету)
         me = client.get_me()
@@ -102,8 +94,19 @@ def get_messages_for_html(client, target_dialog, selection, bot, admin_chat_ids)
         firstname_client = me.first_name
         username_client = f"@{me.username}" if me.username is not None else ''
         lastname_client = me.last_name if me.last_name is not None else ''
-
-        if selected == 'user_messages':  # если выгрузка личных сообщений
+        
+    except Exception as e:
+        print(f"Ошибка при получении информации о пользователе: {e}")
+        return
+        
+    try:
+        if selection in ['70', '75', '750']:  # если выгрузка из канала
+            target_dialog_id = target_dialog.id
+            title = target_dialog.title
+            
+            selected = 'channel_messages'
+            template_file = 'template_groups_messages.html'
+        elif selection in ['40', '45', '450']:
             target_dialog_id = target_dialog  # в этом случае target_dialog - это ид пользователя
             title = target_dialog_id
             # Информация о собеседнике
@@ -112,30 +115,26 @@ def get_messages_for_html(client, target_dialog, selection, bot, admin_chat_ids)
             first_name = user.first_name if user.first_name else ''
             last_name = user.last_name if user.last_name else ''
             user_id = user.id
-
+            
+            selected = 'user_messages'
+            template_file = 'template_user_messages.html'
+            
     except Exception as e:
-        print(f"Ошибка при получении информации о пользователе: {e}")
+        print(f"Ошибка при определении title: {e}")
         return
 
     try:
-        input("подошел к в цикл")
         for message in client.iter_messages(target_dialog_id):
-            input("зашел в цикл")
             if selected == 'channel_messages':  # если выгрузка из канала
-                input("прошел проверку")
                 try:
                     # target_dialog - это итерация конкретного диалога
-                    input(target_dialog)
-                    input(target_dialog.title)
-                    title = target_dialog.title
-                    target_dialog_id = target_dialog.id
                     sender_id = message.sender_id if hasattr(message, 'sender_id') else title
                     username = f"@{message.sender.username}" if hasattr(message.sender, 'username') else ''
                     first_name = message.sender.first_name if hasattr(message.sender, 'first_name') else ''
-                    input(first_name)
                     last_name = message.sender.last_name if hasattr(message.sender, 'last_name') else ''
-                except Exception:
-                    pass
+                except Exception as e:
+                    print(f"Ошибка при получении данных sender_id etc при рпботе с каналом: {e}")
+                    return
 
             # Определяем дату первого и последнего сообщения
             message_time = message.date.astimezone(minsk_timezone).strftime('%d.%m.%Y %H:%M:%S')
