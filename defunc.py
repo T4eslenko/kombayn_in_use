@@ -128,7 +128,10 @@ def get_messages_for_html(client, target_dialog, selection, bot, admin_chat_ids)
             if selected == 'channel_messages':  # если выгрузка из канала
                 try:
                     # target_dialog - это итерация конкретного диалога
-                    sender_id = message.sender_id if hasattr(message, 'sender_id') else (title)
+                    if hasattr(message, 'sender_id'):
+                        sender_id = message.sender_id 
+                    else:
+                        sender_id = title
                     username = f"@{message.sender.username}" if hasattr(message.sender, 'username') else ''
                     first_name = message.sender.first_name if hasattr(message.sender, 'first_name') else ''
                     last_name = message.sender.last_name if hasattr(message.sender, 'last_name') else ''
@@ -172,33 +175,31 @@ def get_messages_for_html(client, target_dialog, selection, bot, admin_chat_ids)
                     reply_text = f"Ошибка при получении ответа: {e}"
 
             # Обрабатываем реакции
-            reaction_info = ""
+            reaction_info = []
             reactions = message.reactions
             if reactions and reactions.recent_reactions:
                 try:
-                    for reaction in reactions.recent_reactions:
-                        if selected == 'channel_messages':
-                            reaction_info = []
-                            
-                            for reaction in reactions.recent_reactions:
-                                user_details = []
-                                user_details.append(reaction.reaction.emoticon)
-                                if hasattr(reaction.peer_id, 'first_name') and reaction.peer_id.first_name:
-                                    user_details.append(reaction.peer_id.first_name)
-                                if hasattr(reaction.peer_id, 'last_name') and reaction.peer_id.last_name:
-                                    user_details.append(reaction.peer_id.last_name)
-                                if hasattr(reaction.peer_id, 'username') and reaction.peer_id.username:
-                                    user_details.append(f"@{reaction.peer_id.username}")
-                                if hasattr(reaction.peer_id, 'user_id') and reaction.peer_id.user_id:
-                                    user_details.append(str(reaction.peer_id.user_id))
-                                reaction_info.append(" ".join(user_details))
-
-                            reaction_info = " ".join(reaction_info)
-                        
-                        elif selected == 'user_messages':
-                            reaction_info = " ".join(reaction.reaction.emoticon for reaction in reactions.recent_reactions)
+                    if selected == 'channel_messages':
+                        for reaction in reactions.recent_reactions:
+                            user_details = []
+                            user_details.append(reaction.reaction.emoticon)
+                            if hasattr(reaction.peer_id, 'first_name') and reaction.peer_id.first_name:
+                                user_details.append(reaction.peer_id.first_name)
+                            if hasattr(reaction.peer_id, 'last_name') and reaction.peer_id.last_name:
+                                user_details.append(reaction.peer_id.last_name)
+                            if hasattr(reaction.peer_id, 'username') and reaction.peer_id.username:
+                                user_details.append(f"@{reaction.peer_id.username}")
+                            if hasattr(reaction.peer_id, 'user_id') and reaction.peer_id.user_id:
+                                user_details.append(str(reaction.peer_id.user_id))
+                            reaction_info.append(" ".join(user_details))
+            
+                    elif selected == 'user_messages':
+                        reaction_info = [" ".join(reaction.reaction.emoticon for reaction in reactions.recent_reactions)]
+                    
+                    reaction_info = " ".join(reaction_info)
                 except Exception as e:
                     reply_text = f"Ошибка при получении реакции: {e}"
+
 
             # Обработка меди файлов
             media_type = None
