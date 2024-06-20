@@ -805,7 +805,7 @@ def get_admin_rights_chat_list(admin_rights):
 
 
 # Формируем списки каналов и чатов
-def make_list_of_channels(delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats, selection, client):
+def make_list_of_channels(delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats, selection, client, flag_user_dialogs):
     """Функция для формирования списков групп и каналов"""
     owner_openchannel = 0
     owner_opengroup = 0
@@ -1003,8 +1003,9 @@ def make_list_of_channels(delgroups, chat_message_counts, openchannels, closecha
         i +=1
         if owner != "" or admin != "":
             owner_closegroup += 1
-
-    return groups, i, all_info, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_openchannel, owner_closechannel, owner_opengroup, owner_closegroup, public_channels_html, private_channels_html, public_groups_html, private_groups_html, deleted_groups_html
+            
+    flag_user_dialogs = True
+    return groups, i, all_info, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_openchannel, owner_closechannel, owner_opengroup, owner_closegroup, public_channels_html, private_channels_html, public_groups_html, private_groups_html, deleted_groups_html, flag_user_dialogs
 
 
 #Запись информации о группах в файл
@@ -1376,7 +1377,7 @@ def add_account(api_id, api_hash, selection, bot, admin_chat_ids):
             if selection != '100': #быстрое подключение без отчета
                 count_blocked_bot, earliest_date, latest_date, blocked_bot_info, blocked_bot_info_html, user_bots, user_bots_html = get_blocked_bot(client, selection, phone)
                 delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats, admin_id, user_bots, user_bots_html = get_type_of_chats(client, selection)  # Получение информации о чатах и каналах
-                groups, i, all_info, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_openchannel, owner_closechannel, owner_opengroup, owner_closegroup, public_channels_html, private_channels_html, public_groups_html, private_groups_html, deleted_groups_html = make_list_of_channels(delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats, selection, client)
+                groups, i, all_info, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_openchannel, owner_closechannel, owner_opengroup, owner_closegroup, public_channels_html, private_channels_html, public_groups_html, private_groups_html, deleted_groups_html, flag_user_dialogs = make_list_of_channels(delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats, selection, client, flag_user_dialogs)
                 print()
             total_contacts, total_contacts_with_phone, total_mutual_contacts = get_and_save_contacts(client, phone, userid, userinfo, firstname, lastname, username)
             if selection != '100':
