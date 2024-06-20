@@ -128,10 +128,7 @@ def get_messages_for_html(client, target_dialog, selection, bot, admin_chat_ids)
             if selected == 'channel_messages':  # если выгрузка из канала
                 try:
                     # target_dialog - это итерация конкретного диалога
-                    if hasattr(message, 'sender_id'):
-                        sender_id = message.sender_id 
-                    else:
-                        sender_id = title
+                    sender_id = message.sender_id if hasattr(message, 'sender_id') else title
                     username = f"@{message.sender.username}" if hasattr(message.sender, 'username') else ''
                     first_name = message.sender.first_name if hasattr(message.sender, 'first_name') else title
                     last_name = message.sender.last_name if hasattr(message.sender, 'last_name') else ''
@@ -185,7 +182,7 @@ def get_messages_for_html(client, target_dialog, selection, bot, admin_chat_ids)
                             if hasattr(reaction.peer_id, 'user_id') and reaction.peer_id.user_id:
                                 user_id_react = f"id: {reaction.peer_id.user_id}"
                             else:
-                                user_id_react = f"администратор: {title}"
+                                user_id_react = f"администратор группы: {title}"
                             reaction_info += f"{reaction.reaction.emoticon} ({user_id_react}) "
                         
                         # Убираем последний лишний пробел в конце строки, если он есть
