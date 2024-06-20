@@ -98,7 +98,7 @@
             <p><strong>Реакции:</strong></p>
             <ul>
             {% for info in message.reactions %}
-                <li>{{ info | safe }}</li>
+                <li>{{ info }}</li>
             {% endfor %}
             </ul>
             {% endif %}
