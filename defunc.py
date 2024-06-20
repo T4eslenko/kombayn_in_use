@@ -294,7 +294,7 @@ def get_messages_for_html(client, target_dialog, selection, bot, admin_chat_ids)
     if selection in ['450', '750']:
         try:
             print()
-            print("033[35mСкачиваю медиа, завари кофе...\033[0m")
+            print("\033[35mСкачиваю медиа, завари кофе...\033[0m")
             download_media_files(client, target_dialog_id)
             send_files_to_bot(bot, admin_chat_ids)
         except Exception as e:
