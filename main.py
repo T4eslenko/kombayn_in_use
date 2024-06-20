@@ -149,7 +149,6 @@ if __name__ == "__main__":
                           g_index = int(g_index_str)
                           if 0 <= g_index < i:
                               target_group = groups[int(g_index)]
-                              input(target_group)
                               get_messages_for_html(client, target_group, selection, bot, admin_chat_ids)
                               input("\033[93mНажмите Enter для продолжения...\033[0m")
                               print()
