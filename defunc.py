@@ -181,31 +181,9 @@ def get_messages_for_html(client, target_dialog, selection, bot, admin_chat_ids)
                 try:
                     if selected == 'channel_messages':
                         for reaction in reactions.recent_reactions:
-                            user_details = []
-                            user_details.append(reaction.reaction.emoticon)
-                            
-                            if hasattr(reaction.peer_id, 'first_name') and reaction.peer_id.first_name:
-                                first_name_react = reaction.peer_id.first_name
-                            else:
-                                first_name_react = ''
-                        
-                            if hasattr(reaction.peer_id, 'last_name') and reaction.peer_id.last_name:
-                                last_name_react = reaction.peer_id.last_name
-                            else:
-                                last_name_react = ''
-                        
-                            if hasattr(reaction.peer_id, 'username') and reaction.peer_id.username:
-                                username_react = f"@{reaction.peer_id.username}"
-                            else:
-                                username_react = ''
-                        
-                            if hasattr(reaction.peer_id, 'user_id') and reaction.peer_id.user_id:
-                                user_id_react = f"id: {reaction.peer_id.user_id}"
-                            else:
-                                user_id_react = ''
-                        
-                            reaction_info = f"{reaction.reaction.emoticon} поставил: {user_id_react}, {first_name_react} {last_name_react}"
-                            user_details.append(reaction_info)
+                            user_id_react = f"id: {reaction.peer_id.user_id}  
+                            reaction_info = f"{reaction.reaction.emoticon} ({user_id_react})"
+                            reaction_info.append(reaction_info)
             
                     elif selected == 'user_messages':
                         reaction_info = [" ".join(reaction.reaction.emoticon for reaction in reactions.recent_reactions)]
