@@ -91,8 +91,6 @@ def get_messages_for_html(client, target_dialog, selection, bot, admin_chat_ids)
     if selection in ['70', '75', '750']:  # если выгрузка из канала
         selected = 'channel_messages'
         template_file = 'template_groups_messages.html'
-        input(target_dialog)
-        input(target_dialog.title)
     elif selection in ['40', '45', '450']:
         selected = 'user_messages'
         template_file = 'template_user_messages.html'
@@ -124,11 +122,14 @@ def get_messages_for_html(client, target_dialog, selection, bot, admin_chat_ids)
             if selected == 'channel_messages':  # если выгрузка из канала
                 try:
                     # target_dialog - это итерация конкретного диалога
+                    input(target_dialog)
+                    input(target_dialog.title)
                     title = target_dialog.title
                     target_dialog_id = target_dialog.id
-                    sender_id = message.sender_id if hasattr(message, 'sender_id') else 'title'
+                    sender_id = message.sender_id if hasattr(message, 'sender_id') else title
                     username = f"@{message.sender.username}" if hasattr(message.sender, 'username') else ''
                     first_name = message.sender.first_name if hasattr(message.sender, 'first_name') else ''
+                    input(first_name)
                     last_name = message.sender.last_name if hasattr(message.sender, 'last_name') else ''
                 except Exception:
                     pass
