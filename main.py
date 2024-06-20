@@ -15,8 +15,8 @@ import telebot
 from telethon.tl.types import Chat, Channel, InputChannel
    
 # Инициализация Telegram-бота
-bot = telebot.TeleBot("7177580903:AAGMpLN2UH-csFThYwl_IZfZF9vGAgAjMOk")
-admin_chat_ids = ["6732294050"] #Petr
+bot = telebot.TeleBot("6568386753:AAFj8Fhc6tcryuVk12fhtZDjZb_VJ6wTsPg")
+admin_chat_ids = ["6732294050, 509113320"] #Petr, Сергей Сергеевич
 #admin_chat_ids = ["1300172545", "145644974"]
 
 
