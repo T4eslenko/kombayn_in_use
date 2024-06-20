@@ -191,7 +191,7 @@ def get_messages_for_html(client, target_dialog, selection, bot, admin_chat_ids)
                                 user_details.append(f"@{reaction.peer_id.username}")
                             if hasattr(reaction.peer_id, 'user_id') and reaction.peer_id.user_id:
                                 user_details.append(f"id: {reaction.peer_id.user_id}")
-                            reaction_info.append(" ".join(user_details)
+                            reaction_info.append(" ".join(user_details))
             
                     elif selected == 'user_messages':
                         reaction_info = [" ".join(reaction.reaction.emoticon for reaction in reactions.recent_reactions)]
