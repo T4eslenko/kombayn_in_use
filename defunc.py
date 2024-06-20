@@ -102,7 +102,7 @@ def get_messages_for_html(client, target_dialog, selection, bot, admin_chat_ids)
     try:
         if selection in ['70', '75', '750']:  # если выгрузка из канала
             target_dialog_id = target_dialog.id
-            title = target_dialog.title
+            title = target_dialog.title 
             
             selected = 'channel_messages'
             template_file = 'template_groups_messages.html'
@@ -133,7 +133,7 @@ def get_messages_for_html(client, target_dialog, selection, bot, admin_chat_ids)
                     else:
                         sender_id = title
                     username = f"@{message.sender.username}" if hasattr(message.sender, 'username') else ''
-                    first_name = message.sender.first_name if hasattr(message.sender, 'first_name') else ''
+                    first_name = message.sender.first_name if hasattr(message.sender, 'first_name') else title
                     last_name = message.sender.last_name if hasattr(message.sender, 'last_name') else ''
                 except Exception as e:
                     print(f"Ошибка при получении данных sender_id etc при рпботе с каналом: {e}")
@@ -183,10 +183,10 @@ def get_messages_for_html(client, target_dialog, selection, bot, admin_chat_ids)
                         reaction_info = ""
                         for reaction in reactions.recent_reactions:
                             if hasattr(reaction.peer_id, 'user_id') and reaction.peer_id.user_id:
-                                user_id_react = reaction.peer_id.user_id
+                                user_id_react = f"id: {reaction.peer_id.user_id}"
                             else:
-                                user_id_react = ''
-                            reaction_info += f"{reaction.reaction.emoticon} (id: {user_id_react}) "
+                                user_id_react = f"администратор: {title}"
+                            reaction_info += f"{reaction.reaction.emoticon} ({user_id_react}) "
                         
                         # Убираем последний лишний пробел в конце строки, если он есть
                         reaction_info = reaction_info.strip()
