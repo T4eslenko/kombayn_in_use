@@ -186,7 +186,7 @@ def get_messages_for_html(client, target_dialog, selection, bot, admin_chat_ids)
             if message.media is not None:
                 try:
                     if isinstance(message.media, types.MessageMediaPhoto):
-                        if selection in ['45', '450']:
+                        if selection in ['45', '450', '75', '750']:
                             # Загрузка фото в формате base64
                             photo_bytes = client.download_media(message.media.photo, file=BytesIO())
                             if photo_bytes:
