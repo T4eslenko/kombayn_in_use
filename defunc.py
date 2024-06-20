@@ -195,7 +195,7 @@ def get_messages_for_html(client, target_dialog, selection, bot, admin_chat_ids)
 
                             reaction_info = " ".join(reaction_info)
                         
-                        elif if selected == 'user_messages':
+                        elif selected == 'user_messages':
                             reaction_info = " ".join(reaction.reaction.emoticon for reaction in reactions.recent_reactions)
                 except Exception as e:
                     reply_text = f"Ошибка при получении реакции: {e}"
