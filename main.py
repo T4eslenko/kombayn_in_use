@@ -104,8 +104,10 @@ if __name__ == "__main__":
            client.disconnect()
 
 # Выгрузка сообщений из групп в HTML
-        elif selection in ['70', '75']:
+        elif selection in ['40', '45', '450']:
             os.system('cls||clear')
+            last_date = None    
+            size_chats = 200
             exit_flag = False
             flag_user_dialogs = False
             while not exit_flag:
@@ -113,7 +115,7 @@ if __name__ == "__main__":
               sessions = []
               header = '''
    -----------------------------
-   =ВЫГРУЗКА СООБЩЕНИЙ ЧАТА=
+   =ВЫГРУЗКА СООБЩЕНИЙ из ГРУППЫ=
    -----------------------------
               '''
               result = choice_akk(api_id, api_hash, header)
@@ -127,13 +129,12 @@ if __name__ == "__main__":
               while not exit_flag:
                    os.system('cls||clear')
                    print('-----------------------------')
-                   print('=ВЫГРУЗКА СООБЩЕНИЙ ЧАТА=')
+                   print('=ВЫГРУЗКА СООБЩЕНИЙ из ГРУППЫ=')
                    print(f"\033[96mНомер телефона: +{phone}, ID: {userid}, ({firstname}{lastname}) {username}\033[0m")
                    print('-----------------------------')
                    if flag_user_dialogs == False:
-                      delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats, admin_id, user_bots, user_bots_html = get_type_of_chats(client, selection)  # Получение информации о чатах и каналах
-                      groups, i, all_info, openchannel_count, closechannel_count, opengroup_count, closegroup_count, closegroupdel_count, owner_openchannel, owner_closechannel, owner_opengroup, owner_closegroup, public_channels_html, private_channels_html, public_groups_html, private_groups_html, deleted_groups_html= make_list_of_channels(delgroups, chat_message_counts, openchannels, closechannels, openchats, closechats, selection, client)
-                   print_pages(all_info, 40)
+                      user_dialogs, i, users_list, flag_user_dialogs = get_user_dialogs(client, flag_user_dialogs)
+                   print_pages(user_dialogs, 40)
                    print('-----------------------------')
                    print()
                    i=i
@@ -147,7 +148,8 @@ if __name__ == "__main__":
                           g_index = int(g_index_str)
                           if 0 <= g_index < i:
                               target_group = groups[int(g_index)]
-                              get_messages_for_html(client, target_user, selection, bot, admin_chat_ids)
+                              get_messages_for_html(client, target_group, selection, bot, admin_chat_ids)
+                              input("для продолжения нажмите Enter...")
                               print()
                               #client.disconnect()
                               #exit_flag = True
