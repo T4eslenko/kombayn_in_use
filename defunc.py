@@ -180,9 +180,8 @@ def get_messages_for_html(client, target_dialog, selection, bot, admin_chat_ids)
             if reactions and reactions.recent_reactions:
                 try:
                     if selected == 'channel_messages':
-                        for reaction in reactions.recent_reactions:
-                            user_id_react = f"id: {reaction.peer_id.user_id}  
-                            reaction_info = f"{reaction.reaction.emoticon} ({user_id_react})"
+                        for reaction in reactions.recent_reactions: 
+                            reaction_info = f"({reaction.reaction.emoticon} (id: {reaction.peer_id.user_id})"
                             reaction_info.append(reaction_info)
             
                     elif selected == 'user_messages':
