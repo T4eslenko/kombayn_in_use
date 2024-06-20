@@ -175,18 +175,21 @@ def get_messages_for_html(client, target_dialog, selection, bot, admin_chat_ids)
                     reply_text = f"Ошибка при получении ответа: {e}"
 
             # Обрабатываем реакции
-            reaction_info = []
+            reaction_info = ""
             reactions = message.reactions
             if reactions and reactions.recent_reactions:
                 try:
                     if selected == 'channel_messages':
-                        for reaction in reactions.recent_reactions: 
+                        reaction_info = ""
+                        for reaction in reactions.recent_reactions:
                             if hasattr(reaction.peer_id, 'user_id') and reaction.peer_id.user_id:
-                                user_id_react = f"id: {reaction.peer_id.user_id}"
+                                user_id_react = reaction.peer_id.user_id
                             else:
                                 user_id_react = ''
-                            reaction_info = f"{reaction.reaction.emoticon} (id: {user_id_react}"
-                            reaction_info.append(reaction_info)
+                            reaction_info += f"{reaction.reaction.emoticon} (id: {user_id_react}) "
+                        
+                        # Убираем последний лишний пробел в конце строки, если он есть
+                        reaction_info = reaction_info.strip()
             
                     elif selected == 'user_messages':
                         reaction_info = [" ".join(reaction.reaction.emoticon for reaction in reactions.recent_reactions)]
