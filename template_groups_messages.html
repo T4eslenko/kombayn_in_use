@@ -95,8 +95,14 @@
             <p><strong>Медиа:</strong> {{ message.media_type }}</p>
             {% endif %}
             {% if message.reactions %}
-            <p><strong>Реакции:</strong> {{ message.reactions }}</p>
+            <p><strong>Реакции:</strong></p>
+            <ul>
+            {% for info in message.reactions %}
+                <li>{{ info | safe }}</li>
+            {% endfor %}
+            </ul>
             {% endif %}
+            
         </div>
     </div>
     {% endfor %}
