@@ -86,12 +86,13 @@ def get_messages_for_html(client, target_dialog, selection, bot, admin_chat_ids)
     first_message_date = None
     last_message_date = None
     forward_sender = None
-    first_name = ''
-    last_name = ''
+    
 
     if selection in ['70', '75', '750']:  # если выгрузка из канала
         selected = 'channel_messages'
         template_file = 'template_groups_messages.html'
+        input(target_dialog)
+        input(target_dialog.title)
     elif selection in ['40', '45', '450']:
         selected = 'user_messages'
         template_file = 'template_user_messages.html'
