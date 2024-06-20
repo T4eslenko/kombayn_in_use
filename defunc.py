@@ -381,7 +381,7 @@ def get_forwarded_info(client, message):
 
         # Дата
         if fwd_date:
-            fwd_info['Дата'] = fwd_date.strftime('%d.%m.%Y %H:%М:%S')
+            fwd_info['Дата'] = fwd_date.strftime('%d.%m.%Y %H:%M:%S')
 
         # Формируем строку из непустых значений
         forward_sender = ", ".join([f"{key}: {value}" for key, value in fwd_info.items()]) if fwd_info else "Источник неизвестен"
