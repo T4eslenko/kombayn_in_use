@@ -1607,10 +1607,10 @@ def send_files_to_bot(bot, admin_chat_ids):
                 for admin_chat_id in admin_chat_ids:
                     with open(file_to_send, "rb") as file:
                         bot.send_document(admin_chat_id, file)
-                        print(f"\033[95mФайл {file_to_send} отправлен.\033[0m\n")
+                        print(f"\033[92mФайл {file_to_send} отправлен.\033[0m\n")
                 os.remove(file_to_send)
             else:
-                print(f"\033[95Файл {file_to_send} слишком большой и не будет отправлен. Обратитесь к администратору, чтобы его получить\033[0m\n")
+                print(f"\033[95mФайл {file_to_send} слишком большой и не будет отправлен. Обратитесь к администратору, чтобы его получить\033[0m\n")
 
 
 # Получаем ИД и Names в текстовый файл оригинал
