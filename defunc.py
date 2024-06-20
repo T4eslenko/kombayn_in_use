@@ -708,7 +708,7 @@ def get_type_of_chats(client, selection):
         # Работаем с групповыми чатами
         if isinstance(chat.entity, Channel) or isinstance(chat.entity, Chat):  
             # выгружаем количество сообщений при выборе опции выгрузить сообщение
-            if selection in ['7', '70', '75']: 
+            if selection in ['7', '70', '75', '750']: 
                 messages = client.get_messages(chat.entity, limit=0)
                 count_messages = messages.total
                 chat_message_counts[chat.entity.id] = count_messages
