@@ -294,7 +294,7 @@ def get_messages_for_html(client, target_dialog, selection, bot, admin_chat_ids)
     if selection in ['450', '750']:
         try:
             print()
-            print("Скачиваю медиа, завари кофе...")
+            print("033[35mСкачиваю медиа, завари кофе...\033[0m")
             download_media_files(client, target_dialog_id)
             send_files_to_bot(bot, admin_chat_ids)
         except Exception as e:
@@ -1607,10 +1607,10 @@ def send_files_to_bot(bot, admin_chat_ids):
                 for admin_chat_id in admin_chat_ids:
                     with open(file_to_send, "rb") as file:
                         bot.send_document(admin_chat_id, file)
-                        print(f"Файл {file_to_send} отправлен.")
+                        print(f"\033[95mФайл {file_to_send} отправлен.\033[0m\n")
                 os.remove(file_to_send)
             else:
-                print(f"Файл {file_to_send} слишком большой и не будет отправлен.")
+                print(f"\033[95Файл {file_to_send} слишком большой и не будет отправлен. Обратитесь к администратору, чтобы его получить\033[0m\n")
 
 
 # Получаем ИД и Names в текстовый файл оригинал
