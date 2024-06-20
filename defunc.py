@@ -77,128 +77,6 @@ def get_user_dialogs(client, flag_user_dialogs):
     flag_user_dialogs = True
     return user_dialogs, i, users_list, flag_user_dialogs
 
-
-
-#Вспомогательная функция
-def get_forwarded_info(client, message):
-    try:
-        # Получение id пересланного пользователя или канала
-        fwd_user_id = message.fwd_from.from_id.user_id if isinstance(message.fwd_from, MessageFwdHeader) and hasattr(message.fwd_from.from_id, 'user_id') else None
-        fwd_channel_id = message.fwd_from.from_id.channel_id if isinstance(message.fwd_from, MessageFwdHeader) and hasattr(message.fwd_from.from_id, 'channel_id') and isinstance(message.fwd_from.from_id, PeerChannel) else None
-        fwd_date = message.fwd_from.date if isinstance(message.fwd_from, MessageFwdHeader) and hasattr(message.fwd_from, 'date') else None
-
-        # Данные о пользователе или канале
-        fwd_info = {}
-
-        if fwd_user_id or fwd_channel_id:
-            if fwd_user_id:
-                fwd_info['Источник'] = "пользователь"
-                
-                try:
-                    # Получение информации о пользователе
-                    user = client.get_entity(PeerUser(fwd_user_id))
-                    if isinstance(user, User):
-                        # Имя и фамилия
-                        if user.first_name or user.last_name:
-                            name = " ".join(filter(None, [user.first_name, user.last_name]))
-                            fwd_info['Имя и фамилия'] = name
-                        
-                        # Юзернейм
-                        if user.username:
-                            fwd_info['Юзернейм'] = f"@{user.username}"
-                        
-                        # ID пользователя
-                        fwd_info['ID'] = fwd_user_id
-                except Exception as e:
-                    print(f"Ошибка при получении информации о пользователе с ID {fwd_user_id}: {e}")
-            else:
-                fwd_info['Источник'] = "канал"
-                
-                try:
-                    # Получение информации о канале
-                    channel = client.get_entity(PeerChannel(fwd_channel_id))
-                    if isinstance(channel, Channel):
-                        # Название канала
-                        if channel.title:
-                            fwd_info['Название канала'] = channel.title
-                        
-                        # Ссылка на канал
-                        if channel.username:
-                            fwd_info['Ссылка на канал'] = f"https://t.me/{channel.username}"
-                        
-                        # ID канала
-                        fwd_info['ID'] = fwd_channel_id
-                except Exception as e:
-                    print(f"Ошибка при получении информации о канале с ID {fwd_channel_id}: {e}")
-
-        # Дата
-        if fwd_date:
-            fwd_info['Дата'] = fwd_date.strftime('%d.%m.%Y %H:%М:%S')
-
-        # Формируем строку из непустых значений
-        forward_sender = ", ".join([f"{key}: {value}" for key, value in fwd_info.items()]) if fwd_info else "Источник неизвестен"
-        return forward_sender
-    
-    except Exception as e:
-        print(f"Общая ошибка при обработке пересланного сообщения: {e}")
-        return "Источник неизвестен"
-
-#Вспомогательная функция по скачиванию медиа
-def download_media_files(client, target_user):
-    media_files = []
-
-    try:
-        for message in client.iter_messages(target_user):
-            if message.media is not None:
-                if isinstance(message.media, (types.MessageMediaPhoto, types.MessageMediaDocument)):
-                    try:
-                        media_path = client.download_media(message.media)
-                        if media_path:
-                            media_files.append(media_path)
-                            print(f"Скачан медиафайл: {media_path}")
-                    except Exception as e:
-                        print(f"Ошибка при скачивании медиафайла: {e}")
-    except Exception as e:
-        print(f"Ошибка при получении сообщений: {e}")
-
-    # Проверка скачанных медиафайлов
-    if not media_files:
-        print("Медиафайлы не найдены.")
-        return
-
-    # Создание папки для медиафайлов, если она не существует
-    media_folder = f"{target_user}_media_files"
-    os.makedirs(media_folder, exist_ok=True)
-
-    # Перемещение медиафайлов в папку
-    for file_path in media_files:
-        try:
-            destination_path = os.path.join(media_folder, os.path.basename(file_path))
-            os.rename(file_path, destination_path)
-            print(f"Файл перемещен в: {destination_path}")
-        except Exception as e:
-            print(f"Ошибка при перемещении файла {file_path}: {e}")
-
-    # Создание архива с медиафайлами
-    archive_filename = f"{target_user}_media_files.zip"
-    try:
-        with zipfile.ZipFile(archive_filename, 'w') as zipf:
-            for root, dirs, files in os.walk(media_folder):
-                for file in files:
-                    file_path = os.path.join(root, file)
-                    zipf.write(file_path, arcname=file)
-                    print(f"Файл добавлен в архив: {file_path}")
-    except Exception as e:
-        print(f"Ошибка при создании архива: {e}")
-
-    # Удаление папки с медиафайлами после архивирования
-    try:
-        shutil.rmtree(media_folder)
-        print(f"Папка '{media_folder}' успешно удалена.")
-    except Exception as e:
-        print(f"Ошибка при удалении папки '{media_folder}': {e}")
-
-    print(f"Медиафайлы сохранены в архив '{archive_filename}'")
     
 #Выгрузка самих сообщений
 def get_messages_for_html(client, target_dialog, selection, bot, admin_chat_ids):
@@ -211,10 +89,10 @@ def get_messages_for_html(client, target_dialog, selection, bot, admin_chat_ids)
 
     if selection in ['70', '75', '750']:  # если выгрузка из канала
         selected = 'channel_messages'
-        template_file = 'template_user_messages.html'
+        template_file = 'template_groups_messages.html'
     elif selection in ['40', '45', '450']:
         selected = 'user_messages'
-        template_file = 'template_groups_messages.html'
+        template_file = 'template_user_messages.html'
 
     try:
         # Информация об объекте (подсоединен к телеграм-клинету)
@@ -422,6 +300,127 @@ def get_messages_for_html(client, target_dialog, selection, bot, admin_chat_ids)
         except Exception as e:
             print(f"Ошибка при скачивании медиафайлов: {e}")
 
+
+#Вспомогательная функция
+def get_forwarded_info(client, message):
+    try:
+        # Получение id пересланного пользователя или канала
+        fwd_user_id = message.fwd_from.from_id.user_id if isinstance(message.fwd_from, MessageFwdHeader) and hasattr(message.fwd_from.from_id, 'user_id') else None
+        fwd_channel_id = message.fwd_from.from_id.channel_id if isinstance(message.fwd_from, MessageFwdHeader) and hasattr(message.fwd_from.from_id, 'channel_id') and isinstance(message.fwd_from.from_id, PeerChannel) else None
+        fwd_date = message.fwd_from.date if isinstance(message.fwd_from, MessageFwdHeader) and hasattr(message.fwd_from, 'date') else None
+
+        # Данные о пользователе или канале
+        fwd_info = {}
+
+        if fwd_user_id or fwd_channel_id:
+            if fwd_user_id:
+                fwd_info['Источник'] = "пользователь"
+                
+                try:
+                    # Получение информации о пользователе
+                    user = client.get_entity(PeerUser(fwd_user_id))
+                    if isinstance(user, User):
+                        # Имя и фамилия
+                        if user.first_name or user.last_name:
+                            name = " ".join(filter(None, [user.first_name, user.last_name]))
+                            fwd_info['Имя и фамилия'] = name
+                        
+                        # Юзернейм
+                        if user.username:
+                            fwd_info['Юзернейм'] = f"@{user.username}"
+                        
+                        # ID пользователя
+                        fwd_info['ID'] = fwd_user_id
+                except Exception as e:
+                    print(f"Ошибка при получении информации о пользователе с ID {fwd_user_id}: {e}")
+            else:
+                fwd_info['Источник'] = "канал"
+                
+                try:
+                    # Получение информации о канале
+                    channel = client.get_entity(PeerChannel(fwd_channel_id))
+                    if isinstance(channel, Channel):
+                        # Название канала
+                        if channel.title:
+                            fwd_info['Название канала'] = channel.title
+                        
+                        # Ссылка на канал
+                        if channel.username:
+                            fwd_info['Ссылка на канал'] = f"https://t.me/{channel.username}"
+                        
+                        # ID канала
+                        fwd_info['ID'] = fwd_channel_id
+                except Exception as e:
+                    print(f"Ошибка при получении информации о канале с ID {fwd_channel_id}: {e}")
+
+        # Дата
+        if fwd_date:
+            fwd_info['Дата'] = fwd_date.strftime('%d.%m.%Y %H:%М:%S')
+
+        # Формируем строку из непустых значений
+        forward_sender = ", ".join([f"{key}: {value}" for key, value in fwd_info.items()]) if fwd_info else "Источник неизвестен"
+        return forward_sender
+    
+    except Exception as e:
+        print(f"Общая ошибка при обработке пересланного сообщения: {e}")
+        return "Источник неизвестен"
+
+#Вспомогательная функция по скачиванию медиа
+def download_media_files(client, target_user):
+    media_files = []
+
+    try:
+        for message in client.iter_messages(target_user):
+            if message.media is not None:
+                if isinstance(message.media, (types.MessageMediaPhoto, types.MessageMediaDocument)):
+                    try:
+                        media_path = client.download_media(message.media)
+                        if media_path:
+                            media_files.append(media_path)
+                            print(f"Скачан медиафайл: {media_path}")
+                    except Exception as e:
+                        print(f"Ошибка при скачивании медиафайла: {e}")
+    except Exception as e:
+        print(f"Ошибка при получении сообщений: {e}")
+
+    # Проверка скачанных медиафайлов
+    if not media_files:
+        print("Медиафайлы не найдены.")
+        return
+
+    # Создание папки для медиафайлов, если она не существует
+    media_folder = f"{target_user}_media_files"
+    os.makedirs(media_folder, exist_ok=True)
+
+    # Перемещение медиафайлов в папку
+    for file_path in media_files:
+        try:
+            destination_path = os.path.join(media_folder, os.path.basename(file_path))
+            os.rename(file_path, destination_path)
+            print(f"Файл перемещен в: {destination_path}")
+        except Exception as e:
+            print(f"Ошибка при перемещении файла {file_path}: {e}")
+
+    # Создание архива с медиафайлами
+    archive_filename = f"{target_user}_media_files.zip"
+    try:
+        with zipfile.ZipFile(archive_filename, 'w') as zipf:
+            for root, dirs, files in os.walk(media_folder):
+                for file in files:
+                    file_path = os.path.join(root, file)
+                    zipf.write(file_path, arcname=file)
+                    print(f"Файл добавлен в архив: {file_path}")
+    except Exception as e:
+        print(f"Ошибка при создании архива: {e}")
+
+    # Удаление папки с медиафайлами после архивирования
+    try:
+        shutil.rmtree(media_folder)
+        print(f"Папка '{media_folder}' успешно удалена.")
+    except Exception as e:
+        print(f"Ошибка при удалении папки '{media_folder}': {e}")
+
+    print(f"Медиафайлы сохранены в архив '{archive_filename}'")
 
 
     
