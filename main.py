@@ -42,7 +42,7 @@ if __name__ == "__main__":
             user_name = False
 
         os.system('cls||clear')
-        print('\033[37mЕсли приложение вылетает с ошибкой - просто перезапустите программу\033[0m')
+        flag_user_dialogs = False
         print ()
         sessions = getsessions()
         selection = str(input(f"\033[95m1 - Настройки\033[0m\n"
