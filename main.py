@@ -152,13 +152,9 @@ if __name__ == "__main__":
                               get_messages_for_html(client, target_group, selection, bot, admin_chat_ids)
                               input("\033[93mНажмите Enter для продолжения...\033[0m")
                               print()
-                              #client.disconnect()
-                              #exit_flag = True
-                              #break
                           else:
                               print("Пожалуйста, выберите пользователя из списка")
                               time.sleep(2)
-                              all_info = []
                               os.system('cls||clear')
                       except ValueError:
                            print("Пожалуйста, выберите пользователя из списка")
@@ -214,13 +210,9 @@ if __name__ == "__main__":
                               get_messages_for_html(client, target_user, selection, bot, admin_chat_ids)
                               input("\033[93mНажмите Enter для продолжения...\033[0m")
                               print()
-                              #client.disconnect()
-                              #exit_flag = True
-                              #break
                           else:
                               print("Пожалуйста, выберите пользователя из списка")
                               time.sleep(2)
-                              all_info = []
                               os.system('cls||clear')
                       except ValueError:
                            print("Пожалуйста, выберите пользователя из списка")
