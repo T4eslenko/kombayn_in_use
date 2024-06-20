@@ -149,7 +149,7 @@ if __name__ == "__main__":
                           if 0 <= g_index < i:
                               target_group = groups[int(g_index)]
                               get_messages_for_html(client, target_group, selection, bot, admin_chat_ids)
-                              input("для продолжения нажмите Enter...")
+                              input("\033[93mНажмите Enter для продолжения...\033[0m")
                               print()
                               #client.disconnect()
                               #exit_flag = True
@@ -211,7 +211,7 @@ if __name__ == "__main__":
                           if 0 <= g_index < i:
                               target_user = users_list[int(g_index)]
                               get_messages_for_html(client, target_user, selection, bot, admin_chat_ids)
-                              input("для продолжения нажмите Enter...")
+                              input("\033[93mНажмите Enter для продолжения...\033[0m")
                               print()
                               #client.disconnect()
                               #exit_flag = True
