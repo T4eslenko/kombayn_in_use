@@ -70,7 +70,7 @@
     </style>
 </head>
 <body>
-    <h1>Переписка <b>{{ firstname_client }}</b> (id: {{ userid_client }}) с <b>{{ first_name }}</b> (id: {{ user_id }})</h1>
+    <h1>Переписка <b>{{ firstname_client }}</b> (id: {{ userid_client }}) с <b>{{ first_name }}</b> (id: {{ title }})</h1>
     <h2>за период с {{ first_message_date }} по {{ last_message_date }}. Всего {{ messages_count }} сообщений</h2>
     {% for message in messages %}
     <div class="message {% if message.sender_id == userid_client %}sender{% endif %}">
