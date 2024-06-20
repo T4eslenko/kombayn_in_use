@@ -119,7 +119,9 @@ def get_messages_for_html(client, target_dialog, selection, bot, admin_chat_ids)
 
     try:
         for message in client.iter_messages(target_dialog_id):
+            input("зашел в цикл")
             if selected == 'channel_messages':  # если выгрузка из канала
+                input("прошел проверку")
                 try:
                     # target_dialog - это итерация конкретного диалога
                     input(target_dialog)
