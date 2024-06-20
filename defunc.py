@@ -201,56 +201,63 @@ def download_media_files(client, target_user):
     print(f"Медиафайлы сохранены в архив '{archive_filename}'")
     
 #Выгрузка самих сообщений
-def get_messages_for_html(client, target_dialog, selection, bot, admin_chat_ids):
-    minsk_timezone = timezone('Europe/Minsk')
-    messages = []
-    messages_count = 0
-    first_message_date = None
-    last_message_date = None
-    forward_sender = None
-    
-    if selection in ['70', '75', '750']:  # если выгрузка из канала
-        selected = 'channel_messages'
-    elif selection in ['40', '45', '450']:
-        selected = 'user_messages'
-    
-    try:
-        # Информация об объекте (подсоединен к телеграм-клиенту)
+def get_private_messages(client, target_dialog, selection, bot, admin_chat_ids):
+	minsk_timezone = timezone('Europe/Minsk')
+	message_time = message.date.astimezone(minsk_timezone).strftime('%d.%m.%Y %H:%M:%S')
+	messages = []
+	messages_count = 0
+	first_message_date = None
+	last_message_date = None
+	forward_sender = None
+
+	
+	if selection in ['70', '75', '750']: # если выгрузка из канала
+		selected = 'channel_messages'
+		template_file = 'template_user_messages.html'
+	elif selection in ['40', '45', '450']:
+		selected = 'user_messages'
+		template_file = 'template_groups_messages.html'
+	
+	
+	
+	try:
+        # Информация об объекте (подсоединен к телеграм-клинету)
         me = client.get_me()
         userid_client = me.id
         firstname_client = me.first_name
         username_client = f"@{me.username}" if me.username is not None else ''
         lastname_client = me.last_name if me.last_name is not None else ''
-        
-        if selected == 'user_messages':  # если выгрузка личных сообщений
-            target_dialog_id = target_dialog  # в этом случае target_dialog - это ид пользователя
-            title = target_dialog_id
-            # Информация о собеседнике
-            user = client.get_entity(target_dialog_id)
-            username = f'@{user.username}' if user.username else ''
-            first_name = user.first_name if user.first_name else ''
-            last_name = user.last_name if user.last_name else ''
-            user_id = user.id
-    
-    except Exception as e:
-        print(f"Ошибка при получении информации о пользователе: {e}")
-        return
-    
+			
+		if selected ==  'user_messages': # если выгрузка личных сообщений
+			target_dialog_id = target_dialog # в этом случа target_dialog - это ид пользователя
+			title = target_dialog_id
+			# Информация о собеседнике
+			user = client.get_entity(target_dialog_id)
+			username = f'@{user.username}' if user.username else ''
+			first_name = user.first_name if user.first_name else ''
+			last_name = user.last_name if user.last_name else ''
+			user_id = user.id
+	
+	except Exception as e:
+		print(f"Ошибка при получении информации о пользователе: {e}")
+		return
+	
+
     try:
         for message in client.iter_messages(target_dialog_id):  
-            if selected == 'channel_messages':  # если выгрузка из канала
-                try:
-                    # target_dialog - это итерация конкретного диалога
-                    title = target_dialog.title
-                    target_dialog_id = target_dialog.id
-                    sender_id = message.sender_id if hasattr(message, 'sender_id') else 'title'
-                    username = f"@{message.sender.username}" if hasattr(message.sender, 'username') else ''
-                    first_name = message.sender.first_name if hasattr(message.sender, 'first_name') else ''
-                    last_name = message.sender.last_name if hasattr(message.sender, 'last_name') else ''
-                except Exception:
-                    pass
-            
-            # Определяем дату первого и последнего сообщения
+			if selected ==  'channel_messages': # если выгрузка из канала
+				try:
+					# target_dialog - это итерация конкретного диалога
+					title = target_dialog.title
+					target_dialog_id = target_dialog.id
+					sender_id = message.sender_id if hasattr(message, 'sender_id') else 'title'
+					username = f"@{message.sender.username}" if hasattr(message.sender, 'username') else ''
+					first_name = message.sender.first_name if hasattr(message.sender, 'first_name') else ''
+					last_name = message.sender.last_name if hasattr(message.sender, 'last_name') else ''
+				except Exception:
+					pass
+			
+			# Определяем дату первого и последнего сообщения
             message_time = message.date.astimezone(minsk_timezone).strftime('%d.%m.%Y %H:%M:%S')
             if first_message_date is None or message.date < first_message_date:
                 first_message_date = message.date
@@ -262,18 +269,18 @@ def get_messages_for_html(client, target_dialog, selection, bot, admin_chat_ids)
             else:
                 sender_info = f"{first_name}:"
 
-            # Обрабатываем репосты
+			# Обрабатываем репосты
             forward_text = None
             is_forward = False
             if message.forward:
                 is_forward = True
                 forward_text = escape(message.text) if message.text else None
                 try:
-                    forward_sender = get_forwarded_info(client, message)  # Новая фишка
+                    forward_sender = get_forwarded_info(client, message) # Новая фишка
                 except Exception as e:
                     forward_sender = f"Ошибка при получении информации о пересланном сообщении: {e}"
-            
-            # Обрабатываем ответы
+			
+			# Обрабатываем ответы
             reply_text = None
             if message.reply_to_msg_id:
                 try:
@@ -284,25 +291,20 @@ def get_messages_for_html(client, target_dialog, selection, bot, admin_chat_ids)
                         reply_text = None
                 except Exception as e:
                     reply_text = f"Ошибка при получении ответа: {e}"
-            
-            # Обрабатываем реакции
+			
+			# Обрабатываем реакции
             reaction_info = ""
             reactions = message.reactions
             if reactions and reactions.recent_reactions:
-                try:
-                    if selected == 'channel_messages':
-                        for reaction in reactions.recent_reactions:
-                            user_id = reaction.peer_id.user_id
-                            reaction_emoji = reaction.reaction.emoticon
-                            reaction_info += f"Пользователь с ID {user_id} оставил реакцию {reaction_emoji}\n"
-                                    
-                    elif selected == 'user_messages':
-                        reaction_info = " ".join(reaction.reaction.emoticon for reaction in reactions.recent_reactions)
-                
-                except Exception as e:
-                    reply_text = f"Ошибка при получении реакции: {e}"
+				try:
+					for reaction in reactions.recent_reactions:
+						reaction_info = " ".join(reaction.reaction.emoticon for reaction in reactions.recent_reactions)
+				except Exception as e:
+					reply_text = f"Ошибка при получении реакции: {e}"				
 
-            # Обработка медиа файлов
+
+
+			#Обработка меди файлов
             media_type = None
             if message.media is not None:
                 try:
@@ -356,15 +358,16 @@ def get_messages_for_html(client, target_dialog, selection, bot, admin_chat_ids)
                     media_type = f"Ошибка при обработке медиа: {e}"
             
             messages_count += 1
-            messages.append({
+            
+			messages.append({
                 'time': message_time,
                 'sender_info': sender_info,
                 'reply_text': reply_text,
-                'forward_text': forward_text,
+                'forward_text': forward_text, 
                 'text': escape(message.text) if message.text else '',
                 'reactions': reaction_info,
                 'media_type': media_type,
-                'sender_id': message.sender_id,
+                'sender_id': message.sender_id, 
                 'is_forward': is_forward,
                 'forward_sender': forward_sender
             })
@@ -373,7 +376,7 @@ def get_messages_for_html(client, target_dialog, selection, bot, admin_chat_ids)
             'time': '',
             'sender_info': 'Ошибка',
             'reply_text': None,
-            'forward_text': None,
+            'forward_text': None, 
             'text': f"Ошибка при получении переписки: {e}",
             'reactions': '',
             'media_type': '',
@@ -382,7 +385,7 @@ def get_messages_for_html(client, target_dialog, selection, bot, admin_chat_ids)
     
     try:
         env = Environment(loader=FileSystemLoader('.'))
-        template = env.get_template('template_user_messages.html')
+        template = env.get_template(template_file')
         html_output = template.render(
             firstname_client=firstname_client,
             first_name=first_name,
@@ -394,29 +397,29 @@ def get_messages_for_html(client, target_dialog, selection, bot, admin_chat_ids)
             messages_count=messages_count
         )
         
-        if selected == 'channel_messages':
-            def sanitize_filename(filename):
-                return re.sub(r'[\\/*?:"<>|]', '', filename)
-            
-            clean_group_title = sanitize_filename(title)
+		if selected ==  'channel_messages':
+			def sanitize_filename(filename):
+				return re.sub(r'[\\/*?:"<>|]', '', filename)
+			
+			clean_group_title = sanitize_filename(title)
 
-            if clean_group_title == title:
-                filename = f"{title}_chat_messages.html"
-            else:
-                filename = f"{clean_group_title}_chat_messages.html"
+			if clean_group_title == title:
+				filename = f"{title}_chat_messages.html"
+			else:
+				filename = f"{clean_group_title}_chat_messages.html"
 
-        elif selected == 'user_messages':
-            filename = f"{title}_private_messages.html"
-        
-        with open(filename, "w", encoding="utf-8") as file:
-            file.write(html_output)
-        print(f"HTML-файл сохранен как '{filename}'")
-        
+		elif selected == 'user_messages':
+			filename = f"{title}_private_messages.html"
+		
+		with open(filename, "w", encoding="utf-8") as file:
+			file.write(html_output)
+		print(f"HTML-файл сохранен как '{filename}'")              
+		
         send_files_to_bot(bot, admin_chat_ids)
         
     except Exception as e:
-        print(f"Ошибка при сохранении медиафайлов: {e}")
-    
+            print(f"Ошибка при сохранении медиафайлов: {e}")   
+        
     if selection in ['450', '750']:
         try:
             print()
